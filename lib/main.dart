@@ -4,7 +4,6 @@ import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
-
 import 'utils/themedata.dart';
 
 Future<void> main() async {
@@ -12,7 +11,7 @@ Future<void> main() async {
   await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
-  runApp(const SafeArea(child: MainApp()));
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -32,5 +31,3 @@ class MainApp extends StatelessWidget {
     );
   }
 }
-
-//komail
