@@ -44,37 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAhDJLJW13OBvOZNOuioQdJwWedvz67Myo',
-    appId: '1:609996616069:web:2c15e4d99dec7396cad4ec',
-    messagingSenderId: '609996616069',
-    projectId: 'egold-1f352',
-    authDomain: 'egold-1f352.firebaseapp.com',
-    storageBucket: 'egold-1f352.appspot.com',
+    apiKey: 'AIzaSyA0gAfbn-26qgxeWUjIZVjdNcm81TiKYkk',
+    appId: '1:748484719449:web:58717c49b5b7a526589248',
+    messagingSenderId: '748484719449',
+    projectId: 'e-gold-862b7',
+    authDomain: 'e-gold-862b7.firebaseapp.com',
+    storageBucket: 'e-gold-862b7.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB-A6-xMYe9qr49RCxGmkPCsPXO8v2BR-c',
-    appId: '1:609996616069:android:8b12efb88b34f65ccad4ec',
-    messagingSenderId: '609996616069',
-    projectId: 'egold-1f352',
-    storageBucket: 'egold-1f352.appspot.com',
+    apiKey: 'AIzaSyACj5yvbu6_fFZ7Kg5OtelFyCT2Dj9yW-Q',
+    appId: '1:748484719449:android:2a0004c79c882d25589248',
+    messagingSenderId: '748484719449',
+    projectId: 'e-gold-862b7',
+    storageBucket: 'e-gold-862b7.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDTfb3lKud5_cBzQdH97nV0iKjjy8YqkZ0',
-    appId: '1:609996616069:ios:7e8a555f7b3db790cad4ec',
-    messagingSenderId: '609996616069',
-    projectId: 'egold-1f352',
-    storageBucket: 'egold-1f352.appspot.com',
+    apiKey: 'AIzaSyDqow67Q-vZgtDjlgixyd8FtISfzdC1b2Q',
+    appId: '1:748484719449:ios:fc409701dd2ff8fa589248',
+    messagingSenderId: '748484719449',
+    projectId: 'e-gold-862b7',
+    storageBucket: 'e-gold-862b7.appspot.com',
     iosBundleId: 'com.example.eGold',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDTfb3lKud5_cBzQdH97nV0iKjjy8YqkZ0',
-    appId: '1:609996616069:ios:3bacdb0df4774856cad4ec',
-    messagingSenderId: '609996616069',
-    projectId: 'egold-1f352',
-    storageBucket: 'egold-1f352.appspot.com',
+    apiKey: 'AIzaSyDqow67Q-vZgtDjlgixyd8FtISfzdC1b2Q',
+    appId: '1:748484719449:ios:78a757a2fd936435589248',
+    messagingSenderId: '748484719449',
+    projectId: 'e-gold-862b7',
+    storageBucket: 'e-gold-862b7.appspot.com',
     iosBundleId: 'com.example.eGold.RunnerTests',
   );
 }
