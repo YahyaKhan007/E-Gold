@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "748484719449",
-    "project_id": "e-gold-862b7",
-    "storage_bucket": "e-gold-862b7.appspot.com"
+    "project_number": "609996616069",
+    "project_id": "egold-1f352",
+    "storage_bucket": "egold-1f352.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:748484719449:android:2a0004c79c882d25589248",
+        "mobilesdk_app_id": "1:609996616069:android:8b12efb88b34f65ccad4ec",
         "android_client_info": {
           "package_name": "com.example.e_gold"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyACj5yvbu6_fFZ7Kg5OtelFyCT2Dj9yW-Q"
+          "current_key": "AIzaSyB-A6-xMYe9qr49RCxGmkPCsPXO8v2BR-c"
         }
       ],
       "services": {
