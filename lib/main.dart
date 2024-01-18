@@ -4,7 +4,6 @@ import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
-
 import 'utils/themedata.dart';
 
 Future<void> main() async {
@@ -32,3 +31,5 @@ class MainApp extends StatelessWidget {
     );
   }
 }
+
+//first
