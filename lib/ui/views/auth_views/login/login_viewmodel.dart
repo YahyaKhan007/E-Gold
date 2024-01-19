@@ -25,9 +25,10 @@ class LoginViewModel extends BaseViewModel {
   }
 
   void onPressedLogin() {
-    if (formKey.currentState!.validate()) {
-      navigationService.replaceWithHomeView();
-    }
+    navigationService.navigateToDashboardScreenView();
+    // if (formKey.currentState!.validate()) {
+    //   navigationService.replaceWithHomeView();
+    // }
   }
 
   String? signInEmailValidator(value) {
