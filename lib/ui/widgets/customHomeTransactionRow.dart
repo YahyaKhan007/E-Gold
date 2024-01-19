@@ -1,16 +1,20 @@
-import 'package:e_gold/ui/common/app_colors.dart';
-import 'package:e_gold/ui/common/app_images.dart';
 import 'package:flutter/material.dart';
 
 class HomeTransactionRow extends StatelessWidget {
   final Color buttonColor;
   final String buttonText;
   final String btc;
+  final String image;
+  final Color imageBack;
+  final Color btcColor;
   const HomeTransactionRow({
     super.key,
     required this.buttonColor,
     required this.buttonText,
     required this.btc,
+    required this.image,
+    required this.imageBack,
+    required this.btcColor,
   });
 
   @override
@@ -40,12 +44,12 @@ class HomeTransactionRow extends StatelessWidget {
               Container(
                 width: 48,
                 height: 48,
-                decoration: const ShapeDecoration(
-                  color: Color(0xFFF5B118),
-                  shape: OvalBorder(),
+                decoration: ShapeDecoration(
+                  color: imageBack,
+                  shape: const OvalBorder(),
                 ),
                 child: Center(
-                  child: Image.asset(bitCoin),
+                  child: Image.asset(image),
                 ),
               ),
               const SizedBox(
@@ -81,8 +85,8 @@ class HomeTransactionRow extends StatelessWidget {
             children: [
               Text(
                 '$btc BTC',
-                style: const TextStyle(
-                  color: kcYellowBright,
+                style: TextStyle(
+                  color: btcColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
