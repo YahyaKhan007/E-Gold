@@ -17,6 +17,10 @@ class StartupViewModel extends BaseViewModel {
     rebuildUi();
   }
 
+  void getStarted() {
+    navigationService.navigateToCreateanaccountView();
+  }
+
   void onPressedAlreadyHaveAnAccount() {
     navigationService.replaceWithLoginView();
   }

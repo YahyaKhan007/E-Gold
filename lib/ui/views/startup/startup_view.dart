@@ -85,7 +85,8 @@ class StartupView extends StackedView<StartupViewModel> {
               : Column(
                   children: [
                     ElevatedButton(
-                        onPressed: () {}, child: const Text('Get Started')),
+                        onPressed: viewModel.getStarted,
+                        child: const Text('Get Started')),
                     verticalSpaceSmall,
                     RichText(
                       textAlign: TextAlign.center,

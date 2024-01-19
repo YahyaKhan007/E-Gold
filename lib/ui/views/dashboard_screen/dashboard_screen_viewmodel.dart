@@ -1,0 +1,27 @@
+import 'package:e_gold/ui/views/home/home_view.dart';
+import 'package:stacked/stacked.dart';
+import 'package:flutter/material.dart';
+
+class DashboardScreenViewModel extends BaseViewModel {
+  final List<Widget> pages = [
+    const HomeView(),
+    Container(
+      child: Center(child: Text("PROFILE SCREEN1")),
+    ),
+    Container(
+      child: Center(child: Text("OCR SCREEN")),
+    ),
+    Container(
+      child: Center(child: Text("PROFILE SCREEN3")),
+    ),
+    Container(
+      child: Center(child: Text("PROFILE SCREEN4")),
+    ),
+  ];
+  PageController pageController = PageController(initialPage: 0);
+  int currentPageIndex = 0;
+  void pageChange(int nextIndex) {
+    currentPageIndex = nextIndex;
+    rebuildUi();
+  }
+}
