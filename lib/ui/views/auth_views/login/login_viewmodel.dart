@@ -1,8 +1,5 @@
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
-import 'package:e_gold/services/auth_service.dart';
-import 'package:e_gold/services/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:stacked/stacked.dart';
@@ -22,30 +19,33 @@ class LoginViewModel extends BaseViewModel {
   bool isPasswordVisible = false;
   final navigationService = locator<NavigationService>();
 
-  final _authService = locator<AuthService>();
   void showPassword() {
     isPasswordVisible = !isPasswordVisible;
     rebuildUi();
   }
 
-  bool validateForm() {
-    return formKey.currentState?.validate() ?? false;
-    // void onPressedLogin() {
-    //   navigationService.navigateToDashboardScreenView();
-    //   // if (formKey.currentState!.validate()) {
-    //   //   navigationService.replaceWithHomeView();
-    //   // }
+  void onPressedLogin() {
+    navigationService.navigateToDashboardScreenView();
+    // if (formKey.currentState!.validate()) {
+    //   navigationService.replaceWithHomeView();
+    // }
   }
 
-  void onPressedLogin() async {
-    if (validateForm()) {
-      User? user = await _authService.signInWithEmailPassword(
-          emailController.text.trim(), passwordController.text.trim());
-
-      if (user != null) {
-        navigationService.replaceWithDashboardScreenView();
-      }
+  String? signInEmailValidator(value) {
+    if (emailController.text.isEmpty) {
+      return 'Email or Phone is not entered.';
     }
+    return null;
+  }
+
+  String? signInPasswordValidator(value) {
+    if (passwordController.text.isEmpty) {
+      return 'Password is not entered.';
+    }
+    if (passwordController.text.length < 5) {
+      return 'Password too short.';
+    }
+    return null;
   }
 
   void onPressedCreateNewAccount() {

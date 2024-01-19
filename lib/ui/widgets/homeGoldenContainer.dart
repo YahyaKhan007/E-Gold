@@ -4,17 +4,15 @@ import 'package:e_gold/ui/widgets/customHomeMetalCard.dart';
 import 'package:flutter/material.dart';
 
 class HomeGoldenContainer extends StatelessWidget {
-  final VoidCallback onPressedNotification;
   const HomeGoldenContainer({
     super.key,
-    required this.onPressedNotification,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: kcYellowBright),
-      height: MediaQuery.of(context).size.height * .38,
+      height: MediaQuery.of(context).size.height * .35,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -36,7 +34,7 @@ class HomeGoldenContainer extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: onPressedNotification,
+                  onPressed: () {},
                   icon: const Icon(
                     Icons.notifications,
                     size: 24,
@@ -76,30 +74,28 @@ class HomeGoldenContainer extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            Expanded(
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  HomeMetalContainer(
-                    title: 'Gold',
-                    priceGm: '6003.38/gm',
-                    number: '128.76',
-                    increase: '+18.33 (18%)',
-                    containerColor: kcGolden,
-                    textColor: kcGoldenText,
-                    circleColor: kcGoldenText,
-                  ),
-                  HomeMetalContainer(
-                    title: 'Silver',
-                    priceGm: '78.225/gm',
-                    number: '139.24',
-                    increase: '-18.33 (8%)',
-                    containerColor: kcSilver,
-                    textColor: kcGreen,
-                    circleColor: kcSilverLight,
-                  ),
-                ],
-              ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                HomeMetalContainer(
+                  title: 'Gold',
+                  priceGm: '6003.38/gm',
+                  number: '128.76',
+                  increase: '+18.33 (18%)',
+                  containerColor: kcGolden,
+                  textColor: kcGoldenText,
+                  circleColor: kcGoldenText,
+                ),
+                HomeMetalContainer(
+                  title: 'Silver',
+                  priceGm: '78.225/gm',
+                  number: '139.24',
+                  increase: '-18.33 (8%)',
+                  containerColor: kcSilver,
+                  textColor: kcGreen,
+                  circleColor: kcSilverLight,
+                ),
+              ],
             ),
           ],
         ),
