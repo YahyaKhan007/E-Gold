@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 class AccountPageRow extends StatelessWidget {
   final String text;
   final IconData icon;
-  final VoidCallback onPressed;
   const AccountPageRow({
     super.key,
     required this.text,
-    required this.icon, required this.onPressed,
+    required this.icon,
   });
 
   @override
@@ -24,7 +23,7 @@ class AccountPageRow extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: onPressed,
+          onPressed: () {},
           icon: Icon(
             icon,
             size: 24,

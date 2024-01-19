@@ -65,59 +65,49 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           ),
                         ],
                       ),
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AccountPageRow(
                             text: 'Account Settings',
                             icon: Icons.settings,
-                            onPressed: () {},
                           ),
                           AccountPageRow(
                             text: 'Edit Profile',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
                           ),
                           AccountPageRow(
                             text: 'Change Password',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
                           ),
                           AccountPageRow(
                             text: 'Add a Payment Method',
                             icon: Icons.add,
-                            onPressed: () {},
                           ),
                           AccountPageRow(
                             text: 'KYC',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
                           ),
                           AccountPageRow(
                             text: 'Fund History',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
                           ),
                           AccountPageRow(
                             text: 'More',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
                           ),
                           AccountPageRow(
                             text: 'About Us',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
                           ),
                           AccountPageRow(
                             text: 'Privacy Policy',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
                           ),
                           AccountPageRow(
                             text: 'Terms and Conditions',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
                           ),
                         ],
                       ),

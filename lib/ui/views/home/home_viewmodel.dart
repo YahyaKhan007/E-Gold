@@ -12,4 +12,8 @@ class HomeViewModel extends BaseViewModel {
   void seeAll() {
     _navigationService.navigateToTransactionHistoryScreenView();
   }
+
+  void notification() {
+    _navigationService.navigateToNotificationScreenView();
+  }
 }
