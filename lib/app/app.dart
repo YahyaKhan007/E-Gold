@@ -1,3 +1,4 @@
+import 'package:e_gold/services/auth_service.dart';
 import 'package:e_gold/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:e_gold/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:e_gold/ui/views/home/home_view.dart';
@@ -42,6 +43,8 @@ import 'package:e_gold/ui/views/account_screen/account_screen_view.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
+    LazySingleton(classType: AuthService),
+    LazySingleton(classType: SnackbarService),
     // @stacked-service
   ],
   bottomsheets: [
