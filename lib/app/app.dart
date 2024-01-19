@@ -12,6 +12,10 @@ import 'package:e_gold/ui/views/auth_views/otpverification/otpverification_view.
 import 'package:e_gold/ui/views/auth_views/receiveotpverification/receiveotpverification_view.dart';
 import 'package:e_gold/ui/views/auth_views/changepassword/changepassword_view.dart';
 import 'package:e_gold/ui/views/kyc/kyc_view.dart';
+import 'package:e_gold/ui/views/dashboard_screen/dashboard_screen_view.dart';
+import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_screen_view.dart';
+import 'package:e_gold/ui/views/notification_screen/notification_screen_view.dart';
+import 'package:e_gold/ui/views/account_screen/account_screen_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -28,6 +32,10 @@ import 'package:e_gold/ui/views/kyc/kyc_view.dart';
     MaterialRoute(page: ReceiveotpverificationView),
     MaterialRoute(page: ChangepasswordView),
     MaterialRoute(page: KycView),
+    MaterialRoute(page: DashboardScreenView),
+    MaterialRoute(page: TransactionHistoryScreenView),
+    MaterialRoute(page: NotificationScreenView),
+    MaterialRoute(page: AccountScreenView),
 // @stacked-route
   ],
   dependencies: [

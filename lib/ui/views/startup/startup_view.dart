@@ -17,97 +17,102 @@ class StartupView extends StackedView<StartupViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/gold_svgrepo_com1.png',
-                    filterQuality: FilterQuality.high,
-                    width: 248,
-                    height: 248,
-                    scale: 0.9,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          RichText(
-            textAlign: TextAlign.left,
-            text: TextSpan(
-              text: 'Welcome to the\nworld’s most\n',
-              style: Theme.of(context)
-                  .textTheme
-                  .displayMedium!
-                  .copyWith(fontWeight: FontWeight.w900),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                TextSpan(
-                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                      color: const Color(0xffF5B119),
-                      fontWeight: FontWeight.w900),
-                  text: 'imaginative\n',
-                ),
-                TextSpan(
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium!
-                      .copyWith(fontWeight: FontWeight.w900),
-                  text: 'marketplace',
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/gold_svgrepo_com1.png',
+                      filterQuality: FilterQuality.high,
+                      width: 248,
+                      height: 248,
+                      scale: 0.9,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
               ],
             ),
-          ),
-          verticalSpaceMassive,
-          viewModel.isLogin
-              ? const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('Loading ...', style: TextStyle(fontSize: 16)),
-                    horizontalSpaceSmall,
-                    SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        color: Colors.amber,
-                        strokeWidth: 6,
-                      ),
-                    )
-                  ],
-                )
-              : Column(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {}, child: const Text('Get Started')),
-                    verticalSpaceSmall,
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: 'Already have an account? ',
-                        style: Theme.of(context).textTheme.titleMedium,
-                        children: [
-                          TextSpan(
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(color: const Color(0xffF5B119)),
-                              text: 'Login',
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = viewModel
-                                    .navigationService.navigateToLoginView),
-                        ],
-                      ),
+            RichText(
+              textAlign: TextAlign.left,
+              text: TextSpan(
+                text: 'Welcome to the\nworld’s most\n',
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium!
+                    .copyWith(fontWeight: FontWeight.w900),
+                children: [
+                  TextSpan(
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        color: const Color(0xffF5B119),
+                        fontWeight: FontWeight.w900),
+                    text: 'imaginative\n',
+                  ),
+                  TextSpan(
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium!
+                        .copyWith(fontWeight: FontWeight.w900),
+                    text: 'marketplace',
+                  ),
+                ],
+              ),
+            ),
+            verticalSpaceMassive,
+            viewModel.isLogin
+                ? const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Loading ...', style: TextStyle(fontSize: 16)),
+                      horizontalSpaceSmall,
+                      SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.amber,
+                          strokeWidth: 6,
+                        ),
+                      )
+                    ],
+                  )
+                : Center(
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                            onPressed: viewModel.getStarted,
+                            child: const Text('Get Started')),
+                        verticalSpaceSmall,
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            text: 'Already have an account? ',
+                            style: Theme.of(context).textTheme.titleMedium,
+                            children: [
+                              TextSpan(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(color: const Color(0xffF5B119)),
+                                  text: 'Login',
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = viewModel
+                                        .navigationService.navigateToLoginView),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                )
-        ],
+                  )
+          ],
+        ),
       ),
     );
   }

@@ -87,7 +87,6 @@ class _IdCardFrontPageState extends State<IdCardFrontPage> {
                         ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            
                             minimumSize: const Size(128, 48),
                             foregroundColor: Colors.black,
                             backgroundColor: Colors.white,
