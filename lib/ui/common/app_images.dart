@@ -6,3 +6,4 @@ const String account = 'assets/images/account.png';
 const String profile = 'assets/images/profile.png';
 const String golden = 'assets/images/golden.png';
 const String bitCoin = 'assets/images/bitcoin.png';
+const String silver = 'assets/images/silver.png';

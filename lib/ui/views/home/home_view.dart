@@ -16,17 +16,17 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              HomeGoldenContainer(),
+              const HomeGoldenContainer(),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         HomeMetalButton(
@@ -39,13 +39,13 @@ class HomeView extends StackedView<HomeViewModel> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Last Transactions',
                           style: TextStyle(
                             color: Colors.black,
@@ -53,27 +53,32 @@ class HomeView extends StackedView<HomeViewModel> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        Text(
-                          'See All',
-                          style: TextStyle(
-                            color: kcYellowBright,
-                            fontSize: 16,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            height: 0,
+                        GestureDetector(
+                          onTap: viewModel.seeAll,
+                          child: const Text(
+                            'See All',
+                            style: TextStyle(
+                              color: kcYellowBright,
+                              fontSize: 16,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                            ),
                           ),
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Column(
+                    const Column(
                       children: [
                         HomeTransactionRow(
                           buttonColor: kcSuccessGreen,
                           buttonText: 'Completed',
                           btc: '+0.001',
+                          image: bitCoin,
+                          imageBack: kcYellowBright, btcColor: kcYellowBright,
                         ),
                         SizedBox(
                           height: 20,
@@ -82,6 +87,8 @@ class HomeView extends StackedView<HomeViewModel> {
                           buttonColor: kcFailRed,
                           buttonText: 'Failed',
                           btc: '-0.001',
+                          image: bitCoin,
+                          imageBack: kcYellowBright,btcColor: kcYellowBright,
                         ),
                         SizedBox(
                           height: 20,
@@ -90,6 +97,8 @@ class HomeView extends StackedView<HomeViewModel> {
                           buttonColor: kcPendingGrey,
                           buttonText: 'Pending',
                           btc: '-0.001',
+                          image: bitCoin,
+                          imageBack: kcYellowBright,btcColor: kcYellowBright,
                         ),
                         SizedBox(
                           height: 20,
@@ -98,6 +107,8 @@ class HomeView extends StackedView<HomeViewModel> {
                           buttonColor: kcPendingGrey,
                           buttonText: 'Pending',
                           btc: '-0.001',
+                          image: bitCoin,
+                          imageBack: kcYellowBright,btcColor: kcYellowBright,
                         ),
                       ],
                     ),
