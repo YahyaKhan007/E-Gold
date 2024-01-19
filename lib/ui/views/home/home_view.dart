@@ -1,9 +1,11 @@
+import 'package:e_gold/ui/common/app_colors.dart';
+import 'package:e_gold/ui/common/app_images.dart';
+import 'package:e_gold/ui/views/home/home_viewmodel.dart';
+import 'package:e_gold/ui/widgets/customHomeMetalButton.dart';
+import 'package:e_gold/ui/widgets/customHomeTransactionRow.dart';
+import 'package:e_gold/ui/widgets/homeGoldenContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:e_gold/ui/common/app_colors.dart';
-import 'package:e_gold/ui/common/ui_helpers.dart';
-
-import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
@@ -14,63 +16,112 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              HomeGoldenContainer(
+                onPressedNotification: viewModel.notification,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
                   children: [
-                    const Text(
-                      'Hello, STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        HomeMetalButton(
+                          containerColor: kcYellowBright,
+                          title: 'Gold',
+                        ),
+                        HomeMetalButton(
+                          containerColor: kcSilverLight,
+                          title: 'Silver',
+                        ),
+                      ],
                     ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Last Transactions',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: viewModel.seeAll,
+                          child: const Text(
+                            'See All',
+                            style: TextStyle(
+                              color: kcYellowBright,
+                              fontSize: 16,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Column(
+                      children: [
+                        HomeTransactionRow(
+                          buttonColor: kcSuccessGreen,
+                          buttonText: 'Completed',
+                          btc: '+0.001',
+                          image: bitCoin,
+                          imageBack: kcYellowBright,
+                          btcColor: kcYellowBright,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        HomeTransactionRow(
+                          buttonColor: kcFailRed,
+                          buttonText: 'Failed',
+                          btc: '-0.001',
+                          image: bitCoin,
+                          imageBack: kcYellowBright,
+                          btcColor: kcYellowBright,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        HomeTransactionRow(
+                          buttonColor: kcPendingGrey,
+                          buttonText: 'Pending',
+                          btc: '-0.001',
+                          image: bitCoin,
+                          imageBack: kcYellowBright,
+                          btcColor: kcYellowBright,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        HomeTransactionRow(
+                          buttonColor: kcPendingGrey,
+                          buttonText: 'Pending',
+                          btc: '-0.001',
+                          image: bitCoin,
+                          imageBack: kcYellowBright,
+                          btcColor: kcYellowBright,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
