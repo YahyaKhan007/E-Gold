@@ -4,8 +4,10 @@ import 'package:e_gold/ui/widgets/customHomeMetalCard.dart';
 import 'package:flutter/material.dart';
 
 class HomeGoldenContainer extends StatelessWidget {
+  final VoidCallback onPressedNotification;
   const HomeGoldenContainer({
     super.key,
+    required this.onPressedNotification,
   });
 
   @override
@@ -34,7 +36,7 @@ class HomeGoldenContainer extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: onPressedNotification,
                   icon: const Icon(
                     Icons.notifications,
                     size: 24,

@@ -16,12 +16,14 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
           child: Column(
             children: [
-              const HomeGoldenContainer(),
+              HomeGoldenContainer(
+                onPressedNotification: viewModel.notification,
+              ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
@@ -78,7 +80,8 @@ class HomeView extends StackedView<HomeViewModel> {
                           buttonText: 'Completed',
                           btc: '+0.001',
                           image: bitCoin,
-                          imageBack: kcYellowBright, btcColor: kcYellowBright,
+                          imageBack: kcYellowBright,
+                          btcColor: kcYellowBright,
                         ),
                         SizedBox(
                           height: 20,
@@ -88,7 +91,8 @@ class HomeView extends StackedView<HomeViewModel> {
                           buttonText: 'Failed',
                           btc: '-0.001',
                           image: bitCoin,
-                          imageBack: kcYellowBright,btcColor: kcYellowBright,
+                          imageBack: kcYellowBright,
+                          btcColor: kcYellowBright,
                         ),
                         SizedBox(
                           height: 20,
@@ -98,7 +102,8 @@ class HomeView extends StackedView<HomeViewModel> {
                           buttonText: 'Pending',
                           btc: '-0.001',
                           image: bitCoin,
-                          imageBack: kcYellowBright,btcColor: kcYellowBright,
+                          imageBack: kcYellowBright,
+                          btcColor: kcYellowBright,
                         ),
                         SizedBox(
                           height: 20,
@@ -108,7 +113,8 @@ class HomeView extends StackedView<HomeViewModel> {
                           buttonText: 'Pending',
                           btc: '-0.001',
                           image: bitCoin,
-                          imageBack: kcYellowBright,btcColor: kcYellowBright,
+                          imageBack: kcYellowBright,
+                          btcColor: kcYellowBright,
                         ),
                       ],
                     ),
