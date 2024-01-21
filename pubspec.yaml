@@ -12,6 +12,7 @@ dependencies:
   stacked: ^3.4.0
   stacked_services: ^1.1.0
   google_fonts: ^4.0.4
+  fl_chart: ^0.66.0
   material_design_icons_flutter: ^7.0.7296
   intl_phone_number_input: ^0.7.4
   libphonenumber_plugin: ^0.3.3

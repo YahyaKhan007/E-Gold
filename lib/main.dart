@@ -12,7 +12,7 @@ Future<void> main() async {
   await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
-  runApp(const MainApp());
+  runApp(const SafeArea(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
