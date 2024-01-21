@@ -5,8 +5,6 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:e_gold/ui/views/account_screen/account_screen_view.dart'
-    as _i15;
 import 'package:e_gold/ui/views/auth_views/changepassword/changepassword_view.dart'
     as _i10;
 import 'package:e_gold/ui/views/auth_views/createanaccount/createanaccount_view.dart'
@@ -19,19 +17,23 @@ import 'package:e_gold/ui/views/auth_views/otpverification/otpverification_view.
 import 'package:e_gold/ui/views/auth_views/receiveotpverification/receiveotpverification_view.dart'
     as _i9;
 import 'package:e_gold/ui/views/auth_views/signup/signup_view.dart' as _i5;
-import 'package:e_gold/ui/views/dashboard_screen/dashboard_screen_view.dart'
-    as _i12;
+import 'package:e_gold/ui/views/buygoldorsilver/buygoldorsilver_view.dart'
+    as _i13;
 import 'package:e_gold/ui/views/home/home_view.dart' as _i2;
 import 'package:e_gold/ui/views/kyc/kyc_view.dart' as _i11;
-import 'package:e_gold/ui/views/notification_screen/notification_screen_view.dart'
+import 'package:e_gold/ui/views/kycbankaccount/kycbankaccount_view.dart'
+    as _i16;
+import 'package:e_gold/ui/views/kycidcardback/kycidcardback_view.dart' as _i15;
+import 'package:e_gold/ui/views/kycidcardfront/kycidcardfront_view.dart'
     as _i14;
+import 'package:e_gold/ui/views/kycpassport/kycpassport_view.dart' as _i18;
+import 'package:e_gold/ui/views/kycprofile/kycprofile_view.dart' as _i17;
 import 'package:e_gold/ui/views/startup/startup_view.dart' as _i3;
-import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_screen_view.dart'
-    as _i13;
-import 'package:flutter/material.dart' as _i16;
+import 'package:e_gold/ui/views/statistic/statistic_view.dart' as _i12;
+import 'package:flutter/material.dart' as _i19;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i17;
+import 'package:stacked_services/stacked_services.dart' as _i20;
 
 class Routes {
   static const homeView = '/home-view';
@@ -54,14 +56,19 @@ class Routes {
 
   static const kycView = '/kyc-view';
 
-  static const dashboardScreenView = '/dashboard-screen-view';
+  static const statisticView = '/statistic-view';
 
-  static const transactionHistoryScreenView =
-      '/transaction-history-screen-view';
+  static const buygoldorsilverView = '/buygoldorsilver-view';
 
-  static const notificationScreenView = '/notification-screen-view';
+  static const kycidcardfrontView = '/kycidcardfront-view';
 
-  static const accountScreenView = '/account-screen-view';
+  static const kycidcardbackView = '/kycidcardback-view';
+
+  static const kycbankaccountView = '/kycbankaccount-view';
+
+  static const kycprofileView = '/kycprofile-view';
+
+  static const kycpassportView = '/kycpassport-view';
 
   static const all = <String>{
     homeView,
@@ -74,10 +81,13 @@ class Routes {
     receiveotpverificationView,
     changepasswordView,
     kycView,
-    dashboardScreenView,
-    transactionHistoryScreenView,
-    notificationScreenView,
-    accountScreenView,
+    statisticView,
+    buygoldorsilverView,
+    kycidcardfrontView,
+    kycidcardbackView,
+    kycbankaccountView,
+    kycprofileView,
+    kycpassportView,
   };
 }
 
@@ -124,105 +134,135 @@ class StackedRouter extends _i1.RouterBase {
       page: _i11.KycView,
     ),
     _i1.RouteDef(
-      Routes.dashboardScreenView,
-      page: _i12.DashboardScreenView,
+      Routes.statisticView,
+      page: _i12.StatisticView,
     ),
     _i1.RouteDef(
-      Routes.transactionHistoryScreenView,
-      page: _i13.TransactionHistoryScreenView,
+      Routes.buygoldorsilverView,
+      page: _i13.BuygoldorsilverView,
     ),
     _i1.RouteDef(
-      Routes.notificationScreenView,
-      page: _i14.NotificationScreenView,
+      Routes.kycidcardfrontView,
+      page: _i14.KycidcardfrontView,
     ),
     _i1.RouteDef(
-      Routes.accountScreenView,
-      page: _i15.AccountScreenView,
+      Routes.kycidcardbackView,
+      page: _i15.KycidcardbackView,
+    ),
+    _i1.RouteDef(
+      Routes.kycbankaccountView,
+      page: _i16.KycbankaccountView,
+    ),
+    _i1.RouteDef(
+      Routes.kycprofileView,
+      page: _i17.KycprofileView,
+    ),
+    _i1.RouteDef(
+      Routes.kycpassportView,
+      page: _i18.KycpassportView,
     ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.LoginView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.LoginView(),
         settings: data,
       );
     },
     _i5.SignupView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.SignupView(),
         settings: data,
       );
     },
     _i6.CreateanaccountView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.CreateanaccountView(),
         settings: data,
       );
     },
     _i7.ForgetpasswordView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.ForgetpasswordView(),
         settings: data,
       );
     },
     _i8.OtpverificationView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.OtpverificationView(),
         settings: data,
       );
     },
     _i9.ReceiveotpverificationView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.ReceiveotpverificationView(),
         settings: data,
       );
     },
     _i10.ChangepasswordView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.ChangepasswordView(),
         settings: data,
       );
     },
     _i11.KycView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.KycView(),
         settings: data,
       );
     },
-    _i12.DashboardScreenView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i12.DashboardScreenView(),
+    _i12.StatisticView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i12.StatisticView(),
         settings: data,
       );
     },
-    _i13.TransactionHistoryScreenView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i13.TransactionHistoryScreenView(),
+    _i13.BuygoldorsilverView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i13.BuygoldorsilverView(),
         settings: data,
       );
     },
-    _i14.NotificationScreenView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i14.NotificationScreenView(),
+    _i14.KycidcardfrontView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i14.KycidcardfrontView(),
         settings: data,
       );
     },
-    _i15.AccountScreenView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i15.AccountScreenView(),
+    _i15.KycidcardbackView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i15.KycidcardbackView(),
+        settings: data,
+      );
+    },
+    _i16.KycbankaccountView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i16.KycbankaccountView(),
+        settings: data,
+      );
+    },
+    _i17.KycprofileView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i17.KycprofileView(),
+        settings: data,
+      );
+    },
+    _i18.KycpassportView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i18.KycpassportView(),
         settings: data,
       );
     },
@@ -235,7 +275,7 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i17.NavigationService {
+extension NavigatorStateExtension on _i20.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -376,56 +416,98 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToDashboardScreenView([
+  Future<dynamic> navigateToStatisticView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.dashboardScreenView,
+    return navigateTo<dynamic>(Routes.statisticView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToTransactionHistoryScreenView([
+  Future<dynamic> navigateToBuygoldorsilverView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.transactionHistoryScreenView,
+    return navigateTo<dynamic>(Routes.buygoldorsilverView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToNotificationScreenView([
+  Future<dynamic> navigateToKycidcardfrontView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.notificationScreenView,
+    return navigateTo<dynamic>(Routes.kycidcardfrontView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToAccountScreenView([
+  Future<dynamic> navigateToKycidcardbackView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.accountScreenView,
+    return navigateTo<dynamic>(Routes.kycidcardbackView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToKycbankaccountView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.kycbankaccountView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToKycprofileView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.kycprofileView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToKycpassportView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.kycpassportView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -572,56 +654,98 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithDashboardScreenView([
+  Future<dynamic> replaceWithStatisticView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.dashboardScreenView,
+    return replaceWith<dynamic>(Routes.statisticView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithTransactionHistoryScreenView([
+  Future<dynamic> replaceWithBuygoldorsilverView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.transactionHistoryScreenView,
+    return replaceWith<dynamic>(Routes.buygoldorsilverView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithNotificationScreenView([
+  Future<dynamic> replaceWithKycidcardfrontView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.notificationScreenView,
+    return replaceWith<dynamic>(Routes.kycidcardfrontView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithAccountScreenView([
+  Future<dynamic> replaceWithKycidcardbackView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.accountScreenView,
+    return replaceWith<dynamic>(Routes.kycidcardbackView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithKycbankaccountView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.kycbankaccountView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithKycprofileView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.kycprofileView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithKycpassportView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.kycpassportView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
