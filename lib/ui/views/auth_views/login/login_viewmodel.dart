@@ -3,6 +3,8 @@ import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/auth_service.dart';
 import 'package:e_gold/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:e_gold/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:stacked/stacked.dart';
@@ -35,6 +37,13 @@ class LoginViewModel extends BaseViewModel {
   //   // if (formKey.currentState!.validate()) {
   //   //   navigationService.replaceWithHomeView();
   //   // }
+  void onPressedLogin() {
+    navigationService.navigateToDashboardScreenView();
+    // if (formKey.currentState!.validate()) {
+    //   navigationService.replaceWithHomeView();
+    // }
+  bool validateForm() {
+    return formKey.currentState?.validate() ?? false;
   }
 
   void onPressedLogin() async {
