@@ -1,31 +1,32 @@
-import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:stacked/stacked.dart';
 
-import '../kyc_viewmodel.dart';
-import '../widgets/layout.dart';
+import '../../common/app_widgets.dart';
+import '../../common/ui_helpers.dart';
 
-class IdCardFrontPage extends StatefulWidget {
-  const IdCardFrontPage({super.key});
+import 'kycidcardfront_viewmodel.dart';
 
-  @override
-  State<IdCardFrontPage> createState() => _IdCardFrontPageState();
-}
-
-class _IdCardFrontPageState extends State<IdCardFrontPage> {
-  KycViewModel viewModel = KycViewModel();
-
-  var outlineInputBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300, width: 0.5),
-      borderRadius: BorderRadius.circular(12.0));
+class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
+  const KycidcardfrontView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget builder(
+    BuildContext context,
+    KycidcardfrontViewModel viewModel,
+    Widget? child,
+  ) {
+    var outlineInputBorder = OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey.shade300, width: 0.5),
+        borderRadius: BorderRadius.circular(12.0));
+
     return KycLayoutWidget(
-        onPressed: () {},
+        // onPressed: () {},
         title: 'Identity Card (Front)',
         subtitle:
             'Please upload your Identity Card below for\ncompleting your first step of KYC.',
+        onPressed: () {},
+        buttonText: 'Next',
         children: [
           Form(
             key: null,
@@ -64,7 +65,7 @@ class _IdCardFrontPageState extends State<IdCardFrontPage> {
                 Center(
                   child: Container(
                     height: 132,
-                    width: 320,
+                    width: 300,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -101,10 +102,15 @@ class _IdCardFrontPageState extends State<IdCardFrontPage> {
                     ),
                   ),
                 ),
-                verticalSpace(180.0)
               ],
             ),
           )
         ]);
   }
+
+  @override
+  KycidcardfrontViewModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      KycidcardfrontViewModel();
 }

@@ -1,7 +1,13 @@
+import 'package:e_gold/ui/common/app_colors.dart';
+import 'package:e_gold/ui/views/kycbankaccount/kycbankaccount_view.dart';
+import 'package:e_gold/ui/views/kycpassport/kycpassport_view.dart';
+import 'package:e_gold/ui/views/kycprofile/kycprofile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../common/ui_helpers.dart';
+import '../../common/app_widgets.dart';
+import '../kycidcardback/kycidcardback_view.dart';
+import '../kycidcardfront/kycidcardfront_view.dart';
 import 'kyc_viewmodel.dart';
 
 class KycView extends StackedView<KycViewModel> {
@@ -13,45 +19,91 @@ class KycView extends StackedView<KycViewModel> {
     KycViewModel viewModel,
     Widget? child,
   ) {
+    Widget stepIconBuilder(int stepNumber) {
+      if (viewModel.currentPage >= stepNumber) {
+        return const CircleAvatar(
+          maxRadius: 28,
+          backgroundColor: Colors.black,
+          child: Icon(
+            Icons.check,
+            color: Colors.white,
+            size: 20,
+          ),
+        );
+      } else {
+        return CircleAvatar(
+          maxRadius: 28,
+          backgroundColor: Colors.black,
+          child: Text(
+            '${stepNumber + 1}',
+            style: const TextStyle(color: Colors.white),
+          ),
+        );
+      }
+    }
+
+    List<Step> pages = [
+      Step(
+        isActive: viewModel.currentPage == 0,
+        state:
+            viewModel.currentPage > 0 ? StepState.complete : StepState.indexed,
+        content: const KycidcardfrontView(),
+        title: const Text(''),
+      ),
+      Step(
+        isActive: viewModel.currentPage == 1,
+        state:
+            viewModel.currentPage > 1 ? StepState.complete : StepState.indexed,
+        content: const KycidcardbackView(),
+        title: const Text(''),
+      ),
+      Step(
+        isActive: viewModel.currentPage == 2,
+        state:
+            viewModel.currentPage > 2 ? StepState.complete : StepState.indexed,
+        content: const KycpassportView(),
+        title: const Text(''),
+      ),
+      Step(
+        isActive: viewModel.currentPage == 3,
+        state:
+            viewModel.currentPage > 3 ? StepState.complete : StepState.indexed,
+        content: const KycbankaccountView(),
+        title: const Text(''),
+      ),
+      Step(
+        isActive: viewModel.currentPage == 4,
+        state:
+            viewModel.currentPage > 4 ? StepState.complete : StepState.indexed,
+        content: const KycprofileView(),
+        title: const Text(''),
+      ),
+    ];
+
     return Scaffold(
-        body: Column(
-      children: [
-        verticalSpaceSmall,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List<Widget>.generate(viewModel.pages.length, (int index) {
-            return GestureDetector(
-              onTap: () {
-                viewModel.pageController.animateToPage(
-                  index,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.ease,
-                );
-              },
-              child: Container(
-                width: 36,
-                height: 36,
-                margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: viewModel.currentPage == index
-                      ? Colors.white
-                      : Colors.black,
-                ),
-                child: Center(child: Text('${index + 1}')),
-              ),
-            );
-          }),
-        ),
-        Expanded(
-          child: PageView(
-              controller: viewModel.pageController,
-              onPageChanged: viewModel.onPageChanged,
-              children: viewModel.pages),
-        ),
-        const SizedBox(height: 16),
-      ],
-    ));
+      appBar: kAppBar(
+        context: context,
+        title: const Text('KYC'),
+        onButtonPressed: () {},
+        backgroundColor: kcBackgroundColor,
+      ),
+      body: Stepper(
+        connectorThickness: 4,
+        stepIconBuilder: (stepIndex, stepState) {
+          stepState.index;
+          return stepIconBuilder(stepIndex);
+        },
+        controlsBuilder: (BuildContext context, ControlsDetails controls) {
+          return SizedBox.fromSize();
+        },
+        elevation: 0,
+        type: StepperType.horizontal,
+        controller: viewModel.pageController,
+        currentStep: viewModel.currentPage,
+        steps: pages,
+        onStepTapped: viewModel.onPageChanged,
+      ),
+    );
   }
 
   @override
