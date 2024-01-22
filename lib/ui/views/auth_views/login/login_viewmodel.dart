@@ -32,19 +32,9 @@ class LoginViewModel extends BaseViewModel {
 
   bool validateForm() {
     return formKey.currentState?.validate() ?? false;
-    // void onPressedLogin() {
-    //   navigationService.navigateToDashboardScreenView();
-    //   // if (formKey.currentState!.validate()) {
-    //   //   navigationService.replaceWithHomeView();
   }
-  // void onPressedLogin() {
-  //   navigationService.navigateToDashboardScreenView();
-  //   // if (formKey.currentState!.validate()) {
-  //   //   navigationService.replaceWithHomeView();
-  //   // }
-  // bool validateForm() {
-  //   return formKey.currentState?.validate() ?? false;
-  // }
+
+
 
   void onPressedLogin() async {
     if (validateForm()) {
@@ -52,6 +42,7 @@ class LoginViewModel extends BaseViewModel {
           emailController.text.trim(), passwordController.text.trim());
 
       if (user != null) {
+        navigationService.navigateToDashboardScreenView();
         navigationService.replaceWithDashboardScreenView();
       }
     }
