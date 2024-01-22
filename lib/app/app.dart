@@ -26,6 +26,10 @@ import 'package:e_gold/ui/views/kycbankaccount/kycbankaccount_view.dart';
 import 'package:e_gold/ui/views/kycprofile/kycprofile_view.dart';
 import 'package:e_gold/ui/views/kycpassport/kycpassport_view.dart';
 import 'package:e_gold/ui/views/deposit_screen/deposit_screen_view.dart';
+import 'package:e_gold/ui/views/in_store_payment_screen/in_store_payment_screen_view.dart';
+import 'package:e_gold/ui/views/crypto_payment_screen/crypto_payment_screen_view.dart';
+import 'package:e_gold/ui/views/card_payment_screen/card_payment_screen_view.dart';
+import 'package:e_gold/ui/views/add_new_card_payment_screen/add_new_card_payment_screen_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -54,6 +58,10 @@ import 'package:e_gold/ui/views/deposit_screen/deposit_screen_view.dart';
     MaterialRoute(page: KycprofileView),
     MaterialRoute(page: KycpassportView),
     MaterialRoute(page: DepositScreenView),
+    MaterialRoute(page: InStorePaymentScreenView),
+    MaterialRoute(page: CryptoPaymentScreenView),
+    MaterialRoute(page: CardPaymentScreenView),
+    MaterialRoute(page: AddNewCardPaymentScreenView),
 // @stacked-route
   ],
   dependencies: [

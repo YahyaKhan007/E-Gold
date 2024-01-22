@@ -52,7 +52,7 @@ class DepositScreenView extends StackedView<DepositScreenViewModel> {
               image: crypto,
               title: 'Crypto',
               text: 'Deposit from your crypto app',
-              onPressed: () {},
+              onPressed: viewModel.toCryptoPayment,
             ),
             const SizedBox(
               height: 20,
@@ -61,7 +61,7 @@ class DepositScreenView extends StackedView<DepositScreenViewModel> {
               image: masterCard,
               title: 'Debit or Credit Card',
               text: 'Use Visa, Master and more',
-              onPressed: () {},
+              onPressed: viewModel.toCardPayment,
             ),
             const SizedBox(
               height: 20,
@@ -79,7 +79,7 @@ class DepositScreenView extends StackedView<DepositScreenViewModel> {
               image: store,
               title: 'In-store',
               text: 'Deposit in-person at our stores',
-              onPressed: () {},
+              onPressed: viewModel.toInStorePayment,
             ),
             const SizedBox(
               height: 20,

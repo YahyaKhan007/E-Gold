@@ -15,3 +15,4 @@ const String masterCard = 'assets/images/masterCard.png';
 const String bank = 'assets/images/bank.png';
 const String crypto = 'assets/images/crypto.png';
 const String store = 'assets/images/store.png';
+const String logo = 'assets/images/logo.png';
