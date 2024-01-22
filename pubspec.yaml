@@ -26,6 +26,7 @@ dependencies:
   google_sign_in: ^6.2.1
   flutter_facebook_auth: ^6.0.4
   cloud_firestore: ^4.14.0
+  onscreen_num_keyboard: ^1.0.4
 
 dev_dependencies:
   build_runner: ^2.4.5

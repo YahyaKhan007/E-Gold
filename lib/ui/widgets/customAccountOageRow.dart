@@ -7,7 +7,8 @@ class AccountPageRow extends StatelessWidget {
   const AccountPageRow({
     super.key,
     required this.text,
-    required this.icon, required this.onPressed,
+    required this.icon,
+    required this.onPressed,
   });
 
   @override

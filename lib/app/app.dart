@@ -25,6 +25,7 @@ import 'package:e_gold/ui/views/kycidcardback/kycidcardback_view.dart';
 import 'package:e_gold/ui/views/kycbankaccount/kycbankaccount_view.dart';
 import 'package:e_gold/ui/views/kycprofile/kycprofile_view.dart';
 import 'package:e_gold/ui/views/kycpassport/kycpassport_view.dart';
+import 'package:e_gold/ui/views/deposit_screen/deposit_screen_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -46,12 +47,13 @@ import 'package:e_gold/ui/views/kycpassport/kycpassport_view.dart';
     MaterialRoute(page: NotificationScreenView),
     MaterialRoute(page: AccountScreenView),
     MaterialRoute(page: StatisticView),
-    MaterialRoute(page: BuygoldorsilverView),
+    MaterialRoute(page: BuyGoldOrSilverView),
     MaterialRoute(page: KycidcardfrontView),
     MaterialRoute(page: KycidcardbackView),
     MaterialRoute(page: KycbankaccountView),
     MaterialRoute(page: KycprofileView),
     MaterialRoute(page: KycpassportView),
+    MaterialRoute(page: DepositScreenView),
 // @stacked-route
   ],
   dependencies: [

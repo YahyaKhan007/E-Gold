@@ -87,7 +87,7 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           AccountPageRow(
                             text: 'Add a Payment Method',
                             icon: Icons.add,
-                            onPressed: () {},
+                            onPressed: viewModel.addPaymentMethod,
                           ),
                           AccountPageRow(
                             text: 'KYC',

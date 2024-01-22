@@ -18,3 +18,4 @@ const Color kcFailRed = Color(0xFFF44949);
 const Color kcPendingGrey = Color(0xFFA5AAC7);
 const Color kcLightText = Color(0xFF626262);
 const Color kcLightYellow = Color(0xFFF9D075);
+const Color kcGoldYellow = Color(0xFFF7C047);

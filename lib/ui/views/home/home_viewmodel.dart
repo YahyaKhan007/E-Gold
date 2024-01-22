@@ -10,7 +10,7 @@ class HomeViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
   void seeAll() {
-    _navigationService.navigateToTransactionHistoryScreenView();
+    _navigationService.navigateToTransactionHistoryScreenView(check: true);
   }
 
   void notification() {

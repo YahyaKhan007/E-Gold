@@ -7,8 +7,13 @@ import 'package:stacked_services/stacked_services.dart';
 class AccountScreenViewModel extends BaseViewModel {
   final authService = locator<AuthService>();
   final navigationService = locator<NavigationService>();
+
   void logout() {
     authService.signOut();
     navigationService.replaceWithLoginView();
+  }
+
+  void addPaymentMethod() {
+    navigationService.navigateToDepositScreenView();
   }
 }

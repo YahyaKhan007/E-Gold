@@ -12,3 +12,6 @@ const String shield = 'assets/images/sheild.png';
 const String card = 'assets/images/card.png';
 const String cardLogo = 'assets/images/cardLogo.png';
 const String masterCard = 'assets/images/masterCard.png';
+const String bank = 'assets/images/bank.png';
+const String crypto = 'assets/images/crypto.png';
+const String store = 'assets/images/store.png';
