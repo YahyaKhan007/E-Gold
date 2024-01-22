@@ -119,11 +119,6 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                             icon: Icons.arrow_forward_ios,
                             onPressed: () {},
                           ),
-                          AccountPageRow(
-                            text: 'Logout',
-                            icon: Icons.logout_rounded,
-                            onPressed: viewModel.logout,
-                          ),
                         ],
                       ),
                     ),
