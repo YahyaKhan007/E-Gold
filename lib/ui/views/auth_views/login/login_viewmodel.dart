@@ -36,6 +36,12 @@ class LoginViewModel extends BaseViewModel {
     //   navigationService.navigateToDashboardScreenView();
     //   // if (formKey.currentState!.validate()) {
     //   //   navigationService.replaceWithHomeView();
+    //   // }
+  }
+    // void onPressedLogin() {
+    //   navigationService.navigateToDashboardScreenView();
+    //   // if (formKey.currentState!.validate()) {
+    //   //   navigationService.replaceWithHomeView();
   }
   // void onPressedLogin() {
   //   navigationService.navigateToDashboardScreenView();
@@ -52,6 +58,7 @@ class LoginViewModel extends BaseViewModel {
           emailController.text.trim(), passwordController.text.trim());
 
       if (user != null) {
+        navigationService.navigateToDashboardScreenView();
         navigationService.replaceWithDashboardScreenView();
       }
     }
