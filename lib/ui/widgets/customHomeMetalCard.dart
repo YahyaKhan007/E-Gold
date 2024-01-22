@@ -25,7 +25,7 @@ class HomeMetalContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width / 2 - 30,
-      height: 110,
+      height: MediaQuery.of(context).size.height * 0.13,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: ShapeDecoration(
         color: containerColor,
