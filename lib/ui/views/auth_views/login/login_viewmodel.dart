@@ -43,7 +43,7 @@ class LoginViewModel extends BaseViewModel {
           emailController.text.trim(), passwordController.text.trim());
 
       if (user != null) {
-        navigationService.navigateToKycView();
+        navigationService.replaceWithDashboardScreenView();
       }
     }
   }
