@@ -76,28 +76,30 @@ class HomeGoldenContainer extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                HomeMetalContainer(
-                  title: 'Gold',
-                  priceGm: '6003.38/gm',
-                  number: '128.76',
-                  increase: '+18.33 (18%)',
-                  containerColor: kcGolden,
-                  textColor: kcGoldenText,
-                  circleColor: kcGoldenText,
-                ),
-                HomeMetalContainer(
-                  title: 'Silver',
-                  priceGm: '78.225/gm',
-                  number: '139.24',
-                  increase: '-18.33 (8%)',
-                  containerColor: kcSilver,
-                  textColor: kcGreen,
-                  circleColor: kcSilverLight,
-                ),
-              ],
+            Expanded(
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  HomeMetalContainer(
+                    title: 'Gold',
+                    priceGm: '6003.38/gm',
+                    number: '128.76',
+                    increase: '+18.33 (18%)',
+                    containerColor: kcGolden,
+                    textColor: kcGoldenText,
+                    circleColor: kcGoldenText,
+                  ),
+                  HomeMetalContainer(
+                    title: 'Silver',
+                    priceGm: '78.225/gm',
+                    number: '139.24',
+                    increase: '-18.33 (8%)',
+                    containerColor: kcSilver,
+                    textColor: kcGreen,
+                    circleColor: kcSilverLight,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

@@ -24,7 +24,7 @@ class HomeMetalContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width / 2 - 30,
+      width: MediaQuery.of(context).size.width / 2 - 25,
       height: MediaQuery.of(context).size.height * 0.13,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: ShapeDecoration(
