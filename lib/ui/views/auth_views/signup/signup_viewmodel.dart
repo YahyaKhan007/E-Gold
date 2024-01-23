@@ -23,8 +23,8 @@ class SignupViewModel extends BaseViewModel {
   TextEditingController phoneController = TextEditingController();
   String initialCountry = 'US';
   PhoneNumber number = PhoneNumber(isoCode: 'US');
-  bool isPasswordVisible = false;
-  bool isConformPasswordVisible = false;
+  bool isPasswordVisible = true;
+  bool isConformPasswordVisible = true;
   final _authService = locator<AuthService>();
   final navigationService = locator<NavigationService>();
 

@@ -1,5 +1,6 @@
 import 'package:e_gold/services/auth_service.dart';
 import 'package:e_gold/services/kyc_service.dart';
+import 'package:e_gold/services/userProfileService.dart';
 import 'package:e_gold/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:e_gold/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:e_gold/ui/views/dashboard_screen/dashboard_screen_view.dart';
@@ -88,6 +89,7 @@ import 'package:e_gold/ui/views/statistic/statistic_view.dart';
     LazySingleton(classType: AuthService),
     LazySingleton(classType: SnackbarService),
     LazySingleton(classType: KycService),
+    LazySingleton(classType: UserProfileService),
     // @stacked-service
   ],
   bottomsheets: [
