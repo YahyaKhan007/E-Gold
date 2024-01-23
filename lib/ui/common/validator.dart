@@ -29,9 +29,23 @@ class Validator {
     return null;
   }
 
+  static String? validatePassport(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your passport number';
+    }
+
+    // Password strength validation
+    // You can replace the condition with your own criteria for a strong password
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+
+    return null;
+  }
+
   static String? validateAccNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your password';
+      return 'Please enter your Account number';
     }
 
     // Password strength validation
@@ -45,7 +59,7 @@ class Validator {
 
   static String? validateConAccNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your password';
+      return 'Please enter your Account number didnt match';
     }
 
     // Password strength validation
@@ -59,7 +73,7 @@ class Validator {
 
   static String? validateText(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your password';
+      return 'Please enter text';
     }
 
     // Password strength validation
@@ -73,7 +87,7 @@ class Validator {
 
   static String? validateIFSC(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your password';
+      return 'Please enter your IFSC';
     }
 
     // Password strength validation
@@ -87,7 +101,7 @@ class Validator {
 
   static String? validateCnic(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your password';
+      return 'Please enter your CNIC';
     }
 
     // Password strength validation

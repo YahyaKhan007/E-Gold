@@ -10,11 +10,15 @@ class KycprofileView extends StackedView<KycprofileViewModel> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController dobController = TextEditingController();
   VoidCallback uploadProfile;
+  VoidCallback onTapDOB;
+  bool profileImgupLoaded;
   VoidCallback sumbitKyc;
   KycprofileView(
       {Key? key,
       required this.uploadProfile,
+      required this.onTapDOB,
       required this.dobController,
+      required this.profileImgupLoaded,
       required this.sumbitKyc,
       required this.formkey})
       : super(key: key);
@@ -74,38 +78,47 @@ class KycprofileView extends StackedView<KycprofileViewModel> {
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(128, 48),
                             foregroundColor: Colors.black,
-                            backgroundColor: Colors.white,
+                            backgroundColor: profileImgupLoaded
+                                ? Color.fromARGB(255, 172, 241, 176)
+                                : Colors.white,
                             elevation: 0,
                             shape: const StadiumBorder(
                               side: BorderSide(),
                             ),
                           ),
-                          child: const Text("+ Upload"),
+                          child: profileImgupLoaded
+                              ? Text("Uploaded")
+                              : Text("+ Upload"),
                         )
                       ],
                     ),
                   ),
                 ),
                 verticalSpaceMedium,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    verticalSpaceTiny,
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        'Date of Birth',
-                        style: Theme.of(context).textTheme.titleMedium,
+                InkWell(
+                  onTap: onTapDOB,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      verticalSpaceTiny,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          'Date of Birth',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                       ),
-                    ),
-                    verticalSpaceTiny,
-                    TextFormField(
-                      validator: Validator.validateCnic,
-                      controller: dobController,
-                      decoration: inputDecoration('Date of Birth'),
-                    ),
-                    verticalSpaceTiny,
-                  ],
+                      verticalSpaceTiny,
+                      TextFormField(
+                        onTap: onTapDOB,
+                        readOnly: true,
+                        validator: Validator.validateCnic,
+                        controller: dobController,
+                        decoration: inputDecoration('Date of Birth'),
+                      ),
+                      verticalSpaceTiny,
+                    ],
+                  ),
                 )
               ],
             ),

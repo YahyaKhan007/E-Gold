@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -31,6 +32,7 @@ class KycpassportView extends StackedView<KycpassportViewModel> {
           Form(
               key: formkey,
               child: KTextFormField(
+                validator: Validator.validatePassport,
                 controller: passportNoController,
                 label: "Passport Number",
                 keyboardType: null,

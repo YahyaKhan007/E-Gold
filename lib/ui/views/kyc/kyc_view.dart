@@ -48,6 +48,7 @@ class KycView extends StackedView<KycViewModel> {
         state:
             viewModel.currentPage > 0 ? StepState.complete : StepState.indexed,
         content: KycidcardfrontView(
+          idFrontUploaded: viewModel.idFrontUpload,
           onClickUpload: () {
             viewModel.onCNICFrontUpload(context);
           },
@@ -62,6 +63,7 @@ class KycView extends StackedView<KycViewModel> {
         state:
             viewModel.currentPage > 1 ? StepState.complete : StepState.indexed,
         content: KycidcardbackView(
+          idBackUploaded: viewModel.idBackUpload,
           onChangedCheckbox: (value) {
             viewModel.onChangedCheckbox(value);
           },
@@ -103,6 +105,10 @@ class KycView extends StackedView<KycViewModel> {
         state:
             viewModel.currentPage > 4 ? StepState.complete : StepState.indexed,
         content: KycprofileView(
+          onTapDOB: () {
+            viewModel.onTapDob(context);
+          },
+          profileImgupLoaded: viewModel.idProfileImgUpload,
           formkey: viewModel.formKey5,
           sumbitKyc: viewModel.submitKyc,
           uploadProfile: () {

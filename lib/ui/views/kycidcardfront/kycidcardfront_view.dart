@@ -13,7 +13,7 @@ class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
   TextEditingController cnicController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  bool idFrontUploaded;
   VoidCallback onClickNext;
   VoidCallback onClickUpload;
   KycidcardfrontView(
@@ -21,6 +21,7 @@ class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
       required this.cnicController,
       required this.onClickNext,
       required this.onClickUpload,
+      required this.idFrontUploaded,
       required this.formKey})
       : super(key: key);
 
@@ -105,13 +106,17 @@ class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(128, 48),
                             foregroundColor: Colors.black,
-                            backgroundColor: Colors.white,
+                            backgroundColor: idFrontUploaded
+                                ? Color.fromARGB(255, 172, 241, 176)
+                                : Colors.white,
                             elevation: 0,
                             shape: const StadiumBorder(
                               side: BorderSide(),
                             ),
                           ),
-                          child: const Text("+ Upload"),
+                          child: idFrontUploaded
+                              ? Text("Uploaded")
+                              : Text("+ Upload"),
                         )
                       ],
                     ),

@@ -9,10 +9,12 @@ import 'kycidcardback_viewmodel.dart';
 class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
   VoidCallback onCnicBack;
   VoidCallback onClickNext;
- ValueChanged<bool?> onChangedCheckbox;
+  bool idBackUploaded;
+  ValueChanged<bool?> onChangedCheckbox;
   final bool concent;
   KycidcardbackView(
       {Key? key,
+      required this.idBackUploaded,
       required this.onCnicBack,
       required this.onChangedCheckbox,
       required this.concent,
@@ -66,13 +68,17 @@ class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(128, 48),
                             foregroundColor: Colors.black,
-                            backgroundColor: Colors.white,
+                            backgroundColor: idBackUploaded
+                                ? Color.fromARGB(255, 172, 241, 176)
+                                : Colors.white,
                             elevation: 0,
                             shape: const StadiumBorder(
                               side: BorderSide(),
                             ),
                           ),
-                          child: const Text("+ Upload"),
+                          child: idBackUploaded
+                              ? Text("Uploaded")
+                              : Text("+ Upload"),
                         )
                       ],
                     ),

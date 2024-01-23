@@ -10,6 +10,8 @@ class KYC {
   String ifscCode;
   String profilePhotoLink;
   String dateOfBirth;
+  bool concentAgreement;
+  bool isApproved;
 
   KYC({
     required this.cnicNumber,
@@ -18,6 +20,8 @@ class KYC {
     required this.passportNumber,
     required this.bankAccountNumber,
     required this.bankName,
+    required this.concentAgreement,
+    required this.isApproved,
     required this.ifscCode,
     required this.profilePhotoLink,
     required this.dateOfBirth,
@@ -32,7 +36,9 @@ class KYC {
       'passportNumber': passportNumber,
       'bankAccountNumber': bankAccountNumber,
       'bankName': bankName,
+      'concentAgreement': concentAgreement,
       'ifscCode': ifscCode,
+      'isApproved': isApproved,
       'profilePhotoLink': profilePhotoLink,
       'dateOfBirth': dateOfBirth,
     };
@@ -41,6 +47,7 @@ class KYC {
   // Factory method to create an object from JSON data
   factory KYC.fromJson(Map<String, dynamic> json) {
     return KYC(
+      concentAgreement: json['concentAgreement'],
       cnicNumber: json['cnicNumber'],
       cardFrontPhotoLink: json['cardFrontPhotoLink'],
       cardBackPhotoLink: json['cardBackPhotoLink'],
@@ -48,6 +55,7 @@ class KYC {
       bankAccountNumber: json['bankAccountNumber'],
       bankName: json['bankName'],
       ifscCode: json['ifscCode'],
+      isApproved: json['isApproved'],
       profilePhotoLink: json['profilePhotoLink'],
       dateOfBirth: json['dateOfBirth'],
     );
