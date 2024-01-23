@@ -1,6 +1,5 @@
 import 'package:e_gold/ui/common/app_widgets.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
-import 'package:e_gold/ui/common/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
