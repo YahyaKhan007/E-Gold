@@ -10,6 +10,7 @@ class HomeMetalContainer extends StatelessWidget {
   final Color containerColor;
   final Color textColor;
   final Color circleColor;
+  final VoidCallback onTap;
   const HomeMetalContainer({
     super.key,
     required this.title,
@@ -19,84 +20,88 @@ class HomeMetalContainer extends StatelessWidget {
     required this.containerColor,
     required this.textColor,
     required this.circleColor,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width / 2 - 30,
-      height: MediaQuery.of(context).size.height * 0.11,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: ShapeDecoration(
-        color: containerColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: MediaQuery.of(context).size.width / 2 - 30,
+        height: MediaQuery.of(context).size.height * 0.11,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: ShapeDecoration(
+          color: containerColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 32,
-                    height: 32,
-                    decoration: ShapeDecoration(
-                      color: circleColor,
-                      shape: const OvalBorder(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 32,
+                      height: 32,
+                      decoration: ShapeDecoration(
+                        color: circleColor,
+                        shape: const OvalBorder(),
+                      ),
+                      child: Center(
+                        child: Image.asset(golden),
+                      ),
                     ),
-                    child: Center(
-                      child: Image.asset(golden),
+                    const SizedBox(
+                      width: 5,
                     ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
+                  ],
+                ),
+                Text(
+                  '\$$priceGm',
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
                   ),
-                ],
+                ),
+              ],
+            ),
+            Expanded(
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-              Text(
-                '\$$priceGm',
+            ),
+            Expanded(
+              child: Text(
+                increase,
                 style: TextStyle(
                   color: textColor,
-                  fontSize: 10,
+                  fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-            ],
-          ),
-          Expanded(
-            child: Text(
-              number,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              increase,
-              style: TextStyle(
-                color: textColor,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/app_images.dart';
 import 'package:flutter/material.dart';
 
 import 'ui_helpers.dart';
@@ -6,22 +7,35 @@ PreferredSize kAppBar({
   required BuildContext? context,
   required VoidCallback onButtonPressed,
   double? appBarHeight = 60.0,
-  double? toolbarHeight = 60.0,
+  toolbarHeight = 60.0,
   Color? backgroundColor,
   Widget? title = const Text('title'),
 }) {
   return PreferredSize(
     preferredSize: Size.fromHeight(appBarHeight!),
-    child: AppBar(
-      toolbarHeight: toolbarHeight,
-      backgroundColor: backgroundColor,
-      centerTitle: true,
-      automaticallyImplyLeading: false,
-      title: title,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new_rounded),
-        onPressed: onButtonPressed,
-      ),
+    child: Stack(
+      children: [
+        Positioned(
+          top: 25,
+          left: 10,
+          child: Image.asset(
+            stars,
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+        AppBar(
+          clipBehavior: Clip.antiAlias,
+          toolbarHeight: toolbarHeight,
+          //backgroundColor: backgroundColor,
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          title: title,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            onPressed: onButtonPressed,
+          ),
+        ),
+      ],
     ),
   );
 }
@@ -31,13 +45,17 @@ class KTextFormField extends StatelessWidget {
   final String? label;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
+  final Widget? suffixIcon;
+  final bool? obscureText;
 
   const KTextFormField({
     super.key,
+    this.suffixIcon,
     this.controller,
     required this.label,
     required this.keyboardType,
     this.validator,
+    this.obscureText = false,
   });
 
   @override
@@ -46,11 +64,12 @@ class KTextFormField extends StatelessWidget {
         borderSide: BorderSide(color: Colors.grey.shade300, width: 0.5),
         borderRadius: BorderRadius.circular(12.0));
 
-    inputDecoration(String value) => InputDecoration(
+    inputDecoration(String value, [suffixIcon]) => InputDecoration(
           enabledBorder: outlineInputBorder,
           focusedBorder: outlineInputBorder,
           errorBorder: outlineInputBorder,
           hintText: 'Enter $value',
+          suffixIcon: suffixIcon,
         );
 
     return Column(
@@ -66,9 +85,12 @@ class KTextFormField extends StatelessWidget {
         ),
         verticalSpaceTiny,
         TextFormField(
+          obscureText: obscureText!,
           controller: controller,
           keyboardType: keyboardType,
-          decoration: inputDecoration(label!),
+          decoration: inputDecoration(
+            label!,
+          ),
           validator: validator,
         ),
         verticalSpaceTiny,
@@ -79,11 +101,11 @@ class KTextFormField extends StatelessWidget {
 
 class KycLayoutWidget extends StatefulWidget {
   final List<Widget> children;
-  VoidCallback onPressed;
+  final Function()? onPressed;
   final String title, subtitle, buttonText;
   final Widget? trailing;
 
-  KycLayoutWidget(
+  const KycLayoutWidget(
       {required this.onPressed,
       required this.children,
       required this.title,
@@ -142,9 +164,8 @@ class KycLayoutWidgetFrontState extends State<KycLayoutWidget> {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(36),
-                shape: const StadiumBorder(),
-              ),
+                  minimumSize: const Size.fromHeight(36),
+                  shape: const StadiumBorder()),
               onPressed: widget.onPressed,
               child: Text(widget.buttonText),
             ),

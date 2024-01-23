@@ -16,4 +16,12 @@ class HomeViewModel extends BaseViewModel {
   void notification() {
     _navigationService.navigateToNotificationScreenView();
   }
+
+  void goldContainer() {
+    _navigationService.navigateToGoldbalancehistoryView();
+  }
+
+  void silverContainer() {
+    _navigationService.navigateToSliverbalancehistoryView();
+  }
 }
