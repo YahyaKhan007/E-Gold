@@ -18,25 +18,13 @@ import 'package:e_gold/ui/views/auth_views/receiveotpverification/receiveotpveri
 import 'package:e_gold/ui/views/auth_views/changepassword/changepassword_view.dart';
 import 'package:e_gold/ui/views/kyc/kyc_view.dart';
 import 'package:e_gold/ui/views/statistic/statistic_view.dart';
-
 import 'package:e_gold/ui/views/buygoldorsilver/buygoldorsilver_view.dart';
 import 'package:e_gold/ui/views/kycidcardfront/kycidcardfront_view.dart';
 import 'package:e_gold/ui/views/kycidcardback/kycidcardback_view.dart';
 import 'package:e_gold/ui/views/kycbankaccount/kycbankaccount_view.dart';
 import 'package:e_gold/ui/views/kycprofile/kycprofile_view.dart';
 import 'package:e_gold/ui/views/kycpassport/kycpassport_view.dart';
-import 'package:e_gold/ui/views/dashboard_screen/dashboard_screen_view.dart';
-import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_screen_view.dart';
-import 'package:e_gold/ui/views/notification_screen/notification_screen_view.dart';
 import 'package:e_gold/ui/views/account_screen/account_screen_view.dart';
-import 'package:e_gold/ui/views/statistic/statistic_view.dart';
-
-import 'package:e_gold/ui/views/buygoldorsilver/buygoldorsilver_view.dart';
-import 'package:e_gold/ui/views/kycidcardfront/kycidcardfront_view.dart';
-import 'package:e_gold/ui/views/kycidcardback/kycidcardback_view.dart';
-import 'package:e_gold/ui/views/kycbankaccount/kycbankaccount_view.dart';
-import 'package:e_gold/ui/views/kycprofile/kycprofile_view.dart';
-import 'package:e_gold/ui/views/kycpassport/kycpassport_view.dart';
 import 'package:e_gold/ui/views/deposit_screen/deposit_screen_view.dart';
 import 'package:e_gold/ui/views/in_store_payment_screen/in_store_payment_screen_view.dart';
 import 'package:e_gold/ui/views/crypto_payment_screen/crypto_payment_screen_view.dart';

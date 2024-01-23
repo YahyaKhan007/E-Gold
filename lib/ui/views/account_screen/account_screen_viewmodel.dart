@@ -9,7 +9,6 @@ class AccountScreenViewModel extends BaseViewModel {
   final authService = locator<AuthService>();
   final kycService = locator<KycService>();
   final navigationService = locator<NavigationService>();
-
   void logout() {
     authService.signOut();
     navigationService.replaceWithLoginView();
@@ -27,11 +26,9 @@ class AccountScreenViewModel extends BaseViewModel {
     } else {
       navigationService.navigateToKycView();
     }
-  void addPaymentMethod() {
-    navigationService.navigateToDepositScreenView();
   }
 
-  void kyc() {
-    navigationService.navigateToKycView();
+  void addPaymentMethod() {
+    navigationService.navigateToDepositScreenView();
   }
 }
