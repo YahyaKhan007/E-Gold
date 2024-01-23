@@ -50,10 +50,12 @@ import 'package:e_gold/ui/views/startup/startup_view.dart' as _i3;
 import 'package:e_gold/ui/views/statistic/statistic_view.dart' as _i16;
 import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_screen_view.dart'
     as _i13;
-import 'package:flutter/material.dart' as _i29;
+import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart'
+    as _i29;
+import 'package:flutter/material.dart' as _i30;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i30;
+import 'package:stacked_services/stacked_services.dart' as _i31;
 
 class Routes {
   static const homeView = '/home-view';
@@ -112,6 +114,8 @@ class Routes {
 
   static const addCryptoScreenView = '/add-crypto-screen-view';
 
+  static const transactionScreenView = '/transaction-screen-view';
+
   static const all = <String>{
     homeView,
     startupView,
@@ -140,6 +144,7 @@ class Routes {
     cardPaymentScreenView,
     addNewCardPaymentScreenView,
     addCryptoScreenView,
+    transactionScreenView,
   };
 }
 
@@ -253,71 +258,75 @@ class StackedRouter extends _i1.RouterBase {
       Routes.addCryptoScreenView,
       page: _i28.AddCryptoScreenView,
     ),
+    _i1.RouteDef(
+      Routes.transactionScreenView,
+      page: _i29.TransactionScreenView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.LoginView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.LoginView(),
         settings: data,
       );
     },
     _i5.SignupView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.SignupView(),
         settings: data,
       );
     },
     _i6.CreateanaccountView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.CreateanaccountView(),
         settings: data,
       );
     },
     _i7.ForgetpasswordView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.ForgetpasswordView(),
         settings: data,
       );
     },
     _i8.OtpverificationView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.OtpverificationView(),
         settings: data,
       );
     },
     _i9.ReceiveotpverificationView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.ReceiveotpverificationView(),
         settings: data,
       );
     },
     _i10.ChangepasswordView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.ChangepasswordView(),
         settings: data,
       );
     },
     _i11.KycView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.KycView(),
         settings: data,
       );
     },
     _i12.DashboardScreenView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.DashboardScreenView(),
         settings: data,
       );
@@ -325,99 +334,105 @@ class StackedRouter extends _i1.RouterBase {
     _i13.TransactionHistoryScreenView: (data) {
       final args =
           data.getArgs<TransactionHistoryScreenViewArguments>(nullOk: false);
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i13.TransactionHistoryScreenView(key: args.key, check: args.check),
         settings: data,
       );
     },
     _i14.NotificationScreenView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i14.NotificationScreenView(),
         settings: data,
       );
     },
     _i15.AccountScreenView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i15.AccountScreenView(),
         settings: data,
       );
     },
     _i16.StatisticView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i16.StatisticView(),
         settings: data,
       );
     },
     _i17.BuyGoldOrSilverView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i17.BuyGoldOrSilverView(),
         settings: data,
       );
     },
     _i18.KycidcardfrontView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i18.KycidcardfrontView(),
         settings: data,
       );
     },
     _i19.KycidcardbackView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i19.KycidcardbackView(),
         settings: data,
       );
     },
     _i20.KycbankaccountView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i20.KycbankaccountView(),
         settings: data,
       );
     },
     _i21.KycprofileView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i21.KycprofileView(),
         settings: data,
       );
     },
     _i22.KycpassportView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i22.KycpassportView(),
         settings: data,
       );
     },
     _i23.DepositScreenView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i23.DepositScreenView(),
         settings: data,
       );
     },
     _i24.InStorePaymentScreenView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i24.InStorePaymentScreenView(),
         settings: data,
       );
     },
     _i25.CryptoPaymentScreenView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i25.CryptoPaymentScreenView(),
         settings: data,
       );
     },
     _i26.CardPaymentScreenView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i26.CardPaymentScreenView(),
         settings: data,
       );
     },
     _i27.AddNewCardPaymentScreenView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i27.AddNewCardPaymentScreenView(),
         settings: data,
       );
     },
     _i28.AddCryptoScreenView: (data) {
-      return _i29.MaterialPageRoute<dynamic>(
+      return _i30.MaterialPageRoute<dynamic>(
         builder: (context) => const _i28.AddCryptoScreenView(),
+        settings: data,
+      );
+    },
+    _i29.TransactionScreenView: (data) {
+      return _i30.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i29.TransactionScreenView(),
         settings: data,
       );
     },
@@ -436,7 +451,7 @@ class TransactionHistoryScreenViewArguments {
     required this.check,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool check;
 
@@ -457,7 +472,7 @@ class TransactionHistoryScreenViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i30.NavigationService {
+extension NavigatorStateExtension on _i31.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -613,7 +628,7 @@ extension NavigatorStateExtension on _i30.NavigationService {
   }
 
   Future<dynamic> navigateToTransactionHistoryScreenView({
-    _i29.Key? key,
+    _i30.Key? key,
     required bool check,
     int? routerId,
     bool preventDuplicates = true,
@@ -840,6 +855,20 @@ extension NavigatorStateExtension on _i30.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToTransactionScreenView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.transactionScreenView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -995,7 +1024,7 @@ extension NavigatorStateExtension on _i30.NavigationService {
   }
 
   Future<dynamic> replaceWithTransactionHistoryScreenView({
-    _i29.Key? key,
+    _i30.Key? key,
     required bool check,
     int? routerId,
     bool preventDuplicates = true,
@@ -1216,6 +1245,20 @@ extension NavigatorStateExtension on _i30.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.addCryptoScreenView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithTransactionScreenView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.transactionScreenView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

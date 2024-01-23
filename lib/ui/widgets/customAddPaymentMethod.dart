@@ -6,12 +6,14 @@ class AddPaymentMethod extends StatelessWidget {
   final String title;
   final String text;
   final VoidCallback onPressed;
-  const AddPaymentMethod({
+  bool icon;
+  AddPaymentMethod({
     super.key,
     required this.image,
     required this.title,
     required this.text,
     required this.onPressed,
+    this.icon = true,
   });
 
   @override
@@ -63,13 +65,15 @@ class AddPaymentMethod extends StatelessWidget {
             ),
           ],
         ),
-        IconButton(
-          onPressed: onPressed,
-          icon: const Icon(
-            Icons.arrow_forward_ios,
-            size: 24,
-          ),
-        ),
+        icon
+            ? IconButton(
+                onPressed: onPressed,
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 24,
+                ),
+              )
+            : Container(),
       ],
     );
   }
