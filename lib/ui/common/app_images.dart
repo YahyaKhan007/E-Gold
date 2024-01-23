@@ -21,3 +21,5 @@ const String qrCode = 'assets/images/qrCode.png';
 const String checking = 'assets/images/checking.png';
 const String saly = 'assets/images/saly.png';
 const String stars = 'assets/images/stars.png';
+const String holding = 'assets/images/holding.png';
+const String profit = 'assets/images/profit.png';

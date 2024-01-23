@@ -49,33 +49,36 @@ class BuyGoldOrSilverView extends StackedView<BuyGoldOrSilverViewModel> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Center(
-                    child: Container(
-                      width: 236,
-                      height: 48,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 12),
-                      decoration: ShapeDecoration(
-                        color: kcYellowBright,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        shadows: const [
-                          BoxShadow(
-                            color: Color(0x3FF5B119),
-                            blurRadius: 8,
-                            offset: Offset(2, 4),
-                            spreadRadius: 0,
+                  GestureDetector(
+                    onTap: viewModel.toContinue,
+                    child: Center(
+                      child: Container(
+                        width: 236,
+                        height: 48,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12),
+                        decoration: ShapeDecoration(
+                          color: kcYellowBright,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        ],
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Continue',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                          shadows: const [
+                            BoxShadow(
+                              color: Color(0x3FF5B119),
+                              blurRadius: 8,
+                              offset: Offset(2, 4),
+                              spreadRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Continue',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),

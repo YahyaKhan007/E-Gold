@@ -1,7 +1,12 @@
+import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/app/app.router.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class BuyGoldOrSilverViewModel extends BaseViewModel {
+  final _navigationService = locator<NavigationService>();
+
   String amount = '';
   bool gold = true;
 
@@ -32,5 +37,9 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
       amount = '';
       rebuildUi();
     }
+  }
+
+  void toContinue() {
+    _navigationService.navigateToDepositScreenView();
   }
 }
