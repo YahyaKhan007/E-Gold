@@ -4,12 +4,10 @@ import 'package:e_gold/ui/widgets/AcoountCard.dart';
 import 'package:e_gold/ui/widgets/customAccountOageRow.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-
 import 'account_screen_viewmodel.dart';
 
 class AccountScreenView extends StackedView<AccountScreenViewModel> {
   const AccountScreenView({Key? key}) : super(key: key);
-
   @override
   Widget builder(
     BuildContext context,
@@ -92,7 +90,7 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           AccountPageRow(
                             text: 'KYC',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
+                            onPressed: viewModel.kyc,
                           ),
                           AccountPageRow(
                             text: 'Fund History',

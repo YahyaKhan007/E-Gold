@@ -14,7 +14,7 @@ class HomeGoldenContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: kcYellowBright),
-      height: MediaQuery.of(context).size.height * .38,
+      height: MediaQuery.of(context).size.height * .35,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

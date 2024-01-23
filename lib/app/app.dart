@@ -1,9 +1,13 @@
 import 'package:e_gold/services/auth_service.dart';
+import 'package:e_gold/services/kyc_service.dart';
 import 'package:e_gold/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:e_gold/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:e_gold/ui/views/dashboard_screen/dashboard_screen_view.dart';
 import 'package:e_gold/ui/views/home/home_view.dart';
 import 'package:e_gold/ui/views/auth_views/login/login_view.dart';
+import 'package:e_gold/ui/views/notification_screen/notification_screen_view.dart';
 import 'package:e_gold/ui/views/startup/startup_view.dart';
+import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_screen_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:e_gold/ui/views/auth_views/signup/signup_view.dart';
@@ -13,18 +17,14 @@ import 'package:e_gold/ui/views/auth_views/otpverification/otpverification_view.
 import 'package:e_gold/ui/views/auth_views/receiveotpverification/receiveotpverification_view.dart';
 import 'package:e_gold/ui/views/auth_views/changepassword/changepassword_view.dart';
 import 'package:e_gold/ui/views/kyc/kyc_view.dart';
-import 'package:e_gold/ui/views/dashboard_screen/dashboard_screen_view.dart';
-import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_screen_view.dart';
-import 'package:e_gold/ui/views/notification_screen/notification_screen_view.dart';
-import 'package:e_gold/ui/views/account_screen/account_screen_view.dart';
 import 'package:e_gold/ui/views/statistic/statistic_view.dart';
-
 import 'package:e_gold/ui/views/buygoldorsilver/buygoldorsilver_view.dart';
 import 'package:e_gold/ui/views/kycidcardfront/kycidcardfront_view.dart';
 import 'package:e_gold/ui/views/kycidcardback/kycidcardback_view.dart';
 import 'package:e_gold/ui/views/kycbankaccount/kycbankaccount_view.dart';
 import 'package:e_gold/ui/views/kycprofile/kycprofile_view.dart';
 import 'package:e_gold/ui/views/kycpassport/kycpassport_view.dart';
+import 'package:e_gold/ui/views/account_screen/account_screen_view.dart';
 import 'package:e_gold/ui/views/deposit_screen/deposit_screen_view.dart';
 import 'package:e_gold/ui/views/in_store_payment_screen/in_store_payment_screen_view.dart';
 import 'package:e_gold/ui/views/crypto_payment_screen/crypto_payment_screen_view.dart';
@@ -32,6 +32,8 @@ import 'package:e_gold/ui/views/card_payment_screen/card_payment_screen_view.dar
 import 'package:e_gold/ui/views/add_new_card_payment_screen/add_new_card_payment_screen_view.dart';
 import 'package:e_gold/ui/views/add_crypto_screen/add_crypto_screen_view.dart';
 import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart';
+import 'package:e_gold/ui/views/kyc_completed/kyc_completed_view.dart';
+import 'package:e_gold/ui/views/kyc_approved/kyc_approved_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -43,17 +45,17 @@ import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart'
     MaterialRoute(page: LoginView, initial: true),
     MaterialRoute(page: SignupView),
     MaterialRoute(page: CreateanaccountView),
+    MaterialRoute(page: DashboardScreenView),
     MaterialRoute(page: ForgetpasswordView),
     MaterialRoute(page: OtpverificationView),
     MaterialRoute(page: ReceiveotpverificationView),
     MaterialRoute(page: ChangepasswordView),
     MaterialRoute(page: KycView),
-    MaterialRoute(page: DashboardScreenView),
+    MaterialRoute(page: BuyGoldOrSilverView),
     MaterialRoute(page: TransactionHistoryScreenView),
     MaterialRoute(page: NotificationScreenView),
     MaterialRoute(page: AccountScreenView),
     MaterialRoute(page: StatisticView),
-    MaterialRoute(page: BuyGoldOrSilverView),
     MaterialRoute(page: KycidcardfrontView),
     MaterialRoute(page: KycidcardbackView),
     MaterialRoute(page: KycbankaccountView),
@@ -66,6 +68,8 @@ import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart'
     MaterialRoute(page: AddNewCardPaymentScreenView),
     MaterialRoute(page: AddCryptoScreenView),
     MaterialRoute(page: TransactionScreenView),
+    MaterialRoute(page: KycCompletedView),
+    MaterialRoute(page: KycApprovedView),
 // @stacked-route
   ],
   dependencies: [
@@ -74,6 +78,7 @@ import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart'
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: AuthService),
     LazySingleton(classType: SnackbarService),
+    LazySingleton(classType: KycService),
     // @stacked-service
   ],
   bottomsheets: [

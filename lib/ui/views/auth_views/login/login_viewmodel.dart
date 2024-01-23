@@ -2,6 +2,8 @@ import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:e_gold/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:stacked/stacked.dart';
@@ -18,7 +20,7 @@ class LoginViewModel extends BaseViewModel {
 
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  bool isPasswordVisible = false;
+  bool isPasswordVisible = true;
   final navigationService = locator<NavigationService>();
 
   final _authService = locator<AuthService>();
