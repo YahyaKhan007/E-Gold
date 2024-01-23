@@ -63,7 +63,6 @@ class KTextFormField extends StatelessWidget {
     var outlineInputBorder = OutlineInputBorder(
         borderSide: BorderSide(color: Colors.grey.shade300, width: 0.5),
         borderRadius: BorderRadius.circular(12.0));
-
     inputDecoration(String value, [suffixIcon]) => InputDecoration(
           enabledBorder: outlineInputBorder,
           focusedBorder: outlineInputBorder,
@@ -71,7 +70,6 @@ class KTextFormField extends StatelessWidget {
           hintText: 'Enter $value',
           suffixIcon: suffixIcon,
         );
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -105,7 +103,7 @@ class KycLayoutWidget extends StatefulWidget {
   final String title, subtitle, buttonText;
   final Widget? trailing;
 
-  const KycLayoutWidget(
+  KycLayoutWidget(
       {required this.onPressed,
       required this.children,
       required this.title,
@@ -113,7 +111,6 @@ class KycLayoutWidget extends StatefulWidget {
       super.key,
       this.trailing,
       required this.buttonText});
-
   @override
   State<KycLayoutWidget> createState() => KycLayoutWidgetFrontState();
 }
