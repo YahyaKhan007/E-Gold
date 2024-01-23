@@ -91,7 +91,6 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
     );
   }
 
-
   @override
   EditProfileViewModel viewModelBuilder(
     BuildContext context,

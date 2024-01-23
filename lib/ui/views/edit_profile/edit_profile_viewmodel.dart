@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class EditProfileViewModel extends BaseViewModel { final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+class EditProfileViewModel extends BaseViewModel {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String username = '';
   String email = '';
   String bio = '';
@@ -13,4 +14,3 @@ class EditProfileViewModel extends BaseViewModel { final GlobalKey<FormState> fo
     }
   }
 }
-

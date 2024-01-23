@@ -14,7 +14,7 @@ class ChangePasswordView extends StackedView<ChangePasswordViewModel> {
     ChangePasswordViewModel viewModel,
     Widget? child,
   ) {
-     return Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 40),
         child: Form(

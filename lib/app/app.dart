@@ -39,6 +39,7 @@ import 'package:e_gold/ui/views/change_password/change_password_view.dart';
 import 'package:e_gold/ui/views/sliverbalancehistory/sliverbalancehistory_view.dart';
 import 'package:e_gold/ui/views/goldbalancehistory/goldbalancehistory_view.dart';
 import 'package:e_gold/ui/views/statistic/statistic_view.dart';
+import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -79,6 +80,7 @@ import 'package:e_gold/ui/views/statistic/statistic_view.dart';
     MaterialRoute(page: SliverbalancehistoryView),
     MaterialRoute(page: GoldbalancehistoryView),
     MaterialRoute(page: StatisticView),
+    MaterialRoute(page: TransactiondetailsView),
 // @stacked-route
   ],
   dependencies: [
