@@ -1,13 +1,17 @@
+import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/services/auth_service.dart';
+import 'package:e_gold/services/userProfileService.dart';
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
 import 'package:e_gold/ui/widgets/customHomeMetalCard.dart';
 import 'package:flutter/material.dart';
 
 class HomeGoldenContainer extends StatelessWidget {
+  final userService = locator<UserProfileService>();
   final VoidCallback onPressedNotification;
   final VoidCallback gold;
   final VoidCallback silver;
-  const HomeGoldenContainer({
+  HomeGoldenContainer({
     super.key,
     required this.onPressedNotification,
     required this.gold,
@@ -18,17 +22,27 @@ class HomeGoldenContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: kcYellowBright),
-      height: MediaQuery.of(context).size.height * .35,
+      height: MediaQuery.of(context).size.height * 0.45,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppBar(
-              leading: Image.asset(
-                profile,
-                height: 40,
-                width: 40,
+              leading: ClipOval(
+                child: userService.user!.profileImg.isNotEmpty
+                    ? Image.network(
+                        userService.user!.profileImg,
+                        height: 30,
+                        width: 30,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        profile,
+                        height: 30,
+                        width: 30,
+                        fit: BoxFit.cover,
+                      ),
               ),
               actions: [
                 IconButton(
