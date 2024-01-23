@@ -27,67 +27,73 @@ class NotificationScreenView extends StackedView<NotificationScreenViewModel> {
               fontWeight: FontWeight.w600,
             ),
           ),
+          leading: IconButton(
+            onPressed: viewModel.goBack,
+            icon: const Icon(Icons.arrow_back_ios),
+          ),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Divider(
-              height: 1,
-              color: Colors.black,
-            ),
-            Container(
-              padding: const EdgeInsets.all(20.0),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'New',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: mobile,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: shield,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: mobile,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: shield,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: mobile,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: shield,
-                  ),
-                ],
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Divider(
+                height: 1,
+                color: Colors.black,
               ),
-            ),
-          ],
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'New',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: mobile,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: shield,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: mobile,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: shield,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: mobile,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: shield,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

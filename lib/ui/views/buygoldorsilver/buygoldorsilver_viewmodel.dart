@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class BuygoldorsilverViewModel extends BaseViewModel {
-  final PageController pageController = PageController();
-  int currentPage = 0;
+class BuyGoldOrSilverViewModel extends BaseViewModel {
+  bool gold = true;
 
-  void onPageChanged(int value) {
-    currentPage = value;
+  void goldVal() {
+    gold = true;
     rebuildUi();
   }
 
-  void onGoldButtonPressed() {}
-
-  void onSilverButtonPressed() {}
+  void silverVal() {
+    gold = false;
+    rebuildUi();
+  }
 }

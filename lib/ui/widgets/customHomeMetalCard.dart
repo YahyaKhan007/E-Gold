@@ -25,7 +25,7 @@ class HomeMetalContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width / 2 - 30,
-      height: 110,
+      height: MediaQuery.of(context).size.height * 0.11,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: ShapeDecoration(
         color: containerColor,
@@ -76,20 +76,24 @@ class HomeMetalContainer extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            number,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
+          Expanded(
+            child: Text(
+              number,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
-          Text(
-            increase,
-            style: TextStyle(
-              color: textColor,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
+          Expanded(
+            child: Text(
+              increase,
+              style: TextStyle(
+                color: textColor,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           )
         ],

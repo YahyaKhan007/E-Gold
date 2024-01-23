@@ -8,7 +8,11 @@ import 'transaction_history_screen_viewmodel.dart';
 
 class TransactionHistoryScreenView
     extends StackedView<TransactionHistoryScreenViewModel> {
-  const TransactionHistoryScreenView({Key? key}) : super(key: key);
+  final bool check;
+  const TransactionHistoryScreenView({
+    Key? key,
+    required this.check,
+  }) : super(key: key);
 
   @override
   Widget builder(
@@ -18,17 +22,34 @@ class TransactionHistoryScreenView
   ) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'Transaction History',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
+        appBar: check
+            ? AppBar(
+                centerTitle: true,
+                title: const Text(
+                  'Transaction History',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                leading: IconButton(
+                  onPressed: viewModel.goBack,
+                  icon: const Icon(Icons.arrow_back_ios),
+                ),
+              )
+            : AppBar(
+                centerTitle: true,
+                automaticallyImplyLeading: false,
+                title: const Text(
+                  'Transaction History',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

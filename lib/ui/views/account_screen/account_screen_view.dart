@@ -87,7 +87,7 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           AccountPageRow(
                             text: 'Add a Payment Method',
                             icon: Icons.add,
-                            onPressed: () {},
+                            onPressed: viewModel.addPaymentMethod,
                           ),
                           AccountPageRow(
                             text: 'KYC',
@@ -118,6 +118,11 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                             text: 'Terms and Conditions',
                             icon: Icons.arrow_forward_ios,
                             onPressed: () {},
+                          ),
+                          AccountPageRow(
+                            text: 'Logout',
+                            icon: Icons.logout_rounded,
+                            onPressed: viewModel.logout,
                           ),
                         ],
                       ),
