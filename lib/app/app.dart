@@ -44,6 +44,8 @@ import 'package:e_gold/ui/views/card_payment_screen/card_payment_screen_view.dar
 import 'package:e_gold/ui/views/add_new_card_payment_screen/add_new_card_payment_screen_view.dart';
 import 'package:e_gold/ui/views/add_crypto_screen/add_crypto_screen_view.dart';
 import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart';
+import 'package:e_gold/ui/views/kyc_completed/kyc_completed_view.dart';
+import 'package:e_gold/ui/views/kyc_approved/kyc_approved_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -78,6 +80,8 @@ import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart'
     MaterialRoute(page: AddNewCardPaymentScreenView),
     MaterialRoute(page: AddCryptoScreenView),
     MaterialRoute(page: TransactionScreenView),
+    MaterialRoute(page: KycCompletedView),
+    MaterialRoute(page: KycApprovedView),
 // @stacked-route
   ],
   dependencies: [

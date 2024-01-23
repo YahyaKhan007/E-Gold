@@ -19,10 +19,7 @@ class KycService {
     String downloadURL = await storageReference.getDownloadURL();
 
     // Save download URL in Firestore
-    await FirebaseFirestore.instance.collection('Kyc_Images').add({
-      'imageURL': downloadURL,
-      'timestamp': FieldValue.serverTimestamp(),
-    });
+
     print('Image uploaded and link saved.');
 
     // Return the download URL as a String
@@ -30,7 +27,6 @@ class KycService {
   }
 
   Future<void> saveKYCData(KYC kycData) async {
-    print('hassan');
     try {
       // Get the current user's UID
       String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -48,6 +44,67 @@ class KycService {
       print('KYC data saved successfully!');
     } catch (e) {
       print('Error saving KYC data: $e');
+    }
+  }
+
+  Future<bool> isKycApproved() async {
+    try {
+      // Get the current user's UID
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      // Reference to the Firestore collection
+      CollectionReference usersCollection =
+          FirebaseFirestore.instance.collection('users');
+
+      // Document reference under the "users" collection with the user's UID
+      DocumentReference userDocument = usersCollection.doc(uid);
+
+      // Reference to the "kyc" subcollection within the user document
+      CollectionReference kycCollection = userDocument.collection('kyc');
+
+      // Get the documents in the "kyc" subcollection
+      QuerySnapshot kycDocuments = await kycCollection.get();
+
+      // Check if the "kyc" subcollection exists and has documents
+      if (kycDocuments.docs.isNotEmpty) {
+        // Get the first document in the "kyc" subcollection
+        DocumentSnapshot kycDocument = kycDocuments.docs.first;
+
+        // Check if the "isApproved" field exists and is true
+        return kycDocument.exists && kycDocument.get('isApproved') == true;
+      } else {
+        // If "kyc" subcollection doesn't exist or is empty
+        return false;
+      }
+    } catch (e) {
+      print('Error checking KYC approval status: $e');
+      return false;
+    }
+  }
+
+  Future<bool> doesKycCollectionExist() async {
+    try {
+      // Get the current user's UID
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      // Reference to the Firestore collection
+      CollectionReference usersCollection =
+          FirebaseFirestore.instance.collection('users');
+
+      // Document reference under the "users" collection with the user's UID
+      DocumentReference userDocument = usersCollection.doc(uid);
+
+      // Reference to the "kyc" subcollection within the user document
+      CollectionReference kycCollection = userDocument.collection('kyc');
+
+      // Get the documents in the "kyc" subcollection
+      QuerySnapshot kycDocuments = await kycCollection.get();
+
+      // Check if there are any documents in the "kyc" subcollection
+      return kycDocuments.docs.isNotEmpty;
+    } catch (e) {
+      print('Error checking for the existence of KYC collection: $e');
+      return false;
     }
   }
 }

@@ -47,7 +47,7 @@ class SignupView extends StackedView<SignupViewModel> {
                             'Name',
                           ),
                         ),
-                        validator: Validator.validateEmail),
+                        validator: Validator.validateText),
                     verticalSpaceSmall,
                     TextFormField(
                         controller: viewModel.emailController,

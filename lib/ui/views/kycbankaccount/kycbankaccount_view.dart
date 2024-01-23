@@ -42,22 +42,26 @@ class KycbankaccountView extends StackedView<KycbankaccountViewModel> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                KTextFormField(  validator: Validator.validateAccNumber,
+                KTextFormField(
+                  validator: Validator.validateAccNumber,
                   controller: accountNoController,
                   label: 'Account Number',
                   keyboardType: TextInputType.number,
                 ),
-                KTextFormField(  validator: Validator.validateConAccNumber,
+                KTextFormField(
+                  validator: Validator.validateConAccNumber,
                   controller: confirmNoController,
                   label: 'Confirm Account Number',
                   keyboardType: TextInputType.number,
                 ),
-                KTextFormField(  validator: Validator.validateText,
+                KTextFormField(
+                  validator: Validator.validateText,
                   controller: bankNameController,
                   label: 'Bank Name',
                   keyboardType: null,
                 ),
-                KTextFormField(  validator: Validator.validateIFSC,
+                KTextFormField(
+                  validator: Validator.validateIFSC,
                   controller: ifscCodeController,
                   label: 'IFSC Code',
                   keyboardType: TextInputType.number,
