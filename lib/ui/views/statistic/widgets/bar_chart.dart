@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class IndividualBar {
   final int x;
-  final double y;
+  final List<double> y;
 
   IndividualBar(
     this.x,
@@ -23,17 +23,17 @@ class BarData {
   BarData(this.sunAmount, this.monAmount, this.tueAmount, this.wedAmount,
       this.thuAmount, this.friAmount, this.satAmount);
 
-  List<IndividualBar> barData = [];
+  List<IndividualBar> weekData = [];
 
   void initializeBarData() {
-    barData = [
-      IndividualBar(1, sunAmount[0]),
-      IndividualBar(2, monAmount[0]),
-      IndividualBar(3, tueAmount[0]),
-      IndividualBar(4, wedAmount[0]),
-      IndividualBar(5, thuAmount[0]),
-      IndividualBar(6, friAmount[0]),
-      IndividualBar(7, satAmount[0]),
+    weekData = [
+      IndividualBar(1, [sunAmount[0], sunAmount[1]]),
+      IndividualBar(2, [monAmount[0], monAmount[1]]),
+      IndividualBar(3, [tueAmount[0], tueAmount[1]]),
+      IndividualBar(4, [wedAmount[0], wedAmount[1]]),
+      IndividualBar(5, [thuAmount[0], thuAmount[1]]),
+      IndividualBar(6, [friAmount[0], friAmount[1]]),
+      IndividualBar(7, [satAmount[0], satAmount[1]]),
     ];
   }
 }
@@ -51,7 +51,7 @@ class KBarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BarData myBarData = BarData(
+    BarData weeklyStatistics = BarData(
       [
         weeklySummary[0]['expanse'],
         weeklySummary[0]['income'],
@@ -82,7 +82,7 @@ class KBarChart extends StatelessWidget {
       ],
     );
 
-    myBarData.initializeBarData();
+    weeklyStatistics.initializeBarData();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,17 +116,17 @@ class KBarChart extends StatelessWidget {
                       sideTitles: SideTitles(
                           showTitles: true, getTitlesWidget: getBottomTitles)),
                 ),
-                barGroups: myBarData.barData
+                barGroups: weeklyStatistics.weekData
                     .map((data) => BarChartGroupData(x: data.x, barRods: [
                           BarChartRodData(
                             color: Colors.amber[200],
-                            toY: data.y,
+                            toY: data.y[0],
                             width: 8,
                             borderRadius: BorderRadius.circular(4),
                           ),
                           BarChartRodData(
                             color: Colors.amber,
-                            toY: data.y,
+                            toY: data.y[1],
                             width: 8,
                             borderRadius: BorderRadius.circular(4),
                           ),
