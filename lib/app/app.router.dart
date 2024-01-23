@@ -27,12 +27,15 @@ import 'package:e_gold/ui/views/buygoldorsilver/buygoldorsilver_view.dart'
     as _i13;
 import 'package:e_gold/ui/views/card_payment_screen/card_payment_screen_view.dart'
     as _i26;
+import 'package:e_gold/ui/views/change_password/change_password_view.dart'
+    as _i33;
 import 'package:e_gold/ui/views/crypto_payment_screen/crypto_payment_screen_view.dart'
     as _i25;
 import 'package:e_gold/ui/views/dashboard_screen/dashboard_screen_view.dart'
     as _i7;
 import 'package:e_gold/ui/views/deposit_screen/deposit_screen_view.dart'
     as _i23;
+import 'package:e_gold/ui/views/edit_profile/edit_profile_view.dart' as _i32;
 import 'package:e_gold/ui/views/home/home_view.dart' as _i2;
 import 'package:e_gold/ui/views/in_store_payment_screen/in_store_payment_screen_view.dart'
     as _i24;
@@ -54,10 +57,10 @@ import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_s
     as _i14;
 import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart'
     as _i29;
-import 'package:flutter/material.dart' as _i32;
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as _i34;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i33;
+import 'package:stacked_services/stacked_services.dart' as _i35;
 
 class Routes {
   static const homeView = '/home-view';
@@ -122,6 +125,10 @@ class Routes {
 
   static const kycApprovedView = '/kyc-approved-view';
 
+  static const editProfileView = '/edit-profile-view';
+
+  static const changePasswordView = '/change-password-view';
+
   static const all = <String>{
     homeView,
     startupView,
@@ -153,6 +160,8 @@ class Routes {
     transactionScreenView,
     kycCompletedView,
     kycApprovedView,
+    editProfileView,
+    changePasswordView,
   };
 }
 
@@ -278,77 +287,85 @@ class StackedRouter extends _i1.RouterBase {
       Routes.kycApprovedView,
       page: _i31.KycApprovedView,
     ),
+    _i1.RouteDef(
+      Routes.editProfileView,
+      page: _i32.EditProfileView,
+    ),
+    _i1.RouteDef(
+      Routes.changePasswordView,
+      page: _i33.ChangePasswordView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.LoginView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.LoginView(),
         settings: data,
       );
     },
     _i5.SignupView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.SignupView(),
         settings: data,
       );
     },
     _i6.CreateanaccountView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.CreateanaccountView(),
         settings: data,
       );
     },
     _i7.DashboardScreenView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.DashboardScreenView(),
         settings: data,
       );
     },
     _i8.ForgetpasswordView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.ForgetpasswordView(),
         settings: data,
       );
     },
     _i9.OtpverificationView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.OtpverificationView(),
         settings: data,
       );
     },
     _i10.ReceiveotpverificationView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.ReceiveotpverificationView(),
         settings: data,
       );
     },
     _i11.ChangepasswordView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.ChangepasswordView(),
         settings: data,
       );
     },
     _i12.KycView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.KycView(),
         settings: data,
       );
     },
     _i13.BuyGoldOrSilverView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i13.BuyGoldOrSilverView(),
         settings: data,
       );
@@ -356,33 +373,33 @@ class StackedRouter extends _i1.RouterBase {
     _i14.TransactionHistoryScreenView: (data) {
       final args =
           data.getArgs<TransactionHistoryScreenViewArguments>(nullOk: false);
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i14.TransactionHistoryScreenView(key: args.key, check: args.check),
         settings: data,
       );
     },
     _i15.NotificationScreenView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i15.NotificationScreenView(),
         settings: data,
       );
     },
     _i16.AccountScreenView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i16.AccountScreenView(),
         settings: data,
       );
     },
     _i17.StatisticView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i17.StatisticView(),
         settings: data,
       );
     },
     _i18.KycidcardfrontView: (data) {
       final args = data.getArgs<KycidcardfrontViewArguments>(nullOk: false);
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => _i18.KycidcardfrontView(
             key: args.key,
             cnicController: args.cnicController,
@@ -395,7 +412,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i19.KycidcardbackView: (data) {
       final args = data.getArgs<KycidcardbackViewArguments>(nullOk: false);
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => _i19.KycidcardbackView(
             key: args.key,
             idBackUploaded: args.idBackUploaded,
@@ -408,7 +425,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i20.KycbankaccountView: (data) {
       final args = data.getArgs<KycbankaccountViewArguments>(nullOk: false);
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => _i20.KycbankaccountView(
             key: args.key,
             accountNoController: args.accountNoController,
@@ -422,7 +439,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i21.KycprofileView: (data) {
       final args = data.getArgs<KycprofileViewArguments>(nullOk: false);
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => _i21.KycprofileView(
             key: args.key,
             uploadProfile: args.uploadProfile,
@@ -436,7 +453,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i22.KycpassportView: (data) {
       final args = data.getArgs<KycpassportViewArguments>(nullOk: false);
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => _i22.KycpassportView(
             key: args.key,
             passportNoController: args.passportNoController,
@@ -446,58 +463,70 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i23.DepositScreenView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i23.DepositScreenView(),
         settings: data,
       );
     },
     _i24.InStorePaymentScreenView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i24.InStorePaymentScreenView(),
         settings: data,
       );
     },
     _i25.CryptoPaymentScreenView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i25.CryptoPaymentScreenView(),
         settings: data,
       );
     },
     _i26.CardPaymentScreenView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i26.CardPaymentScreenView(),
         settings: data,
       );
     },
     _i27.AddNewCardPaymentScreenView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i27.AddNewCardPaymentScreenView(),
         settings: data,
       );
     },
     _i28.AddCryptoScreenView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i28.AddCryptoScreenView(),
         settings: data,
       );
     },
     _i29.TransactionScreenView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i29.TransactionScreenView(),
         settings: data,
       );
     },
     _i30.KycCompletedView: (data) {
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) => const _i30.KycCompletedView(),
         settings: data,
       );
     },
     _i31.KycApprovedView: (data) {
       final args = data.getArgs<KycApprovedViewArguments>(nullOk: false);
-      return _i32.MaterialPageRoute<dynamic>(
+      return _i34.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i31.KycApprovedView(key: args.key, isApproved: args.isApproved),
+        settings: data,
+      );
+    },
+    _i32.EditProfileView: (data) {
+      return _i34.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i32.EditProfileView(),
+        settings: data,
+      );
+    },
+    _i33.ChangePasswordView: (data) {
+      return _i34.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i33.ChangePasswordView(),
         settings: data,
       );
     },
@@ -516,7 +545,7 @@ class TransactionHistoryScreenViewArguments {
     required this.check,
   });
 
-  final _i32.Key? key;
+  final _i34.Key? key;
 
   final bool check;
 
@@ -547,9 +576,9 @@ class KycidcardfrontViewArguments {
     required this.formKey,
   });
 
-  final _i32.Key? key;
+  final _i34.Key? key;
 
-  final _i32.TextEditingController cnicController;
+  final _i34.TextEditingController cnicController;
 
   final void Function() onClickNext;
 
@@ -557,7 +586,7 @@ class KycidcardfrontViewArguments {
 
   final bool idFrontUploaded;
 
-  final _i32.GlobalKey<_i32.FormState> formKey;
+  final _i34.GlobalKey<_i34.FormState> formKey;
 
   @override
   String toString() {
@@ -596,7 +625,7 @@ class KycidcardbackViewArguments {
     required this.onClickNext,
   });
 
-  final _i32.Key? key;
+  final _i34.Key? key;
 
   final bool idBackUploaded;
 
@@ -646,19 +675,19 @@ class KycbankaccountViewArguments {
     required this.formkey,
   });
 
-  final _i32.Key? key;
+  final _i34.Key? key;
 
-  final _i32.TextEditingController accountNoController;
+  final _i34.TextEditingController accountNoController;
 
-  final _i32.TextEditingController confirmNoController;
+  final _i34.TextEditingController confirmNoController;
 
   final void Function() onClickNext;
 
-  final _i32.TextEditingController bankNameController;
+  final _i34.TextEditingController bankNameController;
 
-  final _i32.TextEditingController ifscCodeController;
+  final _i34.TextEditingController ifscCodeController;
 
-  final _i32.GlobalKey<_i32.FormState> formkey;
+  final _i34.GlobalKey<_i34.FormState> formkey;
 
   @override
   String toString() {
@@ -700,19 +729,19 @@ class KycprofileViewArguments {
     required this.formkey,
   });
 
-  final _i32.Key? key;
+  final _i34.Key? key;
 
   final void Function() uploadProfile;
 
   final void Function() onTapDOB;
 
-  final _i32.TextEditingController dobController;
+  final _i34.TextEditingController dobController;
 
   final bool profileImgupLoaded;
 
   final void Function() sumbitKyc;
 
-  final _i32.GlobalKey<_i32.FormState> formkey;
+  final _i34.GlobalKey<_i34.FormState> formkey;
 
   @override
   String toString() {
@@ -751,13 +780,13 @@ class KycpassportViewArguments {
     required this.formkey,
   });
 
-  final _i32.Key? key;
+  final _i34.Key? key;
 
-  final _i32.TextEditingController passportNoController;
+  final _i34.TextEditingController passportNoController;
 
   final void Function() onClickNext;
 
-  final _i32.GlobalKey<_i32.FormState> formkey;
+  final _i34.GlobalKey<_i34.FormState> formkey;
 
   @override
   String toString() {
@@ -788,7 +817,7 @@ class KycApprovedViewArguments {
     required this.isApproved,
   });
 
-  final _i32.Key? key;
+  final _i34.Key? key;
 
   final bool isApproved;
 
@@ -809,7 +838,7 @@ class KycApprovedViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i33.NavigationService {
+extension NavigatorStateExtension on _i35.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -979,7 +1008,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToTransactionHistoryScreenView({
-    _i32.Key? key,
+    _i34.Key? key,
     required bool check,
     int? routerId,
     bool preventDuplicates = true,
@@ -1039,12 +1068,12 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToKycidcardfrontView({
-    _i32.Key? key,
-    required _i32.TextEditingController cnicController,
+    _i34.Key? key,
+    required _i34.TextEditingController cnicController,
     required void Function() onClickNext,
     required void Function() onClickUpload,
     required bool idFrontUploaded,
-    required _i32.GlobalKey<_i32.FormState> formKey,
+    required _i34.GlobalKey<_i34.FormState> formKey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1066,7 +1095,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToKycidcardbackView({
-    _i32.Key? key,
+    _i34.Key? key,
     required bool idBackUploaded,
     required void Function() onCnicBack,
     required void Function(bool?) onChangedCheckbox,
@@ -1093,13 +1122,13 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToKycbankaccountView({
-    _i32.Key? key,
-    required _i32.TextEditingController accountNoController,
-    required _i32.TextEditingController confirmNoController,
+    _i34.Key? key,
+    required _i34.TextEditingController accountNoController,
+    required _i34.TextEditingController confirmNoController,
     required void Function() onClickNext,
-    required _i32.TextEditingController bankNameController,
-    required _i32.TextEditingController ifscCodeController,
-    required _i32.GlobalKey<_i32.FormState> formkey,
+    required _i34.TextEditingController bankNameController,
+    required _i34.TextEditingController ifscCodeController,
+    required _i34.GlobalKey<_i34.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1122,13 +1151,13 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToKycprofileView({
-    _i32.Key? key,
+    _i34.Key? key,
     required void Function() uploadProfile,
     required void Function() onTapDOB,
-    required _i32.TextEditingController dobController,
+    required _i34.TextEditingController dobController,
     required bool profileImgupLoaded,
     required void Function() sumbitKyc,
-    required _i32.GlobalKey<_i32.FormState> formkey,
+    required _i34.GlobalKey<_i34.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1151,10 +1180,10 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToKycpassportView({
-    _i32.Key? key,
-    required _i32.TextEditingController passportNoController,
+    _i34.Key? key,
+    required _i34.TextEditingController passportNoController,
     required void Function() onClickNext,
-    required _i32.GlobalKey<_i32.FormState> formkey,
+    required _i34.GlobalKey<_i34.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1286,7 +1315,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToKycApprovedView({
-    _i32.Key? key,
+    _i34.Key? key,
     required bool isApproved,
     int? routerId,
     bool preventDuplicates = true,
@@ -1296,6 +1325,34 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }) async {
     return navigateTo<dynamic>(Routes.kycApprovedView,
         arguments: KycApprovedViewArguments(key: key, isApproved: isApproved),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToEditProfileView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.editProfileView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToChangePasswordView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.changePasswordView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1471,7 +1528,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithTransactionHistoryScreenView({
-    _i32.Key? key,
+    _i34.Key? key,
     required bool check,
     int? routerId,
     bool preventDuplicates = true,
@@ -1531,12 +1588,12 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithKycidcardfrontView({
-    _i32.Key? key,
-    required _i32.TextEditingController cnicController,
+    _i34.Key? key,
+    required _i34.TextEditingController cnicController,
     required void Function() onClickNext,
     required void Function() onClickUpload,
     required bool idFrontUploaded,
-    required _i32.GlobalKey<_i32.FormState> formKey,
+    required _i34.GlobalKey<_i34.FormState> formKey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1558,7 +1615,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithKycidcardbackView({
-    _i32.Key? key,
+    _i34.Key? key,
     required bool idBackUploaded,
     required void Function() onCnicBack,
     required void Function(bool?) onChangedCheckbox,
@@ -1585,13 +1642,13 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithKycbankaccountView({
-    _i32.Key? key,
-    required _i32.TextEditingController accountNoController,
-    required _i32.TextEditingController confirmNoController,
+    _i34.Key? key,
+    required _i34.TextEditingController accountNoController,
+    required _i34.TextEditingController confirmNoController,
     required void Function() onClickNext,
-    required _i32.TextEditingController bankNameController,
-    required _i32.TextEditingController ifscCodeController,
-    required _i32.GlobalKey<_i32.FormState> formkey,
+    required _i34.TextEditingController bankNameController,
+    required _i34.TextEditingController ifscCodeController,
+    required _i34.GlobalKey<_i34.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1614,13 +1671,13 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithKycprofileView({
-    _i32.Key? key,
+    _i34.Key? key,
     required void Function() uploadProfile,
     required void Function() onTapDOB,
-    required _i32.TextEditingController dobController,
+    required _i34.TextEditingController dobController,
     required bool profileImgupLoaded,
     required void Function() sumbitKyc,
-    required _i32.GlobalKey<_i32.FormState> formkey,
+    required _i34.GlobalKey<_i34.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1643,10 +1700,10 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithKycpassportView({
-    _i32.Key? key,
-    required _i32.TextEditingController passportNoController,
+    _i34.Key? key,
+    required _i34.TextEditingController passportNoController,
     required void Function() onClickNext,
-    required _i32.GlobalKey<_i32.FormState> formkey,
+    required _i34.GlobalKey<_i34.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1778,7 +1835,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithKycApprovedView({
-    _i32.Key? key,
+    _i34.Key? key,
     required bool isApproved,
     int? routerId,
     bool preventDuplicates = true,
@@ -1788,6 +1845,34 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }) async {
     return replaceWith<dynamic>(Routes.kycApprovedView,
         arguments: KycApprovedViewArguments(key: key, isApproved: isApproved),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithEditProfileView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.editProfileView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithChangePasswordView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.changePasswordView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

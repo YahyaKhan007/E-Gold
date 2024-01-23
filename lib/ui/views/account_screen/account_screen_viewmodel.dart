@@ -31,4 +31,12 @@ class AccountScreenViewModel extends BaseViewModel {
   void addPaymentMethod() {
     navigationService.navigateToDepositScreenView();
   }
+
+  void onTapEditProfile() {
+    navigationService.navigateToEditProfileView();
+  }
+
+  void onTapChangePassword() {
+    navigationService.navigateToChangePasswordView();
+  }
 }
