@@ -29,6 +29,73 @@ class Validator {
     return null;
   }
 
+  static String? validateAccNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+
+    // Password strength validation
+    // You can replace the condition with your own criteria for a strong password
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+
+    return null;
+  }
+
+  static String? validateConAccNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+
+    // Password strength validation
+    // You can replace the condition with your own criteria for a strong password
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+
+    return null;
+  }
+
+  static String? validateText(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+
+    // Password strength validation
+    // You can replace the condition with your own criteria for a strong password
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+
+    return null;
+  }
+
+  static String? validateIFSC(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+
+    // Password strength validation
+    // You can replace the condition with your own criteria for a strong password
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+
+    return null;
+  }
+
+  static String? validateCnic(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+
+    // Password strength validation
+    // You can replace the condition with your own criteria for a strong password
+
+    return null;
+  }
+
   static String? validateConfirmPassword(
       String? password, String? confirmPassword) {
     if (confirmPassword == null || confirmPassword.isEmpty) {

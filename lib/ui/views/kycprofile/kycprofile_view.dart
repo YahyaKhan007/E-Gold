@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -6,8 +7,27 @@ import '../../common/ui_helpers.dart';
 import 'kycprofile_viewmodel.dart';
 
 class KycprofileView extends StackedView<KycprofileViewModel> {
-  const KycprofileView({Key? key}) : super(key: key);
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  TextEditingController dobController = TextEditingController();
+  VoidCallback uploadProfile;
+  VoidCallback sumbitKyc;
+  KycprofileView(
+      {Key? key,
+      required this.uploadProfile,
+      required this.dobController,
+      required this.sumbitKyc,
+      required this.formkey})
+      : super(key: key);
+  var outlineInputBorder = OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey.shade300, width: 0.5),
+      borderRadius: BorderRadius.circular(12.0));
 
+  inputDecoration(String value) => InputDecoration(
+        enabledBorder: outlineInputBorder,
+        focusedBorder: outlineInputBorder,
+        errorBorder: outlineInputBorder,
+        hintText: 'Enter $value',
+      );
   @override
   Widget builder(
     BuildContext context,
@@ -17,11 +37,11 @@ class KycprofileView extends StackedView<KycprofileViewModel> {
     return KycLayoutWidget(
         title: 'Profile',
         subtitle: 'Please Upload Your Photo.',
-        onPressed: () {},
+        onPressed: sumbitKyc,
         buttonText: 'Submit',
         children: [
           Form(
-            key: null,
+            key: formkey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,7 +70,7 @@ class KycprofileView extends StackedView<KycprofileViewModel> {
                         ),
                         verticalSpaceSmall,
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: uploadProfile,
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(128, 48),
                             foregroundColor: Colors.black,
@@ -67,9 +87,26 @@ class KycprofileView extends StackedView<KycprofileViewModel> {
                   ),
                 ),
                 verticalSpaceMedium,
-                const KTextFormField(
-                    label: 'Date Of Birth',
-                    keyboardType: TextInputType.datetime)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    verticalSpaceTiny,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        'Date of Birth',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                    verticalSpaceTiny,
+                    TextFormField(
+                      validator: Validator.validateCnic,
+                      controller: dobController,
+                      decoration: inputDecoration('Date of Birth'),
+                    ),
+                    verticalSpaceTiny,
+                  ],
+                )
               ],
             ),
           )

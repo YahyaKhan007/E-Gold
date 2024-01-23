@@ -7,7 +7,17 @@ import '../../common/ui_helpers.dart';
 import 'kycidcardback_viewmodel.dart';
 
 class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
-  const KycidcardbackView({Key? key}) : super(key: key);
+  VoidCallback onCnicBack;
+  VoidCallback onClickNext;
+ ValueChanged<bool?> onChangedCheckbox;
+  final bool concent;
+  KycidcardbackView(
+      {Key? key,
+      required this.onCnicBack,
+      required this.onChangedCheckbox,
+      required this.concent,
+      required this.onClickNext})
+      : super(key: key);
 
   @override
   Widget builder(
@@ -19,7 +29,7 @@ class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
         title: 'Identity Card (Back)',
         subtitle:
             'Please upload your Identity Card below for completing your second step of KYC.',
-        onPressed: () {},
+        onPressed: onClickNext,
         buttonText: 'Next',
         children: [
           Form(
@@ -52,7 +62,7 @@ class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
                         ),
                         verticalSpaceSmall,
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: onCnicBack,
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(128, 48),
                             foregroundColor: Colors.black,
@@ -74,8 +84,8 @@ class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Checkbox(
-                      value: viewModel.isChecked,
-                      onChanged: viewModel.onChangedCheckbox,
+                      value: concent,
+                      onChanged: onChangedCheckbox,
                     ),
                     const SizedBox(
                       width: 244,

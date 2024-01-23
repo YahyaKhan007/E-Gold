@@ -1,9 +1,11 @@
 import 'package:stacked/stacked.dart';
 
 class KycidcardbackViewModel extends BaseViewModel {
-  bool isChecked = false;
+   bool concentAgreement = false;
+
   void onChangedCheckbox(bool? value) {
-    rebuildUi();
-    isChecked = !isChecked;
+    concentAgreement = value ?? false;
+    notifyListeners();
   }
+
 }

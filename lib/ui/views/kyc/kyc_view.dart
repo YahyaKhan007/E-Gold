@@ -47,35 +47,69 @@ class KycView extends StackedView<KycViewModel> {
         isActive: viewModel.currentPage == 0,
         state:
             viewModel.currentPage > 0 ? StepState.complete : StepState.indexed,
-        content: const KycidcardfrontView(),
+        content: KycidcardfrontView(
+          onClickUpload: () {
+            viewModel.onCNICFrontUpload(context);
+          },
+          onClickNext: viewModel.onPressedButton,
+          cnicController: viewModel.cnicController,
+          formKey: viewModel.formKey1,
+        ),
         title: const Text(''),
       ),
       Step(
         isActive: viewModel.currentPage == 1,
         state:
             viewModel.currentPage > 1 ? StepState.complete : StepState.indexed,
-        content: const KycidcardbackView(),
+        content: KycidcardbackView(
+          onChangedCheckbox: (value) {
+            viewModel.onChangedCheckbox(value);
+          },
+          onClickNext: viewModel.onPressedButton,
+          onCnicBack: () {
+            viewModel.onCnicBackUpload(context);
+          },
+          concent: viewModel.concentAgreement,
+        ),
         title: const Text(''),
       ),
       Step(
         isActive: viewModel.currentPage == 2,
         state:
             viewModel.currentPage > 2 ? StepState.complete : StepState.indexed,
-        content: const KycpassportView(),
+        content: KycpassportView(
+          formkey: viewModel.formKey3,
+          onClickNext: viewModel.onPressedButton,
+          passportNoController: viewModel.passportNoController,
+        ),
         title: const Text(''),
       ),
       Step(
         isActive: viewModel.currentPage == 3,
         state:
             viewModel.currentPage > 3 ? StepState.complete : StepState.indexed,
-        content: const KycbankaccountView(),
+        content: KycbankaccountView(
+          onClickNext: viewModel.onPressedButton,
+          formkey: viewModel.formKey4,
+          accountNoController: viewModel.accountNoController,
+          confirmNoController: viewModel.confirmAccountController,
+          bankNameController: viewModel.bankNameController,
+          ifscCodeController: viewModel.ifscCodeController,
+        ),
         title: const Text(''),
       ),
       Step(
         isActive: viewModel.currentPage == 4,
         state:
             viewModel.currentPage > 4 ? StepState.complete : StepState.indexed,
-        content: const KycprofileView(),
+        content: KycprofileView(
+          formkey: viewModel.formKey5,
+          sumbitKyc: viewModel.submitKyc,
+          uploadProfile: () {
+            viewModel.uploadProfileImg(context);
+          },
+          dobController: viewModel.dobController,
+        ),
         title: const Text(''),
       ),
     ];

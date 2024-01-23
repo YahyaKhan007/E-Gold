@@ -21,7 +21,7 @@ class LoginViewModel extends BaseViewModel {
 
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  bool isPasswordVisible = false;
+  bool isPasswordVisible = true;
   final navigationService = locator<NavigationService>();
 
   final _authService = locator<AuthService>();
@@ -33,8 +33,6 @@ class LoginViewModel extends BaseViewModel {
   bool validateForm() {
     return formKey.currentState?.validate() ?? false;
   }
-
-
 
   void onPressedLogin() async {
     if (validateForm()) {

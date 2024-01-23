@@ -1,3 +1,5 @@
+import 'package:e_gold/ui/common/validator.dart';
+import 'package:e_gold/ui/views/kyc/kyc_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
@@ -8,7 +10,19 @@ import '../../common/ui_helpers.dart';
 import 'kycidcardfront_viewmodel.dart';
 
 class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
-  const KycidcardfrontView({Key? key}) : super(key: key);
+  TextEditingController cnicController = TextEditingController();
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  VoidCallback onClickNext;
+  VoidCallback onClickUpload;
+  KycidcardfrontView(
+      {Key? key,
+      required this.cnicController,
+      required this.onClickNext,
+      required this.onClickUpload,
+      required this.formKey})
+      : super(key: key);
 
   @override
   Widget builder(
@@ -25,11 +39,11 @@ class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
         title: 'Identity Card (Front)',
         subtitle:
             'Please upload your Identity Card below for\ncompleting your first step of KYC.',
-        onPressed: () {},
+        onPressed: onClickNext,
         buttonText: 'Next',
         children: [
           Form(
-            key: null,
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -43,7 +57,8 @@ class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
                 ),
                 verticalSpaceSmall,
                 TextFormField(
-                  controller: viewModel.cnicController,
+                  validator: Validator.validateCnic,
+                  controller: cnicController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
@@ -86,7 +101,7 @@ class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
                         ),
                         verticalSpaceSmall,
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: onClickUpload,
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(128, 48),
                             foregroundColor: Colors.black,

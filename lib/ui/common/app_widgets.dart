@@ -79,11 +79,11 @@ class KTextFormField extends StatelessWidget {
 
 class KycLayoutWidget extends StatefulWidget {
   final List<Widget> children;
-  final Function()? onPressed;
+  VoidCallback onPressed;
   final String title, subtitle, buttonText;
   final Widget? trailing;
 
-  const KycLayoutWidget(
+  KycLayoutWidget(
       {required this.onPressed,
       required this.children,
       required this.title,
@@ -145,7 +145,7 @@ class KycLayoutWidgetFrontState extends State<KycLayoutWidget> {
                 minimumSize: const Size.fromHeight(36),
                 shape: const StadiumBorder(),
               ),
-              onPressed: () => widget.onPressed,
+              onPressed: widget.onPressed,
               child: Text(widget.buttonText),
             ),
           ),

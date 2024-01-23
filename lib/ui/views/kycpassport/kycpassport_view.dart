@@ -5,7 +5,15 @@ import '../../common/app_widgets.dart';
 import 'kycpassport_viewmodel.dart';
 
 class KycpassportView extends StackedView<KycpassportViewModel> {
-  const KycpassportView({Key? key}) : super(key: key);
+  TextEditingController passportNoController = TextEditingController();
+  VoidCallback onClickNext;
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  KycpassportView(
+      {Key? key,
+      required this.passportNoController,
+      required this.onClickNext,
+      required this.formkey})
+      : super(key: key);
 
   @override
   Widget builder(
@@ -17,14 +25,14 @@ class KycpassportView extends StackedView<KycpassportViewModel> {
         title: 'Passport',
         subtitle:
             'Please enter your Passport Number, and upload your Passport Photo Below.',
-        onPressed: () {},
+        onPressed: onClickNext,
         buttonText: 'Next',
-        children: const [
+        children: [
           Form(
-              key: null,
+              key: formkey,
               child: KTextFormField(
-                controller: null,
-                label: '',
+                controller: passportNoController,
+                label: "Passport Number",
                 keyboardType: null,
               )),
         ]);
