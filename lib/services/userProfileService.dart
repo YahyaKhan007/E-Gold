@@ -6,6 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class UserProfileService {
+  UserProfile? user;
+  getUser() async {
+    user = await getUserProfileFromFirestore();
+  }
+
   Future<void> addUserToFirestore(UserProfile userProfile) async {
     try {
       // Get the current user's UID
