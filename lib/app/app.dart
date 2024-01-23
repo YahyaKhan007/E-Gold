@@ -34,6 +34,8 @@ import 'package:e_gold/ui/views/add_crypto_screen/add_crypto_screen_view.dart';
 import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart';
 import 'package:e_gold/ui/views/kyc_completed/kyc_completed_view.dart';
 import 'package:e_gold/ui/views/kyc_approved/kyc_approved_view.dart';
+import 'package:e_gold/ui/views/edit_profile/edit_profile_view.dart';
+import 'package:e_gold/ui/views/change_password/change_password_view.dart';
 import 'package:e_gold/ui/views/sliverbalancehistory/sliverbalancehistory_view.dart';
 import 'package:e_gold/ui/views/goldbalancehistory/goldbalancehistory_view.dart';
 import 'package:e_gold/ui/views/statistic/statistic_view.dart';
@@ -58,6 +60,7 @@ import 'package:e_gold/ui/views/statistic/statistic_view.dart';
     MaterialRoute(page: TransactionHistoryScreenView),
     MaterialRoute(page: NotificationScreenView),
     MaterialRoute(page: AccountScreenView),
+    MaterialRoute(page: StatisticView),
     MaterialRoute(page: KycidcardfrontView),
     MaterialRoute(page: KycidcardbackView),
     MaterialRoute(page: KycbankaccountView),
@@ -72,6 +75,8 @@ import 'package:e_gold/ui/views/statistic/statistic_view.dart';
     MaterialRoute(page: TransactionScreenView),
     MaterialRoute(page: KycCompletedView),
     MaterialRoute(page: KycApprovedView),
+    MaterialRoute(page: EditProfileView),
+    MaterialRoute(page: ChangePasswordView),
     MaterialRoute(page: SliverbalancehistoryView),
     MaterialRoute(page: GoldbalancehistoryView),
     MaterialRoute(page: StatisticView),

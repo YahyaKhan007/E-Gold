@@ -32,6 +32,14 @@ class AccountScreenViewModel extends BaseViewModel {
     navigationService.navigateToDepositScreenView();
   }
 
+  void onTapEditProfile() {
+    navigationService.navigateToEditProfileView();
+  }
+
+  void onTapChangePassword() {
+    navigationService.navigateToChangePasswordView();
+  }
+
   void fundHistory() {
     navigationService.navigateToStatisticView();
   }

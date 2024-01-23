@@ -12,6 +12,7 @@ class KYC {
   String dateOfBirth;
   bool concentAgreement;
   bool isApproved;
+  Timestamp createdDateTime;
 
   KYC({
     required this.cnicNumber,
@@ -25,12 +26,13 @@ class KYC {
     required this.ifscCode,
     required this.profilePhotoLink,
     required this.dateOfBirth,
-  });
+  }) : createdDateTime = Timestamp.now();
 
   // Method to convert the object to a Map for storing in Firestore
   Map<String, dynamic> toJson() {
     return {
       'cnicNumber': cnicNumber,
+      'createdDateTime': createdDateTime,
       'cardFrontPhotoLink': cardFrontPhotoLink,
       'cardBackPhotoLink': cardBackPhotoLink,
       'passportNumber': passportNumber,
@@ -58,6 +60,7 @@ class KYC {
       isApproved: json['isApproved'],
       profilePhotoLink: json['profilePhotoLink'],
       dateOfBirth: json['dateOfBirth'],
+      // createdDateTime: json['createdDateTime'] == null ? null : Timestamp.fromMicrosecondsSinceEpoch(json['createdDateTime'].microsecondsSinceEpoch),
     );
   }
 }
