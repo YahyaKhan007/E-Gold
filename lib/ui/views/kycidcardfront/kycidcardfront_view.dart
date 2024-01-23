@@ -1,34 +1,50 @@
-import 'package:e_gold/ui/common/ui_helpers.dart';
+import 'package:e_gold/ui/common/validator.dart';
+import 'package:e_gold/ui/views/kyc/kyc_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:stacked/stacked.dart';
 
-import '../kyc_viewmodel.dart';
-import '../widgets/layout.dart';
+import '../../common/app_widgets.dart';
+import '../../common/ui_helpers.dart';
 
-class IdCardFrontPage extends StatefulWidget {
-  const IdCardFrontPage({super.key});
+import 'kycidcardfront_viewmodel.dart';
+
+class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
+  TextEditingController cnicController = TextEditingController();
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool idFrontUploaded;
+  VoidCallback onClickNext;
+  VoidCallback onClickUpload;
+  KycidcardfrontView(
+      {Key? key,
+      required this.cnicController,
+      required this.onClickNext,
+      required this.onClickUpload,
+      required this.idFrontUploaded,
+      required this.formKey})
+      : super(key: key);
 
   @override
-  State<IdCardFrontPage> createState() => _IdCardFrontPageState();
-}
+  Widget builder(
+    BuildContext context,
+    KycidcardfrontViewModel viewModel,
+    Widget? child,
+  ) {
+    var outlineInputBorder = OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey.shade300, width: 0.5),
+        borderRadius: BorderRadius.circular(12.0));
 
-class _IdCardFrontPageState extends State<IdCardFrontPage> {
-  KycViewModel viewModel = KycViewModel();
-
-  var outlineInputBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300, width: 0.5),
-      borderRadius: BorderRadius.circular(12.0));
-
-  @override
-  Widget build(BuildContext context) {
     return KycLayoutWidget(
-        onPressed: () {},
+        // onPressed: () {},
         title: 'Identity Card (Front)',
         subtitle:
             'Please upload your Identity Card below for\ncompleting your first step of KYC.',
+        onPressed: onClickNext,
+        buttonText: 'Next',
         children: [
           Form(
-            key: null,
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -42,7 +58,8 @@ class _IdCardFrontPageState extends State<IdCardFrontPage> {
                 ),
                 verticalSpaceSmall,
                 TextFormField(
-                  controller: viewModel.cnicController,
+                  validator: Validator.validateCnic,
+                  controller: cnicController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
@@ -64,7 +81,7 @@ class _IdCardFrontPageState extends State<IdCardFrontPage> {
                 Center(
                   child: Container(
                     height: 132,
-                    width: 320,
+                    width: 300,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -85,27 +102,35 @@ class _IdCardFrontPageState extends State<IdCardFrontPage> {
                         ),
                         verticalSpaceSmall,
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: onClickUpload,
                           style: ElevatedButton.styleFrom(
-                            
                             minimumSize: const Size(128, 48),
                             foregroundColor: Colors.black,
-                            backgroundColor: Colors.white,
+                            backgroundColor: idFrontUploaded
+                                ? Color.fromARGB(255, 172, 241, 176)
+                                : Colors.white,
                             elevation: 0,
                             shape: const StadiumBorder(
                               side: BorderSide(),
                             ),
                           ),
-                          child: const Text("+ Upload"),
+                          child: idFrontUploaded
+                              ? Text("Uploaded")
+                              : Text("+ Upload"),
                         )
                       ],
                     ),
                   ),
                 ),
-                verticalSpace(180.0)
               ],
             ),
           )
         ]);
   }
+
+  @override
+  KycidcardfrontViewModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      KycidcardfrontViewModel();
 }
