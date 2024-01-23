@@ -16,3 +16,7 @@ const String bank = 'assets/images/bank.png';
 const String crypto = 'assets/images/crypto.png';
 const String store = 'assets/images/store.png';
 const String logo = 'assets/images/logo.png';
+const String exclamation = 'assets/images/exclamation.png';
+const String qrCode = 'assets/images/qrCode.png';
+const String checking = 'assets/images/checking.png';
+const String saly = 'assets/images/saly.png';
