@@ -39,4 +39,8 @@ class AccountScreenViewModel extends BaseViewModel {
   void onTapChangePassword() {
     navigationService.navigateToChangePasswordView();
   }
+
+  void fundHistory() {
+    navigationService.navigateToStatisticView();
+  }
 }

@@ -95,7 +95,7 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           AccountPageRow(
                             text: 'Fund History',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
+                            onPressed: viewModel.fundHistory,
                           ),
                           AccountPageRow(
                             text: 'More',

@@ -22,6 +22,8 @@ class HomeView extends StackedView<HomeViewModel> {
           children: [
             HomeGoldenContainer(
               onPressedNotification: viewModel.notification,
+              gold: viewModel.goldContainer,
+              silver: viewModel.silverContainer,
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),

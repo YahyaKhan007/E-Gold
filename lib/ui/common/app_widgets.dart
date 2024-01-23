@@ -1,4 +1,6 @@
+import 'package:e_gold/ui/common/app_images.dart';
 import 'package:flutter/material.dart';
+
 import 'ui_helpers.dart';
 
 PreferredSize kAppBar({
@@ -17,7 +19,7 @@ PreferredSize kAppBar({
           top: 25,
           left: 10,
           child: Image.asset(
-            'assets/images/stars.png',
+            stars,
             fit: BoxFit.scaleDown,
           ),
         ),
@@ -45,6 +47,7 @@ class KTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final Widget? suffixIcon;
   final bool? obscureText;
+
   const KTextFormField({
     super.key,
     this.suffixIcon,
@@ -54,6 +57,7 @@ class KTextFormField extends StatelessWidget {
     this.validator,
     this.obscureText = false,
   });
+
   @override
   Widget build(BuildContext context) {
     var outlineInputBorder = OutlineInputBorder(
@@ -98,7 +102,8 @@ class KycLayoutWidget extends StatefulWidget {
   final Function()? onPressed;
   final String title, subtitle, buttonText;
   final Widget? trailing;
-  const KycLayoutWidget(
+
+  KycLayoutWidget(
       {required this.onPressed,
       required this.children,
       required this.title,

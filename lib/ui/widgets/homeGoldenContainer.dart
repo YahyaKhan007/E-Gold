@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 
 class HomeGoldenContainer extends StatelessWidget {
   final VoidCallback onPressedNotification;
+  final VoidCallback gold;
+  final VoidCallback silver;
   const HomeGoldenContainer({
     super.key,
     required this.onPressedNotification,
+    required this.gold,
+    required this.silver,
   });
 
   @override
@@ -76,7 +80,7 @@ class HomeGoldenContainer extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            const Expanded(
+            Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -88,6 +92,7 @@ class HomeGoldenContainer extends StatelessWidget {
                     containerColor: kcGolden,
                     textColor: kcGoldenText,
                     circleColor: kcGoldenText,
+                    onTap: gold,
                   ),
                   HomeMetalContainer(
                     title: 'Silver',
@@ -97,6 +102,7 @@ class HomeGoldenContainer extends StatelessWidget {
                     containerColor: kcSilver,
                     textColor: kcGreen,
                     circleColor: kcSilverLight,
+                    onTap: silver,
                   ),
                 ],
               ),
