@@ -60,7 +60,6 @@ import 'package:e_gold/ui/views/statistic/statistic_view.dart';
     MaterialRoute(page: TransactionHistoryScreenView),
     MaterialRoute(page: NotificationScreenView),
     MaterialRoute(page: AccountScreenView),
-    MaterialRoute(page: StatisticView),
     MaterialRoute(page: KycidcardfrontView),
     MaterialRoute(page: KycidcardbackView),
     MaterialRoute(page: KycbankaccountView),

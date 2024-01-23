@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/app_images.dart';
 import 'package:flutter/material.dart';
 
 import 'ui_helpers.dart';
