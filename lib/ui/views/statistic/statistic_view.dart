@@ -17,7 +17,7 @@ class StatisticView extends StackedView<StatisticViewModel> {
   ) {
     return Scaffold(
       appBar: kAppBar(
-          onButtonPressed: viewModel.onButtonPressed,
+          onButtonPressed: viewModel.goBack,
           context: context,
           title: const Text('Statistic')),
       body: SingleChildScrollView(
@@ -105,20 +105,9 @@ class StatisticView extends StackedView<StatisticViewModel> {
             Center(
               child: ElevatedButton(
                 onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                    minimumSize: const Size(300, 56)),
-                child: const Text('Buy'),
-              ),
-            ),
-            verticalSpaceSmall,
-            Center(
-              child: ElevatedButton(
-                onPressed: () {},
                 style:
                     ElevatedButton.styleFrom(minimumSize: const Size(300, 56)),
-                child: const Text('Sell'),
+                child: const Text('Buy'),
               ),
             ),
           ],

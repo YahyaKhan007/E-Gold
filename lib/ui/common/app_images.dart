@@ -20,3 +20,4 @@ const String exclamation = 'assets/images/exclamation.png';
 const String qrCode = 'assets/images/qrCode.png';
 const String checking = 'assets/images/checking.png';
 const String saly = 'assets/images/saly.png';
+const String stars = 'assets/images/stars.png';

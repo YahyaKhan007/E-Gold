@@ -31,4 +31,8 @@ class AccountScreenViewModel extends BaseViewModel {
   void addPaymentMethod() {
     navigationService.navigateToDepositScreenView();
   }
+
+  void fundHistory() {
+    navigationService.navigateToStatisticView();
+  }
 }
