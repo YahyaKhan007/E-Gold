@@ -74,7 +74,7 @@ class HomeView extends StackedView<HomeViewModel> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Column(
+                  Column(
                     children: [
                       HomeTransactionRow(
                         buttonColor: kcSuccessGreen,
@@ -83,6 +83,7 @@ class HomeView extends StackedView<HomeViewModel> {
                         image: bitCoin,
                         imageBack: kcYellowBright,
                         btcColor: kcYellowBright,
+                        onTap: () {},
                       ),
                       SizedBox(
                         height: 20,
@@ -94,6 +95,7 @@ class HomeView extends StackedView<HomeViewModel> {
                         image: bitCoin,
                         imageBack: kcYellowBright,
                         btcColor: kcYellowBright,
+                        onTap: () {},
                       ),
                       SizedBox(
                         height: 20,
@@ -105,6 +107,7 @@ class HomeView extends StackedView<HomeViewModel> {
                         image: bitCoin,
                         imageBack: kcYellowBright,
                         btcColor: kcYellowBright,
+                        onTap: () {},
                       ),
                       SizedBox(
                         height: 20,
@@ -116,6 +119,7 @@ class HomeView extends StackedView<HomeViewModel> {
                         image: bitCoin,
                         imageBack: kcYellowBright,
                         btcColor: kcYellowBright,
+                        onTap: () {},
                       ),
                     ],
                   ),

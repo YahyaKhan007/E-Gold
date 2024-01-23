@@ -59,10 +59,10 @@ class TransactionHistoryScreenView
             ),
             Container(
               padding: const EdgeInsets.all(20.0),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     '02 Dec 2023',
                     style: TextStyle(
                       color: Colors.black,
@@ -70,7 +70,7 @@ class TransactionHistoryScreenView
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   HomeTransactionRow(
@@ -80,8 +80,9 @@ class TransactionHistoryScreenView
                     image: bitCoin,
                     imageBack: kcYellowBright,
                     btcColor: kcYellowBright,
+                    onTap: () {},
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   HomeTransactionRow(
@@ -91,8 +92,9 @@ class TransactionHistoryScreenView
                     image: bitCoin,
                     imageBack: kcYellowBright,
                     btcColor: kcYellowBright,
+                    onTap: () {},
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   HomeTransactionRow(
@@ -102,8 +104,9 @@ class TransactionHistoryScreenView
                     image: silver,
                     imageBack: kcSilverLight,
                     btcColor: kcSilverLight,
+                    onTap: () {},
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   HomeTransactionRow(
@@ -113,11 +116,12 @@ class TransactionHistoryScreenView
                     image: silver,
                     imageBack: kcSilverLight,
                     btcColor: kcSilverLight,
+                    onTap: () {},
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                     '02 Dec 2023',
                     style: TextStyle(
                       color: Colors.black,
@@ -125,7 +129,7 @@ class TransactionHistoryScreenView
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   HomeTransactionRow(
@@ -135,8 +139,9 @@ class TransactionHistoryScreenView
                     image: silver,
                     imageBack: kcSilverLight,
                     btcColor: kcSilverLight,
+                    onTap: () {},
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   HomeTransactionRow(
@@ -146,8 +151,9 @@ class TransactionHistoryScreenView
                     image: bitCoin,
                     imageBack: kcYellowBright,
                     btcColor: kcYellowBright,
+                    onTap: () {},
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   HomeTransactionRow(
@@ -157,6 +163,7 @@ class TransactionHistoryScreenView
                     image: bitCoin,
                     imageBack: kcYellowBright,
                     btcColor: kcYellowBright,
+                    onTap: () {},
                   ),
                 ],
               ),
