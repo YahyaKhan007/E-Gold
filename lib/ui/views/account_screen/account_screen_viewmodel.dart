@@ -27,4 +27,8 @@ class AccountScreenViewModel extends BaseViewModel {
       navigationService.navigateToKycView();
     }
   }
+
+  void addPaymentMethod() {
+    navigationService.navigateToDepositScreenView();
+  }
 }

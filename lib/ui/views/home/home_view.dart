@@ -16,113 +16,111 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              HomeGoldenContainer(
-                onPressedNotification: viewModel.notification,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        HomeMetalButton(
-                          containerColor: kcYellowBright,
-                          title: 'Gold',
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            HomeGoldenContainer(
+              onPressedNotification: viewModel.notification,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      HomeMetalButton(
+                        containerColor: kcYellowBright,
+                        title: 'Gold',
+                      ),
+                      HomeMetalButton(
+                        containerColor: kcSilverLight,
+                        title: 'Silver',
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Last Transactions',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
                         ),
-                        HomeMetalButton(
-                          containerColor: kcSilverLight,
-                          title: 'Silver',
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Last Transactions',
+                      ),
+                      GestureDetector(
+                        onTap: viewModel.seeAll,
+                        child: const Text(
+                          'See All',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
+                            color: kcYellowBright,
+                            fontSize: 16,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: viewModel.seeAll,
-                          child: const Text(
-                            'See All',
-                            style: TextStyle(
-                              color: kcYellowBright,
-                              fontSize: 16,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w400,
-                              height: 0,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Column(
-                      children: [
-                        HomeTransactionRow(
-                          buttonColor: kcSuccessGreen,
-                          buttonText: 'Completed',
-                          btc: '+0.001',
-                          image: bitCoin,
-                          imageBack: kcYellowBright,
-                          btcColor: kcYellowBright,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        HomeTransactionRow(
-                          buttonColor: kcFailRed,
-                          buttonText: 'Failed',
-                          btc: '-0.001',
-                          image: bitCoin,
-                          imageBack: kcYellowBright,
-                          btcColor: kcYellowBright,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        HomeTransactionRow(
-                          buttonColor: kcPendingGrey,
-                          buttonText: 'Pending',
-                          btc: '-0.001',
-                          image: bitCoin,
-                          imageBack: kcYellowBright,
-                          btcColor: kcYellowBright,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        HomeTransactionRow(
-                          buttonColor: kcPendingGrey,
-                          buttonText: 'Pending',
-                          btc: '-0.001',
-                          image: bitCoin,
-                          imageBack: kcYellowBright,
-                          btcColor: kcYellowBright,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Column(
+                    children: [
+                      HomeTransactionRow(
+                        buttonColor: kcSuccessGreen,
+                        buttonText: 'Completed',
+                        btc: '+0.001',
+                        image: bitCoin,
+                        imageBack: kcYellowBright,
+                        btcColor: kcYellowBright,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      HomeTransactionRow(
+                        buttonColor: kcFailRed,
+                        buttonText: 'Failed',
+                        btc: '-0.001',
+                        image: bitCoin,
+                        imageBack: kcYellowBright,
+                        btcColor: kcYellowBright,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      HomeTransactionRow(
+                        buttonColor: kcPendingGrey,
+                        buttonText: 'Pending',
+                        btc: '-0.001',
+                        image: bitCoin,
+                        imageBack: kcYellowBright,
+                        btcColor: kcYellowBright,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      HomeTransactionRow(
+                        buttonColor: kcPendingGrey,
+                        buttonText: 'Pending',
+                        btc: '-0.001',
+                        image: bitCoin,
+                        imageBack: kcYellowBright,
+                        btcColor: kcYellowBright,
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

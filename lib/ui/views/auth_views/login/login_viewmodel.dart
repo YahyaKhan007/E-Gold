@@ -1,7 +1,6 @@
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/auth_service.dart';
-import 'package:e_gold/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:e_gold/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';

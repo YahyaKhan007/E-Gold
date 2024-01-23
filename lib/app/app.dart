@@ -18,13 +18,20 @@ import 'package:e_gold/ui/views/auth_views/receiveotpverification/receiveotpveri
 import 'package:e_gold/ui/views/auth_views/changepassword/changepassword_view.dart';
 import 'package:e_gold/ui/views/kyc/kyc_view.dart';
 import 'package:e_gold/ui/views/statistic/statistic_view.dart';
-
 import 'package:e_gold/ui/views/buygoldorsilver/buygoldorsilver_view.dart';
 import 'package:e_gold/ui/views/kycidcardfront/kycidcardfront_view.dart';
 import 'package:e_gold/ui/views/kycidcardback/kycidcardback_view.dart';
 import 'package:e_gold/ui/views/kycbankaccount/kycbankaccount_view.dart';
 import 'package:e_gold/ui/views/kycprofile/kycprofile_view.dart';
 import 'package:e_gold/ui/views/kycpassport/kycpassport_view.dart';
+import 'package:e_gold/ui/views/account_screen/account_screen_view.dart';
+import 'package:e_gold/ui/views/deposit_screen/deposit_screen_view.dart';
+import 'package:e_gold/ui/views/in_store_payment_screen/in_store_payment_screen_view.dart';
+import 'package:e_gold/ui/views/crypto_payment_screen/crypto_payment_screen_view.dart';
+import 'package:e_gold/ui/views/card_payment_screen/card_payment_screen_view.dart';
+import 'package:e_gold/ui/views/add_new_card_payment_screen/add_new_card_payment_screen_view.dart';
+import 'package:e_gold/ui/views/add_crypto_screen/add_crypto_screen_view.dart';
+import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart';
 import 'package:e_gold/ui/views/kyc_completed/kyc_completed_view.dart';
 import 'package:e_gold/ui/views/kyc_approved/kyc_approved_view.dart';
 // @stacked-import
@@ -44,15 +51,23 @@ import 'package:e_gold/ui/views/kyc_approved/kyc_approved_view.dart';
     MaterialRoute(page: ReceiveotpverificationView),
     MaterialRoute(page: ChangepasswordView),
     MaterialRoute(page: KycView),
-    MaterialRoute(page: StatisticView),
-    MaterialRoute(page: BuygoldorsilverView),
-    MaterialRoute(page: KycidcardfrontView),
-    MaterialRoute(page: NotificationScreenView),
+    MaterialRoute(page: BuyGoldOrSilverView),
     MaterialRoute(page: TransactionHistoryScreenView),
+    MaterialRoute(page: NotificationScreenView),
+    MaterialRoute(page: AccountScreenView),
+    MaterialRoute(page: StatisticView),
+    MaterialRoute(page: KycidcardfrontView),
     MaterialRoute(page: KycidcardbackView),
     MaterialRoute(page: KycbankaccountView),
     MaterialRoute(page: KycprofileView),
     MaterialRoute(page: KycpassportView),
+    MaterialRoute(page: DepositScreenView),
+    MaterialRoute(page: InStorePaymentScreenView),
+    MaterialRoute(page: CryptoPaymentScreenView),
+    MaterialRoute(page: CardPaymentScreenView),
+    MaterialRoute(page: AddNewCardPaymentScreenView),
+    MaterialRoute(page: AddCryptoScreenView),
+    MaterialRoute(page: TransactionScreenView),
     MaterialRoute(page: KycCompletedView),
     MaterialRoute(page: KycApprovedView),
 // @stacked-route

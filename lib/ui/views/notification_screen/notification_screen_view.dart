@@ -15,20 +15,24 @@ class NotificationScreenView extends StackedView<NotificationScreenViewModel> {
     NotificationScreenViewModel viewModel,
     Widget? child,
   ) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'Notification',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          'Notification',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        body: Column(
+        leading: IconButton(
+          onPressed: viewModel.goBack,
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Divider(
