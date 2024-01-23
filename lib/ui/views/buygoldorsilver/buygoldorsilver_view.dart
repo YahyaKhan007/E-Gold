@@ -1,7 +1,6 @@
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/views/buygoldorsilver/buygoldorsilver_viewmodel.dart';
 import 'package:e_gold/ui/widgets/buyGoldenContainer.dart';
-import 'package:e_gold/ui/widgets/customTextField.dart';
 import 'package:flutter/material.dart';
 import 'package:onscreen_num_keyboard/onscreen_num_keyboard.dart';
 import 'package:stacked/stacked.dart';
@@ -24,19 +23,31 @@ class BuyGoldOrSilverView extends StackedView<BuyGoldOrSilverViewModel> {
               goldCheck: viewModel.gold,
               checkGoldFunc: viewModel.goldVal,
               checkSilverFunc: viewModel.silverVal,
+              amount: viewModel.amount,
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomTextField(
-                    title: 'Amount',
-                    labelText: 'Enter Amount',
-                    keyboardType: TextInputType.number,
+                  NumericKeyboard(
+                    textStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 32,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -1.28,
+                    ),
+                    rightIcon: const Icon(
+                      Icons.backspace_outlined,
+                    ),
+                    onKeyboardTap: (String text) {
+                      viewModel.onKeyboardTap(text);
+                    },
+                    rightButtonFn: viewModel.rightButtonfn,
+                    rightButtonLongPressFn: viewModel.rightButtonLongfn,
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
                   Center(
                     child: Container(
@@ -60,7 +71,7 @@ class BuyGoldOrSilverView extends StackedView<BuyGoldOrSilverViewModel> {
                       ),
                       child: const Center(
                         child: Text(
-                          'Next',
+                          'Continue',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -69,6 +80,9 @@ class BuyGoldOrSilverView extends StackedView<BuyGoldOrSilverViewModel> {
                         ),
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
