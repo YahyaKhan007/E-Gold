@@ -1,7 +1,6 @@
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:stacked/stacked.dart';
 
