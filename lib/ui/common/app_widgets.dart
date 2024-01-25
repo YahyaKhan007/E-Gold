@@ -43,15 +43,19 @@ PreferredSize kAppBar({
 class KTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final String? label;
+  VoidCallback? onTap;
   final TextInputType? keyboardType;
+  final bool? readOnly;
   final String? Function(String?)? validator;
   final Widget? suffixIcon;
   final bool? obscureText;
 
-  const KTextFormField({
+  KTextFormField({
     super.key,
     this.suffixIcon,
+    this.onTap,
     this.controller,
+    this.readOnly,
     required this.label,
     required this.keyboardType,
     this.validator,
@@ -83,6 +87,8 @@ class KTextFormField extends StatelessWidget {
         ),
         verticalSpaceTiny,
         TextFormField(
+          onTap: onTap,
+          readOnly: readOnly ?? false,
           obscureText: obscureText!,
           controller: controller,
           keyboardType: keyboardType,

@@ -6,6 +6,7 @@ class HomeMetalContainer extends StatelessWidget {
   final String title;
   final String priceGm;
   final String number;
+  final bool isWalletCard;
   final String increase;
   final Color containerColor;
   final Color textColor;
@@ -15,6 +16,7 @@ class HomeMetalContainer extends StatelessWidget {
     super.key,
     required this.title,
     required this.priceGm,
+    required this.isWalletCard,
     required this.number,
     required this.increase,
     required this.containerColor,
@@ -25,84 +27,153 @@ class HomeMetalContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: MediaQuery.of(context).size.width / 2 - 30,
-        height: MediaQuery.of(context).size.height * 0.11,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        decoration: ShapeDecoration(
-          color: containerColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    return isWalletCard
+        ? Column(
+            children: [
+              Container(
+                width: width * .42,
+                height: height * 0.18,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 21, vertical: 12),
+                clipBehavior: Clip.antiAlias,
+                decoration: ShapeDecoration(
+                  color: Color(0xFFFCE8BA),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
+                    ),
+                  ),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 32,
-                      height: 32,
-                      decoration: ShapeDecoration(
-                        color: circleColor,
-                        shape: const OvalBorder(),
-                      ),
-                      child: Center(
-                        child: Image.asset(golden),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
                     Text(
-                      title,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                      'Wallet',
+                      style: TextStyle(
+                        color: Color(0xFF1F1F1F),
+                        fontSize: 20,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/image 45.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      '\$500 + \$500(Margin)',
+                      style: TextStyle(
+                        color: Color(0xFFF5B118),
+                        fontSize: 12,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
                 ),
-                Text(
-                  '\$$priceGm',
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
+              )
+            ],
+          )
+        : Column(
+            children: [
+              Container(
+                width: width * .42,
+                height: height * 0.18,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: ShapeDecoration(
+                  color: Color(0xFFF9D075),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
+                    ),
                   ),
                 ),
-              ],
-            ),
-            Expanded(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Portfolio',
+                      style: TextStyle(
+                        color: Color(0xFF1F1F1F),
+                        fontSize: 20,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/image 44.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '\$250',
+                            style: TextStyle(
+                              color: Color(0xFF147204),
+                              fontSize: 14,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '(5gm)',
+                            style: TextStyle(
+                              color: Color(0xFF147204),
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          TextSpan(
+                            text: ' ',
+                            style: TextStyle(
+                              color: Color(0xFF147204),
+                              fontSize: 14,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '+18.33% today',
+                            style: TextStyle(
+                              color: Color(0xFF147204),
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                increase,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+              )
+            ],
+          );
   }
 }
