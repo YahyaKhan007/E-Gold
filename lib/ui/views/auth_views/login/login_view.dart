@@ -1,6 +1,5 @@
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
-import 'package:e_gold/ui/common/validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -52,12 +51,12 @@ class LoginView extends StackedView<LoginViewModel> {
                           'Email or Phone Number',
                         ),
                       ),
-                      validator: Validator.validateEmail),
+                      validator: viewModel.signInEmailValidator),
                   verticalSpaceMedium,
                   TextFormField(
                     controller: viewModel.passwordController,
                     obscureText: viewModel.isPasswordVisible,
-                    validator: Validator.validatePassword,
+                    validator: viewModel.signInPasswordValidator,
                     decoration: InputDecoration(
                       label: const Text('Password'),
                       suffixIcon: IconButton(
