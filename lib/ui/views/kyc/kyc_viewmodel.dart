@@ -235,8 +235,7 @@ class KycViewModel extends BaseViewModel {
   void onTapDob(BuildContext context) async {
     var datePicked = await DatePicker.showSimpleDatePicker(
       context,
-      initialDate: DateTime(1950),
-      firstDate: DateTime(2000),
+      firstDate: DateTime(1970),
       lastDate: DateTime(2090),
       dateFormat: "dd-MMMM-yyyy",
       locale: DateTimePickerLocale.en_us,

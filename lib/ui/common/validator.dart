@@ -36,9 +36,6 @@ class Validator {
 
     // Password strength validation
     // You can replace the condition with your own criteria for a strong password
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
-    }
 
     return null;
   }
@@ -50,9 +47,6 @@ class Validator {
 
     // Password strength validation
     // You can replace the condition with your own criteria for a strong password
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
-    }
 
     return null;
   }
@@ -64,9 +58,6 @@ class Validator {
 
     // Password strength validation
     // You can replace the condition with your own criteria for a strong password
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
-    }
 
     return null;
   }
@@ -78,9 +69,6 @@ class Validator {
 
     // Password strength validation
     // You can replace the condition with your own criteria for a strong password
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
-    }
 
     return null;
   }

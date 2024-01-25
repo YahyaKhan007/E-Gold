@@ -19,7 +19,7 @@ class CreateanaccountViewModel extends BaseViewModel {
 
   handleButtonPress(int buttonNumber) {
     if (buttonNumber == 0) {
-      _navigator.navigateToSignupView();
+      _navigator.navigateToPhoneSignUpView();
     }
     if (buttonNumber == 1) {
       _navigator.navigateToSignupView();
