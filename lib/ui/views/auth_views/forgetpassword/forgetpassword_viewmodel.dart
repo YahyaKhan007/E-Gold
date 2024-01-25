@@ -1,4 +1,5 @@
 import 'package:e_gold/app/app.router.dart';
+import 'package:e_gold/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:stacked/stacked.dart';
@@ -11,32 +12,20 @@ class ForgetpasswordViewModel extends BaseViewModel {
   String initialCountry = 'US';
 
   final navigationService = locator<NavigationService>();
+
+  final authService = locator<AuthService>();
   PhoneNumber number = PhoneNumber(isoCode: 'US');
   final TextEditingController emailController = TextEditingController();
 
   void onPressedSubmit() {
-    // getPhoneNumber('+15417543010');
-
-    // if (formKey.currentState!.validate()) {
-    //   navigationService.replaceWithOtpverificationView();
-    // }
-
-    navigationService.replaceWithOtpverificationView();
+    if (validateForm()) {
+      authService.resetPassword(emailController.text.trim());
+      navigationService.navigateToLoginView();
+    }
   }
 
-  void getPhoneNumber(String phoneNumber) async {
-    PhoneNumber number =
-        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
-
-    this.number = number;
-
-    rebuildUi();
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    super.dispose();
+  bool validateForm() {
+    return formKey.currentState?.validate() ?? false;
   }
 
   void onTapSignIn() {
