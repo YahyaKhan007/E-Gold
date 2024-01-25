@@ -26,4 +26,8 @@ class ChangePasswordViewModel extends BaseViewModel {
       navigationService.back();
     }
   }
+
+  void onBack() {
+    navigationService.back();
+  }
 }

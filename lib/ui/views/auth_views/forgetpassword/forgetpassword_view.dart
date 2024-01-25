@@ -1,4 +1,5 @@
 import 'package:e_gold/ui/common/ui_helpers.dart';
+import 'package:e_gold/ui/common/validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -23,15 +24,11 @@ class ForgetpasswordView extends StackedView<ForgetpasswordViewModel> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 48.0, horizontal: 12.5),
-                child: Center(
-                    child: Image.asset(
-                  'assets/images/forgot_password.png',
-                  fit: BoxFit.scaleDown,
-                  width: 184,
-                  height: 184,
-                ))),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 48.0, horizontal: 12.5),
+              child: Center(
+                  child: Image.asset("assets/images/forgot password.png")),
+            ),
             verticalSpaceLarge,
             Text(
               'Forget Password',
@@ -50,40 +47,53 @@ class ForgetpasswordView extends StackedView<ForgetpasswordViewModel> {
               children: [
                 Form(
                   key: viewModel.formKey,
-                  child: InternationalPhoneNumberInput(
-                    onInputChanged: (PhoneNumber number) {},
-                    onInputValidated: (bool value) {},
-                    selectorConfig: const SelectorConfig(
-                      selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                      useBottomSheetSafeArea: true,
-                    ),
-                    ignoreBlank: false,
-                    autoValidateMode: AutovalidateMode.disabled,
-                    selectorTextStyle: const TextStyle(color: Colors.black),
-                    initialValue: viewModel.number,
-                    textFieldController: viewModel.phoneController,
-                    formatInput: true,
-                    keyboardType: const TextInputType.numberWithOptions(
-                        signed: true, decimal: true),
-                    inputBorder: const OutlineInputBorder(),
-                    onSaved: (PhoneNumber number) {},
-                  ),
+                  child: TextFormField(
+                      controller: viewModel.emailController,
+                      decoration: const InputDecoration(
+                        label: Text(
+                          'Email',
+                        ),
+                      ),
+                      validator: Validator.validateEmail),
                 ),
-                verticalSpaceMedium,
-                RichText(
-                  text: TextSpan(
-                    text: 'Remember the password? ',
-                    style: Theme.of(context).textTheme.titleMedium,
-                    children: [
-                      TextSpan(
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(color: const Color(0xffF5B119)),
-                          text: 'Sign in',
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = viewModel.onPressedSubmit),
-                    ],
+                verticalSpaceSmall,
+                //   child: InternationalPhoneNumberInput(
+                //     onInputChanged: (PhoneNumber number) {},
+                //     onInputValidated: (bool value) {},
+                //     selectorConfig: const SelectorConfig(
+                //       selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                //       useBottomSheetSafeArea: true,
+                //     ),
+                //     ignoreBlank: false,
+                //     autoValidateMode: AutovalidateMode.disabled,
+                //     selectorTextStyle: const TextStyle(color: Colors.black),
+                //     initialValue: viewModel.number,
+                //     textFieldController: viewModel.phoneController,
+                //     formatInput: true,
+                //     keyboardType: const TextInputType.numberWithOptions(
+                //         signed: true, decimal: true),
+                //     inputBorder: const OutlineInputBorder(),
+                //     onSaved: (PhoneNumber number) {},
+                //   ),
+                // ),
+
+                GestureDetector(
+                  onTap: viewModel.onTapSignIn,
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Remember the password? ',
+                      style: Theme.of(context).textTheme.titleMedium,
+                      children: [
+                        TextSpan(
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: const Color(0xffF5B119)),
+                            text: 'Sign in',
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = viewModel.onPressedSubmit),
+                      ],
+                    ),
                   ),
                 ),
                 verticalSpaceLarge,

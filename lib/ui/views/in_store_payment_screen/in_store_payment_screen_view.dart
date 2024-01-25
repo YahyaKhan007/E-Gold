@@ -158,13 +158,16 @@ class InStorePaymentScreenView
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
-                      'Visit the store and show the \ngenerated unique ID to the cashier.',
-                      style: TextStyle(
-                        color: kcLightText,
-                        fontSize: 14,
-                        overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.w400,
+                    SizedBox(
+                      width: 240,
+                      child: Text(
+                        'Visit the store and show the \ngenerated unique ID to the cashier.',
+                        style: TextStyle(
+                          color: kcLightText,
+                          fontSize: 14,
+                          overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     )
                   ],

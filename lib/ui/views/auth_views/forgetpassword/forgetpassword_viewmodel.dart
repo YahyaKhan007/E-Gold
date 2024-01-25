@@ -38,4 +38,8 @@ class ForgetpasswordViewModel extends BaseViewModel {
     phoneController.dispose();
     super.dispose();
   }
+
+  void onTapSignIn() {
+    navigationService.navigateToLoginView();
+  }
 }

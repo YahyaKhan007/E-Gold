@@ -17,12 +17,12 @@ class BuyGoldOrSilverView extends StackedView<BuyGoldOrSilverViewModel> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             BuyGoldenContainer(
               goldCheck: viewModel.gold,
               checkGoldFunc: viewModel.goldVal,
-              checkSilverFunc: viewModel.silverVal,
+              //   checkSilverFunc: viewModel.silverVal,
               amount: viewModel.amount,
             ),
             Padding(
