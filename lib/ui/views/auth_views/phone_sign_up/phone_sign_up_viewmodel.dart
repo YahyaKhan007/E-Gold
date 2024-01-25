@@ -9,7 +9,7 @@ import 'package:stacked_services/stacked_services.dart';
 class PhoneSignUpViewModel extends BaseViewModel {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String initialCountry = 'US';
-
+  late String phoneNumber;
   final navigationService = locator<NavigationService>();
 
   final authService = locator<AuthService>();
@@ -18,7 +18,7 @@ class PhoneSignUpViewModel extends BaseViewModel {
 
   void onPressedSubmit() {
     if (validateForm()) {
-      authService.verifyPhoneNumber("+923038517959");
+      authService.verifyPhoneNumber(phoneNumber);
       navigationService.navigateToOtpverificationView();
     }
   }

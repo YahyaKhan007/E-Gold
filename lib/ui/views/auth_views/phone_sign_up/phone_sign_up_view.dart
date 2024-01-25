@@ -50,7 +50,8 @@ class PhoneSignUpView extends StackedView<PhoneSignUpViewModel> {
                   child: InternationalPhoneNumberInput(
                     onInputChanged: (PhoneNumber number) {
                       print(number.phoneNumber);
-                      print(viewModel.phoneController.text);
+                      viewModel.phoneNumber = number.phoneNumber!;
+                      print('check this out ${viewModel.phoneNumber}');
                     },
                     onInputValidated: (bool value) {},
                     selectorConfig: const SelectorConfig(
@@ -66,26 +67,12 @@ class PhoneSignUpView extends StackedView<PhoneSignUpViewModel> {
                     keyboardType: const TextInputType.numberWithOptions(
                         signed: true, decimal: true),
                     inputBorder: const OutlineInputBorder(),
-                    onSaved: (PhoneNumber number) {},
+                    onSaved: (PhoneNumber number) {
+                      viewModel.phoneNumber = number.toString();
+                    },
                   ),
                 ),
                 verticalSpaceSmall,
-                // RichText(
-                //   text: TextSpan(
-                //     text: 'Remember the password? ',
-                //     style: Theme.of(context).textTheme.titleMedium,
-                //     children: [
-                //       TextSpan(
-                //           style: Theme.of(context)
-                //               .textTheme
-                //               .titleMedium!
-                //               .copyWith(color: const Color(0xffF5B119)),
-                //           text: 'Sign in',
-                //           recognizer: TapGestureRecognizer()
-                //             ..onTap = viewModel.onPressedSubmit),
-                //     ],
-                //   ),
-                // ),
                 verticalSpaceLarge,
                 ElevatedButton(
                     style:

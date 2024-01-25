@@ -20,7 +20,15 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
         appBar: kAppBar(
             context: context,
             onButtonPressed: viewModel.onBack,
-            title: const Text('Edit Profile')),
+            title: const Text(
+              'Edit Profile',
+              style: TextStyle(
+                color: Color(0xFF1F1F1F),
+                fontSize: 24,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w600,
+              ),
+            )),
         body: viewModel.isBusy
             ? const Center(
                 child: CircularProgressIndicator(
@@ -69,19 +77,12 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
                       KTextFormField(
                         readOnly: true,
                         controller: viewModel.emailController,
-                        validator: (value) {
-                          if (value!.isEmpty || !value.contains('@')) {
-                            return 'Please enter a valid email address';
-                          }
-                          return null;
-                        },
                         label: 'Email',
                         keyboardType: TextInputType.emailAddress,
                       ),
                       verticalSpaceSmall,
                       InternationalPhoneNumberInput(
                         textFieldController: viewModel.phoneNoController,
-                        
                         onInputChanged: (PhoneNumber number) {
                           print(number.phoneNumber);
                           print(viewModel.phoneNoController.text);

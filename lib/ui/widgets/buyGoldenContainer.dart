@@ -6,12 +6,12 @@ class BuyGoldenContainer extends StatelessWidget {
   final String amount;
   final bool goldCheck;
   final VoidCallback checkGoldFunc;
-  final VoidCallback checkSilverFunc;
+  final VoidCallback? checkSilverFunc;
   const BuyGoldenContainer({
     super.key,
     required this.goldCheck,
     required this.checkGoldFunc,
-    required this.checkSilverFunc,
+    this.checkSilverFunc,
     required this.amount,
   });
 
@@ -33,14 +33,12 @@ class BuyGoldenContainer extends StatelessWidget {
                 title: 'Gold',
                 color: kcGoldYellow,
               ),
-              const SizedBox(
-                width: 30,
-              ),
-              MetalBuyButton(
-                onTap: checkSilverFunc,
-                title: 'Silver',
-                color: kcSilverLight,
-              ),
+
+              // MetalBuyButton(
+              //   onTap: checkSilverFunc,
+              //   title: 'Silver',
+              //   color: kcSilverLight,
+              // ),
             ],
           ),
           const SizedBox(

@@ -1,5 +1,10 @@
+import 'package:e_gold/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class StatisticViewModel extends BaseViewModel {
-  void onButtonPressed() {}
+  final navigationService = locator<NavigationService>();
+  void onButtonPressed() {
+    navigationService.back();
+  }
 }

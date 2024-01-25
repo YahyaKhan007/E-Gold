@@ -12,11 +12,13 @@ class CreateanaccountViewModel extends BaseViewModel {
   final _navigator = locator<NavigationService>();
   final authService = locator<AuthService>();
   final List<Map<String, dynamic>> buttonData = [
-    {'text': 'Signup with Phone', 'icon': MdiIcons.phone},
-    {'text': 'Signup with Email', 'icon': Icons.email},
-    {'text': 'Signup with Apple', 'icon': Icons.apple},
-    {'text': 'Signup with Google', 'icon': MdiIcons.google},
-    {'text': 'Signup with Facebook', 'icon': Icons.facebook},
+    {'text': 'Continue with Phone', 'icon': 'assets/icons/smartphone.svg'},
+    {'text': 'Continue with Apple', 'icon': 'assets/icons/apple_logo.svg'},
+    {'text': 'Continue with Google', 'icon': 'assets/icons/google.svg'},
+    {
+      'text': 'Continue with Facebook',
+      'icon': 'assets/icons/facebook_circled.svg'
+    },
   ];
 
   handleButtonPress(int buttonNumber) {
@@ -26,11 +28,10 @@ class CreateanaccountViewModel extends BaseViewModel {
     if (buttonNumber == 1) {
       _navigator.navigateToSignupView();
     }
-    if (buttonNumber == 2) {}
-    if (buttonNumber == 3) {
+    if (buttonNumber == 2) {
       onTapGoogleSignIn();
     }
-    if (buttonNumber == 4) {
+    if (buttonNumber == 3) {
       onTapFacebook();
     }
   }
@@ -45,5 +46,13 @@ class CreateanaccountViewModel extends BaseViewModel {
 
   void onTapFacebook() async {
     await authService.signInWithFacebook();
+  }
+
+  void onPressedSignup() {
+    _navigator.replaceWithSignupView();
+  }
+
+  void onPressedLogin() {
+    _navigator.replaceWithLoginView();
   }
 }
