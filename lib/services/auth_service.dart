@@ -11,6 +11,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final _snackbarService = locator<SnackbarService>();
+  String _verificationId = "";
   final _UserProfileService = locator<UserProfileService>();
 
   Future<User?> signUpWithEmail(
@@ -105,6 +106,43 @@ class AuthService {
 
   Future<void> signOut() async {
     await _auth.signOut();
+  }
+
+  Future<void> verifyPhoneNumber(String phoneNumber) async {
+    try {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (AuthCredential authCredential) async {
+          await _auth.signInWithCredential(authCredential);
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          print("Verification Failed: ${e.message}");
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          _verificationId = verificationId;
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          _verificationId = verificationId;
+        },
+        timeout: Duration(seconds: 60),
+      );
+    } catch (e) {
+      print("Error during phone number verification: $e");
+    }
+  }
+
+  Future<void> signInWithPhoneNumber(String smsCode) async {
+    try {
+      AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: _verificationId,
+        smsCode: smsCode,
+      );
+
+      await _auth.signInWithCredential(credential);
+      print("Successfully signed in with phone number!");
+    } catch (e) {
+      print("Error during phone number verification: $e");
+    }
   }
 
   Future<User?> signUpWithPhoneNumberAndPassword(

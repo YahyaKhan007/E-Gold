@@ -20,6 +20,8 @@ import 'package:e_gold/ui/views/auth_views/forgetpassword/forgetpassword_view.da
 import 'package:e_gold/ui/views/auth_views/login/login_view.dart' as _i4;
 import 'package:e_gold/ui/views/auth_views/otpverification/otpverification_view.dart'
     as _i9;
+import 'package:e_gold/ui/views/auth_views/phone_sign_up/phone_sign_up_view.dart'
+    as _i36;
 import 'package:e_gold/ui/views/auth_views/receiveotpverification/receiveotpverification_view.dart'
     as _i10;
 import 'package:e_gold/ui/views/auth_views/signup/signup_view.dart' as _i5;
@@ -61,8 +63,6 @@ import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_s
     as _i14;
 import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart'
     as _i28;
-import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart'
-    as _i36;
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as _i37;
 import 'package:stacked/stacked.dart' as _i1;
@@ -139,7 +139,7 @@ class Routes {
 
   static const statisticView = '/statistic-view';
 
-  static const transactiondetailsView = '/transactiondetails-view';
+  static const phoneSignUpView = '/phone-sign-up-view';
 
   static const all = <String>{
     homeView,
@@ -176,7 +176,7 @@ class Routes {
     sliverbalancehistoryView,
     goldbalancehistoryView,
     statisticView,
-    transactiondetailsView,
+    phoneSignUpView,
   };
 }
 
@@ -319,8 +319,8 @@ class StackedRouter extends _i1.RouterBase {
       page: _i35.StatisticView,
     ),
     _i1.RouteDef(
-      Routes.transactiondetailsView,
-      page: _i36.TransactiondetailsView,
+      Routes.phoneSignUpView,
+      page: _i36.PhoneSignUpView,
     ),
   ];
 
@@ -569,9 +569,9 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i36.TransactiondetailsView: (data) {
+    _i36.PhoneSignUpView: (data) {
       return _i37.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i36.TransactiondetailsView(),
+        builder: (context) => const _i36.PhoneSignUpView(),
         settings: data,
       );
     },
@@ -1432,14 +1432,14 @@ extension NavigatorStateExtension on _i38.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToTransactiondetailsView([
+  Future<dynamic> navigateToPhoneSignUpView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.transactiondetailsView,
+    return navigateTo<dynamic>(Routes.phoneSignUpView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1994,14 +1994,14 @@ extension NavigatorStateExtension on _i38.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithTransactiondetailsView([
+  Future<dynamic> replaceWithPhoneSignUpView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.transactiondetailsView,
+    return replaceWith<dynamic>(Routes.phoneSignUpView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

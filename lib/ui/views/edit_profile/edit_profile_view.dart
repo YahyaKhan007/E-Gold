@@ -80,8 +80,16 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
                       ),
                       verticalSpaceSmall,
                       InternationalPhoneNumberInput(
-                          textFieldController: viewModel.phoneNoController,
-                          onInputChanged: (value) {}),
+                        textFieldController: viewModel.phoneNoController,
+                        
+                        onInputChanged: (PhoneNumber number) {
+                          print(number.phoneNumber);
+                          print(viewModel.phoneNoController.text);
+                        },
+                        onInputValidated: (bool value) {
+                          print(value);
+                        },
+                      ),
                       verticalSpaceSmall,
                       KTextFormField(
                         onTap: () {
