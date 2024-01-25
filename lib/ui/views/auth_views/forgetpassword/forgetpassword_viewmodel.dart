@@ -12,7 +12,7 @@ class ForgetpasswordViewModel extends BaseViewModel {
 
   final navigationService = locator<NavigationService>();
   PhoneNumber number = PhoneNumber(isoCode: 'US');
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   void onPressedSubmit() {
     // getPhoneNumber('+15417543010');
@@ -35,7 +35,7 @@ class ForgetpasswordViewModel extends BaseViewModel {
 
   @override
   void dispose() {
-    phoneController.dispose();
+    emailController.dispose();
     super.dispose();
   }
 
