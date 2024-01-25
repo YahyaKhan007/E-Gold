@@ -61,7 +61,11 @@ class DepositScreenView extends StackedView<DepositScreenViewModel> {
               image: masterCard,
               title: 'Debit or Credit Card',
               text: 'Use Visa, Master and more',
-              onPressed: viewModel.toCardPayment,
+               
+              onPressed: () async {
+                            await viewModel.createPaymentIntent();
+                            await viewModel.processPayment();
+                          },
             ),
             const SizedBox(
               height: 20,

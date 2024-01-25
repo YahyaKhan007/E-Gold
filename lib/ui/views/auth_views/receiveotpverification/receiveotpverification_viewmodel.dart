@@ -1,15 +1,19 @@
 import 'dart:async';
 
 import 'package:e_gold/app/app.router.dart';
+import 'package:e_gold/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:otp_text_field/otp_field.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../../app/app.locator.dart';
 
 class ReceiveotpverificationViewModel extends BaseViewModel {
-  final TextEditingController otpController = TextEditingController();
+  final OtpFieldController otpController = OtpFieldController();
   final navigationService = locator<NavigationService>();
+  String? pinCode;
+  final authService = locator<AuthService>();
   int resendTimeout = 30;
   Timer? resendTimer;
 
@@ -36,6 +40,7 @@ class ReceiveotpverificationViewModel extends BaseViewModel {
   }
 
   void onPressedContinue() {
-    navigationService.replaceWithChangepasswordView();
+    print(pinCode);
+    authService.signInWithPhoneNumber(pinCode!);
   }
 }

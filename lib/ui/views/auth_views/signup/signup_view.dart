@@ -1,4 +1,3 @@
-import 'package:e_gold/ui/common/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
@@ -40,28 +39,36 @@ class SignupView extends StackedView<SignupViewModel> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    TextFormField(
-                        controller: viewModel.nameController,
-                        decoration: const InputDecoration(
-                          label: Text(
-                            'Name',
-                          ),
-                        ),
-                        validator: Validator.validateText),
+                    InternationalPhoneNumberInput(
+                      onInputChanged: (PhoneNumber number) {},
+                      onInputValidated: (bool value) {},
+                      selectorConfig: const SelectorConfig(
+                        selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                        useBottomSheetSafeArea: true,
+                      ),
+                      ignoreBlank: false,
+                      autoValidateMode: AutovalidateMode.disabled,
+                      selectorTextStyle: const TextStyle(color: Colors.black),
+                      initialValue: viewModel.number,
+                      textFieldController: viewModel.phoneController,
+                      formatInput: true,
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      onSaved: (PhoneNumber number) {},
+                    ),
                     verticalSpaceSmall,
                     TextFormField(
-                        controller: viewModel.emailController,
                         decoration: const InputDecoration(
                           label: Text(
                             'Email',
                           ),
                         ),
-                        validator: Validator.validateEmail),
+                        validator: viewModel.signUpEmailValidator),
                     verticalSpaceSmall,
                     TextFormField(
                       controller: viewModel.passwordController,
                       obscureText: viewModel.isPasswordVisible,
-                      validator: Validator.validatePassword,
+                      validator: viewModel.signUpPasswordValidator,
                       decoration: InputDecoration(
                         label: const Text('Password'),
                         suffixIcon: IconButton(
@@ -78,10 +85,7 @@ class SignupView extends StackedView<SignupViewModel> {
                     TextFormField(
                       controller: viewModel.conformPasswordController,
                       obscureText: viewModel.isConformPasswordVisible,
-                      validator: (value) => Validator.validateConfirmPassword(
-                        viewModel.passwordController.text,
-                        value,
-                      ),
+                      validator: viewModel.signUpConfirmPasswordValidator,
                       decoration: InputDecoration(
                         label: const Text('Conform Password'),
                         suffixIcon: IconButton(
@@ -101,7 +105,7 @@ class SignupView extends StackedView<SignupViewModel> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ElevatedButton(
-                      onPressed: viewModel.onTapSignUp,
+                      onPressed: viewModel.onPressedSignup,
                       child: const Text('Sign up')),
                   verticalSpaceMedium,
                   TextButton(
