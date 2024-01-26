@@ -27,7 +27,7 @@ class ForgetpasswordView extends StackedView<ForgetpasswordViewModel> {
               padding:
                   const EdgeInsets.symmetric(vertical: 48.0, horizontal: 12.5),
               child: Center(
-                  child: Image.asset("assets/images/hrum_remix_silver1.png")),
+                  child: Image.asset("assets/images/forgot password.png")),
             ),
             verticalSpaceLarge,
             Text(
@@ -77,20 +77,23 @@ class ForgetpasswordView extends StackedView<ForgetpasswordViewModel> {
                 //   ),
                 // ),
 
-                RichText(
-                  text: TextSpan(
-                    text: 'Remember the password? ',
-                    style: Theme.of(context).textTheme.titleMedium,
-                    children: [
-                      TextSpan(
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(color: const Color(0xffF5B119)),
-                          text: 'Sign in',
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = viewModel.onPressedSubmit),
-                    ],
+                GestureDetector(
+                  onTap: viewModel.onTapSignIn,
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Remember the password? ',
+                      style: Theme.of(context).textTheme.titleMedium,
+                      children: [
+                        TextSpan(
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: const Color(0xffF5B119)),
+                            text: 'Sign in',
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = viewModel.onPressedSubmit),
+                      ],
+                    ),
                   ),
                 ),
                 verticalSpaceLarge,

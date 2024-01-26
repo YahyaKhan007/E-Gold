@@ -15,86 +15,114 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
     EditProfileViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      appBar: kAppBar(
-          context: context,
-          onButtonPressed: () {},
-          title: const Text('Edit Profile')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: Form(
-          key: viewModel.formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              verticalSpaceMedium,
-              GestureDetector(
-                onTap: () {},
-                child: CircleAvatar(
-                  radius: 48,
-                  backgroundImage: viewModel.profilePictureUrl.isNotEmpty
-                      ? NetworkImage(viewModel.profilePictureUrl)
-                      : null,
-                  child: viewModel.profilePictureUrl.isEmpty
-                      ? const Icon(
-                          Icons.camera_alt,
-                          size: 50,
-                        )
-                      : null,
+    return SafeArea(
+      child: Scaffold(
+        appBar: kAppBar(
+            context: context,
+            onButtonPressed: viewModel.onBack,
+            title: const Text(
+              'Edit Profile',
+              style: TextStyle(
+                color: Color(0xFF1F1F1F),
+                fontSize: 24,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w600,
+              ),
+            )),
+        body: viewModel.isBusy
+            ? const Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                ),
+              )
+            : SingleChildScrollView(
+                padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+                child: Form(
+                  key: viewModel.formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      verticalSpaceMedium,
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.changeProfileImg(context);
+                        },
+                        child: CircleAvatar(
+                          radius: 48,
+                          backgroundImage: viewModel.profileImgUrl.isNotEmpty
+                              ? NetworkImage(viewModel.profileImgUrl ?? '')
+                              : null,
+                          child: viewModel.profileImgUrl.isEmpty
+                              ? const Icon(
+                                  Icons.camera_alt,
+                                  size: 50,
+                                )
+                              : null,
+                        ),
+                      ),
+                      verticalSpaceSmall,
+                      KTextFormField(
+                        controller: viewModel.firstNameController,
+                        label: 'Full Name',
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter a full name';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.name,
+                      ),
+                      verticalSpaceSmall,
+                      KTextFormField(
+                        readOnly: true,
+                        controller: viewModel.emailController,
+                        label: 'Email',
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      verticalSpaceSmall,
+                      InternationalPhoneNumberInput(
+                        textFieldController: viewModel.phoneNoController,
+                        onInputChanged: (PhoneNumber number) {
+                          print(number.phoneNumber);
+                          print(viewModel.phoneNoController.text);
+                        },
+                        onInputValidated: (bool value) {
+                          print(value);
+                        },
+                      ),
+                      verticalSpaceSmall,
+                      KTextFormField(
+                        onTap: () {
+                          viewModel.onTapDobDialog(context);
+                        },
+                        readOnly: true,
+                        controller: viewModel.dobController,
+                        label: 'Date of Birth',
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      verticalSpaceMedium,
+                      ElevatedButton(
+                        onPressed: viewModel.submitForm,
+                        child: const Text('Save'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              verticalSpaceSmall,
-              KTextFormField(
-                label: 'Full Name',
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter a full name';
-                  }
-                  return null;
-                },
-                keyboardType: TextInputType.name,
-              ),
-              verticalSpaceSmall,
-              KTextFormField(
-                validator: (value) {
-                  if (value!.isEmpty || !value.contains('@')) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
-                label: 'Email',
-                keyboardType: TextInputType.emailAddress,
-              ),
-              verticalSpaceSmall,
-              InternationalPhoneNumberInput(onInputChanged: (value) {}),
-              verticalSpaceSmall,
-              KTextFormField(
-                validator: (value) {
-                  if (value!.isEmpty || !value.contains('@')) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
-                label: 'Date of Birth',
-                keyboardType: TextInputType.emailAddress,
-              ),
-              verticalSpaceMedium,
-              ElevatedButton(
-                onPressed: viewModel.submitForm,
-                child: const Text('Save'),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
-
 
   @override
   EditProfileViewModel viewModelBuilder(
     BuildContext context,
   ) =>
       EditProfileViewModel();
+
+  @override
+  void onViewModelReady(EditProfileViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+  }
 }

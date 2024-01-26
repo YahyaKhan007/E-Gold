@@ -1,11 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class StatisticViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
+  int? selectedValue = 1;
 
-  void goBack() {
-    _navigationService.back();
+  void onButtonPressedDropDown(value) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      selectedValue = value;
+      rebuildUi();
+    });
+  }
+
+  final navigationService = locator<NavigationService>();
+  void onButtonPressed() {
+    navigationService.back();
   }
 }

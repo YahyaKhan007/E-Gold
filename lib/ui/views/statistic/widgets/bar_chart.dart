@@ -1,145 +1,116 @@
+import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class IndividualBar {
-  final int x;
-  final double y;
+class ExpenseIncomeModel {
+  final String dataOf;
+  final double expenses;
+  final double income;
 
-  IndividualBar(
-    this.x,
-    this.y,
-  );
+  ExpenseIncomeModel({
+    required this.dataOf,
+    required this.expenses,
+    required this.income,
+  });
 }
 
-class BarData {
-  final List<double> sunAmount;
-  final List<double> monAmount;
-  final List<double> tueAmount;
-  final List<double> wedAmount;
-  final List<double> thuAmount;
-  final List<double> friAmount;
-  final List<double> satAmount;
+class KBarChart extends StatefulWidget {
+  final List<ExpenseIncomeModel> data;
 
-  BarData(this.sunAmount, this.monAmount, this.tueAmount, this.wedAmount,
-      this.thuAmount, this.friAmount, this.satAmount);
-
-  List<IndividualBar> barData = [];
-
-  void initializeBarData() {
-    barData = [
-      IndividualBar(1, sunAmount[0]),
-      IndividualBar(2, monAmount[0]),
-      IndividualBar(3, tueAmount[0]),
-      IndividualBar(4, wedAmount[0]),
-      IndividualBar(5, thuAmount[0]),
-      IndividualBar(6, friAmount[0]),
-      IndividualBar(7, satAmount[0]),
-    ];
-  }
-}
-
-class KBarChart extends StatelessWidget {
-  final List<Map<String, dynamic>> weeklySummary;
   final double? maxYValue;
   final double? minYValue;
 
   const KBarChart(
       {super.key,
-      required this.weeklySummary,
+      required this.data,
       required this.maxYValue,
       required this.minYValue});
 
   @override
+  State<KBarChart> createState() => _KBarChartState();
+}
+
+class _KBarChartState extends State<KBarChart> {
+  @override
   Widget build(BuildContext context) {
-    BarData myBarData = BarData(
-      [
-        weeklySummary[0]['expanse'],
-        weeklySummary[0]['income'],
-      ],
-      [
-        weeklySummary[1]['expanse'],
-        weeklySummary[1]['income'],
-      ],
-      [
-        weeklySummary[2]['expanse'],
-        weeklySummary[2]['income'],
-      ],
-      [
-        weeklySummary[3]['expanse'],
-        weeklySummary[3]['income'],
-      ],
-      [
-        weeklySummary[4]['expanse'],
-        weeklySummary[4]['income'],
-      ],
-      [
-        weeklySummary[5]['expanse'],
-        weeklySummary[5]['income'],
-      ],
-      [
-        weeklySummary[6]['expanse'],
-        weeklySummary[6]['income'],
-      ],
-    );
-
-    myBarData.initializeBarData();
-
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: 12.0),
-          child: AspectRatio(
-            aspectRatio: 16 / 9,
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          controller: ScrollController(),
+          child: SizedBox(
+            width: widget.data.length == 7
+                ? screenWidth(context) * .9
+                : widget.data.length <= 28 || widget.data.length <= 30
+                    ? 800
+                    : 640,
+            height: 244,
             child: BarChart(
               BarChartData(
                 alignment: BarChartAlignment.spaceAround,
-                maxY: maxYValue,
-                minY: minYValue,
+                maxY: widget.maxYValue,
+                minY: widget.minYValue,
                 gridData: const FlGridData(show: false),
                 borderData: FlBorderData(show: false),
-                titlesData: const FlTitlesData(
+                titlesData: FlTitlesData(
                   show: true,
-                  rightTitles: AxisTitles(
+                  rightTitles: const AxisTitles(
                       sideTitles: SideTitles(
                     showTitles: false,
                   )),
-                  topTitles: AxisTitles(
+                  topTitles: const AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: false,
                     ),
                   ),
-                  leftTitles: AxisTitles(
+                  leftTitles: const AxisTitles(
                       sideTitles:
-                          SideTitles(showTitles: true, reservedSize: 40)),
+                          SideTitles(showTitles: true, reservedSize: 36)),
                   bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                          showTitles: true, getTitlesWidget: getBottomTitles)),
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (
+                        double value,
+                        TitleMeta meta,
+                      ) {
+                        return SideTitleWidget(
+                            space: 4,
+                            axisSide: meta.axisSide,
+                            child: Text(
+                              widget.data[value.toInt()].dataOf,
+                            ));
+                      },
+                    ),
+                  ),
                 ),
-                barGroups: myBarData.barData
-                    .map((data) => BarChartGroupData(x: data.x, barRods: [
+                barGroups: widget.data
+                    .asMap()
+                    .entries
+                    .map(
+                      (entry) => BarChartGroupData(
+                        x: entry.key,
+                        barRods: [
                           BarChartRodData(
+                            width: 6,
+                            toY: entry.value.expenses,
                             color: Colors.amber[200],
-                            toY: data.y,
-                            width: 8,
-                            borderRadius: BorderRadius.circular(4),
                           ),
                           BarChartRodData(
+                            width: 6,
+                            toY: entry.value.income,
                             color: Colors.amber,
-                            toY: data.y,
-                            width: 8,
-                            borderRadius: BorderRadius.circular(4),
                           ),
-                        ]))
+                        ],
+                      ),
+                    )
                     .toList(),
               ),
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        Center(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
                 child: ListTile(
@@ -169,50 +140,4 @@ class KBarChart extends StatelessWidget {
       ],
     );
   }
-}
-
-Widget getBottomTitles(
-  double value,
-  TitleMeta meta,
-) {
-  var style = const TextStyle(
-    fontWeight: FontWeight.w400,
-  );
-
-  Widget text;
-
-  switch (value.toInt()) {
-    case 1:
-      text = Text("Sun", style: style);
-      break;
-
-    case 2:
-      text = Text("Mon", style: style);
-      break;
-
-    case 3:
-      text = Text("Tue", style: style);
-      break;
-
-    case 4:
-      text = Text("Wed", style: style);
-      break;
-
-    case 5:
-      text = Text("Thu", style: style);
-      break;
-    case 6:
-      text = Text("Fri", style: style);
-      break;
-
-    case 7:
-      text = Text("Sat", style: style);
-      break;
-
-    default:
-      text = Text("", style: style);
-      break;
-  }
-
-  return SideTitleWidget(axisSide: meta.axisSide, child: text);
 }

@@ -1,5 +1,7 @@
 import 'package:e_gold/services/auth_service.dart';
 import 'package:e_gold/services/kyc_service.dart';
+import 'package:e_gold/services/stripe_api.dart';
+import 'package:e_gold/services/userProfileService.dart';
 import 'package:e_gold/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:e_gold/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:e_gold/ui/views/dashboard_screen/dashboard_screen_view.dart';
@@ -38,7 +40,8 @@ import 'package:e_gold/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:e_gold/ui/views/change_password/change_password_view.dart';
 import 'package:e_gold/ui/views/sliverbalancehistory/sliverbalancehistory_view.dart';
 import 'package:e_gold/ui/views/goldbalancehistory/goldbalancehistory_view.dart';
-import 'package:e_gold/ui/views/statistic/statistic_view.dart';
+import 'package:e_gold/ui/views/auth_views/phone_sign_up/phone_sign_up_view.dart';
+import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -79,6 +82,8 @@ import 'package:e_gold/ui/views/statistic/statistic_view.dart';
     MaterialRoute(page: SliverbalancehistoryView),
     MaterialRoute(page: GoldbalancehistoryView),
     MaterialRoute(page: StatisticView),
+    MaterialRoute(page: PhoneSignUpView),
+    MaterialRoute(page: TransactiondetailsView),
 // @stacked-route
   ],
   dependencies: [
@@ -88,6 +93,8 @@ import 'package:e_gold/ui/views/statistic/statistic_view.dart';
     LazySingleton(classType: AuthService),
     LazySingleton(classType: SnackbarService),
     LazySingleton(classType: KycService),
+    LazySingleton(classType: UserProfileService),
+    LazySingleton(classType: StripeApi),
     // @stacked-service
   ],
   bottomsheets: [

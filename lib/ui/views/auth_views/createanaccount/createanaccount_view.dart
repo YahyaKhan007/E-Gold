@@ -1,5 +1,7 @@
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
 import '../../../common/ui_helpers.dart';
 import 'createanaccount_viewmodel.dart';
@@ -14,9 +16,12 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
     Widget? child,
   ) {
     return SafeArea(
-      child: Scaffold(
-        body: Column(
+        child: Scaffold(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 40),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const Center(
                 child: Text(
@@ -33,7 +38,7 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
             Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: List.generate(
-                  5,
+                  4,
                   (index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton.icon(
@@ -42,36 +47,47 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                         shape: const StadiumBorder(),
                       ),
                       onPressed: () => viewModel.handleButtonPress(index),
-                      icon: Icon(
+                      icon: SvgPicture.asset(
                         viewModel.buttonData[index]['icon'],
-                        size: 28.0,
+                        height: 28.0,
+                        width: 28.0,
                       ),
                       label: Text(viewModel.buttonData[index]['text']),
                     ),
                   ),
                 )),
-            verticalSpaceSmall,
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: 'Already have an account? ',
-                style: Theme.of(context).textTheme.titleMedium,
-                children: [
-                  TextSpan(
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(color: const Color(0xffF5B119)),
-                      text: 'Login',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = viewModel.onButtonPressed),
-                ],
-              ),
-            ),
+            verticalSpaceLarge,
+            Column(
+              children: [
+                ElevatedButton(
+                  onPressed: viewModel.onPressedSignup,
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size.fromHeight(48),
+                    shape: const StadiumBorder(),
+                  ),
+                  child: const Text('Sign up'),
+                ),
+                verticalSpaceSmall,
+                ElevatedButton(
+                  onPressed: viewModel.onPressedLogin,
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size.fromHeight(48),
+                    shape: const StadiumBorder(
+                        side: BorderSide(
+                      width: 2.0,
+                      color: Colors.orange,
+                    )),
+                    backgroundColor: kcBackgroundColor,
+                    foregroundColor: Colors.black,
+                  ),
+                  child: const Text('Login'),
+                )
+              ],
+            )
           ],
         ),
       ),
-    );
+    ));
   }
 
   @override

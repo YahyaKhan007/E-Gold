@@ -27,4 +27,8 @@ class ForgetpasswordViewModel extends BaseViewModel {
   bool validateForm() {
     return formKey.currentState?.validate() ?? false;
   }
+
+  void onTapSignIn() {
+    navigationService.navigateToLoginView();
+  }
 }

@@ -24,4 +24,7 @@ class HomeViewModel extends BaseViewModel {
   void silverContainer() {
     _navigationService.navigateToSliverbalancehistoryView();
   }
+
+  void onTapSell() {
+  }
 }

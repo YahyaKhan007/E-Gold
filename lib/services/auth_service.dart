@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/models/userProfile.dart';
+import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -9,41 +11,9 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final _snackbarService = locator<SnackbarService>();
+  String _verificationId = "";
+  final _UserProfileService = locator<UserProfileService>();
 
-  // Future<User?> signUpWithEmail(
-  //     String email, String password, String name) async {
-  //   try {
-  //     final credential = await _auth.createUserWithEmailAndPassword(
-  //       email: email,
-  //       password: password,
-  //     );
-  //     await _saveUserProfileToFirestore(credential.user, name);
-  //     _showSuccessSnackbar('Sign-up successful!');
-  //     return credential.user;
-  //   } on FirebaseAuthException catch (e) {
-  //     _handleAuthException(e);
-  //   } catch (e) {
-  //     _handleGeneralException(e);
-  //   }
-  //   return null;
-  // }
-
-  // Future<void> _saveUserProfileToFirestore(User? user, String name) async {
-  //   if (user != null) {
-  //     // Reference to the Firestore collection where user profiles are stored
-  //     CollectionReference users =
-  //         FirebaseFirestore.instance.collection('users');
-
-  //     // Create a document for the user using their UID
-  //     await users.doc(user.uid).set({
-  //       'uid': user.uid,
-  //       'email': user.email,
-  //       'name':
-  //           name, // Add user's name or any other information you want to store
-  //       // Add other fields as needed
-  //     });
-  //   }
-  // }
   Future<User?> signUpWithEmail(
       String email, String password, String name) async {
     try {
@@ -55,8 +25,15 @@ class AuthService {
       // Send email verification
       await credential.user?.sendEmailVerification();
 
-      // Save user profile to Firestore
-      await _saveUserProfileToFirestore(credential.user, name);
+      UserProfile user = UserProfile(
+          name: name,
+          profileImg: '',
+          email: email,
+          uid: credential.user!.uid,
+          phoneNumber: "",
+          dateOfBirth: '',
+          createdAt: Timestamp.now());
+      _UserProfileService.addUserToFirestore(user);
 
       _showSuccessSnackbar('Sign-up successful! Verification email sent.');
       return credential.user;
@@ -68,19 +45,37 @@ class AuthService {
     return null;
   }
 
-  Future<void> _saveUserProfileToFirestore(User? user, String name) async {
-    if (user != null) {
-      // Reference to the Firestore collection where user profiles are stored
-      CollectionReference users =
-          FirebaseFirestore.instance.collection('users');
+  Future<void> changePasswordWithCurrentPassword(
+    String currentPassword,
+    String newPassword,
+  ) async {
+    try {
+      // Get the current user
+      User? user = FirebaseAuth.instance.currentUser;
 
-      // Create a document for the user using their UID
-      await users.doc(user.uid).set({
-        'uid': user.uid,
-        'email': user.email,
-        'name': name,
-        // Add other fields as needed
-      });
+      if (user != null) {
+        // Create credentials for reauthentication
+        AuthCredential credential = EmailAuthProvider.credential(
+          email: user.email!,
+          password: currentPassword,
+        );
+
+        // Reauthenticate the user with current credentials
+        await user.reauthenticateWithCredential(credential);
+
+        // Update the user's password
+        await user.updatePassword(newPassword);
+        _showSuccessSnackbar('Change Password successful!');
+        print('Password updated successfully!');
+      } else {
+        _showErrorSnackbar('No user signed in.');
+        // Handle the case where no user is signed in
+        print('No user signed in.');
+      }
+    } catch (e) {
+      _showErrorSnackbar(e.toString());
+      print('Error changing password: $e');
+      // Handle errors, such as invalid password, user reauthentication failure, or other issues
     }
   }
 
@@ -111,7 +106,89 @@ class AuthService {
 
   Future<void> signOut() async {
     await _auth.signOut();
-    await _googleSignIn.signOut();
+  }
+
+  Future<void> verifyPhoneNumber(String phoneNumber) async {
+    try {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (AuthCredential authCredential) async {
+          await _auth.signInWithCredential(authCredential);
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          print("Verification Failed: ${e.message}");
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          _verificationId = verificationId;
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          _verificationId = verificationId;
+        },
+        timeout: Duration(seconds: 60),
+      );
+    } catch (e) {
+      print("Error during phone number verification: $e");
+    }
+  }
+
+  // Future<void> signInWithPhoneNumber(String smsCode) async {
+  //   try {
+  //     AuthCredential credential = PhoneAuthProvider.credential(
+  //       verificationId: _verificationId,
+  //       smsCode: smsCode,
+  //     );
+
+  //     await _auth.signInWithCredential(credential);
+  //     print("Successfully signed in with phone number!");
+  //   } catch (e) {
+  //     print("Error during phone number verification: $e");
+  //   }
+  // }
+  Future<bool> signInWithPhoneNumber(String smsCode) async {
+    try {
+      AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: _verificationId,
+        smsCode: smsCode,
+      );
+
+      UserCredential authResult = await _auth.signInWithCredential(credential);
+
+      // Get the user object from the UserCredential
+      User userAuth = authResult.user!;
+
+      // Check if the user data exists in Firestore
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userAuth.uid)
+          .get();
+
+      if (userDoc.exists) {
+        // User data exists, sign in
+        print('User already exists');
+        _showSuccessSnackbar('Successfully signed in with phone number!');
+        return true;
+      } else {
+        UserProfile user = UserProfile(
+          name: '',
+          profileImg: '',
+          email: '',
+          uid: userAuth.uid,
+          phoneNumber: '',
+          dateOfBirth: '',
+          createdAt: Timestamp.now(),
+        );
+        _UserProfileService.addUserToFirestore(user);
+        // User data doesn't exist, create a new document
+        print('New user created');
+        _showSuccessSnackbar('Successfully signed in with phone number!');
+        return true;
+      }
+    } catch (e) {
+      print("Error during phone number verification: $e");
+      // Handle the error and show an error message if needed
+      _showErrorSnackbar('Error during phone number verification');
+      return false;
+    }
   }
 
   Future<User?> signUpWithPhoneNumberAndPassword(

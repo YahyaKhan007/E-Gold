@@ -75,12 +75,12 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           AccountPageRow(
                             text: 'Edit Profile',
                             icon: Icons.arrow_forward_ios,
-                            onPressed:viewModel.onTapEditProfile,
+                            onPressed: viewModel.onTapEditProfile,
                           ),
                           AccountPageRow(
                             text: 'Change Password',
                             icon: Icons.arrow_forward_ios,
-                            onPressed:viewModel.onTapChangePassword,
+                            onPressed: viewModel.onTapChangePassword,
                           ),
                           AccountPageRow(
                             text: 'Add a Payment Method',
