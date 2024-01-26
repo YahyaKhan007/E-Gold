@@ -40,7 +40,6 @@ import 'package:e_gold/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:e_gold/ui/views/change_password/change_password_view.dart';
 import 'package:e_gold/ui/views/sliverbalancehistory/sliverbalancehistory_view.dart';
 import 'package:e_gold/ui/views/goldbalancehistory/goldbalancehistory_view.dart';
-import 'package:e_gold/ui/views/statistic/statistic_view.dart';
 import 'package:e_gold/ui/views/auth_views/phone_sign_up/phone_sign_up_view.dart';
 import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart';
 // @stacked-import

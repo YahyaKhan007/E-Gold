@@ -131,17 +131,63 @@ class AuthService {
     }
   }
 
-  Future<void> signInWithPhoneNumber(String smsCode) async {
+  // Future<void> signInWithPhoneNumber(String smsCode) async {
+  //   try {
+  //     AuthCredential credential = PhoneAuthProvider.credential(
+  //       verificationId: _verificationId,
+  //       smsCode: smsCode,
+  //     );
+
+  //     await _auth.signInWithCredential(credential);
+  //     print("Successfully signed in with phone number!");
+  //   } catch (e) {
+  //     print("Error during phone number verification: $e");
+  //   }
+  // }
+  Future<bool> signInWithPhoneNumber(String smsCode) async {
     try {
       AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: _verificationId,
         smsCode: smsCode,
       );
 
-      await _auth.signInWithCredential(credential);
-      print("Successfully signed in with phone number!");
+      UserCredential authResult = await _auth.signInWithCredential(credential);
+
+      // Get the user object from the UserCredential
+      User userAuth = authResult.user!;
+
+      // Check if the user data exists in Firestore
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userAuth.uid)
+          .get();
+
+      if (userDoc.exists) {
+        // User data exists, sign in
+        print('User already exists');
+        _showSuccessSnackbar('Successfully signed in with phone number!');
+        return true;
+      } else {
+        UserProfile user = UserProfile(
+          name: '',
+          profileImg: '',
+          email: '',
+          uid: userAuth.uid,
+          phoneNumber: '',
+          dateOfBirth: '',
+          createdAt: Timestamp.now(),
+        );
+        _UserProfileService.addUserToFirestore(user);
+        // User data doesn't exist, create a new document
+        print('New user created');
+        _showSuccessSnackbar('Successfully signed in with phone number!');
+        return true;
+      }
     } catch (e) {
       print("Error during phone number verification: $e");
+      // Handle the error and show an error message if needed
+      _showErrorSnackbar('Error during phone number verification');
+      return false;
     }
   }
 
