@@ -17,6 +17,7 @@ import '../services/balance_service.dart';
 import '../services/bank_service.dart';
 import '../services/kyc_service.dart';
 import '../services/stripe_api.dart';
+import '../services/transaction_service.dart';
 import '../services/userProfileService.dart';
 
 final locator = StackedLocator.instance;
@@ -40,4 +41,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => StripeApi());
   locator.registerLazySingleton(() => BankService());
   locator.registerLazySingleton(() => BalanceService());
+  locator.registerLazySingleton(() => TransactionDetailsService());
 }
