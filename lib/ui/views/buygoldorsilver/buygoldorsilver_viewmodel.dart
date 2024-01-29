@@ -54,7 +54,7 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
     } else {
       try {
         bool isAmountGreaterThanBalance =
-            await bankService.checkBalance(int.parse(amount));
+            await bankService.checkBalance(int.parse(amount).toDouble());
         if (isAmountGreaterThanBalance) {
           _snackbarService.showSnackbar(
             message: 'Entered amount is not in your app\'s balance',

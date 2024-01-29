@@ -15,7 +15,8 @@ class BuyDialogDialogModel extends BaseViewModel {
 
   void confirm() async {
     try {
-      bool deductionSuccessful = await bankService.deductAmount(amount);
+      bool deductionSuccessful =
+          await bankService.deductAmount(amount.toDouble());
       if (deductionSuccessful) {
         _snackbarService.showSnackbar(
           message: 'Gold bough Successfully',
