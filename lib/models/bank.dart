@@ -1,30 +1,40 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Bank {
-  int balance;
+  String bankName;
+  String accountNumber;
+  String swiftCode;
 
   Bank({
-    required this.balance,
+    required this.bankName,
+    required this.accountNumber,
+    required this.swiftCode,
   });
 
   // Factory method to create a Bank instance from JSON data
   factory Bank.fromJson(Map<String, dynamic> json) {
     return Bank(
-      balance: json['balance'],
+      bankName: json['bankName'],
+      accountNumber: json['accountNumber'],
+      swiftCode: json['swiftCode'],
     );
   }
 
   // Factory method to create a Bank instance from a Firestore snapshot
   factory Bank.fromSnapshot(DocumentSnapshot snapshot) {
     return Bank(
-      balance: snapshot['balance'],
+      bankName: snapshot['bankName'],
+      accountNumber: snapshot['accountNumber'],
+      swiftCode: snapshot['swiftCode'],
     );
   }
 
   // Method to convert a Bank instance to JSON data
   Map<String, dynamic> toJson() {
     return {
-      'balance': balance,
+      'bankName': bankName,
+      'accountNumber': accountNumber,
+      'swiftCode': swiftCode,
     };
   }
 }

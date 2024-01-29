@@ -43,6 +43,7 @@ class CryptoPaymentScreenView
               height: 25,
             ),
             CustomTextField(
+              controller: viewModel.amount,
               title: 'Amount',
               labelText: 'Amount in  USD (\$)',
               keyboardType: TextInputType.number,

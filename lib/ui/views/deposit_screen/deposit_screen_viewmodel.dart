@@ -71,28 +71,12 @@ class DepositScreenViewModel extends BaseViewModel {
   }
 
   void linkBankAccount() async {
-    await bankService.addToBalance(300);
-    try {
-      bool addSuccessful = await bankService.addToBalance(300);
-      if (addSuccessful) {
-        _snackbarService.showSnackbar(
-          message: 'Amount added to balance Successfully',
-          title: 'Success',
-          duration: const Duration(seconds: 2),
-        );
-      } else {
-        _snackbarService.showSnackbar(
-          message: 'Amount was not added to balance',
-          title: 'Error',
-          duration: const Duration(seconds: 2),
-        );
-      }
-    } catch (e) {
-      _snackbarService.showSnackbar(
-        message: 'Error $e',
-        title: 'Error',
-        duration: const Duration(seconds: 2),
-      );
+    bool check = await bankService.doesBankCollectionExist();
+    if (check) {
+      await bankService.getBankData();
+      _navigationService.navigateToLinkBankAccountScreenView();
+    } else {
+      _navigationService.navigateToLinkBankAccountScreenView();
     }
   }
 }
