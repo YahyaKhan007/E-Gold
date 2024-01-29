@@ -27,6 +27,7 @@ class AuthService {
 
       UserProfile user = UserProfile(
           name: name,
+          balance: 0.0,
           profileImg: '',
           email: email,
           uid: credential.user!.uid,
@@ -169,6 +170,7 @@ class AuthService {
         return true;
       } else {
         UserProfile user = UserProfile(
+          balance: 0.0,
           name: '',
           profileImg: '',
           email: '',
