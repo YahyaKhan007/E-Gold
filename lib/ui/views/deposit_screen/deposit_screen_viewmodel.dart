@@ -1,15 +1,19 @@
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
+import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/stripe_api.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class DepositScreenViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
+  final _balanceService = locator<BalanceService>();
   final stripeApi = locator<StripeApi>();
   Map<String, dynamic>? paymentIntent;
+
   final bankService = locator<BankService>();
   final _snackbarService = locator<SnackbarService>();
 
@@ -78,5 +82,10 @@ class DepositScreenViewModel extends BaseViewModel {
     } else {
       _navigationService.navigateToLinkBankAccountScreenView();
     }
+  }
+
+  void enterBalance() {
+    _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
+   
   }
 }

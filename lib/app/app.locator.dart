@@ -13,6 +13,7 @@ import 'package:stacked_services/src/snackbar/snackbar_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/auth_service.dart';
+import '../services/balance_service.dart';
 import '../services/bank_service.dart';
 import '../services/kyc_service.dart';
 import '../services/stripe_api.dart';
@@ -38,4 +39,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => UserProfileService());
   locator.registerLazySingleton(() => StripeApi());
   locator.registerLazySingleton(() => BankService());
+  locator.registerLazySingleton(() => BalanceService());
 }
