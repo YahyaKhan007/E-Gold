@@ -1,5 +1,6 @@
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
+import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/stripe_api.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:stacked/stacked.dart';
@@ -9,6 +10,9 @@ class DepositScreenViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final stripeApi = locator<StripeApi>();
   Map<String, dynamic>? paymentIntent;
+  final bankService = locator<BankService>();
+  final _snackbarService = locator<SnackbarService>();
+
   void goBack() {
     _navigationService.back();
   }
@@ -64,5 +68,31 @@ class DepositScreenViewModel extends BaseViewModel {
 
   void toCardPayment() {
     _navigationService.navigateToAddNewCardPaymentScreenView();
+  }
+
+  void linkBankAccount() async {
+    await bankService.addToBalance(300);
+    try {
+      bool addSuccessful = await bankService.addToBalance(300);
+      if (addSuccessful) {
+        _snackbarService.showSnackbar(
+          message: 'Amount added to balance Successfully',
+          title: 'Success',
+          duration: const Duration(seconds: 2),
+        );
+      } else {
+        _snackbarService.showSnackbar(
+          message: 'Amount was not added to balance',
+          title: 'Error',
+          duration: const Duration(seconds: 2),
+        );
+      }
+    } catch (e) {
+      _snackbarService.showSnackbar(
+        message: 'Error $e',
+        title: 'Error',
+        duration: const Duration(seconds: 2),
+      );
+    }
   }
 }

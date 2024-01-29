@@ -35,19 +35,19 @@ class HomeView extends StackedView<HomeViewModel> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         HomeMetalButton(
-                          containerColor: Color(0xFFFFDA00),
+                          containerColor: const Color(0xFFFFDA00),
                           title: 'Crypto',
                         ),
                         HomeMetalButton(
-                          containerColor: Color(0xFFF5B118),
+                          containerColor: const Color(0xFFF5B118),
                           title: 'Card',
                         ),
                         HomeMetalButton(
-                          containerColor: Color(0xFFF5B118),
+                          containerColor: const Color(0xFFF5B118),
                           title: 'Bank',
                         ),
                         HomeMetalButton(
-                          containerColor: Color(0xFFF5B118),
+                          containerColor: const Color(0xFFF5B118),
                           title: 'InStore',
                         ),
                       ],
@@ -101,7 +101,7 @@ class HomeView extends StackedView<HomeViewModel> {
                           btcColor: kcYellowBright,
                           onTap: () {},
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         HomeTransactionRow(
@@ -113,7 +113,7 @@ class HomeView extends StackedView<HomeViewModel> {
                           btcColor: kcYellowBright,
                           onTap: () {},
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         HomeTransactionRow(
@@ -125,7 +125,7 @@ class HomeView extends StackedView<HomeViewModel> {
                           btcColor: kcYellowBright,
                           onTap: () {},
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         HomeTransactionRow(

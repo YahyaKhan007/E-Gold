@@ -1,4 +1,5 @@
 import 'package:e_gold/services/auth_service.dart';
+import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/kyc_service.dart';
 import 'package:e_gold/services/stripe_api.dart';
 import 'package:e_gold/services/userProfileService.dart';
@@ -42,6 +43,7 @@ import 'package:e_gold/ui/views/sliverbalancehistory/sliverbalancehistory_view.d
 import 'package:e_gold/ui/views/goldbalancehistory/goldbalancehistory_view.dart';
 import 'package:e_gold/ui/views/auth_views/phone_sign_up/phone_sign_up_view.dart';
 import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart';
+import 'package:e_gold/ui/dialogs/buy_dialog/buy_dialog_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -95,6 +97,7 @@ import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart'
     LazySingleton(classType: KycService),
     LazySingleton(classType: UserProfileService),
     LazySingleton(classType: StripeApi),
+    LazySingleton(classType: BankService),
     // @stacked-service
   ],
   bottomsheets: [
@@ -103,7 +106,8 @@ import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart'
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
+    StackedDialog(classType: BuyDialogDialog),
+// @stacked-dialog
   ],
 )
 class App {}

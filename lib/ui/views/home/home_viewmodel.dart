@@ -25,6 +25,5 @@ class HomeViewModel extends BaseViewModel {
     _navigationService.navigateToSliverbalancehistoryView();
   }
 
-  void onTapSell() {
-  }
+  void onTapSell() {}
 }

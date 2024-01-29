@@ -26,7 +26,7 @@ class LoginViewModel extends BaseViewModel {
 
   void onPressedLogin() {
     if (formKey.currentState!.validate()) {
-      navigationService.replaceWithHomeView();
+      navigationService.replaceWithDashboardScreenView();
     }
   }
 

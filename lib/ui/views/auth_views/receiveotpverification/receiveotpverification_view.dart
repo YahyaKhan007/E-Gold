@@ -14,7 +14,6 @@ class ReceiveotpverificationView
   Widget builder(
     BuildContext context,
     ReceiveotpverificationViewModel viewModel,
-   
     Widget? child,
   ) {
     return SafeArea(
