@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/userProfile.dart';
+import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -14,6 +15,7 @@ class AuthService {
   String _verificationId = "";
   final _UserProfileService = locator<UserProfileService>();
 
+  final _BalanceService = locator<BalanceService>();
   Future<User?> signUpWithEmail(
       String email, String password, String name) async {
     try {
@@ -35,7 +37,8 @@ class AuthService {
           dateOfBirth: '',
           createdAt: Timestamp.now());
       _UserProfileService.addUserToFirestore(user);
-
+      _BalanceService.createBalance(
+          FirebaseAuth.instance.currentUser!.uid, 0.0);
       _showSuccessSnackbar('Sign-up successful! Verification email sent.');
       return credential.user;
     } on FirebaseAuthException catch (e) {

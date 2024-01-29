@@ -1,7 +1,9 @@
 import 'package:e_gold/services/auth_service.dart';
+import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/kyc_service.dart';
 import 'package:e_gold/services/stripe_api.dart';
+import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:e_gold/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:e_gold/ui/dialogs/info_alert/info_alert_dialog.dart';
@@ -98,6 +100,8 @@ import 'package:e_gold/ui/dialogs/buy_dialog/buy_dialog_dialog.dart';
     LazySingleton(classType: UserProfileService),
     LazySingleton(classType: StripeApi),
     LazySingleton(classType: BankService),
+    LazySingleton(classType: BalanceService),
+    LazySingleton(classType: TransactionDetailsService),
     // @stacked-service
   ],
   bottomsheets: [

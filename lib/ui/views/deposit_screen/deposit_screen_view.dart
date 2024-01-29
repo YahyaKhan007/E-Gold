@@ -73,7 +73,7 @@ class DepositScreenView extends StackedView<DepositScreenViewModel> {
               image: bank,
               title: 'Link Bank Account',
               text: 'Connect bank for easy deposits',
-              onPressed: viewModel.linkBankAccount,
+              onPressed: viewModel.enterBalance,
             ),
             const SizedBox(
               height: 20,
