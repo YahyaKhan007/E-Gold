@@ -4,7 +4,6 @@ import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
-import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/stripe_api.dart';
 import 'package:e_gold/services/transaction_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,16 +11,13 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class DepositScreenViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
+class ChoosePaymentMethodViewModel extends BaseViewModel {  final _navigationService = locator<NavigationService>();
   final _balanceService = locator<BalanceService>();
   final stripeApi = locator<StripeApi>();
   Map<String, dynamic>? paymentIntent;
   final transactionDetailsService = locator<TransactionDetailsService>();
 
-
-  final _cryptoService = locator<CryptoService>();
-  final _bankService = locator<BankService>();
+  final bankService = locator<BankService>();
   final _snackbarService = locator<SnackbarService>();
 
   void goBack() {
@@ -73,14 +69,8 @@ class DepositScreenViewModel extends BaseViewModel {
     }
   }
 
-  void toCryptoPayment() async {
-    bool check = await _cryptoService.doesCryptoCollectionExist();
-    if (check) {
-      await _cryptoService.getCryptoData();
-      _navigationService.navigateToCryptoPaymentScreenView();
-    } else {
-      _navigationService.navigateToCryptoPaymentScreenView();
-    }
+  void toCryptoPayment() {
+    _navigationService.navigateToCryptoPaymentScreenView();
   }
 
   void toCardPayment() {
@@ -88,24 +78,39 @@ class DepositScreenViewModel extends BaseViewModel {
   }
 
   void linkBankAccount() async {
-    bool check = await _bankService.doesBankCollectionExist();
-    if (check) {
-      await _bankService.getBankData();
-      _navigationService.navigateToLinkBankAccountScreenView();
-    } else {
-      _navigationService.navigateToLinkBankAccountScreenView();
+    await bankService.addToBalance(300);
+    try {
+      bool addSuccessful = await bankService.addToBalance(300);
+      if (addSuccessful) {
+        _snackbarService.showSnackbar(
+          message: 'Amount added to balance Successfully',
+          title: 'Success',
+          duration: const Duration(seconds: 2),
+        );
+      } else {
+        _snackbarService.showSnackbar(
+          message: 'Amount was not added to balance',
+          title: 'Error',
+          duration: const Duration(seconds: 2),
+        );
+      }
+    } catch (e) {
+      _snackbarService.showSnackbar(
+        message: 'Error $e',
+        title: 'Error',
+        duration: const Duration(seconds: 2),
+      );
     }
   }
-
 
   void enterBalance() async {
     TransactionDetails newTransaction = TransactionDetails(
       status: 'Completed',
       totalPaid: 100.0,
+      transactionType: 'TopUp',
       totalBonus: 20.0,
-      transactionType: 'Buy',
       totalGoldBought: 5.0,
-      withdrawMethod: 'In-Store',
+      withdrawMethod: 'Bank',
       walletType: 'Main Street',
       transactionDate: Timestamp.now(),
       transactionId:
@@ -116,4 +121,5 @@ class DepositScreenViewModel extends BaseViewModel {
         userId: FirebaseAuth.instance.currentUser!.uid,
         transactionDetails: newTransaction);
     // _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
+  }
 }

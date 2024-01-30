@@ -1,4 +1,7 @@
+import 'package:cloud_firestore_platform_interface/src/timestamp.dart';
+import 'package:e_gold/models/transactionDetails.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomeTransactionRow extends StatelessWidget {
   final Color buttonColor;
@@ -7,9 +10,11 @@ class HomeTransactionRow extends StatelessWidget {
   final String image;
   final Color imageBack;
   final Color btcColor;
+  final TransactionDetails transactionDetails;
   final VoidCallback onTap;
   const HomeTransactionRow({
     super.key,
+    required this.transactionDetails,
     required this.buttonColor,
     required this.buttonText,
     required this.btc,
@@ -59,11 +64,11 @@ class HomeTransactionRow extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                const Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Gold',
                       style: TextStyle(
                         color: Colors.black,
@@ -72,8 +77,8 @@ class HomeTransactionRow extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Oct 14, 7:19 PM',
-                      style: TextStyle(
+                      _formattedDate(transactionDetails.transactionDate),
+                      style: const TextStyle(
                         color: Color(0xFF626262),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -88,7 +93,7 @@ class HomeTransactionRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  '$btc BTC',
+                  '$btc ${transactionDetails.withdrawMethod} ',
                   style: TextStyle(
                     color: btcColor,
                     fontSize: 16,
@@ -129,5 +134,10 @@ class HomeTransactionRow extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _formattedDate(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    return DateFormat('MMMM d, y H:mm').format(dateTime);
   }
 }

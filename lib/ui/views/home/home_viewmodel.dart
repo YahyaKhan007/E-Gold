@@ -2,6 +2,8 @@ import 'package:e_gold/app/app.bottomsheets.dart';
 import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
+import 'package:e_gold/models/transactionDetails.dart';
+import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -10,6 +12,11 @@ import 'package:stacked_services/stacked_services.dart';
 class HomeViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
+  final _transactionService = locator<TransactionDetailsService>();
+  List<TransactionDetails> cryptoTransactions = [];
+  List<TransactionDetails> cardTransactions = [];
+  List<TransactionDetails> bankTransactions = [];
+  List<TransactionDetails> inStoreTransactions = [];
   void seeAll() {
     _navigationService.navigateToTransactionHistoryScreenView(check: true);
   }
@@ -24,6 +31,35 @@ class HomeViewModel extends BaseViewModel {
 
   void silverContainer() {
     _navigationService.navigateToSliverbalancehistoryView();
+  }
+
+  void onViewModelReady() async {
+    setBusy(true);
+    await fetchTransactions();
+    setBusy(false);
+  }
+
+  Future<void> fetchTransactions() async {
+    try {
+      cryptoTransactions = (await _transactionService
+              .getTransactionsByPaymentMethod('userId', 'Crypto'))
+          .cast<TransactionDetails>();
+      cardTransactions = (await _transactionService
+              .getTransactionsByPaymentMethod('userId', 'Card'))
+          .cast<TransactionDetails>();
+      bankTransactions = (await _transactionService
+              .getTransactionsByPaymentMethod('userId', 'Bank'))
+          .cast<TransactionDetails>();
+      inStoreTransactions = (await _transactionService
+              .getTransactionsByPaymentMethod('userId', 'In-Store'))
+          .cast<TransactionDetails>();
+      print('print data from fetch transaction');
+      // Notify listeners about the changes
+      notifyListeners();
+    } catch (e) {
+      // Handle error
+      print('Error fetching transactions: $e');
+    }
   }
 
   void onTapSell() {}

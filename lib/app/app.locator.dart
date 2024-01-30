@@ -44,4 +44,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => BalanceService());
   locator.registerLazySingleton(() => TransactionDetailsService());
   locator.registerLazySingleton(() => CryptoService());
+  locator.registerLazySingleton(() => TransactionDetailsService());
 }

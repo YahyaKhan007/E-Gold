@@ -1,13 +1,16 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class TransactionDetails {
   String status;
   double totalPaid;
   double totalBonus;
   double totalGoldBought;
   String withdrawMethod;
-  String storeLocation;
-  String transactionDate;
+  String transactionType;
+  String walletType;
+  Timestamp transactionDate;
   String transactionId;
 
   // Constructor
@@ -17,7 +20,8 @@ class TransactionDetails {
     required this.totalBonus,
     required this.totalGoldBought,
     required this.withdrawMethod,
-    required this.storeLocation,
+    required this.walletType,
+     required this.transactionType,
     required this.transactionDate,
     required this.transactionId,
   });
@@ -28,9 +32,10 @@ class TransactionDetails {
       'status': status,
       'totalPaid': totalPaid,
       'totalBonus': totalBonus,
+      'transactionType': transactionType,
       'totalGoldBought': totalGoldBought,
       'withdrawMethod': withdrawMethod,
-      'storeLocation': storeLocation,
+      'walletType': walletType,
       'transactionDate': transactionDate,
       'transactionId': transactionId,
     };
@@ -41,11 +46,12 @@ class TransactionDetails {
     return TransactionDetails(
       status: map['status'],
       totalPaid: map['totalPaid'],
+      transactionType: map['transactionType'],
       totalBonus: map['totalBonus'],
       totalGoldBought: map['totalGoldBought'],
       withdrawMethod: map['withdrawMethod'],
-      storeLocation: map['storeLocation'],
-      transactionDate: map['transactionDate'],
+      walletType: map['walletType'],
+      transactionDate: map['transactionDate'] as Timestamp,
       transactionId: map['transactionId'],
     );
   }
@@ -56,4 +62,6 @@ class TransactionDetails {
   // Create a model from JSON string
   factory TransactionDetails.fromJson(String source) =>
       TransactionDetails.fromMap(json.decode(source));
+
+  toList() {}
 }

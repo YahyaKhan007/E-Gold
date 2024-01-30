@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_gold/models/transactionDetails.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class TransactionDetailsService {
   final CollectionReference _transactionDetailsCollection =
@@ -7,12 +10,12 @@ class TransactionDetailsService {
 
   Future<void> createTransaction({
     required String userId,
-    required Map<String, dynamic> transactionDetails,
+    transactionDetails,
   }) async {
     try {
       await _transactionDetailsCollection
           .doc(userId)
-          .collection('transactionDetails')
+          .collection('transactions')
           .doc(transactionDetails['transactionId'])
           .set(transactionDetails);
     } catch (e) {
@@ -20,17 +23,20 @@ class TransactionDetailsService {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getTransactionsByPaymentMethod(
-      String userId, String paymentMethod) async {
+  Future<List<TransactionDetails>> getTransactionsByPaymentMethod(
+    String userId,
+    String paymentMethod,
+  ) async {
     try {
       final querySnapshot = await _transactionDetailsCollection
-          .doc(userId)
-          .collection('transactionDetails')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('transactions')
           .where('withdrawMethod', isEqualTo: paymentMethod)
           .get();
 
       return querySnapshot.docs
-          .map((doc) => doc.data() as Map<String, dynamic>)
+          .map((doc) =>
+              TransactionDetails.fromMap(doc.data() as Map<String, dynamic>))
           .toList();
     } catch (e) {
       print('Error retrieving transactions: $e');
@@ -46,7 +52,7 @@ class TransactionDetailsService {
     try {
       await _transactionDetailsCollection
           .doc(userId)
-          .collection('transactionDetails')
+          .collection('transactions')
           .doc(transactionId)
           .update(updatedData);
     } catch (e) {
@@ -61,11 +67,26 @@ class TransactionDetailsService {
     try {
       await _transactionDetailsCollection
           .doc(userId)
-          .collection('transactionDetails')
+          .collection('transactions')
           .doc(transactionId)
           .delete();
     } catch (e) {
       print('Error deleting transaction: $e');
+    }
+  }
+
+  Future<void> addTransaction({
+    required String userId,
+    required TransactionDetails transactionDetails,
+  }) async {
+    try {
+      await _transactionDetailsCollection
+          .doc(userId)
+          .collection('transactions')
+          .doc()
+          .set(transactionDetails.toMap());
+    } catch (e) {
+      print('Error adding transaction: $e');
     }
   }
 }

@@ -1,4 +1,6 @@
+import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
+import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart';
 import 'package:flutter/material.dart';
 
 import '../common/app_colors.dart';
@@ -6,13 +8,15 @@ import 'customHomeTransactionRow.dart';
 import 'homeScreenSellSection.dart';
 
 class LastTransactionsWidget extends StatefulWidget {
-  final Function()? onTapSell, onTapSeeAll;
+  final VoidCallback? onTapSell, onTapSeeAll;
   final String transactionTypeImage;
+  final List<TransactionDetails> transactions;
 
   const LastTransactionsWidget(
       {super.key,
       this.onTapSell,
       this.onTapSeeAll,
+      required this.transactions,
       required this.transactionTypeImage});
 
   @override
@@ -60,16 +64,28 @@ class LastTransactionsWidgetState extends State<LastTransactionsWidget> {
           verticalSpaceSmall,
           Expanded(
               child: ListView.separated(
-            itemCount: 7,
+            itemCount: widget.transactions.length,
             itemBuilder: (context, index) {
+              TransactionDetails transaction = widget.transactions[index];
+
               return HomeTransactionRow(
+                transactionDetails: transaction,
                 buttonColor: kcSuccessGreen,
-                buttonText: 'Completed',
-                btc: '+0.001',
+                buttonText: transaction.status,
+                btc: transaction.totalGoldBought.toString(),
                 image: widget.transactionTypeImage,
                 imageBack: kcYellowBright,
                 btcColor: kcYellowBright,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TransactiondetailsView(
+                        transactionDetails: transaction,
+                      ),
+                    ),
+                  );
+                },
               );
             },
             separatorBuilder: (BuildContext context, int index) =>

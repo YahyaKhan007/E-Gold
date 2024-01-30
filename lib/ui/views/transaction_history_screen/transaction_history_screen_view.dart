@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
 import 'package:e_gold/ui/widgets/customHomeTransactionRow.dart';
@@ -81,6 +83,16 @@ class TransactionHistoryScreenView
                     imageBack: kcYellowBright,
                     btcColor: kcYellowBright,
                     onTap: () {},
+                    transactionDetails: TransactionDetails(
+                        status: '',
+                        totalPaid: 0,
+                        totalBonus: 0,
+                        transactionType: 'TopUp',
+                        totalGoldBought: 0,
+                        withdrawMethod: '',
+                        walletType: '',
+                        transactionDate: Timestamp.now(),
+                        transactionId: ''),
                   ),
                   const SizedBox(
                     height: 20,
@@ -93,11 +105,31 @@ class TransactionHistoryScreenView
                     imageBack: kcYellowBright,
                     btcColor: kcYellowBright,
                     onTap: () {},
+                    transactionDetails: TransactionDetails(
+                        status: '',
+                        totalPaid: 0,
+                        transactionType: 'TopUp',
+                        totalBonus: 0,
+                        totalGoldBought: 0,
+                        withdrawMethod: '',
+                        walletType: '',
+                        transactionDate: Timestamp.now(),
+                        transactionId: ''),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   HomeTransactionRow(
+                    transactionDetails: TransactionDetails(
+                        status: '',
+                        totalPaid: 0,
+                        totalBonus: 0,
+                        transactionType: 'TopUp',
+                        totalGoldBought: 0,
+                        withdrawMethod: '',
+                        walletType: '',
+                        transactionDate: Timestamp.now(),
+                        transactionId: ''),
                     buttonColor: kcPendingGrey,
                     buttonText: 'Pending',
                     btc: '-0.001',
@@ -110,6 +142,16 @@ class TransactionHistoryScreenView
                     height: 20,
                   ),
                   HomeTransactionRow(
+                    transactionDetails: TransactionDetails(
+                        status: '',
+                        totalPaid: 0,
+                        totalBonus: 0,
+                        totalGoldBought: 0,
+                        transactionType: 'TopUp',
+                        withdrawMethod: '',
+                        walletType: '',
+                        transactionDate: Timestamp.now(),
+                        transactionId: ''),
                     buttonColor: kcPendingGrey,
                     buttonText: 'Pending',
                     btc: '-0.001',
@@ -140,11 +182,31 @@ class TransactionHistoryScreenView
                     imageBack: kcSilverLight,
                     btcColor: kcSilverLight,
                     onTap: () {},
+                    transactionDetails: TransactionDetails(
+                        status: '',
+                        totalPaid: 0,
+                        totalBonus: 0,
+                        totalGoldBought: 0,
+                        withdrawMethod: '',
+                        transactionType: 'TopUp',
+                        walletType: '',
+                        transactionDate: Timestamp.now(),
+                        transactionId: ''),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   HomeTransactionRow(
+                    transactionDetails: TransactionDetails(
+                        status: '',
+                        totalPaid: 0,
+                        transactionType: 'TopUp',
+                        totalBonus: 0,
+                        totalGoldBought: 0,
+                        withdrawMethod: '',
+                        walletType: '',
+                        transactionDate: Timestamp.now(),
+                        transactionId: ''),
                     buttonColor: kcFailRed,
                     buttonText: 'Failed',
                     btc: '-0.001',
@@ -157,6 +219,16 @@ class TransactionHistoryScreenView
                     height: 20,
                   ),
                   HomeTransactionRow(
+                    transactionDetails: TransactionDetails(
+                        status: '',
+                        totalPaid: 0,
+                        totalBonus: 0,
+                        transactionType: 'TopUp',
+                        totalGoldBought: 0,
+                        withdrawMethod: '',
+                        walletType: '',
+                        transactionDate: Timestamp.now(),
+                        transactionId: ''),
                     buttonColor: kcPendingGrey,
                     buttonText: 'Pending',
                     btc: '-0.001',
