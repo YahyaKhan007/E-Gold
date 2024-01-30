@@ -116,4 +116,4 @@ class DepositScreenViewModel extends BaseViewModel {
         userId: FirebaseAuth.instance.currentUser!.uid,
         transactionDetails: newTransaction);
     // _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
-}
+}}
