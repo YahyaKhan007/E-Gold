@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   int? maxLenght;
   String? Function(String?)? validator;
   final TextEditingController controller;
+  bool? enabled;
   CustomTextField({
     this.width,
     this.keyboardType,
@@ -17,6 +18,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLenght,
     required this.controller,
     this.validator,
+    this.enabled = true,
   });
 
   @override
@@ -47,6 +49,7 @@ class CustomTextField extends StatelessWidget {
           ),
           child: Center(
             child: TextFormField(
+              enabled: enabled,
               validator: validator,
               controller: controller,
               maxLength: maxLenght,
