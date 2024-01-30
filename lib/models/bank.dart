@@ -4,11 +4,13 @@ class Bank {
   String bankName;
   String accountNumber;
   String swiftCode;
+  double? balance;
 
   Bank({
     required this.bankName,
     required this.accountNumber,
     required this.swiftCode,
+    this.balance = 0.0,
   });
 
   // Factory method to create a Bank instance from JSON data
@@ -17,6 +19,7 @@ class Bank {
       bankName: json['bankName'],
       accountNumber: json['accountNumber'],
       swiftCode: json['swiftCode'],
+      balance: json['balance'],
     );
   }
 
@@ -26,6 +29,7 @@ class Bank {
       bankName: snapshot['bankName'],
       accountNumber: snapshot['accountNumber'],
       swiftCode: snapshot['swiftCode'],
+      balance: snapshot['balance'],
     );
   }
 
@@ -35,6 +39,7 @@ class Bank {
       'bankName': bankName,
       'accountNumber': accountNumber,
       'swiftCode': swiftCode,
+      'balance': balance,
     };
   }
 }

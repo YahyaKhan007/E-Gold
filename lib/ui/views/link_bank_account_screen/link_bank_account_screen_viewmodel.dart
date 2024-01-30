@@ -1,8 +1,11 @@
 import 'dart:ui';
 
+import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/bank.dart';
+import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +18,7 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
   final TextEditingController accountSwiftCode = TextEditingController();
   final _bankService = locator<BankService>();
   final _snackbarService = locator<SnackbarService>();
+  final _dialogService = locator<DialogService>();
 
   void goBack() {
     _navigationService.back();
@@ -40,6 +44,16 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
 
   bool validateForm() {
     return formKey.currentState?.validate() ?? false;
+  }
+
+  void addBalance() async {
+    bool check = await _bankService.doesBankCollectionExist();
+    if (check) {
+      _dialogService.showCustomDialog(
+        variant: DialogType.addAmountForBalance,
+        data: 'bank',
+      );
+    }
   }
 
   void linkAccount() async {

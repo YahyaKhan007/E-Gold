@@ -2,6 +2,7 @@ import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
+import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/stripe_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -13,8 +14,8 @@ class DepositScreenViewModel extends BaseViewModel {
   final _balanceService = locator<BalanceService>();
   final stripeApi = locator<StripeApi>();
   Map<String, dynamic>? paymentIntent;
-
-  final bankService = locator<BankService>();
+  final _cryptoService = locator<CryptoService>();
+  final _bankService = locator<BankService>();
   final _snackbarService = locator<SnackbarService>();
 
   void goBack() {
@@ -66,8 +67,14 @@ class DepositScreenViewModel extends BaseViewModel {
     }
   }
 
-  void toCryptoPayment() {
-    _navigationService.navigateToCryptoPaymentScreenView();
+  void toCryptoPayment() async {
+    bool check = await _cryptoService.doesCryptoCollectionExist();
+    if (check) {
+      await _cryptoService.getCryptoData();
+      _navigationService.navigateToCryptoPaymentScreenView();
+    } else {
+      _navigationService.navigateToCryptoPaymentScreenView();
+    }
   }
 
   void toCardPayment() {
@@ -75,9 +82,9 @@ class DepositScreenViewModel extends BaseViewModel {
   }
 
   void linkBankAccount() async {
-    bool check = await bankService.doesBankCollectionExist();
+    bool check = await _bankService.doesBankCollectionExist();
     if (check) {
-      await bankService.getBankData();
+      await _bankService.getBankData();
       _navigationService.navigateToLinkBankAccountScreenView();
     } else {
       _navigationService.navigateToLinkBankAccountScreenView();
@@ -86,6 +93,5 @@ class DepositScreenViewModel extends BaseViewModel {
 
   void enterBalance() {
     _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
-   
   }
 }

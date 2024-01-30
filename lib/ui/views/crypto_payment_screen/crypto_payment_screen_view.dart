@@ -33,60 +33,112 @@ class CryptoPaymentScreenView
           icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CryptoGoldenContainer(),
-            const SizedBox(
-              height: 25,
-            ),
-            CustomTextField(
-              controller: viewModel.amount,
-              title: 'Amount',
-              labelText: 'Amount in  USD (\$)',
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .3,
-            ),
-            Center(
-              child: GestureDetector(
-                onTap: viewModel.toContinue,
-                child: Container(
-                  width: 236,
-                  height: 48,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                  decoration: ShapeDecoration(
-                    color: kcYellowBright,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+      body: Form(
+        key: viewModel.formKey,
+        child: Container(
+          padding: const EdgeInsets.all(20.0),
+          child: viewModel.isBusy
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomTextField(
+                      controller: viewModel.walletAddress,
+                      title: 'Wallet Address',
+                      keyboardType: TextInputType.text,
+                      validator: viewModel.customValidator,
                     ),
-                    shadows: const [
-                      BoxShadow(
-                        color: Color(0x3FF5B119),
-                        blurRadius: 8,
-                        offset: Offset(2, 4),
-                        spreadRadius: 0,
-                      ),
-                    ],
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Continue',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    const SizedBox(
+                      height: 25,
                     ),
-                  ),
+                    CustomTextField(
+                      controller: viewModel.securityPin,
+                      title: 'Security Pin',
+                      keyboardType: TextInputType.number,
+                      validator: viewModel.customValidator,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Center(
+                          child: GestureDetector(
+                            onTap: viewModel.toContinue,
+                            child: Container(
+                              width: 150,
+                              height: 48,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 12),
+                              decoration: ShapeDecoration(
+                                color: kcYellowBright,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                shadows: const [
+                                  BoxShadow(
+                                    color: Color(0x3FF5B119),
+                                    blurRadius: 8,
+                                    offset: Offset(2, 4),
+                                    spreadRadius: 0,
+                                  ),
+                                ],
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Continue',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: GestureDetector(
+                            onTap: viewModel.addBalance,
+                            child: Container(
+                              width: 150,
+                              height: 48,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 12),
+                              decoration: ShapeDecoration(
+                                color: kcYellowBright,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                shadows: const [
+                                  BoxShadow(
+                                    color: Color(0x3FF5B119),
+                                    blurRadius: 8,
+                                    offset: Offset(2, 4),
+                                    spreadRadius: 0,
+                                  ),
+                                ],
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Add Balance',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ],
         ),
       ),
     );
@@ -97,4 +149,9 @@ class CryptoPaymentScreenView
     BuildContext context,
   ) =>
       CryptoPaymentScreenViewModel();
+  @override
+  void onViewModelReady(CryptoPaymentScreenViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+  }
 }

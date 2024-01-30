@@ -1,5 +1,3 @@
- 
-
 class BalanceModel {
   double balance;
 

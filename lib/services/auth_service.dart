@@ -12,6 +12,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final _snackbarService = locator<SnackbarService>();
+  final userProfileService = locator<UserProfileService>();
   String _verificationId = "";
   final _UserProfileService = locator<UserProfileService>();
 
@@ -29,7 +30,6 @@ class AuthService {
 
       UserProfile user = UserProfile(
           name: name,
-          balance: 0.0,
           profileImg: '',
           email: email,
           uid: credential.user!.uid,
@@ -109,6 +109,7 @@ class AuthService {
   }
 
   Future<void> signOut() async {
+    userProfileService.cleanUser();
     await _auth.signOut();
   }
 
@@ -173,7 +174,6 @@ class AuthService {
         return true;
       } else {
         UserProfile user = UserProfile(
-          balance: 0.0,
           name: '',
           profileImg: '',
           email: '',

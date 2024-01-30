@@ -18,6 +18,7 @@ class StartupViewModel extends BaseViewModel {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       // User is already logged
+      print(user.uid);
       navigationService.replaceWithDashboardScreenView();
     } else {
       navigationService.replaceWithLoginView();

@@ -7,6 +7,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../../../services/userProfileService.dart';
+
 class LoginViewModel extends BaseViewModel {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -21,6 +23,7 @@ class LoginViewModel extends BaseViewModel {
   bool isPasswordVisible = true;
   final navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
+  final userProfileService = locator<UserProfileService>();
   void showPassword() {
     isPasswordVisible = !isPasswordVisible;
     rebuildUi();
@@ -35,6 +38,7 @@ class LoginViewModel extends BaseViewModel {
       User? user = await _authService.signInWithEmailPassword(
           emailController.text.trim(), passwordController.text.trim());
       if (user != null) {
+        await userProfileService.getUser();
         navigationService.replaceWithDashboardScreenView();
       }
     }
