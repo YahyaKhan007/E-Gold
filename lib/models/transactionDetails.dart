@@ -21,7 +21,7 @@ class TransactionDetails {
     required this.totalGoldBought,
     required this.withdrawMethod,
     required this.walletType,
-     required this.transactionType,
+    required this.transactionType,
     required this.transactionDate,
     required this.transactionId,
   });

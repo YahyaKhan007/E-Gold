@@ -17,6 +17,8 @@ class HomeViewModel extends BaseViewModel {
   List<TransactionDetails> cardTransactions = [];
   List<TransactionDetails> bankTransactions = [];
   List<TransactionDetails> inStoreTransactions = [];
+  final _bottomService = locator<BottomSheetService>();
+
   void seeAll() {
     _navigationService.navigateToTransactionHistoryScreenView(check: true);
   }
@@ -62,7 +64,11 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
-  void onTapSell() {}
+  void onTapSell() {
+    _bottomService.showCustomSheet(
+      variant: BottomSheetType.sellgold,
+    );
+  }
 
   final PageController pageController = PageController(initialPage: 0);
   int currentPageIndex = 0;

@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
+import 'package:e_gold/ui/common/ui_helpers.dart';
+import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart';
 import 'package:e_gold/ui/widgets/customHomeTransactionRow.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -51,197 +54,107 @@ class TransactionHistoryScreenView
                 ),
               ),
             ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Divider(
-              height: 1,
-              color: Colors.black,
-            ),
-            Container(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    '02 Dec 2023',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  HomeTransactionRow(
-                    buttonColor: kcSuccessGreen,
-                    buttonText: 'Completed',
-                    btc: '+0.001',
-                    image: bitCoin,
-                    imageBack: kcYellowBright,
-                    btcColor: kcYellowBright,
-                    onTap: () {},
-                    transactionDetails: TransactionDetails(
-                        status: '',
-                        totalPaid: 0,
-                        totalBonus: 0,
-                        transactionType: 'TopUp',
-                        totalGoldBought: 0,
-                        withdrawMethod: '',
-                        walletType: '',
-                        transactionDate: Timestamp.now(),
-                        transactionId: ''),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  HomeTransactionRow(
-                    buttonColor: kcFailRed,
-                    buttonText: 'Failed',
-                    btc: '-0.001',
-                    image: bitCoin,
-                    imageBack: kcYellowBright,
-                    btcColor: kcYellowBright,
-                    onTap: () {},
-                    transactionDetails: TransactionDetails(
-                        status: '',
-                        totalPaid: 0,
-                        transactionType: 'TopUp',
-                        totalBonus: 0,
-                        totalGoldBought: 0,
-                        withdrawMethod: '',
-                        walletType: '',
-                        transactionDate: Timestamp.now(),
-                        transactionId: ''),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  HomeTransactionRow(
-                    transactionDetails: TransactionDetails(
-                        status: '',
-                        totalPaid: 0,
-                        totalBonus: 0,
-                        transactionType: 'TopUp',
-                        totalGoldBought: 0,
-                        withdrawMethod: '',
-                        walletType: '',
-                        transactionDate: Timestamp.now(),
-                        transactionId: ''),
-                    buttonColor: kcPendingGrey,
-                    buttonText: 'Pending',
-                    btc: '-0.001',
-                    image: silver,
-                    imageBack: kcSilverLight,
-                    btcColor: kcSilverLight,
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  HomeTransactionRow(
-                    transactionDetails: TransactionDetails(
-                        status: '',
-                        totalPaid: 0,
-                        totalBonus: 0,
-                        totalGoldBought: 0,
-                        transactionType: 'TopUp',
-                        withdrawMethod: '',
-                        walletType: '',
-                        transactionDate: Timestamp.now(),
-                        transactionId: ''),
-                    buttonColor: kcPendingGrey,
-                    buttonText: 'Pending',
-                    btc: '-0.001',
-                    image: silver,
-                    imageBack: kcSilverLight,
-                    btcColor: kcSilverLight,
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    '02 Dec 2023',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  HomeTransactionRow(
-                    buttonColor: kcSuccessGreen,
-                    buttonText: 'Completed',
-                    btc: '+0.001',
-                    image: silver,
-                    imageBack: kcSilverLight,
-                    btcColor: kcSilverLight,
-                    onTap: () {},
-                    transactionDetails: TransactionDetails(
-                        status: '',
-                        totalPaid: 0,
-                        totalBonus: 0,
-                        totalGoldBought: 0,
-                        withdrawMethod: '',
-                        transactionType: 'TopUp',
-                        walletType: '',
-                        transactionDate: Timestamp.now(),
-                        transactionId: ''),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  HomeTransactionRow(
-                    transactionDetails: TransactionDetails(
-                        status: '',
-                        totalPaid: 0,
-                        transactionType: 'TopUp',
-                        totalBonus: 0,
-                        totalGoldBought: 0,
-                        withdrawMethod: '',
-                        walletType: '',
-                        transactionDate: Timestamp.now(),
-                        transactionId: ''),
-                    buttonColor: kcFailRed,
-                    buttonText: 'Failed',
-                    btc: '-0.001',
-                    image: bitCoin,
-                    imageBack: kcYellowBright,
-                    btcColor: kcYellowBright,
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  HomeTransactionRow(
-                    transactionDetails: TransactionDetails(
-                        status: '',
-                        totalPaid: 0,
-                        totalBonus: 0,
-                        transactionType: 'TopUp',
-                        totalGoldBought: 0,
-                        withdrawMethod: '',
-                        walletType: '',
-                        transactionDate: Timestamp.now(),
-                        transactionId: ''),
-                    buttonColor: kcPendingGrey,
-                    buttonText: 'Pending',
-                    btc: '-0.001',
-                    image: bitCoin,
-                    imageBack: kcYellowBright,
-                    btcColor: kcYellowBright,
-                    onTap: () {},
-                  ),
-                ],
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Divider(
+            height: 1,
+            color: Colors.black,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SizedBox(
+              height: screenHeight(context) - 276,
+              child: Expanded(
+                child: ListView.separated(
+                  itemCount:
+                      viewModel.transactionService.transactionDetails!.length,
+                  itemBuilder: (context, index) {
+                    List<TransactionDetails> reversedList = viewModel
+                        .transactionService.transactionDetails!.reversed
+                        .toList();
+                    TransactionDetails transaction = reversedList[index];
+
+                    Timestamp transactionDate = transaction.transactionDate;
+                    DateTime transactionDateTime = transactionDate.toDate();
+                    DateTime transactionDateOnly = DateTime(
+                      transactionDateTime.year,
+                      transactionDateTime.month,
+                      transactionDateTime.day,
+                    );
+
+                    DateTime? previousTransactionDateOnly;
+                    if (index > 0) {
+                      TransactionDetails previousTransaction = viewModel
+                          .transactionService.transactionDetails![index - 1];
+                      Timestamp previousTransactionDate =
+                          previousTransaction.transactionDate;
+                      DateTime previousTransactionDateTime =
+                          previousTransactionDate.toDate();
+                      previousTransactionDateOnly = DateTime(
+                        previousTransactionDateTime.year,
+                        previousTransactionDateTime.month,
+                        previousTransactionDateTime.day,
+                      );
+                    }
+
+                    bool showDateHeader =
+                        (previousTransactionDateOnly == null ||
+                            transactionDateOnly
+                                .isAfter(previousTransactionDateOnly));
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        showDateHeader
+                            ? Column(
+                                children: [
+                                  Text(
+                                    DateFormat('dd MMM yyyy')
+                                        .format(transactionDateOnly.toLocal()),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              )
+                            : Container(),
+                        HomeTransactionRow(
+                          walletType: transaction.walletType,
+                          amount: transaction.totalPaid.toString(),
+                          type: transaction.transactionType,
+                          transactionDetails: transaction,
+                          buttonText: transaction.status,
+                          btc: transaction.totalGoldBought.toString(),
+                          image: viewModel.image(transaction),
+                          imageBack: kcYellowBright,
+                          btcColor: kcYellowBright,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TransactiondetailsView(
+                                  transactionDetails: transaction,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) =>
+                      verticalSpaceSmall,
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
