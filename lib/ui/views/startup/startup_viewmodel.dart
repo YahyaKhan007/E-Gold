@@ -17,7 +17,8 @@ class StartupViewModel extends BaseViewModel {
     await Future.delayed(const Duration(seconds: 3));
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      // User is already logged in
+      // User is already logged
+      print(user.uid);
       navigationService.replaceWithDashboardScreenView();
     } else {
       navigationService.replaceWithLoginView();

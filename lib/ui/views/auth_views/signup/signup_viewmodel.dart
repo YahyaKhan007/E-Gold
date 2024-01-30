@@ -23,8 +23,8 @@ class SignupViewModel extends BaseViewModel {
   TextEditingController phoneController = TextEditingController();
   String initialCountry = 'US';
   PhoneNumber number = PhoneNumber(isoCode: 'US');
-  bool isPasswordVisible = false;
-  bool isConformPasswordVisible = false;
+  bool isPasswordVisible = true;
+  bool isConformPasswordVisible = true;
   final _authService = locator<AuthService>();
   final navigationService = locator<NavigationService>();
 
@@ -36,36 +36,6 @@ class SignupViewModel extends BaseViewModel {
   void showConfirmPassword() {
     isConformPasswordVisible = !isConformPasswordVisible;
     rebuildUi();
-  }
-
-  void onPressedSignup() {
-    if (formKey.currentState!.validate()) {}
-  }
-
-  String? signUpEmailValidator(String? value) {
-    return !emailRegExp.hasMatch(value!)
-        ? 'Invalid email addres.'
-        : 'Please enter your email.';
-  }
-
-  String? signUpPasswordValidator(value) {
-    if (emailController.text.isEmpty) {
-      return 'Please enter your password';
-    }
-
-    return null;
-  }
-
-  String? signUpConfirmPasswordValidator(value) {
-    if (conformPasswordController.text.isEmpty) {
-      return 'Please enter confirm password';
-    }
-
-    return null;
-  }
-
-  String? signUpPhoneValidator(String? value) {
-    return null;
   }
 
   bool validateForm() {

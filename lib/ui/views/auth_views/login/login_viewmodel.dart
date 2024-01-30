@@ -1,9 +1,13 @@
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
+import 'package:e_gold/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+import '../../../../services/userProfileService.dart';
 
 class LoginViewModel extends BaseViewModel {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -16,35 +20,28 @@ class LoginViewModel extends BaseViewModel {
 
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  bool isPasswordVisible = false;
+  bool isPasswordVisible = true;
   final navigationService = locator<NavigationService>();
-
+  final _authService = locator<AuthService>();
+  final userProfileService = locator<UserProfileService>();
   void showPassword() {
     isPasswordVisible = !isPasswordVisible;
     rebuildUi();
   }
 
-  void onPressedLogin() {
-    if (formKey.currentState!.validate()) {
-      navigationService.replaceWithHomeView();
-    }
+  bool validateForm() {
+    return formKey.currentState?.validate() ?? false;
   }
 
-  String? signInEmailValidator(value) {
-    if (emailController.text.isEmpty) {
-      return 'Email or Phone is not entered.';
+  void onPressedLogin() async {
+    if (validateForm()) {
+      User? user = await _authService.signInWithEmailPassword(
+          emailController.text.trim(), passwordController.text.trim());
+      if (user != null) {
+        await userProfileService.getUser();
+        navigationService.replaceWithDashboardScreenView();
+      }
     }
-    return null;
-  }
-
-  String? signInPasswordValidator(value) {
-    if (passwordController.text.isEmpty) {
-      return 'Password is not entered.';
-    }
-    if (passwordController.text.length < 5) {
-      return 'Password too short.';
-    }
-    return null;
   }
 
   void onPressedCreateNewAccount() {

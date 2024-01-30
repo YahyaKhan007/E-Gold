@@ -3,6 +3,7 @@ import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/ui/common/app_strings.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -25,6 +26,17 @@ class HomeViewModel extends BaseViewModel {
     _navigationService.navigateToSliverbalancehistoryView();
   }
 
-  void onTapSell() {
+  void onTapSell() {}
+
+  final PageController pageController = PageController(initialPage: 0);
+  int currentPageIndex = 0;
+  void navigateToPage(int pageIndex) {
+    pageController.animateToPage(
+      pageIndex,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInToLinear,
+    );
+    currentPageIndex = pageIndex;
+    rebuildUi();
   }
 }

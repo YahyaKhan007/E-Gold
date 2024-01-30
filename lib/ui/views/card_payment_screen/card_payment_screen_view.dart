@@ -41,12 +41,14 @@ class CardPaymentScreenView extends StackedView<CardPaymentScreenViewModel> {
             ),
             // CustomTextField(title: 'Amount', labelText: '',),
             CustomTextField(
+              controller: viewModel.amount,
               title: 'Amount',
               labelText: 'Amount in USD (\$)',
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 15),
             CustomTextField(
+              controller: viewModel.cardCurrency,
               title: 'Card Currency',
               labelText: 'USD (\$)',
               keyboardType: TextInputType.text,
