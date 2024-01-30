@@ -2,6 +2,7 @@ import 'package:e_gold/services/auth_service.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
+import 'package:e_gold/services/inStore_service.dart';
 import 'package:e_gold/services/kyc_service.dart';
 import 'package:e_gold/services/stripe_api.dart';
 import 'package:e_gold/services/transaction_service.dart';
@@ -50,6 +51,7 @@ import 'package:e_gold/ui/dialogs/buy_dialog/buy_dialog_dialog.dart';
 import 'package:e_gold/ui/views/choose_payment_method/choose_payment_method_view.dart';
 import 'package:e_gold/ui/views/link_bank_account_screen/link_bank_account_screen_view.dart';
 import 'package:e_gold/ui/dialogs/add_amount_for_balance/add_amount_for_balance_dialog.dart';
+import 'package:e_gold/ui/bottom_sheets/sellgold/sellgold_sheet.dart';
 // @stacked-import
 
 @StackedApp(
@@ -109,11 +111,13 @@ import 'package:e_gold/ui/dialogs/add_amount_for_balance/add_amount_for_balance_
     LazySingleton(classType: BalanceService),
     LazySingleton(classType: TransactionDetailsService),
     LazySingleton(classType: CryptoService),
+    LazySingleton(classType: InStoreService),
     // @stacked-service
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
+    StackedBottomsheet(classType: SellgoldSheet),
+// @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),

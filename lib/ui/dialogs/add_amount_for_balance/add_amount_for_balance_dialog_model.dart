@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
+import 'package:e_gold/services/transaction_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
@@ -13,25 +16,72 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
   final _balanceService = locator<BalanceService>();
   final _bankService = locator<BankService>();
   final _cryptoService = locator<CryptoService>();
+  final _transactionService = locator<TransactionDetailsService>();
+  final formKey = GlobalKey<FormState>();
+
+  bool validateForm() {
+    return formKey.currentState?.validate() ?? false;
+  }
+
+  String? customValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field cannot be empty';
+    }
+    return null; // Return null when validation passes
+  }
+
+  void cancel(BuildContext context) {
+    Navigator.pop(context);
+  }
 
   void addBalance(BuildContext context) async {
-    if (data == 'bank') {
-      bool check2 = await _bankService
-          .addBalanceToBankWallet(double.parse(amount.text.toString()));
-      bool? check = await _balanceService.addBalance(
-          FirebaseAuth.instance.currentUser!.uid,
-          double.parse(amount.text.toString()));
-      if (check! && check2) {
-        Navigator.pop(context);
-      }
-    } else if (data == 'crypto') {
-      bool check2 = await _cryptoService
-          .addBalanceToCryptoWallet(double.parse(amount.text.toString()));
-      bool? check = await _balanceService.addBalance(
-          FirebaseAuth.instance.currentUser!.uid,
-          double.parse(amount.text.toString()));
-      if (check! && check2) {
-        Navigator.pop(context);
+    if (validateForm()) {
+      if (data == 'Bank') {
+        bool check2 = await _bankService
+            .addBalanceToBankWallet(double.parse(amount.text.toString()));
+        bool? check = await _balanceService.addBalance(
+            FirebaseAuth.instance.currentUser!.uid,
+            double.parse(amount.text.toString()));
+        if (check! && check2) {
+          TransactionDetails transactionDetails = TransactionDetails(
+            status: 'Completed',
+            totalPaid: double.parse(amount.text.toString()),
+            totalBonus: double.parse(amount.text.toString()),
+            totalGoldBought: 0.0,
+            withdrawMethod: '',
+            walletType: data,
+            transactionType: 'TopUp',
+            transactionDate: Timestamp.now(),
+            transactionId: 'transactionId',
+          );
+          await _transactionService.addTransaction(
+              userId: FirebaseAuth.instance.currentUser!.uid,
+              transactionDetails: transactionDetails);
+          Navigator.pop(context);
+        }
+      } else if (data == 'Crypto') {
+        bool check2 = await _cryptoService
+            .addBalanceToCryptoWallet(double.parse(amount.text.toString()));
+        bool? check = await _balanceService.addBalance(
+            FirebaseAuth.instance.currentUser!.uid,
+            double.parse(amount.text.toString()));
+        if (check! && check2) {
+          TransactionDetails transactionDetails = TransactionDetails(
+            status: 'Completed',
+            totalPaid: double.parse(amount.text.toString()),
+            totalBonus: double.parse(amount.text.toString()),
+            totalGoldBought: 0.0,
+            withdrawMethod: '',
+            walletType: data,
+            transactionType: 'TopUp',
+            transactionDate: Timestamp.now(),
+            transactionId: 'transactionId',
+          );
+          await _transactionService.addTransaction(
+              userId: FirebaseAuth.instance.currentUser!.uid,
+              transactionDetails: transactionDetails);
+          Navigator.pop(context);
+        }
       }
     }
   }

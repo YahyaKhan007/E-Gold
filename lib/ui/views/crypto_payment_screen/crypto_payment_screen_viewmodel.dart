@@ -31,7 +31,7 @@ class CryptoPaymentScreenViewModel extends BaseViewModel {
     if (check) {
       _dialogService.showCustomDialog(
         variant: DialogType.addAmountForBalance,
-        data: 'crypto',
+        data: 'Crypto',
       );
     }
   }
