@@ -1,5 +1,6 @@
 import 'package:e_gold/ui/views/account_screen/account_screen_view.dart';
 import 'package:e_gold/ui/views/buygoldorsilver/buygoldorsilver_view.dart';
+import 'package:e_gold/ui/views/choose_payment_method/choose_payment_method_view.dart';
 import 'package:e_gold/ui/views/home/home_view.dart';
 import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_screen_view.dart';
 import 'package:stacked/stacked.dart';
@@ -9,7 +10,7 @@ class DashboardScreenViewModel extends BaseViewModel {
   final List<Widget> pages = [
     const HomeView(),
     const TransactionHistoryScreenView(check: false),
-    const BuyGoldOrSilverView(),
+    const ChoosePaymentMethodView(),
     const Center(child: Text("PROFILE SCREEN3")),
     const AccountScreenView(),
   ];

@@ -46,6 +46,7 @@ import 'package:e_gold/ui/views/goldbalancehistory/goldbalancehistory_view.dart'
 import 'package:e_gold/ui/views/auth_views/phone_sign_up/phone_sign_up_view.dart';
 import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart';
 import 'package:e_gold/ui/dialogs/buy_dialog/buy_dialog_dialog.dart';
+import 'package:e_gold/ui/views/choose_payment_method/choose_payment_method_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -88,6 +89,7 @@ import 'package:e_gold/ui/dialogs/buy_dialog/buy_dialog_dialog.dart';
     MaterialRoute(page: StatisticView),
     MaterialRoute(page: PhoneSignUpView),
     MaterialRoute(page: TransactiondetailsView),
+    MaterialRoute(page: ChoosePaymentMethodView),
 // @stacked-route
   ],
   dependencies: [

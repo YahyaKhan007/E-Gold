@@ -55,17 +55,21 @@ class HomeView extends StackedView<HomeViewModel> {
               child: PageView(
                 controller: viewModel.pageController,
                 physics: NeverScrollableScrollPhysics(),
-                children: const [
+                children: [
                   LastTransactionsWidget(
+                    transactions: viewModel.cryptoTransactions,
                     transactionTypeImage: bitCoin,
                   ),
                   LastTransactionsWidget(
+                    transactions: viewModel.cardTransactions,
                     transactionTypeImage: masterCard,
                   ),
                   LastTransactionsWidget(
+                    transactions: viewModel.bankTransactions,
                     transactionTypeImage: bank,
                   ),
                   LastTransactionsWidget(
+                    transactions: viewModel.inStoreTransactions,
                     transactionTypeImage: store,
                   ),
                 ],
@@ -82,4 +86,9 @@ class HomeView extends StackedView<HomeViewModel> {
     BuildContext context,
   ) =>
       HomeViewModel();
+  @override
+  void onViewModelReady(HomeViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+  }
 }

@@ -8,8 +8,6 @@ class UserProfile {
   String dateOfBirth;
   Timestamp? createdAt;
   String profileImg;
-  double balance;
-
   UserProfile({
     required this.name,
     required this.email,
@@ -17,7 +15,6 @@ class UserProfile {
     required this.profileImg,
     required this.phoneNumber,
     required this.dateOfBirth,
-    required this.balance,
     required this.createdAt,
   });
 
@@ -26,7 +23,6 @@ class UserProfile {
     return {
       'name': name,
       'email': email,
-      'balance': balance,
       'uid': uid,
       'profileImg': profileImg,
       'phoneNumber': phoneNumber,
@@ -39,7 +35,6 @@ class UserProfile {
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
       name: json['name'],
-      balance: json['balance'],
       profileImg: json['profileImg'],
       email: json['email'],
       uid: json['uid'],
@@ -55,7 +50,6 @@ class UserProfile {
     return UserProfile(
       name: data['name'],
       email: data['email'],
-      balance: data['balance'],
       uid: data['uid'],
       profileImg: data['profileImg'],
       phoneNumber: data['phoneNumber'],
