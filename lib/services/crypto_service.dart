@@ -152,4 +152,52 @@ class CryptoService {
       return false;
     }
   }
+
+  // Function to deduct an amount from the existing balance
+  Future<bool> deductFromCryptoWallet(double amount) async {
+    String uid = userService.user!.uid;
+    try {
+      // Reference to the user document
+      DocumentReference userRef = _firestore.collection('users').doc(uid);
+
+      // Reference to the 'wallet' subcollection within the user document
+      CollectionReference walletRef = userRef.collection('wallet');
+
+      // Reference to the 'balance' document within the 'wallet' subcollection
+      DocumentReference balanceRef = walletRef.doc('balance');
+
+      // Reference to the 'crypto' subcollection within the 'wallet' subcollection
+      CollectionReference cryptoRef = balanceRef.collection('crypto');
+
+      // Use a specific document ID for the crypto document (e.g., 'cryptoData')
+      DocumentReference specificCryptoRef = cryptoRef.doc('cryptoData');
+
+      // Get the current crypto data to check the existing balance
+      Crypto? existingCryptoData = await getCryptoFromWallet();
+
+      // Check if the existing balance is sufficient for the deduction
+      if (existingCryptoData != null && existingCryptoData.balance! >= amount) {
+        // Update the 'balance' field in the crypto data
+        existingCryptoData.balance = existingCryptoData.balance! - amount;
+
+        // Convert the updated Crypto instance to JSON data
+        Map<String, dynamic> updatedCryptoJson = existingCryptoData.toJson();
+
+        // Set (add/update) the crypto data in the 'crypto' subcollection
+        print('Updating existing document: ${specificCryptoRef.id}');
+        await specificCryptoRef.set(updatedCryptoJson);
+
+        // Return true if the deduction is successful
+        return true;
+      } else {
+        // Return false if the existing balance is insufficient for the deduction
+        print('Insufficient balance for deduction');
+        return false;
+      }
+    } catch (error) {
+      print('Error deducting from crypto in wallet: $error');
+      // Return false if there is an error
+      return false;
+    }
+  }
 }

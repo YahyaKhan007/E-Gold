@@ -150,4 +150,52 @@ class BankService {
       return false;
     }
   }
+
+  // Function to deduct an amount from the existing balance
+  Future<bool> deductFromBankWallet(double amount) async {
+    String uid = userService.user!.uid;
+    try {
+      // Reference to the user document
+      DocumentReference userRef = _firestore.collection('users').doc(uid);
+
+      // Reference to the 'wallet' subcollection within the user document
+      CollectionReference walletRef = userRef.collection('wallet');
+
+      // Reference to the 'balance' document within the 'wallet' subcollection
+      DocumentReference balanceRef = walletRef.doc('balance');
+
+      // Reference to the 'bank' subcollection within the 'wallet' subcollection
+      CollectionReference bankRef = balanceRef.collection('bank');
+
+      // Use a specific document ID for the bank document (e.g., 'bankData')
+      DocumentReference specificBankRef = bankRef.doc('bankData');
+
+      // Get the current bank data to check the existing balance
+      Bank? existingBankData = await getBankFromWallet();
+
+      // Check if the existing balance is sufficient for the deduction
+      if (existingBankData != null && existingBankData.balance! >= amount) {
+        // Update the 'balance' field in the bank data
+        existingBankData.balance = existingBankData.balance! - amount;
+
+        // Convert the updated Bank instance to JSON data
+        Map<String, dynamic> updatedBankJson = existingBankData.toJson();
+
+        // Set (add/update) the bank data in the 'bank' subcollection
+        print('Updating existing document: ${specificBankRef.id}');
+        await specificBankRef.set(updatedBankJson);
+
+        // Return true if the deduction is successful
+        return true;
+      } else {
+        // Return false if the existing balance is insufficient for the deduction
+        print('Insufficient balance for deduction');
+        return false;
+      }
+    } catch (error) {
+      print('Error deducting from bank in wallet: $error');
+      // Return false if there is an error
+      return false;
+    }
+  }
 }
