@@ -52,35 +52,35 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
         duration: const Duration(seconds: 2),
       );
     } else {
-      try {
-        bool isAmountGreaterThanBalance =
-            await bankService.checkBalance(int.parse(amount).toDouble());
-        if (isAmountGreaterThanBalance) {
-          _snackbarService.showSnackbar(
-            message: 'Entered amount is not in your app\'s balance',
-            title: 'Alert',
-            duration: const Duration(seconds: 2),
-          );
-          Future.delayed(const Duration(seconds: 2), () {
-            _navigationService.navigateToDepositScreenView();
-          });
-        } else {
-          _dialogService.showCustomDialog(
-            variant: DialogType.buyDialog,
-            data: int.parse(amount),
-          );
-          amount = '';
-          rebuildUi();
-        }
-      } catch (e) {
-        _snackbarService.showSnackbar(
-          message: 'Error $e',
-          title: 'Error',
-          duration: const Duration(seconds: 2),
-        );
-        amount = '';
-        rebuildUi();
-      }
+      // try {
+      //   bool isAmountGreaterThanBalance =
+      //       await bankService.checkBalance(int.parse(amount).toDouble());
+      //   if (isAmountGreaterThanBalance) {
+      //     _snackbarService.showSnackbar(
+      //       message: 'Entered amount is not in your app\'s balance',
+      //       title: 'Alert',
+      //       duration: const Duration(seconds: 2),
+      //     );
+      //     Future.delayed(const Duration(seconds: 2), () {
+      //       _navigationService.navigateToDepositScreenView();
+      //     });
+      //   } else {
+      //     _dialogService.showCustomDialog(
+      //       variant: DialogType.buyDialog,
+      //       data: int.parse(amount),
+      //     );
+      //     amount = '';
+      //     rebuildUi();
+      //   }
+      // } catch (e) {
+      //   _snackbarService.showSnackbar(
+      //     message: 'Error $e',
+      //     title: 'Error',
+      //     duration: const Duration(seconds: 2),
+      //   );
+      //   amount = '';
+      //   rebuildUi();
+      // }
     }
   }
 }

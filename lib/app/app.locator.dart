@@ -15,6 +15,7 @@ import 'package:stacked_shared/stacked_shared.dart';
 import '../services/auth_service.dart';
 import '../services/balance_service.dart';
 import '../services/bank_service.dart';
+import '../services/crypto_service.dart';
 import '../services/kyc_service.dart';
 import '../services/stripe_api.dart';
 import '../services/transaction_service.dart';
@@ -42,4 +43,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => BankService());
   locator.registerLazySingleton(() => BalanceService());
   locator.registerLazySingleton(() => TransactionDetailsService());
+  locator.registerLazySingleton(() => CryptoService());
 }

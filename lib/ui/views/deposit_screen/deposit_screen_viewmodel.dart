@@ -4,6 +4,7 @@ import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
+import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/stripe_api.dart';
 import 'package:e_gold/services/transaction_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,7 +19,9 @@ class DepositScreenViewModel extends BaseViewModel {
   Map<String, dynamic>? paymentIntent;
   final transactionDetailsService = locator<TransactionDetailsService>();
 
-  final bankService = locator<BankService>();
+
+  final _cryptoService = locator<CryptoService>();
+  final _bankService = locator<BankService>();
   final _snackbarService = locator<SnackbarService>();
 
   void goBack() {
@@ -70,8 +73,14 @@ class DepositScreenViewModel extends BaseViewModel {
     }
   }
 
-  void toCryptoPayment() {
-    _navigationService.navigateToCryptoPaymentScreenView();
+  void toCryptoPayment() async {
+    bool check = await _cryptoService.doesCryptoCollectionExist();
+    if (check) {
+      await _cryptoService.getCryptoData();
+      _navigationService.navigateToCryptoPaymentScreenView();
+    } else {
+      _navigationService.navigateToCryptoPaymentScreenView();
+    }
   }
 
   void toCardPayment() {
@@ -79,30 +88,15 @@ class DepositScreenViewModel extends BaseViewModel {
   }
 
   void linkBankAccount() async {
-    await bankService.addToBalance(300);
-    try {
-      bool addSuccessful = await bankService.addToBalance(300);
-      if (addSuccessful) {
-        _snackbarService.showSnackbar(
-          message: 'Amount added to balance Successfully',
-          title: 'Success',
-          duration: const Duration(seconds: 2),
-        );
-      } else {
-        _snackbarService.showSnackbar(
-          message: 'Amount was not added to balance',
-          title: 'Error',
-          duration: const Duration(seconds: 2),
-        );
-      }
-    } catch (e) {
-      _snackbarService.showSnackbar(
-        message: 'Error $e',
-        title: 'Error',
-        duration: const Duration(seconds: 2),
-      );
+    bool check = await _bankService.doesBankCollectionExist();
+    if (check) {
+      await _bankService.getBankData();
+      _navigationService.navigateToLinkBankAccountScreenView();
+    } else {
+      _navigationService.navigateToLinkBankAccountScreenView();
     }
   }
+
 
   void enterBalance() async {
     TransactionDetails newTransaction = TransactionDetails(
@@ -122,5 +116,4 @@ class DepositScreenViewModel extends BaseViewModel {
         userId: FirebaseAuth.instance.currentUser!.uid,
         transactionDetails: newTransaction);
     // _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
-  }
-}
+}}

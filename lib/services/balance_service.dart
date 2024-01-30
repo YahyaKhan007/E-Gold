@@ -68,7 +68,7 @@ class BalanceService {
     }
   }
 
-  Future<void> addBalance(String userId, double amount) async {
+  Future<bool?> addBalance(String userId, double amount) async {
     try {
       BalanceModel? currentBalance = await getBalance(userId);
 
@@ -76,11 +76,14 @@ class BalanceService {
         double newBalance = currentBalance.balance + amount;
         await updateBalance(userId, newBalance);
         _showSuccessSnackbar('Balance added successfully');
+        return true;
       } else {
         _showErrorSnackbar('Balance document does not exist');
+        return false;
       }
     } catch (e) {
       _showErrorSnackbar('Error adding balance: $e');
+      return false;
     }
   }
 

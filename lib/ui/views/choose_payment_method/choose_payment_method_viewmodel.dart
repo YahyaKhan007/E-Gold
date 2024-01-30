@@ -11,7 +11,8 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ChoosePaymentMethodViewModel extends BaseViewModel {  final _navigationService = locator<NavigationService>();
+class ChoosePaymentMethodViewModel extends BaseViewModel {
+  final _navigationService = locator<NavigationService>();
   final _balanceService = locator<BalanceService>();
   final stripeApi = locator<StripeApi>();
   Map<String, dynamic>? paymentIntent;
@@ -78,9 +79,9 @@ class ChoosePaymentMethodViewModel extends BaseViewModel {  final _navigationSer
   }
 
   void linkBankAccount() async {
-    await bankService.addToBalance(300);
+    await bankService.addBalanceToBankWallet(300);
     try {
-      bool addSuccessful = await bankService.addToBalance(300);
+      bool addSuccessful = await bankService.addBalanceToBankWallet(300);
       if (addSuccessful) {
         _snackbarService.showSnackbar(
           message: 'Amount added to balance Successfully',

@@ -1,106 +1,201 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/bank.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:e_gold/services/userProfileService.dart';
 
 class BankService {
-  User? user = FirebaseAuth.instance.currentUser;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final userService = locator<UserProfileService>();
 
-  Future<bool> checkBalance(double amount) async {
+  Bank? bankData;
+  getBankData() async {
+    bankData = await getBankFromWallet();
+  }
+
+  // Function to add a Bank to the 'bank' subcollection within 'wallet' for a specific user
+  Future<bool> addBankToWallet(Bank bankData) async {
+    String uid = userService.user!.uid;
     try {
-      // Get the current user's UID
-      String uid = FirebaseAuth.instance.currentUser!.uid;
+      // Reference to the user document
+      print(uid);
+      DocumentReference userRef = _firestore.collection('users').doc(uid);
+      print(uid);
 
-      // Reference to the document in the 'users' collection
-      DocumentReference userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(uid);
+      // Reference to the 'wallet' subcollection within the user document
+      CollectionReference walletRef = userRef.collection('wallet');
 
-      // Get the current balance
-      double currentBalance = await getBalance(userDocRef);
+      // Reference to the 'balance' document within the 'wallet' subcollection
+      DocumentReference balanceRef = walletRef.doc('balance');
 
-      // Check if there is sufficient balance
-      return amount > currentBalance;
-    } catch (e) {
-      print('Error checking balance: $e');
-      return false; // Error occurred
+      // Reference to the 'bank' subcollection within the 'wallet' subcollection
+      CollectionReference bankRef = balanceRef.collection('bank');
+
+      // Use a specific document ID for the bank document (e.g., 'bankData')
+      DocumentReference specificBankRef = bankRef.doc('bankData');
+
+      // Convert the Bank instance to JSON data
+      Map<String, dynamic> bankJson = bankData.toJson();
+
+      // Set (add/update) the bank data in the 'bank' subcollection
+      print('Updating existing document: ${specificBankRef.id}');
+      await specificBankRef.set(bankJson);
+
+      // Return true if the operation is successful
+      return true;
+    } catch (error) {
+      print('Error adding bank to wallet: $error');
+      // Return false if there is an error
+      return false;
     }
   }
 
-  Future<double> getBalance(DocumentReference userDocRef) async {
+  // Function to get the Bank from the 'bank' subcollection within 'wallet' for a specific user
+  Future<Bank?> getBankFromWallet() async {
+    String uid = userService.user!.uid;
     try {
-      // Get the document snapshot
-      DocumentSnapshot userDocSnapshot = await userDocRef.get();
+      // Reference to the user document
+      DocumentReference userRef = _firestore.collection('users').doc(uid);
+
+      // Reference to the 'wallet' subcollection within the user document
+      CollectionReference walletRef = userRef.collection('wallet');
+
+      // Reference to the 'bank' subcollection within the 'wallet' subcollection
+      CollectionReference bankRef = walletRef.doc('balance').collection('bank');
+
+      // Use the specific document ID for the bank document (e.g., 'bankData')
+      DocumentReference specificBankRef = bankRef.doc('bankData');
+
+      // Get the document from the 'bank' subcollection
+      DocumentSnapshot documentSnapshot = await specificBankRef.get();
 
       // Check if the document exists
-      if (userDocSnapshot.exists) {
-        // Retrieve the balance from the user's document
-        return userDocSnapshot['balance'] ?? 0.0;
+      if (documentSnapshot.exists) {
+        // Convert the document to a Bank instance
+        return Bank.fromSnapshot(documentSnapshot);
       } else {
-        print('User document not found.');
-        // Handle the case where the user document does not exist.
-        return 0.0;
+        // Return null if the document doesn't exist
+        return null;
       }
-    } catch (e) {
-      print('Error getting balance: $e');
-      // Handle errors if needed.
-      return 0.0;
+    } catch (error) {
+      print('Error getting bank from wallet: $error');
+      // Handle error as needed
+      return null;
     }
   }
 
-  Future<bool> deductAmount(double amount) async {
+  // Function to check if the 'bank' subcollection exists within 'wallet' for a specific user
+  Future<bool> doesBankCollectionExist() async {
+    String uid = userService.user!.uid;
     try {
-      // Get the current user's UID
-      String uid = FirebaseAuth.instance.currentUser!.uid;
+      // Reference to the user document
+      DocumentReference userRef = _firestore.collection('users').doc(uid);
 
-      // Reference to the document in the 'users' collection
-      DocumentReference userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(uid);
+      // Reference to the 'wallet' subcollection within the user document
+      CollectionReference walletRef = userRef.collection('wallet');
 
-      // Get the current balance
-      double currentBalance = await getBalance(userDocRef);
+      // Reference to the 'bank' subcollection within the 'wallet' subcollection
+      CollectionReference bankRef = walletRef.doc('balance').collection('bank');
 
-      // Check if there is sufficient balance
-      if (amount <= currentBalance) {
-        // Deduct the amount from the balance
-        double newBalance = currentBalance - amount;
+      // Get the documents from the 'bank' subcollection (limit 1)
+      QuerySnapshot querySnapshot = await bankRef.limit(1).get();
 
-        // Update the balance in the user's document
-        await userDocRef.update({'balance': newBalance});
-
-        return true; // Deduction successful
-      } else {
-        print('Insufficient balance.');
-        return false; // Insufficient balance
-      }
-    } catch (e) {
-      print('Error deducting amount: $e');
-      return false; // Error occurred
+      // Check if there is at least one document in the 'bank' subcollection
+      return querySnapshot.docs.isNotEmpty;
+    } catch (error) {
+      print('Error checking if bank collection exists: $error');
+      // Handle error as needed
+      return false;
     }
   }
 
-  Future<bool> addToBalance(double amount) async {
+  // Function to add/update a Bank to the 'bank' subcollection within 'wallet' for a specific user
+  Future<bool> addBalanceToBankWallet(double amount) async {
+    String uid = userService.user!.uid;
     try {
-      // Get the current user's UID
-      String uid = FirebaseAuth.instance.currentUser!.uid;
+      // Reference to the user document
+      DocumentReference userRef = _firestore.collection('users').doc(uid);
 
-      // Reference to the document in the 'users' collection
-      DocumentReference userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(uid);
+      // Reference to the 'wallet' subcollection within the user document
+      CollectionReference walletRef = userRef.collection('wallet');
 
-      // Get the current balance
-      double currentBalance = await getBalance(userDocRef);
+      // Reference to the 'balance' document within the 'wallet' subcollection
+      DocumentReference balanceRef = walletRef.doc('balance');
 
-      // Increase the balance by the specified amount
-      double newBalance = currentBalance + amount;
+      // Reference to the 'bank' subcollection within the 'wallet' subcollection
+      CollectionReference bankRef = balanceRef.collection('bank');
 
-      // Update the balance in the user's document
-      await userDocRef.update({'balance': newBalance});
+      // Use a specific document ID for the bank document (e.g., 'bankData')
+      DocumentReference specificBankRef = bankRef.doc('bankData');
 
-      return true; // Operation successful
-    } catch (e) {
-      print('Error adding to balance: $e');
-      // Handle errors if needed.
-      return false; // Operation failed
+      // Get the current bank data to preserve other fields
+      Bank? existingBankData = await getBankFromWallet();
+
+      // Update the 'balance' field in the bank data
+      if (existingBankData != null) {
+        existingBankData.balance = existingBankData.balance! + amount;
+      }
+
+      // Convert the updated Bank instance to JSON data
+      Map<String, dynamic> updatedBankJson = existingBankData!.toJson();
+
+      // Set (add/update) the bank data in the 'bank' subcollection
+      print('Updating existing document: ${specificBankRef.id}');
+      await specificBankRef.set(updatedBankJson);
+
+      // Return true if the operation is successful
+      return true;
+    } catch (error) {
+      print('Error adding/updating bank in wallet: $error');
+      // Return false if there is an error
+      return false;
+    }
+  }
+
+  // Function to deduct an amount from the existing balance
+  Future<bool> deductFromBankWallet(double amount) async {
+    String uid = userService.user!.uid;
+    try {
+      // Reference to the user document
+      DocumentReference userRef = _firestore.collection('users').doc(uid);
+
+      // Reference to the 'wallet' subcollection within the user document
+      CollectionReference walletRef = userRef.collection('wallet');
+
+      // Reference to the 'balance' document within the 'wallet' subcollection
+      DocumentReference balanceRef = walletRef.doc('balance');
+
+      // Reference to the 'bank' subcollection within the 'wallet' subcollection
+      CollectionReference bankRef = balanceRef.collection('bank');
+
+      // Use a specific document ID for the bank document (e.g., 'bankData')
+      DocumentReference specificBankRef = bankRef.doc('bankData');
+
+      // Get the current bank data to check the existing balance
+      Bank? existingBankData = await getBankFromWallet();
+
+      // Check if the existing balance is sufficient for the deduction
+      if (existingBankData != null && existingBankData.balance! >= amount) {
+        // Update the 'balance' field in the bank data
+        existingBankData.balance = existingBankData.balance! - amount;
+
+        // Convert the updated Bank instance to JSON data
+        Map<String, dynamic> updatedBankJson = existingBankData.toJson();
+
+        // Set (add/update) the bank data in the 'bank' subcollection
+        print('Updating existing document: ${specificBankRef.id}');
+        await specificBankRef.set(updatedBankJson);
+
+        // Return true if the deduction is successful
+        return true;
+      } else {
+        // Return false if the existing balance is insufficient for the deduction
+        print('Insufficient balance for deduction');
+        return false;
+      }
+    } catch (error) {
+      print('Error deducting from bank in wallet: $error');
+      // Return false if there is an error
+      return false;
     }
   }
 }

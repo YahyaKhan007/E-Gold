@@ -8,6 +8,7 @@ class UserProfile {
   String dateOfBirth;
   Timestamp? createdAt;
   String profileImg;
+
   UserProfile({
     required this.name,
     required this.email,

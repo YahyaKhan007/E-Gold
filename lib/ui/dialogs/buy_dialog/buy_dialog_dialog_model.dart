@@ -14,32 +14,32 @@ class BuyDialogDialogModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
   void confirm() async {
-    try {
-      bool deductionSuccessful =
-          await bankService.deductAmount(amount.toDouble());
-      if (deductionSuccessful) {
-        _snackbarService.showSnackbar(
-          message: 'Gold bough Successfully',
-          title: 'Success',
-          duration: const Duration(seconds: 2),
-        );
-      } else {
-        _snackbarService.showSnackbar(
-          message: 'Gold was not bought',
-          title: 'Error',
-          duration: const Duration(seconds: 2),
-        );
-      }
-    } catch (e) {
-      _snackbarService.showSnackbar(
-        message: 'Error $e',
-        title: 'Error',
-        duration: const Duration(seconds: 2),
-      );
-    }
-    Future.delayed(const Duration(seconds: 3), () {
-      _navigationService.back();
-    });
+    // try {
+    //   bool deductionSuccessful =
+    //       await bankService.deductAmount(amount.toDouble());
+    //   if (deductionSuccessful) {
+    //     _snackbarService.showSnackbar(
+    //       message: 'Gold bough Successfully',
+    //       title: 'Success',
+    //       duration: const Duration(seconds: 2),
+    //     );
+    //   } else {
+    //     _snackbarService.showSnackbar(
+    //       message: 'Gold was not bought',
+    //       title: 'Error',
+    //       duration: const Duration(seconds: 2),
+    //     );
+    //   }
+    // } catch (e) {
+    //   _snackbarService.showSnackbar(
+    //     message: 'Error $e',
+    //     title: 'Error',
+    //     duration: const Duration(seconds: 2),
+    //   );
+    // }
+    // Future.delayed(const Duration(seconds: 3), () {
+    //   _navigationService.back();
+    // });
   }
 
   void cancel(BuildContext context) {

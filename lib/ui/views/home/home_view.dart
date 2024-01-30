@@ -1,9 +1,9 @@
 import 'package:e_gold/ui/common/app_images.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/views/home/home_viewmodel.dart';
-import 'package:e_gold/ui/widgets/LastTransactionsWidget.dart';
 import 'package:e_gold/ui/widgets/customHomeMetalButton.dart';
 import 'package:e_gold/ui/widgets/homeGoldenContainer.dart';
+import 'package:e_gold/ui/widgets/lastTransactionsWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
