@@ -420,8 +420,13 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i13.BuyGoldOrSilverView: (data) {
+      final args = data.getArgs<BuyGoldOrSilverViewArguments>(nullOk: false);
       return _i40.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i13.BuyGoldOrSilverView(),
+        builder: (context) => _i13.BuyGoldOrSilverView(
+            key: args.key,
+            balance: args.balance,
+            margin: args.margin,
+            withdrawMethod: args.withdrawMethod),
         settings: data,
       );
     },
@@ -630,6 +635,45 @@ class StackedRouter extends _i1.RouterBase {
 
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
+}
+
+class BuyGoldOrSilverViewArguments {
+  const BuyGoldOrSilverViewArguments({
+    this.key,
+    required this.balance,
+    required this.margin,
+    required this.withdrawMethod,
+  });
+
+  final _i40.Key? key;
+
+  final String balance;
+
+  final String margin;
+
+  final String withdrawMethod;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "balance": "$balance", "margin": "$margin", "withdrawMethod": "$withdrawMethod"}';
+  }
+
+  @override
+  bool operator ==(covariant BuyGoldOrSilverViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.balance == balance &&
+        other.margin == margin &&
+        other.withdrawMethod == withdrawMethod;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^
+        balance.hashCode ^
+        margin.hashCode ^
+        withdrawMethod.hashCode;
+  }
 }
 
 class TransactionHistoryScreenViewArguments {
@@ -1113,14 +1157,23 @@ extension NavigatorStateExtension on _i42.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToBuyGoldOrSilverView([
+  Future<dynamic> navigateToBuyGoldOrSilverView({
+    _i40.Key? key,
+    required String balance,
+    required String margin,
+    required String withdrawMethod,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.buyGoldOrSilverView,
+        arguments: BuyGoldOrSilverViewArguments(
+            key: key,
+            balance: balance,
+            margin: margin,
+            withdrawMethod: withdrawMethod),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1721,14 +1774,23 @@ extension NavigatorStateExtension on _i42.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithBuyGoldOrSilverView([
+  Future<dynamic> replaceWithBuyGoldOrSilverView({
+    _i40.Key? key,
+    required String balance,
+    required String margin,
+    required String withdrawMethod,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.buyGoldOrSilverView,
+        arguments: BuyGoldOrSilverViewArguments(
+            key: key,
+            balance: balance,
+            margin: margin,
+            withdrawMethod: withdrawMethod),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

@@ -1,4 +1,6 @@
 import 'package:e_gold/app/app.router.dart';
+import 'package:e_gold/services/bank_service.dart';
+import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked/stacked.dart';
@@ -10,13 +12,16 @@ class StartupViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final userProfileService = locator<UserProfileService>();
   bool isLogin = true;
-
+  final bankService = locator<BankService>();
+  final cryptoService = locator<CryptoService>();
   // Place anything here that needs to happen before we get into the application
   Future runStartupLogic() async {
     userProfileService.getUser();
     await Future.delayed(const Duration(seconds: 3));
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
+      await bankService.getBankData();
+      await cryptoService.getCryptoData();
       // User is already logged
       print(user.uid);
       navigationService.replaceWithDashboardScreenView();

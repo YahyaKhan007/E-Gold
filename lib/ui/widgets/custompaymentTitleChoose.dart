@@ -5,11 +5,14 @@ class choosePaymentTile extends StatelessWidget {
   final String image;
   final String title;
   final String text;
+  final String margin;
+  final String balance;
   final VoidCallback onPressed;
   bool icon;
   choosePaymentTile({
     super.key,
     required this.image,
+    required this.balance,required this.margin,
     required this.title,
     required this.text,
     required this.onPressed,
@@ -54,6 +57,24 @@ class choosePaymentTile extends StatelessWidget {
                 ),
                 Text(
                   text,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: kcLightText,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  'Balance:  ${balance}',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: kcLightText,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  'Margin: ${margin}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: kcLightText,
