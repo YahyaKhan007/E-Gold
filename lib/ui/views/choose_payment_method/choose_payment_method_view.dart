@@ -1,0 +1,104 @@
+import 'package:e_gold/ui/common/app_images.dart';
+import 'package:e_gold/ui/widgets/customAddPaymentMethod.dart';
+import 'package:e_gold/ui/widgets/custompaymentTitleChoose.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import 'choose_payment_method_viewmodel.dart';
+
+class ChoosePaymentMethodView
+    extends StackedView<ChoosePaymentMethodViewModel> {
+  const ChoosePaymentMethodView({Key? key}) : super(key: key);
+
+  @override
+  Widget builder(
+    BuildContext context,
+    ChoosePaymentMethodViewModel viewModel,
+    Widget? child,
+  ) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Center(
+          child: Text(
+            'Choose Payment Method',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          onPressed: viewModel.goBack,
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Add a payment Method',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            choosePaymentTile(
+              image: crypto,
+              title: 'Crypto',
+              text: 'Deposit from your crypto app',
+              onPressed: viewModel.toCryptoPayment,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            choosePaymentTile(
+              image: masterCard,
+              title: 'Debit or Credit Card',
+              text: 'Use Visa, Master and more',
+              onPressed: () async {
+                await viewModel.createPaymentIntent();
+                await viewModel.processPayment();
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            choosePaymentTile(
+              image: bank,
+              title: 'Link Bank Account',
+              text: 'Connect bank for easy deposits',
+              onPressed: viewModel.enterBalance,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            choosePaymentTile(
+              image: store,
+              title: 'In-store',
+              text: 'Deposit in-person at our stores',
+              onPressed: viewModel.toInStorePayment,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  ChoosePaymentMethodViewModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      ChoosePaymentMethodViewModel();
+}

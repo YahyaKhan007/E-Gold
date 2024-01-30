@@ -47,6 +47,7 @@ import 'package:e_gold/ui/views/goldbalancehistory/goldbalancehistory_view.dart'
 import 'package:e_gold/ui/views/auth_views/phone_sign_up/phone_sign_up_view.dart';
 import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart';
 import 'package:e_gold/ui/dialogs/buy_dialog/buy_dialog_dialog.dart';
+import 'package:e_gold/ui/views/choose_payment_method/choose_payment_method_view.dart';
 import 'package:e_gold/ui/views/link_bank_account_screen/link_bank_account_screen_view.dart';
 import 'package:e_gold/ui/dialogs/add_amount_for_balance/add_amount_for_balance_dialog.dart';
 // @stacked-import
@@ -91,6 +92,7 @@ import 'package:e_gold/ui/dialogs/add_amount_for_balance/add_amount_for_balance_
     MaterialRoute(page: StatisticView),
     MaterialRoute(page: PhoneSignUpView),
     MaterialRoute(page: TransactiondetailsView),
+    MaterialRoute(page: ChoosePaymentMethodView),
     MaterialRoute(page: LinkBankAccountScreenView),
 // @stacked-route
   ],

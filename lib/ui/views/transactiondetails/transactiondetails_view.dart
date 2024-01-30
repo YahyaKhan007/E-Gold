@@ -1,3 +1,4 @@
+import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/ui/common/app_widgets.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import 'package:stacked/stacked.dart';
 import 'transactiondetails_viewmodel.dart';
 
 class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
-  const TransactiondetailsView({Key? key}) : super(key: key);
+  final TransactionDetails transactionDetails;
+  const TransactiondetailsView({Key? key, required this.transactionDetails})
+      : super(key: key);
 
   @override
   Widget builder(
@@ -20,7 +23,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
         appBar: kAppBar(
             context: context,
             title: const Text('Transaction Details'),
-            onButtonPressed: () {},
+            onButtonPressed: viewModel.onBack,
             backgroundColor: Colors.amber),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -51,13 +54,8 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                 .titleLarge!
                                 .copyWith(fontWeight: FontWeight.w700),
                           ),
-                          SvgPicture.asset(
-                            'assets/icons/hand_1.svg',
-                            colorFilter:
-                                ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                            fit: BoxFit.scaleDown,
-                          ),
-                          const Text("{\$100 + \$100(Bonus)}")
+                          Text(
+                              "${transactionDetails.totalPaid} + ${transactionDetails.totalBonus}")
                         ],
                       ),
                     ),
@@ -82,7 +80,6 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                 .titleLarge!
                                 .copyWith(fontWeight: FontWeight.w700),
                           ),
-                          SvgPicture.asset('assets/icons/facebook_circled.svg'),
                           const Text("\$100"),
                         ],
                       ),
@@ -94,7 +91,17 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
             Expanded(
               child: ListView.separated(
                 itemBuilder: (context, index) {
-                  List names = [
+                  List<String> values = [
+                    transactionDetails.status,
+                    transactionDetails.totalPaid.toString(),
+                    transactionDetails.totalBonus.toString(),
+                    transactionDetails.totalGoldBought.toString(),
+                    transactionDetails.withdrawMethod,
+                    viewModel.formattedDate(transactionDetails.transactionDate),
+                    transactionDetails.transactionId,
+                  ];
+
+                  List<String> names = [
                     'Status',
                     'Total Paid',
                     'Total Bonus',
@@ -107,14 +114,13 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                   return ListTile(
                     visualDensity: VisualDensity.compact,
                     titleTextStyle: Theme.of(context).textTheme.titleMedium,
-                    leadingAndTrailingTextStyle: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(
-                            color: const Color.fromARGB(255, 177, 167, 167),
-                            fontWeight: FontWeight.w400),
+                    leadingAndTrailingTextStyle:
+                        Theme.of(context).textTheme.titleMedium!.copyWith(
+                              color: const Color.fromARGB(255, 177, 167, 167),
+                              fontWeight: FontWeight.w400,
+                            ),
                     title: Text(names[index]),
-                    trailing: const Text('data'),
+                    trailing: Text(values[index]),
                   );
                 },
                 itemCount: 7,
