@@ -1,18 +1,30 @@
-import 'package:e_gold/app/app.dialogs.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
+import 'package:e_gold/models/crypto.dart';
+import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/services/bank_service.dart';
-import 'package:flutter/material.dart';
+import 'package:e_gold/services/crypto_service.dart';
+import 'package:e_gold/services/transaction_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class BuyGoldOrSilverViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
+  final navigationService = locator<NavigationService>();
   final bankService = locator<BankService>();
   final _snackbarService = locator<SnackbarService>();
-  final _dialogService = locator<DialogService>();
+  final dialogService = locator<DialogService>();
 
+  final cryptoService = locator<CryptoService>();
+  final transactionDetailsService = locator<TransactionDetailsService>();
+  final String balance;
+  final String margin;
+  BuyGoldOrSilverViewModel(this.balance, this.margin, this.withdrawMethod);
   String amount = '';
+  final withdrawMethod;
+  double? enteredAmount;
+  double? availableBalance;
   bool gold = true;
 
   void goldVal() {
@@ -27,12 +39,15 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
 
   void onKeyboardTap(String value) {
     amount = amount + value;
+    enteredAmount = double.tryParse(amount);
+    print(enteredAmount);
     rebuildUi();
   }
 
   void rightButtonfn() {
     if (amount.isNotEmpty) {
       amount = amount.substring(0, amount.length - 1);
+      print(amount);
       rebuildUi();
     }
   }
@@ -44,43 +59,67 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
     }
   }
 
+  void enterBalance() async {
+    TransactionDetails newTransaction = TransactionDetails(
+      status: 'Completed',
+      totalPaid: 100.0,
+      totalBonus: 20.0,
+      transactionType: 'Buy',
+      totalGoldBought: 5.0,
+      withdrawMethod: 'In-Store',
+      walletType: 'Main Street',
+      transactionDate: Timestamp.now(),
+      transactionId:
+          'unique_transaction_id', // Replace with a unique ID for each transaction
+    );
+
+    await transactionDetailsService.addTransaction(
+        userId: FirebaseAuth.instance.currentUser!.uid,
+        transactionDetails: newTransaction);
+    // _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
+  }
+
   void toContinue() async {
-    if (amount.isEmpty) {
-      _snackbarService.showSnackbar(
-        message: 'Enter Some amount',
-        title: 'Error',
-        duration: const Duration(seconds: 2),
-      );
-    } else {
-      // try {
-      //   bool isAmountGreaterThanBalance =
-      //       await bankService.checkBalance(int.parse(amount).toDouble());
-      //   if (isAmountGreaterThanBalance) {
-      //     _snackbarService.showSnackbar(
-      //       message: 'Entered amount is not in your app\'s balance',
-      //       title: 'Alert',
-      //       duration: const Duration(seconds: 2),
-      //     );
-      //     Future.delayed(const Duration(seconds: 2), () {
-      //       _navigationService.navigateToDepositScreenView();
-      //     });
-      //   } else {
-      //     _dialogService.showCustomDialog(
-      //       variant: DialogType.buyDialog,
-      //       data: int.parse(amount),
-      //     );
-      //     amount = '';
-      //     rebuildUi();
-      //   }
-      // } catch (e) {
-      //   _snackbarService.showSnackbar(
-      //     message: 'Error $e',
-      //     title: 'Error',
-      //     duration: const Duration(seconds: 2),
-      //   );
-      //   amount = '';
-      //   rebuildUi();
-      // }
-    }
+    try {
+      double? ammount = double.tryParse(amount);
+      if (amount.isEmpty) {
+        _snackbarService.showSnackbar(
+          message: 'Enter Some amount',
+          title: 'Error',
+          duration: const Duration(seconds: 2),
+        );
+      } else {
+        TransactionDetails newTransaction = TransactionDetails(
+          status: 'Completed',
+          totalPaid: 0,
+          totalBonus: 0,
+          transactionType: 'Buy',
+          totalGoldBought: ammount!,
+          withdrawMethod: withdrawMethod,
+          walletType: withdrawMethod,
+          transactionDate: Timestamp.now(),
+          transactionId:
+              'unique_transaction_id', // Replace with a unique ID for each transaction
+        );
+        if (withdrawMethod == 'Crypto') {
+          await cryptoService.deductFromCryptoWallet(ammount);
+          _snackbarService.showSnackbar(
+            message: 'Congratulation you have bought gold of amount: $ammount',
+            title: 'Success',
+            duration: const Duration(seconds: 2),
+          );
+        } else if (withdrawMethod == 'Bank') {
+          await bankService.deductFromBankWallet(ammount);
+        } else {}
+        await transactionDetailsService.addTransaction(
+            userId: FirebaseAuth.instance.currentUser!.uid,
+            transactionDetails: newTransaction);
+        navigationService.replaceWithDashboardScreenView();
+      }
+    } catch (e) {}
+  }
+
+  void onBack() {
+    navigationService.back();
   }
 }

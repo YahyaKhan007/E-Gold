@@ -4,12 +4,19 @@ import 'package:flutter/material.dart';
 
 class BuyGoldenContainer extends StatelessWidget {
   final String amount;
+  final String balance;
+  VoidCallback onBack;
+  final String margin;
+
   final bool goldCheck;
   final VoidCallback checkGoldFunc;
   final VoidCallback? checkSilverFunc;
-  const BuyGoldenContainer({
+   BuyGoldenContainer({
     super.key,
     required this.goldCheck,
+    required this.onBack,
+    required this.balance,
+    required this.margin,
     required this.checkGoldFunc,
     this.checkSilverFunc,
     required this.amount,
@@ -19,31 +26,21 @@ class BuyGoldenContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: kcYellowBright),
-      padding: const EdgeInsets.all(20.0),
-      height: MediaQuery.of(context).size.height * .5,
+      height: MediaQuery.of(context).size.height * .3,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              MetalBuyButton(
-                onTap: checkGoldFunc,
-                title: 'Gold',
-                color: kcGoldYellow,
+              IconButton(
+                onPressed: onBack,
+                icon: const Icon(Icons.arrow_back_ios),
               ),
-
-              // MetalBuyButton(
-              //   onTap: checkSilverFunc,
-              //   title: 'Silver',
-              //   color: kcSilverLight,
-              // ),
             ],
           ),
-          const SizedBox(
-            height: 30,
-          ),
+
           goldCheck
               ? const Text(
                   'I‘m Buying Gold',
@@ -61,18 +58,35 @@ class BuyGoldenContainer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+
           // const Spacer(),
           SizedBox(
-            height: MediaQuery.of(context).size.height * .1,
+            height: MediaQuery.of(context).size.height * .01,
           ),
           Text(
-            '\$$amount',
+            '  $amount',
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 63.87,
+              decoration: TextDecoration.underline,
+              fontSize: 45.87,
               fontWeight: FontWeight.w600,
-              letterSpacing: -1.28,
+            ),
+          ),
+          Text(
+            'Balance:  $balance ',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 13.87,
+              letterSpacing: 1.28,
+            ),
+          ),
+          Text(
+            'Magrin:  $margin  ',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 13.87,
+              letterSpacing: 1.28,
             ),
           ),
         ],
