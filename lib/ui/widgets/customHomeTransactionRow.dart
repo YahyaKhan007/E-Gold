@@ -1,22 +1,32 @@
+import 'package:cloud_firestore_platform_interface/src/timestamp.dart';
+import 'package:e_gold/models/transactionDetails.dart';
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomeTransactionRow extends StatelessWidget {
-  final Color buttonColor;
   final String buttonText;
   final String btc;
   final String image;
   final Color imageBack;
   final Color btcColor;
+  String? type;
+  String? amount;
+  String? walletType;
+  final TransactionDetails transactionDetails;
   final VoidCallback onTap;
-  const HomeTransactionRow({
+  HomeTransactionRow({
     super.key,
-    required this.buttonColor,
+    required this.transactionDetails,
     required this.buttonText,
     required this.btc,
     required this.image,
     required this.imageBack,
     required this.btcColor,
     required this.onTap,
+    this.type = '',
+    this.amount = '',
+    this.walletType = '',
   });
 
   @override
@@ -24,7 +34,7 @@ class HomeTransactionRow extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 82,
+        height: 100,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         decoration: ShapeDecoration(
           color: Colors.white,
@@ -59,23 +69,40 @@ class HomeTransactionRow extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                const Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    type == 'TopUp'
+                        ? Text(
+                            walletType!,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        : const Text(
+                            'Gold',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                     Text(
-                      'Gold',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                      _formattedDate(transactionDetails.transactionDate),
+                      style: const TextStyle(
+                        color: Color(0xFF626262),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                     Text(
-                      'Oct 14, 7:19 PM',
-                      style: TextStyle(
+                      type!,
+                      style: const TextStyle(
                         color: Color(0xFF626262),
-                        fontSize: 14,
+                        fontSize: 10,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -87,21 +114,31 @@ class HomeTransactionRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  '$btc BTC',
-                  style: TextStyle(
-                    color: btcColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                type == 'TopUp'
+                    ? Text(
+                        '\$$amount',
+                        style: TextStyle(
+                          color: btcColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    : Text(
+                        '$btc ${transactionDetails.withdrawMethod} ',
+                        style: TextStyle(
+                          color: btcColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                 Container(
                   width: 77,
                   height: 19,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                   decoration: BoxDecoration(
-                    color: buttonColor,
+                    color:
+                        buttonText == 'Pending' ? kcLightGrey : kcSuccessGreen,
                     borderRadius: BorderRadius.circular(4),
                     boxShadow: const [
                       BoxShadow(
@@ -129,5 +166,10 @@ class HomeTransactionRow extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _formattedDate(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    return DateFormat('MMMM d, y H:mm').format(dateTime);
   }
 }

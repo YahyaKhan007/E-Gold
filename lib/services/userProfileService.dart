@@ -11,6 +11,10 @@ class UserProfileService {
     user = await getUserProfileFromFirestore();
   }
 
+  cleanUser() {
+    user = null;
+  }
+
   Future<void> addUserToFirestore(UserProfile userProfile) async {
     try {
       // Get the current user's UID

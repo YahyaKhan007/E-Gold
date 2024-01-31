@@ -29,7 +29,7 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               BottomNavIcon(
-                text: 'Dashboard',
+                text: 'Home',
                 image: dashboard,
                 onPressed: () {
                   viewModel.pageChange(0);

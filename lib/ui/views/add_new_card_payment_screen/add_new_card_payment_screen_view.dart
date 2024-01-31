@@ -37,6 +37,7 @@ class AddNewCardPaymentScreenView
           children: [
             CustomTextField(
               title: 'Card number',
+              controller: viewModel.cardNumber,
               labelText: '',
               keyboardType: TextInputType.number,
             ),
@@ -48,16 +49,16 @@ class AddNewCardPaymentScreenView
               children: [
                 CustomTextField(
                   title: 'Expiry Date',
-                  labelText: '',
                   width: MediaQuery.of(context).size.width * .5,
                   keyboardType: TextInputType.number,
+                  controller: viewModel.expiryDate,
                 ),
                 CustomTextField(
                   title: 'CVV',
-                  labelText: '',
                   width: MediaQuery.of(context).size.width * .3,
                   keyboardType: TextInputType.number,
                   maxLenght: 3,
+                  controller: viewModel.cvv,
                 ),
               ],
             ),
@@ -66,8 +67,8 @@ class AddNewCardPaymentScreenView
             ),
             CustomTextField(
               title: 'Name on Card',
-              labelText: '',
               keyboardType: TextInputType.text,
+              controller: viewModel.nameOnCard,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * .2,

@@ -12,14 +12,14 @@ class SellSectionHome extends StatelessWidget {
         Container(
           width: 40,
           height: 40,
-          decoration: ShapeDecoration(
+          decoration: const ShapeDecoration(
             color: Color(0xFFF5B118),
             shape: OvalBorder(),
           ),
         ),
-        Container(
+        const SizedBox(
           width: 124,
-          height: 48,
+          height: 50,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -53,10 +53,10 @@ class SellSectionHome extends StatelessWidget {
             height: 48,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: Color(0xFF21BF73),
+              color: const Color(0xFF21BF73),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Row(
+            child: const Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

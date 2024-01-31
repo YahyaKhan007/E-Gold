@@ -3,16 +3,22 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final String title;
-  final String labelText;
+  String? labelText;
   TextInputType? keyboardType;
   double? width;
   int? maxLenght;
+  String? Function(String?)? validator;
+  final TextEditingController controller;
+  bool? enabled;
   CustomTextField({
     this.width,
     this.keyboardType,
     required this.title,
-    required this.labelText,
+    this.labelText = '',
     this.maxLenght,
+    required this.controller,
+    this.validator,
+    this.enabled = true,
   });
 
   @override
@@ -42,7 +48,10 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           child: Center(
-            child: TextField(
+            child: TextFormField(
+              enabled: enabled,
+              validator: validator,
+              controller: controller,
               maxLength: maxLenght,
               keyboardType: keyboardType,
               decoration: InputDecoration(
@@ -50,7 +59,7 @@ class CustomTextField extends StatelessWidget {
                 contentPadding: const EdgeInsets.all(10),
                 counterText: '',
                 label: Text(
-                  labelText,
+                  labelText!,
                   style: const TextStyle(
                     color: kcLightText,
                     fontSize: 14,
