@@ -17,7 +17,7 @@ class DashboardScreenViewModel extends BaseViewModel {
     const HomeView(),
     const TransactionHistoryScreenView(check: false),
     const ChoosePaymentMethodView(),
-    const Center(child: Text("PROFILE SCREEN3")),
+    const Center(child: Text("SIP")),
     const AccountScreenView(),
   ];
   PageController pageController = PageController(initialPage: 0);
