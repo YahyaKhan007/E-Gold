@@ -1,9 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/transactionDetails.dart';
+import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class TransactionDetailsService {
+  List<TransactionDetails>? transactionDetails;
+  final userService = locator<UserProfileService>();
+
+  getAllTransactionDetails(String userID) async {
+    transactionDetails = await getAllTransactions(userID);
+  }
+
   final CollectionReference _transactionDetailsCollection =
       FirebaseFirestore.instance.collection(
           'users'); // Adjust the collection name as per your Firebase structure
@@ -32,6 +41,25 @@ class TransactionDetailsService {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('transactions')
           .where('withdrawMethod', isEqualTo: paymentMethod)
+          .get();
+
+      return querySnapshot.docs
+          .map((doc) =>
+              TransactionDetails.fromMap(doc.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      print('Error retrieving transactions: $e');
+      return [];
+    }
+  }
+
+  Future<List<TransactionDetails>> getAllTransactions(
+    String userId,
+  ) async {
+    try {
+      final querySnapshot = await _transactionDetailsCollection
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('transactions')
           .get();
 
       return querySnapshot.docs

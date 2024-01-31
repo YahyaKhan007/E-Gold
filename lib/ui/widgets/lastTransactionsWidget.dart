@@ -9,15 +9,15 @@ import 'homeScreenSellSection.dart';
 
 class LastTransactionsWidget extends StatefulWidget {
   final VoidCallback? onTapSell, onTapSeeAll;
-  final String transactionTypeImage;
+  String? transactionTypeImage;
   final List<TransactionDetails> transactions;
 
-  const LastTransactionsWidget(
+  LastTransactionsWidget(
       {super.key,
       this.onTapSell,
       this.onTapSeeAll,
       required this.transactions,
-      required this.transactionTypeImage});
+      this.transactionTypeImage});
 
   @override
   LastTransactionsWidgetState createState() => LastTransactionsWidgetState();
@@ -70,10 +70,9 @@ class LastTransactionsWidgetState extends State<LastTransactionsWidget> {
 
               return HomeTransactionRow(
                 transactionDetails: transaction,
-                buttonColor: kcSuccessGreen,
                 buttonText: transaction.status,
                 btc: transaction.totalGoldBought.toString(),
-                image: widget.transactionTypeImage,
+                image: widget.transactionTypeImage!,
                 imageBack: kcYellowBright,
                 btcColor: kcYellowBright,
                 onTap: () {

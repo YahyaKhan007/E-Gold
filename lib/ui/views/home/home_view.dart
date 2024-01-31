@@ -57,6 +57,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   LastTransactionsWidget(
+                    onTapSell: viewModel.onTapSell,
                     transactions: viewModel.cryptoTransactions,
                     transactionTypeImage: bitCoin,
                   ),

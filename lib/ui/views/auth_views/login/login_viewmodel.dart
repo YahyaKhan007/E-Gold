@@ -1,6 +1,9 @@
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/auth_service.dart';
+import 'package:e_gold/services/bank_service.dart';
+import 'package:e_gold/services/crypto_service.dart';
+import 'package:e_gold/services/transaction_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -24,6 +27,10 @@ class LoginViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
   final userProfileService = locator<UserProfileService>();
+  final _transactionService = locator<TransactionDetailsService>();
+  final bankService = locator<BankService>();
+  final cryptoService = locator<CryptoService>();
+
   void showPassword() {
     isPasswordVisible = !isPasswordVisible;
     rebuildUi();
@@ -39,6 +46,9 @@ class LoginViewModel extends BaseViewModel {
           emailController.text.trim(), passwordController.text.trim());
       if (user != null) {
         await userProfileService.getUser();
+        await bankService.getBankData();
+        await cryptoService.getCryptoData();
+        await _transactionService.getAllTransactionDetails(user.uid);
         navigationService.replaceWithDashboardScreenView();
       }
     }

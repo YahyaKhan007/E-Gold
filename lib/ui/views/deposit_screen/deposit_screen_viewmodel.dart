@@ -19,7 +19,6 @@ class DepositScreenViewModel extends BaseViewModel {
   Map<String, dynamic>? paymentIntent;
   final transactionDetailsService = locator<TransactionDetailsService>();
 
-
   final _cryptoService = locator<CryptoService>();
   final _bankService = locator<BankService>();
   final _snackbarService = locator<SnackbarService>();
@@ -97,7 +96,6 @@ class DepositScreenViewModel extends BaseViewModel {
     }
   }
 
-
   void enterBalance() async {
     TransactionDetails newTransaction = TransactionDetails(
       status: 'Completed',
@@ -116,4 +114,5 @@ class DepositScreenViewModel extends BaseViewModel {
         userId: FirebaseAuth.instance.currentUser!.uid,
         transactionDetails: newTransaction);
     // _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
-}}
+  }
+}

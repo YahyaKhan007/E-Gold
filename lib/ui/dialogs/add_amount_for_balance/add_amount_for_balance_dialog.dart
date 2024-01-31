@@ -35,53 +35,97 @@ class AddAmountForBalanceDialog
         insetPadding: const EdgeInsets.all(20.0),
         children: [
           SimpleDialogOption(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomTextField(
-                  title: 'Amount',
-                  controller: viewModel.amount,
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Center(
-                  child: GestureDetector(
-                    onTap: () => viewModel.addBalance(context),
-                    child: Container(
-                      width: 150,
-                      height: 48,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 12),
-                      decoration: ShapeDecoration(
-                        color: kcYellowBright,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        shadows: const [
-                          BoxShadow(
-                            color: Color(0x3FF5B119),
-                            blurRadius: 8,
-                            offset: Offset(2, 4),
-                            spreadRadius: 0,
-                          ),
-                        ],
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Add Balance',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
+            child: Form(
+              key: viewModel.formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomTextField(
+                    title: 'Amount',
+                    controller: viewModel.amount,
+                    keyboardType: TextInputType.number,
+                    validator: viewModel.customValidator,
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Center(
+                        child: GestureDetector(
+                          onTap: () => viewModel.cancel(context),
+                          child: Container(
+                            width: 150,
+                            height: 48,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 12),
+                            decoration: ShapeDecoration(
+                              color: kcYellowBright,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              shadows: const [
+                                BoxShadow(
+                                  color: Color(0x3FF5B119),
+                                  blurRadius: 8,
+                                  offset: Offset(2, 4),
+                                  spreadRadius: 0,
+                                ),
+                              ],
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () => viewModel.addBalance(context),
+                          child: Container(
+                            width: 150,
+                            height: 48,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 12),
+                            decoration: ShapeDecoration(
+                              color: kcYellowBright,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              shadows: const [
+                                BoxShadow(
+                                  color: Color(0x3FF5B119),
+                                  blurRadius: 8,
+                                  offset: Offset(2, 4),
+                                  spreadRadius: 0,
+                                ),
+                              ],
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'Add Balance',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ]);

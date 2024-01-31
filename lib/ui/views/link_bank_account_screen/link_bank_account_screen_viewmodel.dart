@@ -51,7 +51,7 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
     if (check) {
       _dialogService.showCustomDialog(
         variant: DialogType.addAmountForBalance,
-        data: 'bank',
+        data: 'Bank',
       );
     }
   }
