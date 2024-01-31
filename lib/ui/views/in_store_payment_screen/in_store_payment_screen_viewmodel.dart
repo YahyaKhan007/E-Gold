@@ -19,7 +19,7 @@ class InStorePaymentScreenViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   final _instoreService = locator<InStoreService>();
   final _transactionService = locator<TransactionDetailsService>();
-  final _balanceService = locator<BalanceService>();
+  final _snackbarService = locator<SnackbarService>();
   String? userID;
 
   void onViewModelReady() {
@@ -44,25 +44,49 @@ class InStorePaymentScreenViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
-  void toContinue() async {
+  void toContinue(BuildContext context) async {
     if (validateForm()) {
       InStore instoreData =
           InStore(uid: userID!, balance: double.parse(amount.text.toString()));
-      await _instoreService.addInStoreToWallet(instoreData);
-      TransactionDetails transactionDetails = TransactionDetails(
-        status: 'Pending',
-        totalPaid: double.parse(amount.text.toString()),
-        totalBonus: double.parse(amount.text.toString()),
-        totalGoldBought: 0.0,
-        withdrawMethod: '',
-        walletType: 'In-Store',
-        transactionType: 'TopUp',
-        transactionDate: Timestamp.now(),
-        transactionId: 'transactionId',
-      );
-      await _transactionService.addTransaction(
-          userId: FirebaseAuth.instance.currentUser!.uid,
-          transactionDetails: transactionDetails);
+
+      try {
+        bool success = await _instoreService.addInStoreToWallet(instoreData);
+        if (success) {
+          _snackbarService.showSnackbar(
+            message: 'Transaction in process',
+            title: 'Success',
+            duration: const Duration(seconds: 2),
+          );
+        } else {
+          _snackbarService.showSnackbar(
+            message: 'There were problems processing Transaction',
+            title: 'Error',
+            duration: const Duration(seconds: 2),
+          );
+        }
+
+        TransactionDetails transactionDetails = TransactionDetails(
+          status: 'Pending',
+          totalPaid: double.parse(amount.text.toString()),
+          totalBonus: double.parse(amount.text.toString()),
+          totalGoldBought: 0.0,
+          withdrawMethod: '',
+          walletType: 'In-Store',
+          transactionType: 'TopUp',
+          transactionDate: Timestamp.now(),
+          transactionId: 'transactionId',
+        );
+        await _transactionService.addTransaction(
+            userId: FirebaseAuth.instance.currentUser!.uid,
+            transactionDetails: transactionDetails);
+      } catch (e) {
+        _snackbarService.showSnackbar(
+          message: 'Error $e',
+          title: 'Error',
+          duration: const Duration(seconds: 2),
+        );
+      }
+      Navigator.pop(context);
     }
   }
 }

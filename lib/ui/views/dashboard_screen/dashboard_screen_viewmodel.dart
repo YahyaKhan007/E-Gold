@@ -17,17 +17,13 @@ class DashboardScreenViewModel extends BaseViewModel {
     const HomeView(),
     const TransactionHistoryScreenView(check: false),
     const ChoosePaymentMethodView(),
-    const Center(child: Text("SIP")),
+    const Center(child: Text("PROFILE SCREEN3")),
     const AccountScreenView(),
   ];
   PageController pageController = PageController(initialPage: 0);
   int currentPageIndex = 0;
   void pageChange(int nextIndex) {
     currentPageIndex = nextIndex;
-    if (currentPageIndex == 2) {
-      bankService.getBankData();
-      cryptoService.getCryptoData();
-    }
     rebuildUi();
   }
 }

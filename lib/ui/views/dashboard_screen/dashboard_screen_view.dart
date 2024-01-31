@@ -3,6 +3,7 @@ import 'package:e_gold/ui/common/app_images.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
 import 'dashboard_screen_viewmodel.dart';
 
 class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
@@ -19,6 +20,7 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
         index: viewModel.currentPageIndex,
         children: viewModel.pages,
       ),
+
       bottomNavigationBar: Container(
         color: kcBackgroundColor,
         height: 120,
@@ -107,6 +109,25 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
           ],
         ),
       ),
+      // floatingActionButton: Container(
+      //   margin: const EdgeInsets.only(bottom: 0),
+      //   child: FloatingActionButton(
+      //     backgroundColor: Colors.black,
+      //     onPressed: () {
+      //       viewModel.pageChange(2);
+      //     },
+      //     child: SizedBox(
+      //       height: 60,
+      //       child: IconButton(
+      //         onPressed: () {
+      //           viewModel.pageChange(2);
+      //         },
+      //         icon: Image.asset(buy),
+      //       ),
+      //     ),
+      //   ),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

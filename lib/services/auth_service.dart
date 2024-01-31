@@ -1,7 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/models/bank.dart';
+import 'package:e_gold/models/crypto.dart';
+import 'package:e_gold/models/inStore.dart';
 import 'package:e_gold/models/userProfile.dart';
 import 'package:e_gold/services/balance_service.dart';
+import 'package:e_gold/services/bank_service.dart';
+import 'package:e_gold/services/crypto_service.dart';
+import 'package:e_gold/services/inStore_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -15,8 +21,11 @@ class AuthService {
   final userProfileService = locator<UserProfileService>();
   String _verificationId = "";
   final _UserProfileService = locator<UserProfileService>();
-
   final _BalanceService = locator<BalanceService>();
+  final _cryptoService = locator<CryptoService>();
+  final _bankService = locator<BankService>();
+  final _inStoreService = locator<InStoreService>();
+
   Future<User?> signUpWithEmail(
       String email, String password, String name) async {
     try {
@@ -36,10 +45,18 @@ class AuthService {
           phoneNumber: "",
           dateOfBirth: '',
           createdAt: Timestamp.now());
-      _UserProfileService.addUserToFirestore(user);
-      _BalanceService.createBalance(
-          FirebaseAuth.instance.currentUser!.uid, 0.0);
+      Crypto cryptoData = Crypto(walletAddress: '', securityPin: '');
+      Bank bankData = Bank(bankName: '', accountNumber: '', swiftCode: '');
+      InStore instoreData = InStore(uid: credential.user!.uid, balance: 0.0);
+      await _UserProfileService.addUserToFirestore(user);
+      await _UserProfileService.getUser();
+      await _BalanceService.createBalance(
+          FirebaseAuth.instance.currentUser!.uid, 0.0, 0.0);
+      await _cryptoService.addCryptoToWallet(cryptoData);
+      await _bankService.addBankToWallet(bankData);
+      await _inStoreService.addInStoreToWallet(instoreData);
       _showSuccessSnackbar('Sign-up successful! Verification email sent.');
+
       return credential.user;
     } on FirebaseAuthException catch (e) {
       _handleAuthException(e);

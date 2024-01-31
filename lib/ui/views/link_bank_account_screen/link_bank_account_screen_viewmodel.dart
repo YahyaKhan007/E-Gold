@@ -56,7 +56,7 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
     }
   }
 
-  void linkAccount() async {
+  void linkAccount(BuildContext context) async {
     if (validateForm()) {
       Bank bankData = Bank(
         bankName: bankName.text.toString(),
@@ -85,6 +85,7 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
           duration: const Duration(seconds: 2),
         );
       }
+      Navigator.pop(context);
     }
   }
 }

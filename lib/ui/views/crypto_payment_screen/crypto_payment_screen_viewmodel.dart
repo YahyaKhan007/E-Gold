@@ -50,7 +50,7 @@ class CryptoPaymentScreenViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  void toContinue() async {
+  void toContinue(BuildContext context) async {
     // _navigationService.navigateToAddCryptoScreenView();
     if (validateForm()) {
       Crypto cryptoData = Crypto(
@@ -79,6 +79,7 @@ class CryptoPaymentScreenViewModel extends BaseViewModel {
           duration: const Duration(seconds: 2),
         );
       }
+      Navigator.pop(context);
     }
   }
 }
