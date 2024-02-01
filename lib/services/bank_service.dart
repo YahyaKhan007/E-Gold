@@ -80,9 +80,12 @@ class BankService {
       Bank? existingBankData = await getBankFromWallet();
       if (existingBankData != null) {
         existingBankData.balance = existingBankData.balance! + amount;
+        existingBankData.margin = existingBankData.margin! + amount;
+        await specificBankRef.update({
+          'balance': existingBankData.balance,
+          'margin': existingBankData.margin,
+        });
       }
-      Map<String, dynamic> updatedBankJson = existingBankData!.toJson();
-      await specificBankRef.set(updatedBankJson);
       return true;
     } catch (error) {
       print('Error adding/updating bank in wallet: $error');
@@ -90,7 +93,7 @@ class BankService {
     }
   }
 
-  Future<bool> deductFromBankWallet(double amount) async {
+  Future<bool> deductBalanceFromBankWallet(double amount) async {
     try {
       String uid = userService.user!.uid;
       DocumentReference specificBankRef = _firestore
@@ -103,8 +106,36 @@ class BankService {
       Bank? existingBankData = await getBankFromWallet();
       if (existingBankData != null && existingBankData.balance! >= amount) {
         existingBankData.balance = existingBankData.balance! - amount;
-        Map<String, dynamic> updatedBankJson = existingBankData.toJson();
-        await specificBankRef.set(updatedBankJson);
+        await specificBankRef.update({
+          'balance': existingBankData.balance,
+        });
+        return true;
+      } else {
+        print('Insufficient balance for deduction');
+        return false;
+      }
+    } catch (error) {
+      print('Error deducting from bank in wallet: $error');
+      return false;
+    }
+  }
+
+  Future<bool> deductMarginFromBankWallet(double amount) async {
+    try {
+      String uid = userService.user!.uid;
+      DocumentReference specificBankRef = _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('wallet')
+          .doc('balance')
+          .collection('bank')
+          .doc('bankData');
+      Bank? existingBankData = await getBankFromWallet();
+      if (existingBankData != null && existingBankData.margin! >= amount) {
+        existingBankData.margin = existingBankData.margin! - amount;
+        await specificBankRef.update({
+          'margin': existingBankData.margin,
+        });
         return true;
       } else {
         print('Insufficient balance for deduction');

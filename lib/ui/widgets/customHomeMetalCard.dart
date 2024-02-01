@@ -77,14 +77,27 @@ class HomeMetalContainer extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
-                      '\$$balance1 + \$$margin1(Margin)',
-                      style: const TextStyle(
-                        color: Color(0xFFF5B118),
-                        fontSize: 12,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          '\$$balance1 + \$$margin1',
+                          style: const TextStyle(
+                            color: Color(0xFFF5B118),
+                            fontSize: 12,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Text(
+                          '(Margin)',
+                          style: TextStyle(
+                            color: Color(0xFFF5B118),
+                            fontSize: 8,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

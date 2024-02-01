@@ -82,9 +82,12 @@ class CryptoService {
       Crypto? existingCryptoData = await getCryptoFromWallet();
       if (existingCryptoData != null) {
         existingCryptoData.balance = existingCryptoData.balance! + amount;
+        existingCryptoData.margin = existingCryptoData.margin! + amount;
+        await specificCryptoRef.update({
+          'balance': existingCryptoData.balance,
+          'margin': existingCryptoData.margin,
+        });
       }
-      Map<String, dynamic> updatedCryptoJson = existingCryptoData!.toJson();
-      await specificCryptoRef.set(updatedCryptoJson);
       return true;
     } catch (error) {
       print('Error adding/updating crypto in wallet: $error');
@@ -92,7 +95,7 @@ class CryptoService {
     }
   }
 
-  Future<bool> deductFromCryptoWallet(double amount) async {
+  Future<bool> deductBalanceFromCryptoWallet(double amount) async {
     try {
       String uid = userService.user!.uid;
       DocumentReference specificCryptoRef = _firestore
@@ -105,8 +108,36 @@ class CryptoService {
       Crypto? existingCryptoData = await getCryptoFromWallet();
       if (existingCryptoData != null && existingCryptoData.balance! >= amount) {
         existingCryptoData.balance = existingCryptoData.balance! - amount;
-        Map<String, dynamic> updatedCryptoJson = existingCryptoData.toJson();
-        await specificCryptoRef.set(updatedCryptoJson);
+        await specificCryptoRef.update({
+          'balance': existingCryptoData.balance,
+        });
+        return true;
+      } else {
+        print('Insufficient balance for deduction');
+        return false;
+      }
+    } catch (error) {
+      print('Error deducting from crypto in wallet: $error');
+      return false;
+    }
+  }
+
+  Future<bool> deductMarginFromCryptoWallet(double amount) async {
+    try {
+      String uid = userService.user!.uid;
+      DocumentReference specificCryptoRef = _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('wallet')
+          .doc('balance')
+          .collection('crypto')
+          .doc('cryptoData');
+      Crypto? existingCryptoData = await getCryptoFromWallet();
+      if (existingCryptoData != null && existingCryptoData.margin! >= amount) {
+        existingCryptoData.margin = existingCryptoData.margin! - amount;
+        await specificCryptoRef.update({
+          'margin': existingCryptoData.margin,
+        });
         return true;
       } else {
         print('Insufficient balance for deduction');

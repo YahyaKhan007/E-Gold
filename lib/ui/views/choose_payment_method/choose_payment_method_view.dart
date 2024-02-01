@@ -50,7 +50,7 @@ class ChoosePaymentMethodView
             ),
             choosePaymentTile(
               balance: viewModel.crytpoService.cryptoData!.balance.toString(),
-              margin: viewModel.crytpoService.cryptoData!.balance.toString(),
+              margin: viewModel.crytpoService.cryptoData!.margin.toString(),
               image: crypto,
               title: 'Crypto',
               text: 'Deposit from your crypto app',
@@ -72,7 +72,7 @@ class ChoosePaymentMethodView
             ),
             choosePaymentTile(
               balance: viewModel.bankService.bankData!.balance.toString(),
-              margin: viewModel.bankService.bankData!.balance.toString(),
+              margin: viewModel.bankService.bankData!.margin.toString(),
               image: bank,
               title: 'Link Bank Account',
               text: 'Connect bank for easy deposits',
@@ -84,7 +84,7 @@ class ChoosePaymentMethodView
             choosePaymentTile(
               image: store,
               balance: viewModel.inStoreService.instoreData!.balance.toString(),
-              margin: viewModel.inStoreService.instoreData!.balance.toString(),
+              margin: viewModel.inStoreService.instoreData!.margin.toString(),
               title: 'In-store',
               text: 'Deposit in-person at our stores',
               onPressed: viewModel.openBuyInStore,
