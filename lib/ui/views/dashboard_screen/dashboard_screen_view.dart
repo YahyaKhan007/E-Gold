@@ -40,7 +40,7 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
                       borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(30.0)),
                       child: Container(
-                        height: screenHeight(context) * .1,
+                        height: screenHeight(context) * .12,
                         width: screenWidth(context),
                         color: Colors.black,
                         padding: const EdgeInsets.all(8.0),
