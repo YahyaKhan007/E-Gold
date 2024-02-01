@@ -8,6 +8,12 @@ class BalanceService {
       FirebaseFirestore.instance.collection('users');
 
   final _snackbarService = locator<SnackbarService>();
+  BalanceModel? balanceData;
+
+  getBalanceData(String userId) async {
+    balanceData = await dataGet(userId);
+  }
+
   Future<void> updateBalance(String userId, double newBalance) async {
     try {
       await _usersCollection
@@ -22,7 +28,7 @@ class BalanceService {
     }
   }
 
-  Future<BalanceModel?> getBalance(String userId) async {
+  Future<BalanceModel?> dataGet(String userId) async {
     try {
       DocumentSnapshot snapshot = await _usersCollection
           .doc(userId)
@@ -72,7 +78,7 @@ class BalanceService {
 
   Future<bool?> addBalance(String userId, double amount) async {
     try {
-      BalanceModel? currentBalance = await getBalance(userId);
+      BalanceModel? currentBalance = await dataGet(userId);
 
       if (currentBalance != null) {
         double newBalance = currentBalance.balance + amount;
@@ -91,7 +97,7 @@ class BalanceService {
 
   Future<void> deductBalance(String userId, double amount) async {
     try {
-      BalanceModel? currentBalance = await getBalance(userId);
+      BalanceModel? currentBalance = await dataGet(userId);
 
       if (currentBalance != null) {
         if (currentBalance.balance >= amount) {
