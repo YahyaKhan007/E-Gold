@@ -3,6 +3,7 @@ import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/models/transactionDetails.dart';
+import 'package:e_gold/services/liveGoldSerice.dart';
 import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ class HomeViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
   final _transactionService = locator<TransactionDetailsService>();
+  
+  final metalPriceService = locator<MetalPriceService>();
   List<TransactionDetails> cryptoTransactions = [];
   List<TransactionDetails> cardTransactions = [];
   List<TransactionDetails> bankTransactions = [];

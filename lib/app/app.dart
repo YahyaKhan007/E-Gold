@@ -4,6 +4,7 @@ import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/inStore_service.dart';
 import 'package:e_gold/services/kyc_service.dart';
+import 'package:e_gold/services/liveGoldSerice.dart';
 import 'package:e_gold/services/stripe_api.dart';
 import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
@@ -112,6 +113,7 @@ import 'package:e_gold/ui/bottom_sheets/sellgold/sellgold_sheet.dart';
     LazySingleton(classType: TransactionDetailsService),
     LazySingleton(classType: CryptoService),
     LazySingleton(classType: InStoreService),
+    LazySingleton(classType: MetalPriceService),
     // @stacked-service
   ],
   bottomsheets: [
