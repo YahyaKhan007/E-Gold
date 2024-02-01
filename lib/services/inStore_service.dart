@@ -81,12 +81,71 @@ class InStoreService {
       InStore? existingInStoreData = await getInStoreFromWallet();
       if (existingInStoreData != null) {
         existingInStoreData.balance = existingInStoreData.balance + amount;
+        existingInStoreData.margin = existingInStoreData.margin! + amount;
+        await specificInStoreRef.update({
+          'balance': existingInStoreData.balance,
+          'margin': existingInStoreData.margin,
+        });
       }
-      Map<String, dynamic> updatedInStoreJson = existingInStoreData!.toJson();
-      await specificInStoreRef.set(updatedInStoreJson);
       return true;
     } catch (error) {
       print('Error adding/updating instore in wallet: $error');
+      return false;
+    }
+  }
+
+  Future<bool> deductBalanceFromInStoreWallet(double amount) async {
+    try {
+      String uid = userService.user!.uid;
+      DocumentReference specificInStoreRef = _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('wallet')
+          .doc('balance')
+          .collection('instore')
+          .doc('instoreData');
+      InStore? existingInStoreData = await getInStoreFromWallet();
+      if (existingInStoreData != null &&
+          existingInStoreData.balance! >= amount) {
+        existingInStoreData.balance = existingInStoreData.balance! - amount;
+        await specificInStoreRef.update({
+          'balance': existingInStoreData.balance,
+        });
+        return true;
+      } else {
+        print('Insufficient balance for deduction');
+        return false;
+      }
+    } catch (error) {
+      print('Error deducting from instore in wallet: $error');
+      return false;
+    }
+  }
+
+  Future<bool> deductMarginFromInStoreWallet(double amount) async {
+    try {
+      String uid = userService.user!.uid;
+      DocumentReference specificInStoreRef = _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('wallet')
+          .doc('balance')
+          .collection('instore')
+          .doc('instoreData');
+      InStore? existingInStoreData = await getInStoreFromWallet();
+      if (existingInStoreData != null &&
+          existingInStoreData.margin! >= amount) {
+        existingInStoreData.margin = existingInStoreData.margin! - amount;
+        await specificInStoreRef.update({
+          'margin': existingInStoreData.margin,
+        });
+        return true;
+      } else {
+        print('Insufficient balance for deduction');
+        return false;
+      }
+    } catch (error) {
+      print('Error deducting from instore in wallet: $error');
       return false;
     }
   }

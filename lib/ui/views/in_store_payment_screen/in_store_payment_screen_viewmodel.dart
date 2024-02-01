@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/models/inStore.dart';
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/services/balance_service.dart';
@@ -88,7 +89,7 @@ class InStorePaymentScreenViewModel extends BaseViewModel {
       }
       await _transactionService
           .getAllTransactionDetails(FirebaseAuth.instance.currentUser!.uid);
-      Navigator.pop(context);
+      _navigationService.replaceWithDashboardScreenView();
     }
   }
 }

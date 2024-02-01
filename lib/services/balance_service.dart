@@ -14,13 +14,42 @@ class BalanceService {
     balanceData = await dataGet(userId);
   }
 
-  Future<void> updateBalance(String userId, double newBalance) async {
+  Future<void> updateBalance(
+      String userId, double newBalance, double newMargin) async {
     try {
       await _usersCollection
           .doc(userId)
           .collection('wallet')
           .doc('balance')
-          .update({'balance': newBalance, 'margin': newBalance});
+          .update({'balance': newBalance, 'margin': newMargin});
+    } catch (e) {
+      _showErrorSnackbar(
+        'Error updating balance: $e',
+      );
+    }
+  }
+
+  Future<void> updateBalanceForDeduct(String userId, double newBalance) async {
+    try {
+      await _usersCollection
+          .doc(userId)
+          .collection('wallet')
+          .doc('balance')
+          .update({'balance': newBalance});
+    } catch (e) {
+      _showErrorSnackbar(
+        'Error updating balance: $e',
+      );
+    }
+  }
+
+  Future<void> updateMarginForDeduct(String userId, double newBalance) async {
+    try {
+      await _usersCollection
+          .doc(userId)
+          .collection('wallet')
+          .doc('balance')
+          .update({'margin': newBalance});
     } catch (e) {
       _showErrorSnackbar(
         'Error updating balance: $e',
@@ -82,7 +111,8 @@ class BalanceService {
 
       if (currentBalance != null) {
         double newBalance = currentBalance.balance + amount;
-        await updateBalance(userId, newBalance);
+        double newMargin = currentBalance.margin + amount;
+        await updateBalance(userId, newBalance, newMargin);
         _showSuccessSnackbar('Balance added successfully');
         return true;
       } else {
@@ -102,7 +132,7 @@ class BalanceService {
       if (currentBalance != null) {
         if (currentBalance.balance >= amount) {
           double newBalance = currentBalance.balance - amount;
-          await updateBalance(userId, newBalance);
+          await updateBalanceForDeduct(userId, newBalance);
           _showSuccessSnackbar('Balance deducted successfully');
         } else {
           _showErrorSnackbar('Insufficient funds');
@@ -112,6 +142,26 @@ class BalanceService {
       }
     } catch (e) {
       _showErrorSnackbar('Error deducting balance: $e');
+    }
+  }
+
+  Future<void> deductMargin(String userId, double amount) async {
+    try {
+      BalanceModel? currentBalance = await dataGet(userId);
+
+      if (currentBalance != null) {
+        if (currentBalance.margin >= amount) {
+          double newBalance = currentBalance.margin - amount;
+          await updateMarginForDeduct(userId, newBalance);
+          _showSuccessSnackbar('Margin deducted successfully');
+        } else {
+          _showErrorSnackbar('Insufficient funds');
+        }
+      } else {
+        _showErrorSnackbar('Balance document does not exist');
+      }
+    } catch (e) {
+      _showErrorSnackbar('Error deducting margin: $e');
     }
   }
 

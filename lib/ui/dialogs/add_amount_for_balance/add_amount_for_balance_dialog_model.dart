@@ -89,6 +89,8 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
       }
       await _bankService.getBankData();
       await _cryptoService.getCryptoData();
+      await _balanceService
+          .getBalanceData(FirebaseAuth.instance.currentUser!.uid);
       await _transactionService
           .getAllTransactionDetails(FirebaseAuth.instance.currentUser!.uid);
       _navigationService.replaceWithDashboardScreenView();
