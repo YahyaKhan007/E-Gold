@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
@@ -9,6 +10,7 @@ import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class AddAmountForBalanceDialogModel extends BaseViewModel {
   final String data;
@@ -19,7 +21,7 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
   final _cryptoService = locator<CryptoService>();
   final _transactionService = locator<TransactionDetailsService>();
   final formKey = GlobalKey<FormState>();
-  final _userService = locator<UserProfileService>();
+  final _navigationService = locator<NavigationService>();
 
   bool validateForm() {
     return formKey.currentState?.validate() ?? false;
@@ -85,6 +87,11 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
           Navigator.pop(context);
         }
       }
+      await _bankService.getBankData();
+      await _cryptoService.getCryptoData();
+      await _transactionService
+          .getAllTransactionDetails(FirebaseAuth.instance.currentUser!.uid);
+      _navigationService.replaceWithDashboardScreenView();
     }
   }
 }

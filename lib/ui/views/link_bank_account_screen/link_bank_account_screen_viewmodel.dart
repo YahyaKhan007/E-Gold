@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/models/bank.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
@@ -56,7 +57,7 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
     }
   }
 
-  void linkAccount(BuildContext context) async {
+  void linkAccount() async {
     if (validateForm()) {
       Bank bankData = Bank(
         bankName: bankName.text.toString(),
@@ -85,7 +86,7 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
           duration: const Duration(seconds: 2),
         );
       }
-      Navigator.pop(context);
+      _navigationService.back();
     }
   }
 }

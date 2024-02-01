@@ -13,7 +13,7 @@ class ChoosePaymentMethodViewModel extends BaseViewModel {
   final crytpoService = locator<CryptoService>();
   final _navigationService = locator<NavigationService>();
   final balanceService = locator<BalanceService>();
-  final _inStoreService = locator<InStoreService>();
+  final inStoreService = locator<InStoreService>();
   final transactionDetailsService = locator<TransactionDetailsService>();
   final bankService = locator<BankService>();
   final snackbarService = locator<SnackbarService>();
@@ -23,11 +23,13 @@ class ChoosePaymentMethodViewModel extends BaseViewModel {
   }
 
   void openBuyInStore() async {
-    bool check = await _inStoreService.doesInStoreCollectionExist();
+    bool check = await inStoreService.doesInStoreCollectionExist();
     print('Check');
     if (check) {
       _navigationService.navigateToBuyGoldOrSilverView(
-          withdrawMethod: "In-Store", balance: "3232", margin: '3232');
+          withdrawMethod: "In-Store",
+          balance: inStoreService.instoreData!.balance.toString(),
+          margin: inStoreService.instoreData!.margin.toString());
     } else {
       _navigationService.navigateToBuyGoldOrSilverView(
           withdrawMethod: "In-Store", balance: "0.0", margin: '0.0');
@@ -46,7 +48,7 @@ class ChoosePaymentMethodViewModel extends BaseViewModel {
       _navigationService.navigateToBuyGoldOrSilverView(
           balance: crytpoService.cryptoData!.balance.toString(),
           withdrawMethod: "Crypto",
-          margin: crytpoService.cryptoData!.balance.toString());
+          margin: crytpoService.cryptoData!.margin.toString());
     } else {
       _navigationService.navigateToBuyGoldOrSilverView(
           balance: '0.0', withdrawMethod: "Crypto", margin: '0.0');
@@ -60,7 +62,7 @@ class ChoosePaymentMethodViewModel extends BaseViewModel {
       _navigationService.navigateToBuyGoldOrSilverView(
           withdrawMethod: "Bank",
           balance: bankService.bankData!.balance.toString(),
-          margin: bankService.bankData!.balance.toString());
+          margin: bankService.bankData!.margin.toString());
     } else {
       _navigationService.navigateToBuyGoldOrSilverView(
           withdrawMethod: "Bank", balance: '0.0', margin: '0.0');
