@@ -1,6 +1,7 @@
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/auth_service.dart';
+import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/inStore_service.dart';
@@ -32,6 +33,7 @@ class LoginViewModel extends BaseViewModel {
   final bankService = locator<BankService>();
   final cryptoService = locator<CryptoService>();
   final inStoreService = locator<InStoreService>();
+  final balanceService = locator<BalanceService>();
 
   void showPassword() {
     isPasswordVisible = !isPasswordVisible;
@@ -51,6 +53,8 @@ class LoginViewModel extends BaseViewModel {
         await bankService.getBankData();
         await cryptoService.getCryptoData();
         await inStoreService.getInStoreData();
+        await balanceService
+            .getBalanceData(FirebaseAuth.instance.currentUser!.uid);
         await _transactionService.getAllTransactionDetails(user.uid);
         navigationService.replaceWithDashboardScreenView();
       }

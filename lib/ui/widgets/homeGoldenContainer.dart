@@ -1,5 +1,7 @@
 import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/models/balance.dart';
 import 'package:e_gold/services/auth_service.dart';
+import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
@@ -9,9 +11,11 @@ import 'package:flutter/material.dart';
 
 class HomeGoldenContainer extends StatelessWidget {
   final userService = locator<UserProfileService>();
+  final balanceService = locator<BalanceService>();
   final VoidCallback onPressedNotification;
   final VoidCallback gold;
   final VoidCallback silver;
+
   HomeGoldenContainer({
     super.key,
     required this.onPressedNotification,
@@ -36,7 +40,7 @@ class HomeGoldenContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppBar(
-              title: Center(
+              title: const Center(
                 child: Text(
                   'E-Gold',
                   style: TextStyle(
@@ -53,9 +57,9 @@ class HomeGoldenContainer extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 10, // Adjust the radius to your desired size
                   backgroundImage:
-                      userService.user?.profileImg?.isNotEmpty == true
+                      userService.user?.profileImg.isNotEmpty == true
                           ? NetworkImage(userService.user!.profileImg)
-                          : AssetImage(profile) as ImageProvider,
+                          : const AssetImage(profile) as ImageProvider,
                 ),
               ),
               actions: [
@@ -70,35 +74,17 @@ class HomeGoldenContainer extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            // const Text(
-            //   'Your Portfolio Balance',
-            //   style: TextStyle(
-            //     color: Colors.white,
-            //     fontSize: 16,
-            //     fontWeight: FontWeight.w400,
-            //   ),
-            // ),
-            // const Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Text(
-            //       '\$4,590.00',
-            //       style: TextStyle(
-            //         color: Color(0xFF1F1F1F),
-            //         fontSize: 36,
-            //         fontWeight: FontWeight.w700,
-            //       ),
-            //     ),
-            //     Text(
-            //       '+25.33 (10%)',
-            //       style: TextStyle(
-            //         color: kcGreen,
-            //         fontSize: 16,
-            //         fontWeight: FontWeight.w500,
-            //       ),
-            //     )
-            //   ],
-            // ),
+            const Center(
+              child: Text(
+                'Gold Rate: 10g/23\$',
+                style: TextStyle(
+                  color: Color(0xFF1F1F1F),
+                  fontSize: 20,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
             const SizedBox(height: 15),
             Expanded(
               child: Row(
@@ -114,6 +100,8 @@ class HomeGoldenContainer extends StatelessWidget {
                     textColor: kcGoldenText,
                     circleColor: kcGoldenText,
                     onTap: gold,
+                    balance1: balanceService.balanceData!.balance.toString(),
+                    margin1: balanceService.balanceData!.margin.toString(),
                   ),
                   HomeMetalContainer(
                     isWalletCard: false,
@@ -125,6 +113,8 @@ class HomeGoldenContainer extends StatelessWidget {
                     textColor: kcGreen,
                     circleColor: kcSilverLight,
                     onTap: silver,
+                    balance1: '',
+                    margin1: '',
                   ),
                 ],
               ),
