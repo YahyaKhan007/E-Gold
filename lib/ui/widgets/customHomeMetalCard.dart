@@ -38,7 +38,7 @@ class HomeMetalContainer extends StatelessWidget {
             children: [
               Container(
                 width: width * .44,
-                height: height * 0.15,
+                height: height * 0.16,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 21, vertical: 12),
                 clipBehavior: Clip.antiAlias,
@@ -60,7 +60,7 @@ class HomeMetalContainer extends StatelessWidget {
                       'Wallet',
                       style: TextStyle(
                         color: Color(0xFF1F1F1F),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
@@ -108,7 +108,7 @@ class HomeMetalContainer extends StatelessWidget {
             children: [
               Container(
                 width: width * .44,
-                height: height * 0.15,
+                height: height * 0.16,
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: const ShapeDecoration(
                   color: Color(0xFFF9D075),
@@ -128,7 +128,7 @@ class HomeMetalContainer extends StatelessWidget {
                       'Portfolio',
                       style: TextStyle(
                         color: Color(0xFF1F1F1F),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
