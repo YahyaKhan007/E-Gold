@@ -18,10 +18,10 @@ class StartupViewModel extends BaseViewModel {
   final cryptoService = locator<CryptoService>();
   // Place anything here that needs to happen before we get into the application
   Future runStartupLogic() async {
-    await userProfileService.getUser();
     await Future.delayed(const Duration(seconds: 3));
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
+      await userProfileService.getUser();
       await bankService.getBankData();
       await cryptoService.getCryptoData();
       // User is already logged

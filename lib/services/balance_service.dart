@@ -41,13 +41,15 @@ class BalanceService {
     }
   }
 
-  Future<void> createBalance(String userId, double initialBalance) async {
+  Future<void> createBalance(
+      String userId, double initialBalance, double initialMargin) async {
     try {
       await _usersCollection
           .doc(userId)
           .collection('wallet')
           .doc('balance')
-          .set(BalanceModel(balance: initialBalance).toJson());
+          .set(BalanceModel(balance: initialBalance, margin: initialMargin)
+              .toJson());
     } catch (e) {
       _showErrorSnackbar('Error creating balance: $e');
     }

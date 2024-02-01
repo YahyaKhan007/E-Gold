@@ -86,7 +86,7 @@ class ChoosePaymentMethodView
               margin: viewModel.crytpoService.cryptoData!.balance.toString(),
               title: 'In-store',
               text: 'Deposit in-person at our stores',
-              onPressed: viewModel.openBuyInstore,
+              onPressed: viewModel.openBuyInStore,
             ),
             const SizedBox(
               height: 20,
@@ -102,9 +102,4 @@ class ChoosePaymentMethodView
     BuildContext context,
   ) =>
       ChoosePaymentMethodViewModel();
-  @override
-  void onViewModelReady(ChoosePaymentMethodViewModel viewModel) {
-    viewModel.onViewModelReady();
-    super.onViewModelReady(viewModel);
-  }
 }

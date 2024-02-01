@@ -3,10 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class InStore {
   String uid;
   double balance;
+  double? margin;
 
   InStore({
     required this.uid,
     required this.balance,
+    this.margin,
   });
 
   // Factory method to create a Bank instance from JSON data
@@ -14,6 +16,7 @@ class InStore {
     return InStore(
       uid: json['uid'],
       balance: json['balance'],
+      margin: json['margin'],
     );
   }
 
@@ -22,6 +25,7 @@ class InStore {
     return InStore(
       uid: snapshot['uid'],
       balance: snapshot['balance'],
+      margin: snapshot['margin'],
     );
   }
 
@@ -30,6 +34,7 @@ class InStore {
     return {
       'uid': uid,
       'balance': balance,
+      'margin': balance,
     };
   }
 }

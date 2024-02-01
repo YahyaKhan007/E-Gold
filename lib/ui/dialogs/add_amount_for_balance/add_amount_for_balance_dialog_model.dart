@@ -5,6 +5,7 @@ import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/transaction_service.dart';
+import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
@@ -18,6 +19,7 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
   final _cryptoService = locator<CryptoService>();
   final _transactionService = locator<TransactionDetailsService>();
   final formKey = GlobalKey<FormState>();
+  final _userService = locator<UserProfileService>();
 
   bool validateForm() {
     return formKey.currentState?.validate() ?? false;
