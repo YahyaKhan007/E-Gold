@@ -34,7 +34,7 @@ class InStore {
     return {
       'uid': uid,
       'balance': balance,
-      'margin': balance,
+      'margin': margin,
     };
   }
 }

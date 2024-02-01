@@ -30,10 +30,11 @@ class BuyGoldOrSilverView extends StackedView<BuyGoldOrSilverViewModel> {
             children: [
               BuyGoldenContainer(
                 onBack: viewModel.onBack,
-                balance: viewModel.balance, margin: viewModel.margin,
+                balance: viewModel.balance,
+                margin: viewModel.margin,
                 goldCheck: viewModel.gold,
                 checkGoldFunc: viewModel.goldVal,
-                //   checkSilverFunc: viewModel.silverVal,
+                checkSilverFunc: viewModel.silverVal,
                 amount: viewModel.amount,
               ),
               Padding(

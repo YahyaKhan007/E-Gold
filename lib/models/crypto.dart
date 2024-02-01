@@ -39,7 +39,7 @@ class Crypto {
       'walletAddress': walletAddress,
       'securityPin': securityPin,
       'balance': balance,
-      'margin': balance,
+      'margin': margin,
     };
   }
 }
