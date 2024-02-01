@@ -102,19 +102,54 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
               'unique_transaction_id', // Replace with a unique ID for each transaction
         );
         if (withdrawMethod == 'Crypto') {
-          await cryptoService.deductFromCryptoWallet(ammount);
-          _snackbarService.showSnackbar(
-            message: 'Congratulation you have bought gold of amount: $ammount',
-            title: 'Success',
-            duration: const Duration(seconds: 2),
-          );
+          bool check = await cryptoService.deductFromCryptoWallet(ammount);
+          if (check) {
+            await cryptoService.getCryptoData();
+            await transactionDetailsService.addTransaction(
+                userId: FirebaseAuth.instance.currentUser!.uid,
+                transactionDetails: newTransaction);
+
+            _snackbarService.showSnackbar(
+              message:
+                  'Congratulation you have bought gold of amount: $ammount',
+              title: 'Success',
+              duration: const Duration(seconds: 2),
+            );
+            navigationService.replaceWithDashboardScreenView();
+          } else {
+            _snackbarService.showSnackbar(
+              message: 'Not enough balance in your account',
+              title: 'Error',
+              duration: const Duration(seconds: 2),
+            );
+            navigationService.replaceWithDepositScreenView();
+          }
         } else if (withdrawMethod == 'Bank') {
-          await bankService.deductFromBankWallet(ammount);
+          bool check = await bankService.deductFromBankWallet(ammount);
+          if (check) {
+            await bankService.getBankData();
+            await transactionDetailsService.addTransaction(
+                userId: FirebaseAuth.instance.currentUser!.uid,
+                transactionDetails: newTransaction);
+
+            _snackbarService.showSnackbar(
+              message:
+                  'Congratulation you have bought gold of amount: $ammount',
+              title: 'Success',
+              duration: const Duration(seconds: 2),
+            );
+            navigationService.replaceWithDashboardScreenView();
+          } else {
+            _snackbarService.showSnackbar(
+              message: 'Not enough balance in your account',
+              title: 'Error',
+              duration: const Duration(seconds: 2),
+            );
+            navigationService.replaceWithDepositScreenView();
+          }
         } else {}
-        await transactionDetailsService.addTransaction(
-            userId: FirebaseAuth.instance.currentUser!.uid,
-            transactionDetails: newTransaction);
-        navigationService.replaceWithDashboardScreenView();
+        await transactionDetailsService
+            .getAllTransactionDetails(FirebaseAuth.instance.currentUser!.uid);
       }
     } catch (e) {}
   }
