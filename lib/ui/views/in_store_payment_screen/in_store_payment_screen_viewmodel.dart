@@ -86,6 +86,8 @@ class InStorePaymentScreenViewModel extends BaseViewModel {
           duration: const Duration(seconds: 2),
         );
       }
+      await _transactionService
+          .getAllTransactionDetails(FirebaseAuth.instance.currentUser!.uid);
       Navigator.pop(context);
     }
   }
