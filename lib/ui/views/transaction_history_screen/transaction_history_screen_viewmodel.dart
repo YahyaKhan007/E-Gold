@@ -4,7 +4,6 @@ import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:e_gold/ui/common/app_images.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class TransactionHistoryScreenViewModel extends BaseViewModel {

@@ -1,6 +1,7 @@
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
+import 'package:e_gold/services/inStore_service.dart';
 import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +14,7 @@ class StartupViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final userProfileService = locator<UserProfileService>();
   final _transactionService = locator<TransactionDetailsService>();
+  final inStoreService = locator<InStoreService>();
   bool isLogin = true;
   final bankService = locator<BankService>();
   final cryptoService = locator<CryptoService>();
@@ -24,7 +26,7 @@ class StartupViewModel extends BaseViewModel {
       await userProfileService.getUser();
       await bankService.getBankData();
       await cryptoService.getCryptoData();
-      // User is already logged
+      await inStoreService.getInStoreData();
       await _transactionService.getAllTransactionDetails(user.uid);
       navigationService.replaceWithDashboardScreenView();
     } else {
