@@ -3,12 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Crypto {
   String walletAddress;
   double? balance;
+  double? margin;
   String securityPin;
 
   Crypto({
     required this.walletAddress,
     required this.securityPin,
     this.balance = 0.0,
+    this.margin = 0.0,
   });
 
   // Factory method to create a Bank instance from JSON data
@@ -17,6 +19,7 @@ class Crypto {
       walletAddress: json['walletAddress'],
       securityPin: json['securityPin'],
       balance: json['balance'],
+      margin: json['margin'],
     );
   }
 
@@ -26,6 +29,7 @@ class Crypto {
       walletAddress: snapshot['walletAddress'],
       securityPin: snapshot['securityPin'],
       balance: snapshot['balance'],
+      margin: snapshot['margin'],
     );
   }
 
@@ -35,6 +39,7 @@ class Crypto {
       'walletAddress': walletAddress,
       'securityPin': securityPin,
       'balance': balance,
+      'margin': balance,
     };
   }
 }

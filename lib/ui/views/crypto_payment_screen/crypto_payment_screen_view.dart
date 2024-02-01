@@ -67,7 +67,7 @@ class CryptoPaymentScreenView
                       children: [
                         Center(
                           child: GestureDetector(
-                            onTap: viewModel.toContinue,
+                            onTap: () => viewModel.toContinue(context),
                             child: Container(
                               width: 150,
                               height: 48,

@@ -24,10 +24,6 @@ class DashboardScreenViewModel extends BaseViewModel {
   int currentPageIndex = 0;
   void pageChange(int nextIndex) {
     currentPageIndex = nextIndex;
-    if (currentPageIndex == 2) {
-      bankService.getBankData();
-      cryptoService.getCryptoData();
-    }
     rebuildUi();
   }
 }
