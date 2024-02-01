@@ -15,9 +15,11 @@ class HomeGoldenContainer extends StatelessWidget {
   final VoidCallback onPressedNotification;
   final VoidCallback gold;
   final VoidCallback silver;
+  String goldPrice;
 
   HomeGoldenContainer({
     super.key,
+    required this.goldPrice,
     required this.onPressedNotification,
     required this.gold,
     required this.silver,
@@ -33,7 +35,7 @@ class HomeGoldenContainer extends StatelessWidget {
           bottomRight: Radius.circular(20.0), // Adjust the radius as needed
         ),
       ),
-      height: MediaQuery.of(context).size.height * 0.33,
+      height: MediaQuery.of(context).size.height * 0.35,
       child: Padding(
         padding: const EdgeInsets.all(13),
         child: Column(
@@ -74,9 +76,9 @@ class HomeGoldenContainer extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            const Center(
+            Center(
               child: Text(
-                'Gold Rate: 10g/23\$',
+                'Current Gold Rate:  $goldPrice AED',
                 style: TextStyle(
                   color: Color(0xFF1F1F1F),
                   fontSize: 20,

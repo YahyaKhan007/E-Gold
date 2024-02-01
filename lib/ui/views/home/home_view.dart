@@ -18,65 +18,79 @@ class HomeView extends StackedView<HomeViewModel> {
   ) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            HomeGoldenContainer(
-              onPressedNotification: viewModel.notification,
-              gold: viewModel.goldContainer,
-              silver: viewModel.silverContainer,
-            ),
-
-            verticalSpaceSmall,
-            SizedBox(
-              height: 48,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        body: FutureBuilder(
+          future: viewModel.metalPriceService.fetchData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              Map<String, dynamic>? metalPrices = snapshot.data;
+              // Use metalPrices data to display information in your app
+              return Column(
                 children: [
-                  for (var i = 0; i < 4; i++)
-                    HomeMetalButton(
-                      containerColor: viewModel.currentPageIndex == i
-                          ? const Color(0xFFFFDA00)
-                          : const Color(0xFFF5B118),
-                      title: i == 0
-                          ? 'Crypto'
-                          : i == 1
-                              ? 'Card'
-                              : i == 2
-                                  ? 'Bank'
-                                  : 'InStore',
-                      onTap: () => viewModel.navigateToPage(i),
+                  HomeGoldenContainer(
+                    goldPrice: metalPrices?['price']?.toString() ?? 'N/A',
+                    onPressedNotification: viewModel.notification,
+                    gold: viewModel.goldContainer,
+                    silver: viewModel.silverContainer,
+                  ),
+
+                  verticalSpaceSmall,
+                  SizedBox(
+                    height: 48,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        for (var i = 0; i < 4; i++)
+                          HomeMetalButton(
+                            containerColor: viewModel.currentPageIndex == i
+                                ? const Color(0xFFFFDA00)
+                                : const Color(0xFFF5B118),
+                            title: i == 0
+                                ? 'Crypto'
+                                : i == 1
+                                    ? 'Card'
+                                    : i == 2
+                                        ? 'Bank'
+                                        : 'InStore',
+                            onTap: () => viewModel.navigateToPage(i),
+                          ),
+                      ],
                     ),
-                ],
-              ),
-            ),
+                  ),
 
-            // PageView
-            Expanded(
-              child: PageView(
-                controller: viewModel.pageController,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  LastTransactionsWidget(
-                    onTapSell: viewModel.onTapSell,
-                    transactions: viewModel.cryptoTransactions,
-                    transactionTypeImage: bitCoin,
-                  ),
-                  LastTransactionsWidget(
-                    transactions: viewModel.cardTransactions,
-                    transactionTypeImage: masterCard,
-                  ),
-                  LastTransactionsWidget(
-                    transactions: viewModel.bankTransactions,
-                    transactionTypeImage: bank,
-                  ),
-                  LastTransactionsWidget(
-                    transactions: viewModel.inStoreTransactions,
-                    transactionTypeImage: store,
+                  // PageView
+                  Expanded(
+                    child: PageView(
+                      controller: viewModel.pageController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        LastTransactionsWidget(
+                          onTapSell: viewModel.onTapSell,
+                          transactions: viewModel.cryptoTransactions,
+                          transactionTypeImage: bitCoin,
+                        ),
+                        LastTransactionsWidget(
+                          transactions: viewModel.cardTransactions,
+                          transactionTypeImage: masterCard,
+                        ),
+                        LastTransactionsWidget(
+                          transactions: viewModel.bankTransactions,
+                          transactionTypeImage: bank,
+                        ),
+                        LastTransactionsWidget(
+                          transactions: viewModel.inStoreTransactions,
+                          transactionTypeImage: store,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
-              ),
-            ),
-          ],
+              );
+            }
+          },
         ),
       ),
     );
