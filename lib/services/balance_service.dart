@@ -14,7 +14,7 @@ class BalanceService {
           .doc(userId)
           .collection('wallet')
           .doc('balance')
-          .update({'balance': newBalance});
+          .update({'balance': newBalance, 'margin': newBalance});
     } catch (e) {
       _showErrorSnackbar(
         'Error updating balance: $e',
