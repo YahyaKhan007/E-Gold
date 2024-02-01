@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/models/userProfile.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,10 +42,10 @@ class EditProfileViewModel extends BaseViewModel {
       userProfle?.name = firstNameController.text;
       userProfle?.email = emailController.text;
       userProfle?.phoneNumber = phoneNoController.text;
-
       userProfle?.dateOfBirth = dobController.text;
       await userProfileService.updateUserToFirestore(userProfle!);
-      navigationService.back();
+      await userProfileService.getUser();
+      navigationService.replaceWithDashboardScreenView();
     }
   }
 
