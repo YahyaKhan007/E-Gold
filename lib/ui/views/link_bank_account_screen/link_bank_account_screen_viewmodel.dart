@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
+import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/models/bank.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
@@ -85,6 +86,7 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
           duration: const Duration(seconds: 2),
         );
       }
+      _navigationService.back();
     }
   }
 }

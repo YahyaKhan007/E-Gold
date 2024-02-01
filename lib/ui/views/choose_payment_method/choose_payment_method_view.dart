@@ -60,12 +60,13 @@ class ChoosePaymentMethodView
               height: 20,
             ),
             choosePaymentTile(
-                balance: viewModel.bankService.bankData!.balance.toString(),
-                margin: viewModel.bankService.bankData!.balance.toString(),
-                image: masterCard,
-                title: 'Debit or Credit Card',
-                text: 'Use Visa, Master and more',
-                onPressed: viewModel.openBuyCard),
+              balance: viewModel.bankService.bankData!.balance.toString(),
+              margin: viewModel.bankService.bankData!.balance.toString(),
+              image: masterCard,
+              title: 'Debit or Credit Card',
+              text: 'Use Visa, Master and more',
+              onPressed: viewModel.openBuyCard,
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -82,11 +83,11 @@ class ChoosePaymentMethodView
             ),
             choosePaymentTile(
               image: store,
-              balance: viewModel.crytpoService.cryptoData!.balance.toString(),
-              margin: viewModel.crytpoService.cryptoData!.balance.toString(),
+              balance: viewModel.inStoreService.instoreData!.balance.toString(),
+              margin: viewModel.inStoreService.instoreData!.balance.toString(),
               title: 'In-store',
               text: 'Deposit in-person at our stores',
-              onPressed: viewModel.openBuyInstore,
+              onPressed: viewModel.openBuyInStore,
             ),
             const SizedBox(
               height: 20,
@@ -102,9 +103,4 @@ class ChoosePaymentMethodView
     BuildContext context,
   ) =>
       ChoosePaymentMethodViewModel();
-  @override
-  void onViewModelReady(ChoosePaymentMethodViewModel viewModel) {
-    viewModel.onViewModelReady();
-    super.onViewModelReady(viewModel);
-  }
 }
