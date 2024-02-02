@@ -25,7 +25,7 @@ class BuyGoldenContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: kcYellowBright),
-      height: MediaQuery.of(context).size.height * .3,
+      height: MediaQuery.of(context).size.height * .4,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,

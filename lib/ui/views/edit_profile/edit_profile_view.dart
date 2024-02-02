@@ -82,10 +82,13 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
                       ),
                       verticalSpaceSmall,
                       InternationalPhoneNumberInput(
+                        initialValue: viewModel.initialValue,
                         textFieldController: viewModel.phoneNoController,
                         onInputChanged: (PhoneNumber number) {
-                          print(number.phoneNumber);
-                          print(viewModel.phoneNoController.text);
+                          viewModel.countryCode = number.isoCode!;
+                        },
+                        onSaved: (PhoneNumber number) {
+                          viewModel.countryCode = number.isoCode!;
                         },
                         onInputValidated: (bool value) {
                           print(value);
