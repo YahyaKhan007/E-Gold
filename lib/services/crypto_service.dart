@@ -52,6 +52,23 @@ class CryptoService {
     }
   }
 
+  // Future<bool> doesCryptoCollectionExist() async {
+  //   try {
+  //     String uid = userService.user!.uid;
+  //     CollectionReference cryptoRef = _firestore
+  //         .collection('users')
+  //         .doc(uid)
+  //         .collection('wallet')
+  //         .doc('balance')
+  //         .collection('crypto');
+  //     QuerySnapshot querySnapshot = await cryptoRef.limit(1).get();
+  //     return querySnapshot.docs.isNotEmpty;
+  //   } catch (error) {
+  //     print('Error checking if crypto collection exists: $error');
+  //     return false;
+  //   }
+  // }
+
   Future<bool> doesCryptoCollectionExist() async {
     try {
       String uid = userService.user!.uid;
@@ -62,7 +79,15 @@ class CryptoService {
           .doc('balance')
           .collection('crypto');
       QuerySnapshot querySnapshot = await cryptoRef.limit(1).get();
-      return querySnapshot.docs.isNotEmpty;
+      if (querySnapshot.docs.isNotEmpty) {
+        Map<String, dynamic> data =
+            querySnapshot.docs.first.data() as Map<String, dynamic>;
+        return data.containsKey('securityPin') &&
+            data['securityPin'] != null &&
+            data['securityPin'] != '';
+      } else {
+        return false;
+      }
     } catch (error) {
       print('Error checking if crypto collection exists: $error');
       return false;
