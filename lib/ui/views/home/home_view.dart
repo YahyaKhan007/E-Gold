@@ -23,8 +23,6 @@ class HomeView extends StackedView<HomeViewModel> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
             } else {
               Map<String, dynamic>? metalPrices = snapshot.data;
               // Use metalPrices data to display information in your app
