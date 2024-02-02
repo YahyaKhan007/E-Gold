@@ -50,6 +50,24 @@ class BankService {
     }
   }
 
+  // Future<bool> doesBankCollectionExist() async {
+  //   try {
+  //     String uid = userService.user!.uid;
+  //     CollectionReference bankRef = _firestore
+  //         .collection('users')
+  //         .doc(uid)
+  //         .collection('wallet')
+  //         .doc('balance')
+  //         .collection('bank');
+  //     QuerySnapshot querySnapshot = await bankRef.limit(1).get();
+  //     return querySnapshot.docs.isNotEmpty;
+  //   } catch (error) {
+  //     print('Error checking if bank collection exists: $error');
+  //     return false;
+  //   }
+  // }
+  //
+
   Future<bool> doesBankCollectionExist() async {
     try {
       String uid = userService.user!.uid;
@@ -60,7 +78,15 @@ class BankService {
           .doc('balance')
           .collection('bank');
       QuerySnapshot querySnapshot = await bankRef.limit(1).get();
-      return querySnapshot.docs.isNotEmpty;
+      if (querySnapshot.docs.isNotEmpty) {
+        Map<String, dynamic> data =
+            querySnapshot.docs.first.data() as Map<String, dynamic>;
+        return data.containsKey('accountnumber') &&
+            data['accountnumber'] != null &&
+            data['accountnumber'] != '';
+      } else {
+        return false;
+      }
     } catch (error) {
       print('Error checking if bank collection exists: $error');
       return false;
