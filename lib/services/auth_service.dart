@@ -40,6 +40,7 @@ class AuthService {
       UserProfile user = UserProfile(
           name: name,
           profileImg: '',
+          countryCode: '',
           email: email,
           uid: credential.user!.uid,
           phoneNumber: "",
@@ -193,6 +194,7 @@ class AuthService {
         UserProfile user = UserProfile(
           name: '',
           profileImg: '',
+          countryCode: '',
           email: '',
           uid: userAuth.uid,
           phoneNumber: '',

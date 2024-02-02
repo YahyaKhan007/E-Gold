@@ -5,12 +5,14 @@ class UserProfile {
   String email;
   String uid;
   String phoneNumber;
+  String countryCode;
   String dateOfBirth;
   Timestamp? createdAt;
   String profileImg;
 
   UserProfile({
     required this.name,
+    required this.countryCode,
     required this.email,
     required this.uid,
     required this.profileImg,
@@ -24,6 +26,7 @@ class UserProfile {
     return {
       'name': name,
       'email': email,
+      'countryCode': countryCode,
       'uid': uid,
       'profileImg': profileImg,
       'phoneNumber': phoneNumber,
@@ -36,6 +39,7 @@ class UserProfile {
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
       name: json['name'],
+      countryCode: json['countryCode'],
       profileImg: json['profileImg'],
       email: json['email'],
       uid: json['uid'],
@@ -51,6 +55,7 @@ class UserProfile {
     return UserProfile(
       name: data['name'],
       email: data['email'],
+      countryCode: data['countryCode'],
       uid: data['uid'],
       profileImg: data['profileImg'],
       phoneNumber: data['phoneNumber'],

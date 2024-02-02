@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/date_picker.dart';
 import 'package:flutter_holo_date_picker/i18n/date_picker_i18n.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -19,18 +20,25 @@ class EditProfileViewModel extends BaseViewModel {
   final picker = ImagePicker();
   final navigationService = locator<NavigationService>();
   String profileImgUrl = "";
+  String countryCode = '';
   TextEditingController firstNameController = TextEditingController();
   TextEditingController phoneNoController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController dobController = TextEditingController();
   UserProfile? userProfle;
+  PhoneNumber? initialValue;
 
   void onViewModelReady() async {
     setBusy(true);
     userProfle = await userProfileService.getUserProfileFromFirestore();
     firstNameController.text = userProfle!.name;
     emailController.text = userProfle!.email;
+    countryCode = userProfle!.countryCode;
     phoneNoController.text = userProfle!.phoneNumber;
+    initialValue = PhoneNumber(
+        dialCode: userProfle!.countryCode, phoneNumber: '', isoCode: 'PK');
+    print(initialValue);
+    print(initialValue);
     dobController.text = userProfle!.dateOfBirth;
     profileImgUrl = userProfle!.profileImg;
     setBusy(false);
@@ -39,6 +47,7 @@ class EditProfileViewModel extends BaseViewModel {
   void submitForm() async {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
+      userProfle?.countryCode = countryCode;
       userProfle?.name = firstNameController.text;
       userProfle?.email = emailController.text;
       userProfle?.phoneNumber = phoneNoController.text;
