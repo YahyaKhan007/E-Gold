@@ -8,7 +8,7 @@ class InStore {
   InStore({
     required this.uid,
     required this.balance,
-    this.margin,
+    this.margin = 0.0,
   });
 
   // Factory method to create a Bank instance from JSON data

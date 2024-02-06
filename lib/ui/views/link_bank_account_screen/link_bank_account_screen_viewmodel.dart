@@ -28,6 +28,7 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
   void onViewModelReady() async {
     setBusy(true);
     bool check = await _bankService.doesBankCollectionExist();
+    print(check);
     if (check) {
       bankName.text = _bankService.bankData!.bankName;
       accountNumber.text = _bankService.bankData!.accountNumber;

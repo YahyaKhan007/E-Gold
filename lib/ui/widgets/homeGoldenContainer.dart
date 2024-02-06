@@ -79,7 +79,7 @@ class HomeGoldenContainer extends StatelessWidget {
             Center(
               child: Text(
                 'Current Gold Rate:  $goldPrice AED',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xFF1F1F1F),
                   fontSize: 20,
                   fontFamily: 'Poppins',

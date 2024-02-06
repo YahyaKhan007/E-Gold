@@ -81,9 +81,9 @@ class BankService {
       if (querySnapshot.docs.isNotEmpty) {
         Map<String, dynamic> data =
             querySnapshot.docs.first.data() as Map<String, dynamic>;
-        return data.containsKey('accountnumber') &&
-            data['accountnumber'] != null &&
-            data['accountnumber'] != '';
+        return data.containsKey('accountNumber') &&
+            data['accountNumber'] != null &&
+            data['accountNumber'] != '';
       } else {
         return false;
       }

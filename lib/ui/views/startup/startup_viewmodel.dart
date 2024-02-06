@@ -27,6 +27,7 @@ class StartupViewModel extends BaseViewModel {
     if (user != null) {
       await userProfileService.getUser();
       await bankService.getBankData();
+      print('///////////////////////////////////////////////////////////////////////////////////////////////////////////');
       await cryptoService.getCryptoData();
       await inStoreService.getInStoreData();
       await balanceService.getBalanceData(FirebaseAuth.instance.currentUser!.uid);
