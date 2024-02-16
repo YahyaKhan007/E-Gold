@@ -1,6 +1,6 @@
 class BalanceModel {
-  double balance;
-  double margin;
+  int balance;
+  int margin;
 
   BalanceModel({required this.balance, required this.margin});
 

@@ -17,20 +17,20 @@ class TransactionDetailsService {
       FirebaseFirestore.instance.collection(
           'users'); // Adjust the collection name as per your Firebase structure
 
-  Future<void> createTransaction({
-    required String userId,
-    transactionDetails,
-  }) async {
-    try {
-      await _transactionDetailsCollection
-          .doc(userId)
-          .collection('transactions')
-          .doc(transactionDetails['transactionId'])
-          .set(transactionDetails);
-    } catch (e) {
-      print('Error creating transaction: $e');
-    }
-  }
+  // Future<void> createTransaction({
+  //   required String userId,
+  //   transactionDetails,
+  // }) async {
+  //   try {
+  //     await _transactionDetailsCollection
+  //         .doc(userId)
+  //         .collection('transactions')
+  //         .doc(transactionDetails['transactionId'])
+  //         .set(transactionDetails);
+  //   } catch (e) {
+  //     print('Error creating transaction: $e');
+  //   }
+  // }
 
   Future<List<TransactionDetails>> getTransactionsByPaymentMethod(
     String userId,
@@ -108,11 +108,17 @@ class TransactionDetailsService {
     required TransactionDetails transactionDetails,
   }) async {
     try {
-      await _transactionDetailsCollection
+      // Add a new document to the collection with an auto-generated ID
+      final newDocRef = await _transactionDetailsCollection
           .doc(userId)
           .collection('transactions')
-          .doc()
-          .set(transactionDetails.toMap());
+          .add(transactionDetails.toMap());
+
+      // Get the newly generated document ID
+      final newDocId = newDocRef.id;
+
+      // Update the 'transactionId' field of the newly created document with the same value as the document ID
+      await newDocRef.update({'transactionId': newDocId});
     } catch (e) {
       print('Error adding transaction: $e');
     }

@@ -21,11 +21,9 @@ class BalanceService {
           .doc(userId)
           .collection('wallet')
           .doc('balance')
-          .update({'balance': newBalance, 'margin': newMargin});
+          .update({'balance': newBalance.toInt(), 'margin': newMargin.toInt()});
     } catch (e) {
-      _showErrorSnackbar(
-        'Error updating balance: $e',
-      );
+      print('Error: $e');
     }
   }
 
@@ -35,7 +33,7 @@ class BalanceService {
           .doc(userId)
           .collection('wallet')
           .doc('balance')
-          .update({'balance': newBalance});
+          .update({'balance': newBalance.toInt()});
     } catch (e) {
       _showErrorSnackbar(
         'Error updating balance: $e',
@@ -49,7 +47,7 @@ class BalanceService {
           .doc(userId)
           .collection('wallet')
           .doc('balance')
-          .update({'margin': newBalance});
+          .update({'margin': newBalance.toInt()});
     } catch (e) {
       _showErrorSnackbar(
         'Error updating balance: $e',
@@ -83,7 +81,9 @@ class BalanceService {
           .doc(userId)
           .collection('wallet')
           .doc('balance')
-          .set(BalanceModel(balance: initialBalance, margin: initialMargin)
+          .set(BalanceModel(
+                  balance: initialBalance.toInt(),
+                  margin: initialMargin.toInt())
               .toJson());
     } catch (e) {
       _showErrorSnackbar('Error creating balance: $e');

@@ -22,14 +22,16 @@ class HomeView extends StackedView<HomeViewModel> {
           future: viewModel.metalPriceService.fetchData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else {
               Map<String, dynamic>? metalPrices = snapshot.data;
               // Use metalPrices data to display information in your app
               return Column(
                 children: [
                   HomeGoldenContainer(
-                    goldPrice: metalPrices?['price']?.toString() ?? 'N/A',
+                    goldPrice:
+                        // metalPrices?['price']?.toString() ??
+                        'N/A',
                     onPressedNotification: viewModel.notification,
                     gold: viewModel.goldContainer,
                     silver: viewModel.silverContainer,
@@ -63,7 +65,7 @@ class HomeView extends StackedView<HomeViewModel> {
                   Expanded(
                     child: PageView(
                       controller: viewModel.pageController,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
                         LastTransactionsWidget(
                           onTapSell: viewModel.onTapSell,
