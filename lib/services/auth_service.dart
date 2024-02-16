@@ -3,11 +3,13 @@ import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/bank.dart';
 import 'package:e_gold/models/crypto.dart';
 import 'package:e_gold/models/inStore.dart';
+import 'package:e_gold/models/kyc.dart';
 import 'package:e_gold/models/userProfile.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/inStore_service.dart';
+import 'package:e_gold/services/kyc_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -25,6 +27,7 @@ class AuthService {
   final _cryptoService = locator<CryptoService>();
   final _bankService = locator<BankService>();
   final _inStoreService = locator<InStoreService>();
+  final _kycService = locator<KycService>();
 
   Future<User?> signUpWithEmail(
       String email, String password, String name) async {
@@ -49,10 +52,23 @@ class AuthService {
       Crypto cryptoData = Crypto(walletAddress: '', securityPin: '');
       Bank bankData = Bank(bankName: '', accountNumber: '', swiftCode: '');
       InStore instoreData = InStore(uid: credential.user!.uid, balance: 0.0);
+      KYC kycData = KYC(
+          cnicNumber: '',
+          cardFrontPhotoLink: '',
+          cardBackPhotoLink: '',
+          passportNumber: '',
+          bankAccountNumber: '',
+          bankName: '',
+          concentAgreement: false,
+          isApproved: false,
+          ifscCode: '',
+          profilePhotoLink: '',
+          dateOfBirth: '');
       await _UserProfileService.addUserToFirestore(user);
       await _UserProfileService.getUser();
       await _BalanceService.createBalance(
           FirebaseAuth.instance.currentUser!.uid, 0.0, 0.0);
+      await _kycService.saveKYCData(kycData);
       await _cryptoService.addCryptoToWallet(cryptoData);
       await _bankService.addBankToWallet(bankData);
       await _inStoreService.addInStoreToWallet(instoreData);
