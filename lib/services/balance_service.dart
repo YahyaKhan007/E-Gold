@@ -8,13 +8,32 @@ class BalanceService {
       FirebaseFirestore.instance.collection('users');
 
   final _snackbarService = locator<SnackbarService>();
-  Future<void> updateBalance(String userId, double newBalance) async {
+  BalanceModel? balanceData;
+
+  getBalanceData(String userId) async {
+    balanceData = await dataGet(userId);
+  }
+
+  Future<void> updateBalance(
+      String userId, double newBalance, double newMargin) async {
     try {
       await _usersCollection
           .doc(userId)
           .collection('wallet')
           .doc('balance')
-          .update({'balance': newBalance, 'margin': newBalance});
+          .update({'balance': newBalance.toInt(), 'margin': newMargin.toInt()});
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<void> updateBalanceForDeduct(String userId, double newBalance) async {
+    try {
+      await _usersCollection
+          .doc(userId)
+          .collection('wallet')
+          .doc('balance')
+          .update({'balance': newBalance.toInt()});
     } catch (e) {
       _showErrorSnackbar(
         'Error updating balance: $e',
@@ -22,7 +41,21 @@ class BalanceService {
     }
   }
 
-  Future<BalanceModel?> getBalance(String userId) async {
+  Future<void> updateMarginForDeduct(String userId, double newBalance) async {
+    try {
+      await _usersCollection
+          .doc(userId)
+          .collection('wallet')
+          .doc('balance')
+          .update({'margin': newBalance.toInt()});
+    } catch (e) {
+      _showErrorSnackbar(
+        'Error updating balance: $e',
+      );
+    }
+  }
+
+  Future<BalanceModel?> dataGet(String userId) async {
     try {
       DocumentSnapshot snapshot = await _usersCollection
           .doc(userId)
@@ -48,7 +81,9 @@ class BalanceService {
           .doc(userId)
           .collection('wallet')
           .doc('balance')
-          .set(BalanceModel(balance: initialBalance, margin: initialMargin)
+          .set(BalanceModel(
+                  balance: initialBalance.toInt(),
+                  margin: initialMargin.toInt())
               .toJson());
     } catch (e) {
       _showErrorSnackbar('Error creating balance: $e');
@@ -72,11 +107,12 @@ class BalanceService {
 
   Future<bool?> addBalance(String userId, double amount) async {
     try {
-      BalanceModel? currentBalance = await getBalance(userId);
+      BalanceModel? currentBalance = await dataGet(userId);
 
       if (currentBalance != null) {
         double newBalance = currentBalance.balance + amount;
-        await updateBalance(userId, newBalance);
+        double newMargin = currentBalance.margin + amount;
+        await updateBalance(userId, newBalance, newMargin);
         _showSuccessSnackbar('Balance added successfully');
         return true;
       } else {
@@ -91,12 +127,12 @@ class BalanceService {
 
   Future<void> deductBalance(String userId, double amount) async {
     try {
-      BalanceModel? currentBalance = await getBalance(userId);
+      BalanceModel? currentBalance = await dataGet(userId);
 
       if (currentBalance != null) {
         if (currentBalance.balance >= amount) {
           double newBalance = currentBalance.balance - amount;
-          await updateBalance(userId, newBalance);
+          await updateBalanceForDeduct(userId, newBalance);
           _showSuccessSnackbar('Balance deducted successfully');
         } else {
           _showErrorSnackbar('Insufficient funds');
@@ -106,6 +142,26 @@ class BalanceService {
       }
     } catch (e) {
       _showErrorSnackbar('Error deducting balance: $e');
+    }
+  }
+
+  Future<void> deductMargin(String userId, double amount) async {
+    try {
+      BalanceModel? currentBalance = await dataGet(userId);
+
+      if (currentBalance != null) {
+        if (currentBalance.margin >= amount) {
+          double newBalance = currentBalance.margin - amount;
+          await updateMarginForDeduct(userId, newBalance);
+          _showSuccessSnackbar('Margin deducted successfully');
+        } else {
+          _showErrorSnackbar('Insufficient funds');
+        }
+      } else {
+        _showErrorSnackbar('Balance document does not exist');
+      }
+    } catch (e) {
+      _showErrorSnackbar('Error deducting margin: $e');
     }
   }
 

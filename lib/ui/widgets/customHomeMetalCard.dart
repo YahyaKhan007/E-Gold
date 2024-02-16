@@ -12,6 +12,8 @@ class HomeMetalContainer extends StatelessWidget {
   final Color textColor;
   final Color circleColor;
   final VoidCallback onTap;
+  final String balance1;
+  final String margin1;
   const HomeMetalContainer({
     super.key,
     required this.title,
@@ -23,6 +25,8 @@ class HomeMetalContainer extends StatelessWidget {
     required this.textColor,
     required this.circleColor,
     required this.onTap,
+    required this.balance1,
+    required this.margin1,
   });
 
   @override
@@ -33,12 +37,12 @@ class HomeMetalContainer extends StatelessWidget {
         ? Column(
             children: [
               Container(
-                width: width * .42,
-                height: height * 0.18,
+                width: width * .44,
+                height: height * 0.16,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 21, vertical: 12),
                 clipBehavior: Clip.antiAlias,
-                decoration: ShapeDecoration(
+                decoration: const ShapeDecoration(
                   color: Color(0xFFFCE8BA),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
@@ -52,11 +56,11 @@ class HomeMetalContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Wallet',
                       style: TextStyle(
                         color: Color(0xFF1F1F1F),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
@@ -65,7 +69,7 @@ class HomeMetalContainer extends StatelessWidget {
                     Container(
                       width: 28,
                       height: 28,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/image 45.png'),
                           fit: BoxFit.fill,
@@ -73,14 +77,27 @@ class HomeMetalContainer extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text(
-                      '\$500 + \$500(Margin)',
-                      style: TextStyle(
-                        color: Color(0xFFF5B118),
-                        fontSize: 12,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          '\$$balance1 + \$$margin1',
+                          style: const TextStyle(
+                            color: Color(0xFFF5B118),
+                            fontSize: 12,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Text(
+                          '(Margin)',
+                          style: TextStyle(
+                            color: Color(0xFFF5B118),
+                            fontSize: 8,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -90,10 +107,10 @@ class HomeMetalContainer extends StatelessWidget {
         : Column(
             children: [
               Container(
-                width: width * .42,
-                height: height * 0.18,
+                width: width * .44,
+                height: height * 0.16,
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: ShapeDecoration(
+                decoration: const ShapeDecoration(
                   color: Color(0xFFF9D075),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
@@ -107,11 +124,11 @@ class HomeMetalContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Portfolio',
                       style: TextStyle(
                         color: Color(0xFF1F1F1F),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
@@ -120,7 +137,7 @@ class HomeMetalContainer extends StatelessWidget {
                     Container(
                       width: 28,
                       height: 28,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/image 44.png'),
                           fit: BoxFit.fill,
@@ -128,7 +145,7 @@ class HomeMetalContainer extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text.rich(
+                    const Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(

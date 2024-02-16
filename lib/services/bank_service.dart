@@ -50,6 +50,24 @@ class BankService {
     }
   }
 
+  // Future<bool> doesBankCollectionExist() async {
+  //   try {
+  //     String uid = userService.user!.uid;
+  //     CollectionReference bankRef = _firestore
+  //         .collection('users')
+  //         .doc(uid)
+  //         .collection('wallet')
+  //         .doc('balance')
+  //         .collection('bank');
+  //     QuerySnapshot querySnapshot = await bankRef.limit(1).get();
+  //     return querySnapshot.docs.isNotEmpty;
+  //   } catch (error) {
+  //     print('Error checking if bank collection exists: $error');
+  //     return false;
+  //   }
+  // }
+  //
+
   Future<bool> doesBankCollectionExist() async {
     try {
       String uid = userService.user!.uid;
@@ -60,7 +78,15 @@ class BankService {
           .doc('balance')
           .collection('bank');
       QuerySnapshot querySnapshot = await bankRef.limit(1).get();
-      return querySnapshot.docs.isNotEmpty;
+      if (querySnapshot.docs.isNotEmpty) {
+        Map<String, dynamic> data =
+            querySnapshot.docs.first.data() as Map<String, dynamic>;
+        return data.containsKey('accountNumber') &&
+            data['accountNumber'] != null &&
+            data['accountNumber'] != '';
+      } else {
+        return false;
+      }
     } catch (error) {
       print('Error checking if bank collection exists: $error');
       return false;
@@ -80,9 +106,12 @@ class BankService {
       Bank? existingBankData = await getBankFromWallet();
       if (existingBankData != null) {
         existingBankData.balance = existingBankData.balance! + amount;
+        existingBankData.margin = existingBankData.margin! + amount;
+        await specificBankRef.update({
+          'balance': existingBankData.balance,
+          'margin': existingBankData.margin,
+        });
       }
-      Map<String, dynamic> updatedBankJson = existingBankData!.toJson();
-      await specificBankRef.set(updatedBankJson);
       return true;
     } catch (error) {
       print('Error adding/updating bank in wallet: $error');
@@ -90,7 +119,7 @@ class BankService {
     }
   }
 
-  Future<bool> deductFromBankWallet(double amount) async {
+  Future<bool> deductBalanceFromBankWallet(double amount) async {
     try {
       String uid = userService.user!.uid;
       DocumentReference specificBankRef = _firestore
@@ -103,8 +132,36 @@ class BankService {
       Bank? existingBankData = await getBankFromWallet();
       if (existingBankData != null && existingBankData.balance! >= amount) {
         existingBankData.balance = existingBankData.balance! - amount;
-        Map<String, dynamic> updatedBankJson = existingBankData.toJson();
-        await specificBankRef.set(updatedBankJson);
+        await specificBankRef.update({
+          'balance': existingBankData.balance,
+        });
+        return true;
+      } else {
+        print('Insufficient balance for deduction');
+        return false;
+      }
+    } catch (error) {
+      print('Error deducting from bank in wallet: $error');
+      return false;
+    }
+  }
+
+  Future<bool> deductMarginFromBankWallet(double amount) async {
+    try {
+      String uid = userService.user!.uid;
+      DocumentReference specificBankRef = _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('wallet')
+          .doc('balance')
+          .collection('bank')
+          .doc('bankData');
+      Bank? existingBankData = await getBankFromWallet();
+      if (existingBankData != null && existingBankData.margin! >= amount) {
+        existingBankData.margin = existingBankData.margin! - amount;
+        await specificBankRef.update({
+          'margin': existingBankData.margin,
+        });
         return true;
       } else {
         print('Insufficient balance for deduction');

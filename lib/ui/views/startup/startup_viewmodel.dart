@@ -1,4 +1,5 @@
 import 'package:e_gold/app/app.router.dart';
+import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/inStore_service.dart';
@@ -18,15 +19,18 @@ class StartupViewModel extends BaseViewModel {
   bool isLogin = true;
   final bankService = locator<BankService>();
   final cryptoService = locator<CryptoService>();
-  // Place anything here that needs to happen before we get into the application
+  final balanceService = locator<BalanceService>();
+
   Future runStartupLogic() async {
     await Future.delayed(const Duration(seconds: 3));
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       await userProfileService.getUser();
       await bankService.getBankData();
+      print('///////////////////////////////////////////////////////////////////////////////////////////////////////////');
       await cryptoService.getCryptoData();
       await inStoreService.getInStoreData();
+      await balanceService.getBalanceData(FirebaseAuth.instance.currentUser!.uid);
       await _transactionService.getAllTransactionDetails(user.uid);
       navigationService.replaceWithDashboardScreenView();
     } else {

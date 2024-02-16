@@ -100,8 +100,21 @@ class KycService {
       // Get the documents in the "kyc" subcollection
       QuerySnapshot kycDocuments = await kycCollection.get();
 
-      // Check if there are any documents in the "kyc" subcollection
-      return kycDocuments.docs.isNotEmpty;
+      // Check if there's exactly one document
+      if (kycDocuments.size == 1) {
+        // Get the only document
+        var document = kycDocuments.docs[0];
+
+        // Assuming ifscCode is a field in the document, replace 'ifscCode' with the actual field name
+        String ifscCode =
+            document['ifscCode']; // Assuming 'ifscCode' is the field name
+
+        // Check if ifscCode is not empty
+        if (ifscCode.isNotEmpty) {
+          return true;
+        }
+      }
+      return false; // If there's not exactly one document or if ifscCode is empty, return false
     } catch (e) {
       print('Error checking for the existence of KYC collection: $e');
       return false;

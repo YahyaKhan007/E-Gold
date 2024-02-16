@@ -12,7 +12,7 @@ class Bank {
     required this.accountNumber,
     required this.swiftCode,
     this.balance = 0.0,
-    this.margin,
+    this.margin = 0.0,
   });
 
   // Factory method to create a Bank instance from JSON data
@@ -44,7 +44,7 @@ class Bank {
       'accountNumber': accountNumber,
       'swiftCode': swiftCode,
       'balance': balance,
-      'margin': balance,
+      'margin': margin,
     };
   }
 }
