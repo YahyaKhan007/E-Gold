@@ -1,7 +1,10 @@
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
+import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/widgets/customTextField.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import 'in_store_payment_screen_viewmodel.dart';
@@ -16,191 +19,240 @@ class InStorePaymentScreenView
     InStorePaymentScreenViewModel viewModel,
     Widget? child,
   ) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'In-Store Payment',
           style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
+            color: Colors.white,
+            fontSize: screenWidth(context) * 0.06,
+            fontWeight: FontWeight.bold,
           ),
         ),
         leading: IconButton(
           onPressed: viewModel.goBack,
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: viewModel.formKey,
-          child: Container(
-            padding: const EdgeInsets.all(20.0),
-            child: viewModel.isBusy
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(profile),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Column(
+      body: Stack(
+        children: [
+          Container(
+            height: size.height,
+            width: size.width,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/back_home.png'),
+                    fit: BoxFit.cover)),
+          ),
+          Positioned(
+            top: size.height * 0.13,
+            child: Container(
+              height: screenHeight(context),
+              width: size.width,
+              padding: const EdgeInsets.only(left: 0, right: 0, top: 0),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30))),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: viewModel.formKey,
+                  child: Container(
+                    padding: const EdgeInsets.all(20.0),
+                    child: viewModel.isBusy
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'User',
+                              Row(
+                                children: [
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.lightBlue.shade200,
+                                            blurRadius: 3,
+                                            offset: const Offset(0, 1),
+                                            spreadRadius: 0,
+                                          ),
+                                        ],
+                                      ),
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Image.asset(profile)),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'User',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Make a payment at the store',
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              const Text(
+                                'Select In-Store Payment',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                'Make a payment at the store',
-                                style: TextStyle(
-                                  color: kcLightText,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 32,
-                      ),
-                      const Text(
-                        'Select In-Store Payment',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      CustomTextField(
-                        title: 'Unique ID',
-                        controller: viewModel.uid,
-                        enabled: false,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextField(
-                        title: 'Amount',
-                        controller: viewModel.amount,
-                        labelText: 'Amount',
-                        validator: viewModel.customValidator,
-                        keyboardType: TextInputType.number,
-                      ),
-                      const SizedBox(
-                        height: 32,
-                      ),
-                      const Text(
-                        'Visit Physical Store',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            width: 80,
-                            height: 80,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(logo),
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Instructions:',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 240,
-                                child: Text(
-                                  'Visit the store and show the \ngenerated unique ID to the cashier.',
-                                  style: TextStyle(
-                                    color: kcLightText,
-                                    fontSize: 14,
-                                    overflow: TextOverflow.ellipsis,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Center(
-                        child: GestureDetector(
-                          onTap: () => viewModel.toContinue(context),
-                          child: Container(
-                            width: 150,
-                            height: 48,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 12),
-                            decoration: ShapeDecoration(
-                              color: kcYellowBright,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              shadows: const [
-                                BoxShadow(
-                                  color: Color(0x3FF5B119),
-                                  blurRadius: 8,
-                                  offset: Offset(2, 4),
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'Continue',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                            ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              CustomTextField(
+                                title: 'Unique ID',
+                                controller: viewModel.uid,
+                                enabled: false,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              CustomTextField(
+                                title: 'Amount',
+                                controller: viewModel.amount,
+                                labelText: 'Amount',
+                                validator: viewModel.customValidator,
+                                keyboardType: TextInputType.number,
+                              ),
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              const Text(
+                                'Visit Physical Store',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              verticalSpaceSmall,
+                              FittedBox(
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      height: 80,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(logo),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    const Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Instructions:',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 240,
+                                          child: Text(
+                                            'Visit the store and show the \ngenerated unique ID to the cashier.',
+                                            style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 14,
+                                              overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              Center(
+                                child: GestureDetector(
+                                  onTap: () => viewModel.toContinue(context),
+                                  child: Container(
+                                    width: 150,
+                                    height: 48,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 12),
+                                    decoration: ShapeDecoration(
+                                      color: kcButtonBackground,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      shadows: const [
+                                        BoxShadow(
+                                          color: Color(0x3FF5B119),
+                                          blurRadius: 8,
+                                          offset: Offset(2, 4),
+                                          spreadRadius: 0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        'Continue',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ),
-                    ],
                   ),
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

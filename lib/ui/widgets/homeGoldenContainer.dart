@@ -28,9 +28,27 @@ class HomeGoldenContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: kcYellowBright,
-        borderRadius: BorderRadius.only(
+      margin: const EdgeInsets.symmetric(horizontal: 2),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.lightBlue.shade100,
+            blurRadius: 10,
+            offset: const Offset(2, 4),
+            spreadRadius: -1,
+          ),
+        ],
+
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFFB3E5FC), // Light blue
+            Color(0xFFE1F5FE), // Lighter blue
+          ],
+        ),
+        // color: kcLightButtonBackground.withOpacity(0.2),
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(20.0), // Adjust the radius as needed
           bottomRight: Radius.circular(20.0), // Adjust the radius as needed
         ),
@@ -46,7 +64,7 @@ class HomeGoldenContainer extends StatelessWidget {
                 child: Text(
                   'E-Gold',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: kcTextColor,
                     fontSize: 36,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w700,
@@ -54,8 +72,19 @@ class HomeGoldenContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              leading: Padding(
-                padding: const EdgeInsets.all(8.0),
+              leading: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightBlue.shade200,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                      spreadRadius: 0,
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.all(2.0),
                 child: CircleAvatar(
                   radius: 10, // Adjust the radius to your desired size
                   backgroundImage:
@@ -70,7 +99,7 @@ class HomeGoldenContainer extends StatelessWidget {
                   icon: const Icon(
                     Icons.notifications,
                     size: 24,
-                    color: Colors.black,
+                    color: kcButtonBackground,
                   ),
                 ),
               ],
@@ -80,7 +109,7 @@ class HomeGoldenContainer extends StatelessWidget {
               child: Text(
                 'Current Gold Rate:  $goldPrice AED',
                 style: const TextStyle(
-                  color: Color(0xFF1F1F1F),
+                  color: kcTextColor,
                   fontSize: 20,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w500,

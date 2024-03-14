@@ -19,3 +19,8 @@ const Color kcPendingGrey = Color(0xFFA5AAC7);
 const Color kcLightText = Color(0xFF626262);
 const Color kcLightYellow = Color(0xFFF9D075);
 const Color kcGoldYellow = Color(0xFFF7C047);
+
+// ^  new Theme
+const Color kcTextColor = Color(0xff000D5E);
+const Color kcButtonBackground = Color(0xff5B9DDC);
+const Color kcLightButtonBackground = Color(0xFF56BBF3);

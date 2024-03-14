@@ -41,6 +41,7 @@ class KycbankaccountView extends StackedView<KycbankaccountViewModel> {
             key: formkey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 KTextFormField(
                   validator: Validator.validateAccNumber,

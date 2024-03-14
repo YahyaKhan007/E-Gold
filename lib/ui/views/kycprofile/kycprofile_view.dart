@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -30,6 +31,9 @@ class KycprofileView extends StackedView<KycprofileViewModel> {
         enabledBorder: outlineInputBorder,
         focusedBorder: outlineInputBorder,
         errorBorder: outlineInputBorder,
+        hintStyle: const TextStyle(
+          color: Color(0xff000D5E),
+        ),
         hintText: 'Enter $value',
       );
   @override
@@ -44,83 +48,101 @@ class KycprofileView extends StackedView<KycprofileViewModel> {
         onPressed: sumbitKyc,
         buttonText: 'Submit',
         children: [
-          Form(
-            key: formkey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                verticalSpaceMedium,
-                Center(
-                  child: Container(
-                    height: 132,
-                    width: 300,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.withOpacity(.75),
-                            blurRadius: 2.5,
-                            spreadRadius: 1.25),
-                      ],
-                      borderRadius: BorderRadius.circular(24),
-                      color: Colors.white,
+          Container(
+            decoration: const BoxDecoration(
+                // gradient: LinearGradient(
+                //   begin: Alignment.topRight,
+                //   end: Alignment.bottomLeft,
+                //   colors: [
+                //     Color(0xFFB3E5FC), // Light blue
+                //     Color(0xFFE1F5FE), // Lighter blue
+                //   ],
+                // ),
+                ),
+            child: Form(
+              key: formkey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  verticalSpaceMedium,
+                  Center(
+                    child: Container(
+                      height: 132,
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: Colors.black54,
+                          )),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Upload Photo',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: Colors.black),
+                          ),
+                          verticalSpaceSmall,
+                          ElevatedButton(
+                            onPressed: uploadProfile,
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(128, 48),
+                              foregroundColor: kcTextColor,
+                              backgroundColor: profileImgupLoaded
+                                  ? const Color.fromARGB(255, 172, 241, 176)
+                                  : Colors.white,
+                              elevation: 0,
+                              shape: const StadiumBorder(
+                                side: BorderSide(),
+                              ),
+                            ),
+                            child: profileImgupLoaded
+                                ? const Text("Uploaded")
+                                : const Text("+ Upload"),
+                          )
+                        ],
+                      ),
                     ),
+                  ),
+                  verticalSpaceMedium,
+                  InkWell(
+                    onTap: onTapDOB,
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Upload Photo',
-                          style: Theme.of(context).textTheme.titleMedium,
+                        verticalSpaceTiny,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            'Date of Birth',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: Colors.black),
+                          ),
                         ),
-                        verticalSpaceSmall,
-                        ElevatedButton(
-                          onPressed: uploadProfile,
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(128, 48),
-                            foregroundColor: Colors.black,
-                            backgroundColor: profileImgupLoaded
-                                ? Color.fromARGB(255, 172, 241, 176)
-                                : Colors.white,
-                            elevation: 0,
-                            shape: const StadiumBorder(
-                              side: BorderSide(),
+                        verticalSpaceTiny,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 7),
+                          child: TextFormField(
+                            onTap: onTapDOB,
+                            readOnly: true,
+                            validator: Validator.validateCnic,
+                            controller: dobController,
+                            decoration: inputDecoration(
+                              'Date of Birth',
                             ),
                           ),
-                          child: profileImgupLoaded
-                              ? Text("Uploaded")
-                              : Text("+ Upload"),
-                        )
+                        ),
+                        verticalSpaceTiny,
                       ],
                     ),
-                  ),
-                ),
-                verticalSpaceMedium,
-                InkWell(
-                  onTap: onTapDOB,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      verticalSpaceTiny,
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          'Date of Birth',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ),
-                      verticalSpaceTiny,
-                      TextFormField(
-                        onTap: onTapDOB,
-                        readOnly: true,
-                        validator: Validator.validateCnic,
-                        controller: dobController,
-                        decoration: inputDecoration('Date of Birth'),
-                      ),
-                      verticalSpaceTiny,
-                    ],
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           )
         ]);

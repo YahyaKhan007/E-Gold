@@ -41,11 +41,9 @@ class CustomTextField extends StatelessWidget {
         Container(
           width: width,
           height: 44,
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-              side: const BorderSide(width: 1, color: kcLightText),
-              borderRadius: BorderRadius.circular(6),
-            ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.grey.shade200,
           ),
           child: Center(
             child: TextFormField(
@@ -55,13 +53,21 @@ class CustomTextField extends StatelessWidget {
               maxLength: maxLenght,
               keyboardType: keyboardType,
               decoration: InputDecoration(
-                fillColor: kcBackgroundColor,
+                // fillColor: kcLightButtonBackground,
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
                 contentPadding: const EdgeInsets.all(10),
                 counterText: '',
+                labelStyle: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  height: 0.16,
+                ),
                 label: Text(
                   labelText!,
                   style: const TextStyle(
-                    color: kcLightText,
+                    color: Colors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     height: 0.16,

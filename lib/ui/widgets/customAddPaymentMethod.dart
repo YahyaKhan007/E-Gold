@@ -1,5 +1,6 @@
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class AddPaymentMethod extends StatelessWidget {
   final String image;
@@ -18,63 +19,58 @@ class AddPaymentMethod extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 48,
-              height: 48,
-              decoration: const ShapeDecoration(
-                color: Color(0xFFF0C777),
-                shape: OvalBorder(),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  image,
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: kcLightText,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                )
-              ],
-            ),
+    return ListTile(
+      onTap: onPressed,
+      contentPadding: EdgeInsets.zero,
+      leading: Container(
+        height: 48,
+        width: 48,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 2,
+              offset: const Offset(1, 1),
+            )
           ],
+          // image: DecorationImage(
+          //   image: AssetImage(
+          //     image,
+          //   ),
+          // )
         ),
-        icon
-            ? IconButton(
-                onPressed: onPressed,
-                icon: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 24,
-                ),
-              )
-            : Container(),
-      ],
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Image.asset(
+            image,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      title: Align(
+        alignment: Alignment.topLeft,
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      trailing: icon
+          ? IconButton(
+              onPressed: onPressed,
+              icon: const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.black,
+                size: 18,
+              ),
+            )
+          : Container(),
     );
   }
 }

@@ -24,19 +24,28 @@ class MetalPriceService {
     final String apiUrl = 'https://www.goldapi.io/api/XAU/AED';
     final String accessToken = 'goldapi-j2xprls2zahtb-io';
 
+    print('came to fetchhing...');
+
     final response = await http.get(
       Uri.parse(apiUrl),
       headers: {'x-access-token': accessToken},
     );
 
-    if (response.statusCode == 200) {
-      // Parse the JSON data
-      Map<String, dynamic> data = json.decode(response.body);
-      return data;
-    } else {
-      // If the server did not return a 200 OK response,
-      // throw an exception.
-      throw Exception('Failed to load data');
-    }
+    print(response.statusCode);
+
+    // if (response.statusCode == 200) {
+    //   // Parse the JSON data
+    //   Map<String, dynamic> data = json.decode(response.body);
+    //   print(data);
+    //   return data;
+    // } else {
+    //   // If the server did not return a 200 OK response,
+    //   // throw an exception.
+    //   throw Exception('Failed to load data');
+    // }
+    Map<String, dynamic> data = json.decode(response.body);
+
+    print("data");
+    return data;
   }
 }

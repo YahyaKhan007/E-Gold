@@ -16,82 +16,99 @@ class NotificationScreenView extends StackedView<NotificationScreenViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: const Text(
           'Notification',
           style: TextStyle(
             color: Colors.black,
             fontSize: 24,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.bold,
           ),
         ),
         leading: IconButton(
           onPressed: viewModel.goBack,
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Divider(
-              height: 1,
-              color: Colors.black,
-            ),
-            Container(
-              padding: const EdgeInsets.all(20.0),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'New',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: mobile,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: shield,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: mobile,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: shield,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: mobile,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  NotificationsRow(
-                    image: shield,
-                  ),
-                ],
+        child: Container(
+          decoration: const BoxDecoration(color: Colors.white
+              // gradient: LinearGradient(
+              //   begin: Alignment.topRight,
+              //   end: Alignment.bottomLeft,
+              //   colors: [
+              //     Color(0xFFB3E5FC), // Light blue
+              //     Color(0xFFE1F5FE), // Lighter blue
+              //   ],
+              // ),
               ),
-            ),
-          ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // const Divider(
+              //   height: 1,
+              //   color: kcLightButtonBackground,
+              // ),
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'New',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: mobile,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: shield,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: mobile,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: shield,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: mobile,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NotificationsRow(
+                      image: shield,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

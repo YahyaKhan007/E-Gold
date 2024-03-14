@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart';
@@ -41,7 +43,7 @@ class LastTransactionsWidgetState extends State<LastTransactionsWidget> {
               const Text(
                 'Last Transactions',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: kcTextColor,
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
@@ -51,7 +53,7 @@ class LastTransactionsWidgetState extends State<LastTransactionsWidget> {
                 child: const Text(
                   'See All',
                   style: TextStyle(
-                    color: kcYellowBright,
+                    color: kcLightButtonBackground,
                     fontSize: 16,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,

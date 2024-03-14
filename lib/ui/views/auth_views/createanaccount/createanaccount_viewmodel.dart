@@ -1,8 +1,5 @@
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

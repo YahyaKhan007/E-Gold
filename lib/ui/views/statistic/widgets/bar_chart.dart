@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -93,12 +94,12 @@ class _KBarChartState extends State<KBarChart> {
                           BarChartRodData(
                             width: 6,
                             toY: entry.value.expenses,
-                            color: Colors.amber[200],
+                            color: kcLightButtonBackground,
                           ),
                           BarChartRodData(
                             width: 6,
                             toY: entry.value.income,
-                            color: Colors.amber,
+                            color: kcButtonBackground,
                           ),
                         ],
                       ),
@@ -108,7 +109,7 @@ class _KBarChartState extends State<KBarChart> {
             ),
           ),
         ),
-        Center(
+        const Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -118,18 +119,18 @@ class _KBarChartState extends State<KBarChart> {
                   leading: Icon(
                     Icons.square_rounded,
                     size: 16,
-                    color: Colors.amber.shade200,
+                    color: kcLightButtonBackground,
                   ),
-                  title: const Text("Expanse"),
+                  title: Text("Expanse"),
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: ListTile(
                   minLeadingWidth: 0,
                   leading: Icon(
                     Icons.square_rounded,
                     size: 16,
-                    color: Colors.amber,
+                    color: kcButtonBackground,
                   ),
                   title: Text("Income"),
                 ),

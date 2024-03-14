@@ -42,8 +42,8 @@ class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
                 verticalSpaceMedium,
                 Center(
                   child: Container(
-                    height: 132,
-                    width: 300,
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.7,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -93,8 +93,8 @@ class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
                       value: concent,
                       onChanged: onChangedCheckbox,
                     ),
-                    const SizedBox(
-                      width: 244,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.65,
                       child: Text(
                           'I hereby agree that the above document belongs to me and voluntarily give my consent to E-Gold Capital Pvt Ltd to utilize it as my address proof for KYC on purpose only'),
                     ),

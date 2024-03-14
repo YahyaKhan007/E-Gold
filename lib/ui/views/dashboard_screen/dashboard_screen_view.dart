@@ -15,119 +15,108 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
     DashboardScreenViewModel viewModel,
     Widget? child,
   ) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: IndexedStack(
-        index: viewModel.currentPageIndex,
+      backgroundColor: Colors.white,
+      body:
+          // Container(
+          //   decoration: const BoxDecoration(
+          //     gradient: LinearGradient(
+          //       begin: Alignment.topCenter,
+          //       end: Alignment.bottomCenter,
+          //       colors: [
+          //         Color(0xFF9FD8F5), // Light blue
+          //         Color(0xFFD6F1FF), // Lighter blue
+          //       ],
+          //     ),
+          //   ),
+          //   child:
+          PageView(
+        controller: viewModel.pageController,
+        onPageChanged: viewModel.pageChange,
         children: viewModel.pages,
       ),
+      // ),
+      resizeToAvoidBottomInset: true,
+      bottomNavigationBar: SizedBox(
+        height: 85,
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          // selectedItemColor: Colors.red, // Change selected color to red
+          // unselectedItemColor: Colors.black, // Change unselected color to black
+          elevation: 0,
+          // backgroundColor: Colors.black,
+          currentIndex: viewModel.currentPageIndex,
+          onTap: (newIndex) {
+            viewModel.pageController.animateToPage(newIndex,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.ease);
+            viewModel.pageController.jumpToPage(newIndex);
+          },
+          items: [
+            navbarItem(
+                image: Timages.home,
+                show: viewModel.currentPageIndex == 0 ? true : false,
+                isLast: false),
+            navbarItem(
+                image: Timages.history,
+                show: viewModel.currentPageIndex == 1 ? true : false,
+                isLast: false),
+            navbarItem(
+                image: Timages.buy,
+                show: viewModel.currentPageIndex == 2 ? true : false,
+                isLast: false),
+            navbarItem(
+                image: Timages.sip,
+                show: viewModel.currentPageIndex == 3 ? true : false,
+                isLast: false),
+            navbarItem(
+                image: Timages.profile,
+                show: viewModel.currentPageIndex == 4 ? true : false,
+                isLast: true),
+          ],
+        ),
+      ),
+    );
+  }
 
-      bottomNavigationBar: Container(
-        color: kcBackgroundColor,
-        height: 120,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  BottomNavigationBarItem navbarItem(
+      {required String image, required bool show, required bool isLast}) {
+    return BottomNavigationBarItem(
+      icon: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: Image.asset(
+          image,
+          height: 25,
+
+          color: isLast ? null : Colors.blueGrey.shade200,
+          // height: 30,
+        ),
+      ),
+      label: '',
+      activeIcon: Visibility(
+        visible: show,
+        child: Stack(
           children: [
-            SizedBox(
-              height: 120,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(30.0)),
-                      child: Container(
-                        height: screenHeight(context) * .12,
-                        width: screenWidth(context),
-                        color: Colors.black,
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            NavIconsButtons(
-                              onPressed: () {
-                                viewModel.pageChange(0);
-                              },
-                              image: dashboard,
-                              text: 'Home',
-                            ),
-                            NavIconsButtons(
-                              onPressed: () {
-                                viewModel.pageChange(1);
-                              },
-                              image: history,
-                              text: 'History',
-                            ),
-                            NavIconsButtons(
-                              onPressed: () {
-                                viewModel.pageChange(2);
-                              },
-                              image: black,
-                              text: '  Buy',
-                            ),
-                            NavIconsButtons(
-                              onPressed: () {
-                                viewModel.pageChange(3);
-                              },
-                              image: sip,
-                              text: 'Sip',
-                            ),
-                            NavIconsButtons(
-                              onPressed: () {
-                                viewModel.pageChange(4);
-                              },
-                              image: account,
-                              text: 'Account',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 55,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.black),
-                      padding: const EdgeInsets.all(8),
-                      child: Center(
-                        child: IconButton(
-                          onPressed: () {
-                            viewModel.pageChange(2);
-                          },
-                          icon: Image.asset(buy),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+            // Circle with reduced opacity
+            Padding(
+              padding: const EdgeInsets.only(top: 7),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blue
+                      .withOpacity(0.2), // Adjust the opacity as needed
+                ),
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  image,
+                  height: 25,
+                ), // Replace with your active icon
               ),
             ),
           ],
         ),
       ),
-      // floatingActionButton: Container(
-      //   margin: const EdgeInsets.only(bottom: 0),
-      //   child: FloatingActionButton(
-      //     backgroundColor: Colors.black,
-      //     onPressed: () {
-      //       viewModel.pageChange(2);
-      //     },
-      //     child: SizedBox(
-      //       height: 60,
-      //       child: IconButton(
-      //         onPressed: () {
-      //           viewModel.pageChange(2);
-      //         },
-      //         icon: Image.asset(buy),
-      //       ),
-      //     ),
-      //   ),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
@@ -138,33 +127,59 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
       DashboardScreenViewModel();
 }
 
-class NavIconsButtons extends StatelessWidget {
-  final VoidCallback onPressed;
-  final String image;
-  String? text;
-  NavIconsButtons({
-    super.key,
-    required this.onPressed,
-    required this.image,
-    this.text = '',
-  });
+// class NavIconsButtons extends StatelessWidget {
+//   final VoidCallback onPressed;
+//   final String image;
+//   final Color? color;
+//   String? text;
+//   NavIconsButtons({
+//     super.key,
+//     required this.onPressed,
+//     required this.image,
+//     required this.color,
+//     this.text = '',
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        IconButton(
-          onPressed: onPressed,
-          icon: Image.asset(
-            image,
-            height: 40,
-          ),
-        ),
-        Text(
-          text!,
-          style: const TextStyle(color: Colors.yellow),
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return FittedBox(
+//       child: InkWell(
+//         onTap: onPressed,
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//           children: [
+//             Container(
+//               width: 40,
+//               color: color ?? Colors.transparent,
+//               child: color == null
+//                   ? Image.asset(
+//                       image,
+//                       height: 40,
+//                     )
+//                   : const SizedBox(height: 40, width: 40),
+
+//               // IconButton(
+//               //   onPressed: onPressed,
+//               //   icon: Image.asset(
+//               //     image,
+//               //     height: 40,
+//               //   ),
+//               // ),
+//             ),
+//             Center(
+//               child: Text(
+//                 text!,
+//                 style: TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 13,
+//                     fontWeight:
+//                         color != null ? FontWeight.bold : FontWeight.normal),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

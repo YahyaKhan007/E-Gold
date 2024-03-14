@@ -6,7 +6,7 @@ import '../ui/common/app_colors.dart';
 ThemeData themeData(BuildContext context) {
   var outlineInputBorder = OutlineInputBorder(
     borderSide: const BorderSide(color: Colors.transparent),
-    borderRadius: BorderRadius.circular(32.0),
+    borderRadius: BorderRadius.circular(15.0),
   );
   return ThemeData(
     appBarTheme: const AppBarTheme(
@@ -19,12 +19,18 @@ ThemeData themeData(BuildContext context) {
       bodyColor: Colors.black,
       fontSizeFactor: 0.80,
     ),
+
+    // bottomNavigationBarTheme:  const BottomNavigationBarThemeData(
+    //       backgroundColor: Colors.blue, // Set the background color here
+    //       selectedItemColor: Colors.white, // Set the selected item color here
+    //       unselectedItemColor: Colors.grey, // Set the unselected item color here
+    //     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(14.0),
             foregroundColor: Colors.white,
             minimumSize: const Size(180, 56),
-            backgroundColor: const Color(0xffF5B119),
+            backgroundColor: kcButtonBackground,
             textStyle:
                 const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
             shape: RoundedRectangleBorder(

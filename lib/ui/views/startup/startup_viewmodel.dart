@@ -6,6 +6,7 @@ import 'package:e_gold/services/inStore_service.dart';
 import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -27,10 +28,12 @@ class StartupViewModel extends BaseViewModel {
     if (user != null) {
       await userProfileService.getUser();
       await bankService.getBankData();
-      print('///////////////////////////////////////////////////////////////////////////////////////////////////////////');
+      print(
+          '///////////////////////////////////////////////////////////////////////////////////////////////////////////');
       await cryptoService.getCryptoData();
       await inStoreService.getInStoreData();
-      await balanceService.getBalanceData(FirebaseAuth.instance.currentUser!.uid);
+      await balanceService
+          .getBalanceData(FirebaseAuth.instance.currentUser!.uid);
       await _transactionService.getAllTransactionDetails(user.uid);
       navigationService.replaceWithDashboardScreenView();
     } else {

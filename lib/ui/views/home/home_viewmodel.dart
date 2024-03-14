@@ -3,18 +3,27 @@ import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/models/transactionDetails.dart';
+import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/liveGoldSerice.dart';
 import 'package:e_gold/services/transaction_service.dart';
+import 'package:e_gold/services/userProfileService.dart';
 import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../../services/balance_service.dart';
+
 class HomeViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
+  final navigationService = locator<NavigationService>();
+
   final _transactionService = locator<TransactionDetailsService>();
-  
+
+  final userService = locator<UserProfileService>();
+  final balanceService = locator<BalanceService>();
+
   final metalPriceService = locator<MetalPriceService>();
   List<TransactionDetails> cryptoTransactions = [];
   List<TransactionDetails> cardTransactions = [];
@@ -40,6 +49,9 @@ class HomeViewModel extends BaseViewModel {
 
   void onViewModelReady() async {
     setBusy(true);
+    await userService.getUser();
+    await balanceService.getBalanceData(userService.user!.uid);
+    // await metalPriceService.fetchData();
     await fetchTransactions();
     setBusy(false);
   }
@@ -71,6 +83,10 @@ class HomeViewModel extends BaseViewModel {
     _bottomService.showCustomSheet(
       variant: BottomSheetType.sellgold,
     );
+  }
+
+  void onTapEditProfile() {
+    navigationService.navigateToTransactionHistoryScreenView;
   }
 
   final PageController pageController = PageController(initialPage: 0);

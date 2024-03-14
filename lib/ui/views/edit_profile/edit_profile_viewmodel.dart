@@ -36,7 +36,7 @@ class EditProfileViewModel extends BaseViewModel {
     countryCode = userProfle!.countryCode;
     phoneNoController.text = userProfle!.phoneNumber;
     initialValue = PhoneNumber(
-        dialCode: userProfle!.countryCode, phoneNumber: '', isoCode: 'PK');
+        dialCode: userProfle!.countryCode, phoneNumber: '', isoCode: 'AE');
     print(initialValue);
     print(initialValue);
     dobController.text = userProfle!.dateOfBirth;

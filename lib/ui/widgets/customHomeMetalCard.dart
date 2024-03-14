@@ -1,6 +1,8 @@
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomeMetalContainer extends StatelessWidget {
   final String title;
@@ -31,127 +33,152 @@ class HomeMetalContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double textScaleFactor = MediaQuery.of(context).textScaleFactor;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return isWalletCard
-        ? Column(
-            children: [
-              Container(
-                width: width * .44,
-                height: height * 0.16,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 21, vertical: 12),
-                clipBehavior: Clip.antiAlias,
-                decoration: const ShapeDecoration(
-                  color: Color(0xFFFCE8BA),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
+        ? Container(
+            width: width * .44,
+            height: height * 0.16,
+            padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 12),
+            clipBehavior: Clip.antiAlias,
+            decoration: ShapeDecoration(
+              shadows: const [
+                BoxShadow(
+                  color: Colors.white24,
+                  blurRadius: 10,
+                  offset: Offset(2, 0),
+                  spreadRadius: 0,
+                )
+              ],
+              color: Colors.lightBlue.shade100,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12),
+                ),
+              ),
+            ),
+            child: FittedBox(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Wallet',
+                    style: TextStyle(
+                      color: kcTextColor,
+                      fontSize: 18 * textScaleFactor,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Wallet',
-                      style: TextStyle(
-                        color: Color(0xFF1F1F1F),
-                        fontSize: 18,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
+                  SizedBox(height: 16 * textScaleFactor),
+                  Container(
+                    width: 28,
+                    height: 28,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/image 45.png'),
+                        fit: BoxFit.fill,
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Container(
-                      width: 28,
-                      height: 28,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/image 45.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
+                  ),
+                  SizedBox(height: height * 0.016),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           '\$$balance1 + \$$margin1',
                           style: const TextStyle(
-                            color: Color(0xFFF5B118),
+                            color: kcTextColor,
                             fontSize: 12,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        const Text(
+                        Text(
                           '(Margin)',
                           style: TextStyle(
-                            color: Color(0xFFF5B118),
-                            fontSize: 8,
+                            color: kcTextColor,
+                            fontSize: 8 * textScaleFactor,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
                     ),
-                  ],
-                ),
-              )
-            ],
-          )
-        : Column(
-            children: [
-              Container(
-                width: width * .44,
-                height: height * 0.16,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: const ShapeDecoration(
-                  color: Color(0xFFF9D075),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
-                    ),
                   ),
+                ],
+              ),
+            ),
+          )
+        : Container(
+            width: width * .44,
+            height: height * 0.16,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            decoration: const ShapeDecoration(
+              shadows: [
+                BoxShadow(
+                  color: Colors.white24,
+                  blurRadius: 5,
+                  offset: Offset(1, -2),
+                  spreadRadius: 0,
+                )
+              ],
+              color: Color(0xFFB3E5FC),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
+              ),
+            ),
+            child: FittedBox(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    child: Text(
                       'Portfolio',
                       style: TextStyle(
-                        color: Color(0xFF1F1F1F),
+                        color: kcTextColor,
                         fontSize: 18,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Container(
-                      width: 28,
-                      height: 28,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/image 44.png'),
-                          fit: BoxFit.fill,
+                  ),
+                  SizedBox(height: height * 0.016),
+                  Container(
+                    width: 28,
+                    height: 28,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/image 44.png',
                         ),
+                        fit: BoxFit.fill,
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text.rich(
+                  ),
+                  SizedBox(height: height * 0.016),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(
                             text: '\$250',
                             style: TextStyle(
-                              color: Color(0xFF147204),
+                              color: kcTextColor,
                               fontSize: 14,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
@@ -160,7 +187,7 @@ class HomeMetalContainer extends StatelessWidget {
                           TextSpan(
                             text: '(5gm)',
                             style: TextStyle(
-                              color: Color(0xFF147204),
+                              color: kcTextColor,
                               fontSize: 12,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
@@ -169,7 +196,7 @@ class HomeMetalContainer extends StatelessWidget {
                           TextSpan(
                             text: ' ',
                             style: TextStyle(
-                              color: Color(0xFF147204),
+                              color: kcTextColor,
                               fontSize: 14,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
@@ -178,7 +205,7 @@ class HomeMetalContainer extends StatelessWidget {
                           TextSpan(
                             text: '+18.33% today',
                             style: TextStyle(
-                              color: Color(0xFF147204),
+                              color: kcTextColor,
                               fontSize: 12,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
@@ -187,10 +214,10 @@ class HomeMetalContainer extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ],
-                ),
-              )
-            ],
+                  ),
+                ],
+              ),
+            ),
           );
   }
 }

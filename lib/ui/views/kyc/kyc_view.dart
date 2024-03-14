@@ -1,7 +1,9 @@
 import 'package:e_gold/ui/common/app_colors.dart';
+import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/views/kycbankaccount/kycbankaccount_view.dart';
 import 'package:e_gold/ui/views/kycpassport/kycpassport_view.dart';
 import 'package:e_gold/ui/views/kycprofile/kycprofile_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -23,7 +25,7 @@ class KycView extends StackedView<KycViewModel> {
       if (viewModel.currentPage >= stepNumber) {
         return const CircleAvatar(
           maxRadius: 28,
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.blue,
           child: Icon(
             Icons.check,
             color: Colors.white,
@@ -33,7 +35,7 @@ class KycView extends StackedView<KycViewModel> {
       } else {
         return CircleAvatar(
           maxRadius: 28,
-          backgroundColor: Colors.black,
+          backgroundColor: kcLightButtonBackground,
           child: Text(
             '${stepNumber + 1}',
             style: const TextStyle(color: Colors.white),
@@ -120,28 +122,72 @@ class KycView extends StackedView<KycViewModel> {
       ),
     ];
 
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: kAppBar(
-        context: context,
-        title: const Text('KYC'),
-        onButtonPressed: () {},
-        backgroundColor: kcBackgroundColor,
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: Text(
+          'KYC',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: screenHeight(context) * 0.03,
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        leading: const InkWell(
+          // onTap: viewModel.onBack,
+          child: Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.transparent,
+          ),
+        ),
       ),
-      body: Stepper(
-        connectorThickness: 4,
-        stepIconBuilder: (stepIndex, stepState) {
-          stepState.index;
-          return stepIconBuilder(stepIndex);
-        },
-        controlsBuilder: (BuildContext context, ControlsDetails controls) {
-          return SizedBox.fromSize();
-        },
-        elevation: 0,
-        type: StepperType.horizontal,
-        controller: viewModel.pageController,
-        currentStep: viewModel.currentPage,
-        steps: pages,
-        onStepTapped: viewModel.onPageChanged,
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          Container(
+            height: size.height,
+            width: size.width,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/back_home.png'),
+                    fit: BoxFit.cover)),
+          ),
+          Positioned(
+            top: size.height * 0.12,
+            child: Container(
+              height: size.height,
+              width: size.width,
+              padding: const EdgeInsets.only(left: 0, right: 0, top: 0),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+              child: Stepper(
+                connectorThickness: 4,
+                stepIconBuilder: (stepIndex, stepState) {
+                  stepState.index;
+                  return stepIconBuilder(stepIndex);
+                },
+                controlsBuilder:
+                    (BuildContext context, ControlsDetails controls) {
+                  return SizedBox.fromSize();
+                },
+                elevation: 0,
+                type: StepperType.horizontal,
+                controller: viewModel.pageController,
+                currentStep: viewModel.currentPage,
+                steps: pages,
+                onStepTapped: viewModel.onPageChanged,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

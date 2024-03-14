@@ -13,15 +13,25 @@ class HomeMetalButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 90,
+        width: width * 0.21,
         height: 40,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        // padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: containerColor,
           borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.lightBlue.shade300,
+              blurRadius: 3,
+              offset: const Offset(2, 3),
+              spreadRadius: 0,
+            ),
+          ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -30,9 +40,9 @@ class HomeMetalButton extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
-                fontSize: 16,
+                fontSize: 14,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w600,
                 height: 0,

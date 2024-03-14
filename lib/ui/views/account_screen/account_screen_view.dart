@@ -1,7 +1,9 @@
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
+import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/widgets/AcoountCard.dart';
 import 'package:e_gold/ui/widgets/customAccountOageRow.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'account_screen_viewmodel.dart';
@@ -14,55 +16,70 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
     AccountScreenViewModel viewModel,
     Widget? child,
   ) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: const Icon(
-            Icons.settings,
-            size: 24,
-          ),
-          centerTitle: true,
-          title: const Text(
-            'Account',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
+    Size size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: const Icon(
+          Icons.settings,
+          size: 24,
+          color: Colors.white,
+        ),
+        centerTitle: true,
+        title: Text(
+          'Account',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: screenHeight(context) * 0.03,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Divider(
-                height: 1,
-                color: Colors.black,
-              ),
-              Container(
-                padding: const EdgeInsets.all(20),
+      ),
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          Container(
+            height: size.height,
+            width: size.width,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/back_home.png'),
+                    fit: BoxFit.cover)),
+          ),
+          Positioned(
+            top: size.height * 0.13,
+            child: Container(
+              height: size.height * 0.765,
+              width: size.width,
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30))),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                     const AccountCard(),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    verticalSpaceMedium,
                     Container(
                       padding: const EdgeInsets.all(20.0),
-                      decoration: ShapeDecoration(
-                        color: kcLightYellow,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        shadows: const [
-                          BoxShadow(
-                            color: Color(0x264B4B4B),
-                            blurRadius: 16.34,
-                            offset: Offset(0, 2.04),
-                            spreadRadius: 0,
-                          ),
-                        ],
-                      ),
+                      // decoration: ShapeDecoration(
+                      //   color: kcLightButtonBackground.withOpacity(0.2),
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(12),
+                      //   ),
+                      //   shadows: const [
+                      //     BoxShadow(
+                      //       color: Color(0x264B4B4B),
+                      //       blurRadius: 16.34,
+                      //       offset: Offset(0, 2.04),
+                      //       spreadRadius: 0,
+                      //     ),
+                      //   ],
+                      // ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,9 +145,9 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_const
 
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:e_gold/ui/common/ui_helpers.dart';
@@ -24,39 +25,40 @@ class SellgoldSheet extends StackedView<SellgoldSheetModel> {
       child: Text(
         title,
         style: TextStyle(
-          fontSize: fontSize,
-          fontWeight: FontWeight.w900,
-        ),
+            fontSize: fontSize,
+            fontWeight: FontWeight.w900,
+            color: kcTextColor),
       ),
     );
   }
 
   Widget buildRadioListItem(
-      String title,
-      int value,
-      double splashRadius,
-      BuildContext context,
-      SellgoldSheetModel viewModel,
-      ) {
+    String title,
+    int value,
+    double splashRadius,
+    BuildContext context,
+    SellgoldSheetModel viewModel,
+  ) {
     return SizedBox(
       height: 32,
       child: ListTile(
         contentPadding: const EdgeInsets.only(left: 8.0, top: 4.0, bottom: 0.0),
         title: Text(title),
         titleTextStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-          fontSize: 18,
-          color: Colors.white,
-          fontWeight: FontWeight.w900,
-        ),
+              fontSize: screenWidth(context) * 0.04,
+              color: kcTextColor,
+              fontWeight: FontWeight.w900,
+            ),
         minLeadingWidth: 0,
         trailing: Radio<int>(
           value: value,
           groupValue: viewModel.selectedOption,
-          activeColor: Colors.yellow,
-          fillColor: MaterialStateProperty.all(Colors.yellow),
+          activeColor: kcTextColor,
+          fillColor: MaterialStateProperty.all(kcTextColor),
           splashRadius: splashRadius,
           onChanged: (value) {
             viewModel.selectedOption = value!;
+            viewModel.rebuildUi();
           },
         ),
       ),
@@ -65,10 +67,10 @@ class SellgoldSheet extends StackedView<SellgoldSheetModel> {
 
   @override
   Widget builder(
-      BuildContext context,
-      SellgoldSheetModel viewModel,
-      Widget? child,
-      ) {
+    BuildContext context,
+    SellgoldSheetModel viewModel,
+    Widget? child,
+  ) {
     var outlineInputBorder = OutlineInputBorder(
       borderSide: const BorderSide(color: Color(0xFFFCEBC4), width: 0.5),
       borderRadius: BorderRadius.circular(6.0),
@@ -80,7 +82,14 @@ class SellgoldSheet extends StackedView<SellgoldSheetModel> {
         width: screenWidth(context),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: const BoxDecoration(
-          color: Color(0xFFF9D075),
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color(0xFFB3E5FC), // Light blue
+              Color(0xFFE1F5FE), // Lighter blue
+            ],
+          ),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24),
             topRight: Radius.circular(24),
@@ -93,10 +102,10 @@ class SellgoldSheet extends StackedView<SellgoldSheetModel> {
           children: [
             Text(
               request.title ?? 'Sell Your Holdings',
-              style: const TextStyle(
-                fontSize: 28,
+              style: TextStyle(
+                fontSize: screenWidth(context) * 0.06,
                 fontWeight: FontWeight.w900,
-                color: Colors.white,
+                color: kcTextColor,
               ),
             ),
             verticalSpaceMedium,
@@ -104,7 +113,8 @@ class SellgoldSheet extends StackedView<SellgoldSheetModel> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 verticalSpaceTiny,
-                buildTitle('Amount to sell?', fontSize: 20.0),
+                buildTitle('Amount to sell?',
+                    fontSize: screenWidth(context) * 0.05),
                 verticalSpaceTiny,
                 SizedBox(
                   height: 48.0,
@@ -126,7 +136,7 @@ class SellgoldSheet extends StackedView<SellgoldSheetModel> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           const VerticalDivider(
-                            color: Color(0xffFFDA00),
+                            color: kcLightButtonBackground,
                             width: 2.0,
                             indent: 4,
                             endIndent: 1.25,
@@ -159,6 +169,7 @@ class SellgoldSheet extends StackedView<SellgoldSheetModel> {
                   children: <Widget>[
                     buildTitle('Select a method'),
                     buildRadioListItem('Crypto', 1, 20, context, viewModel),
+                    verticalSpaceSmall,
                     buildRadioListItem(
                         'Pickup Physical Gold', 2, 25, context, viewModel),
                     verticalSpaceLarge,
@@ -166,13 +177,15 @@ class SellgoldSheet extends StackedView<SellgoldSheetModel> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF21BF73),
-                          minimumSize: const Size(140.0, 48.0),
+                          minimumSize: Size(screenWidth(context) * 0.3,
+                              screenWidth(context) * 0.005),
                         ),
                         onPressed: () {},
-                        child: const Text(
+                        child: Text(
                           'Sell',
                           style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.w600),
+                              fontSize: screenWidth(context) * 0.05,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
                     ),

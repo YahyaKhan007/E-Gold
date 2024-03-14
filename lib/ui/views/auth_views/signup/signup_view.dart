@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -16,9 +17,23 @@ class SignupView extends StackedView<SignupViewModel> {
     SignupViewModel viewModel,
     Widget? child,
   ) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 40),
+        height: size.height,
+        width: size.width,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color(0xFFB3E5FC), // Light blue
+              Color(0xFFE1F5FE), // Lighter blue
+            ],
+          ),
+        ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -26,13 +41,19 @@ class SignupView extends StackedView<SignupViewModel> {
               const Center(
                   child: Text(
                 'Create Account',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: kcTextColor),
               )),
               verticalSpaceTiny,
               const Text(
                 'Create an account you can explore all the existing jobs',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: kcTextColor),
               ),
               verticalSpaceLarge,
               Form(
@@ -41,34 +62,53 @@ class SignupView extends StackedView<SignupViewModel> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     TextFormField(
+                        style: const TextStyle(
+                          color: Color(0xff000D5E),
+                        ),
                         controller: viewModel.nameController,
                         decoration: const InputDecoration(
                           label: Text(
                             'Name',
                           ),
+                          labelStyle: TextStyle(
+                            color: Color(0xff000D5E),
+                          ),
                         ),
                         validator: Validator.validateText),
                     verticalSpaceSmall,
                     TextFormField(
+                        style: const TextStyle(
+                          color: Color(0xff000D5E),
+                        ),
                         controller: viewModel.emailController,
                         decoration: const InputDecoration(
                           label: Text(
                             'Email',
                           ),
+                          labelStyle: TextStyle(
+                            color: Color(0xff000D5E),
+                          ),
                         ),
                         validator: Validator.validateEmail),
                     verticalSpaceSmall,
                     TextFormField(
+                      style: const TextStyle(
+                        color: Color(0xff000D5E),
+                      ),
                       controller: viewModel.passwordController,
                       obscureText: viewModel.isPasswordVisible,
                       validator: Validator.validatePassport,
                       decoration: InputDecoration(
                         label: const Text('Password'),
+                        labelStyle: const TextStyle(
+                          color: Color(0xff000D5E),
+                        ),
                         suffixIcon: IconButton(
                           icon: Icon(
                             viewModel.isPasswordVisible
                                 ? Icons.visibility
                                 : Icons.visibility_off,
+                            color: kcButtonBackground,
                           ),
                           onPressed: viewModel.showPassword,
                         ),
@@ -76,15 +116,22 @@ class SignupView extends StackedView<SignupViewModel> {
                     ),
                     verticalSpaceSmall,
                     TextFormField(
+                      style: const TextStyle(
+                        color: Color(0xff000D5E),
+                      ),
                       controller: viewModel.conformPasswordController,
                       obscureText: viewModel.isConformPasswordVisible,
                       decoration: InputDecoration(
                         label: const Text('Conform Password'),
+                        labelStyle: const TextStyle(
+                          color: Color(0xff000D5E),
+                        ),
                         suffixIcon: IconButton(
                             icon: Icon(
                               viewModel.isConformPasswordVisible
                                   ? Icons.visibility
                                   : Icons.visibility_off,
+                              color: kcButtonBackground,
                             ),
                             onPressed: viewModel.showConfirmPassword),
                       ),

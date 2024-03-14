@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/ui/common/app_colors.dart';
-import 'package:e_gold/ui/common/app_images.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart';
 import 'package:e_gold/ui/widgets/customHomeTransactionRow.dart';
@@ -25,21 +24,28 @@ class TransactionHistoryScreenView
     TransactionHistoryScreenViewModel viewModel,
     Widget? child,
   ) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
+      // backgroundColor: check ? const Color(0xFFB3E5FC) : Colors.transparent,
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
       appBar: check
           ? AppBar(
               centerTitle: true,
               title: const Text(
                 'Transaction History',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 24,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
               leading: IconButton(
                 onPressed: viewModel.goBack,
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
               ),
             )
           : AppBar(
@@ -48,133 +54,166 @@ class TransactionHistoryScreenView
               title: const Text(
                 'Transaction History',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 24,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
-      body: RefreshIndicator(
-        onRefresh: viewModel.refreshData,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body:
+          //  RefreshIndicator(
+          //   onRefresh: viewModel.refreshData,
+          //   child:
+          SizedBox(
+        child: Stack(
           children: [
-            const Divider(
-              height: 1,
-              color: Colors.black,
+            Container(
+              height: size.height,
+              width: size.width,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/back_home.png'),
+                      fit: BoxFit.cover)),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
+            Positioned(
+              top: size.height * 0.13,
               child: SizedBox(
-                height: screenHeight(context) - 276,
-                child: Scrollbar(
-                  thumbVisibility: true,
-                  controller: viewModel.scrollController,
+                height: size.height * 0.765,
+                width: size.width,
+                child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: ListView.separated(
-                          controller: viewModel.scrollController,
-                          itemCount: viewModel
-                              .transactionService.transactionDetails!.length,
-                          itemBuilder: (context, index) {
-                            List<TransactionDetails> sortedList = viewModel
-                                .transactionService.transactionDetails!
-                                .toList(); // Copy the list to avoid modifying the original data
-                            sortedList.sort((a, b) => b.transactionDate
-                                .toDate()
-                                .compareTo(a.transactionDate.toDate()));
+                      Scrollbar(
+                        thumbVisibility: false,
+                        controller: viewModel.scrollController,
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 20),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(30))),
+                              height: screenHeight(context) * 0.765,
+                              child: ListView.separated(
+                                padding: EdgeInsets.zero,
+                                controller: viewModel.scrollController,
+                                itemCount: viewModel.transactionService
+                                    .transactionDetails!.length,
+                                itemBuilder: (context, index) {
+                                  List<TransactionDetails> sortedList = viewModel
+                                      .transactionService.transactionDetails!
+                                      .toList(); // Copy the list to avoid modifying the original data
+                                  sortedList.sort((a, b) => b.transactionDate
+                                      .toDate()
+                                      .compareTo(a.transactionDate.toDate()));
 
-                            TransactionDetails transaction = sortedList[index];
+                                  TransactionDetails transaction =
+                                      sortedList[index];
 
-                            Timestamp transactionDate =
-                                transaction.transactionDate;
-                            DateTime transactionDateTime =
-                                transactionDate.toDate();
-                            DateTime transactionDateOnly = DateTime(
-                              transactionDateTime.year,
-                              transactionDateTime.month,
-                              transactionDateTime.day,
-                            );
+                                  Timestamp transactionDate =
+                                      transaction.transactionDate;
+                                  DateTime transactionDateTime =
+                                      transactionDate.toDate();
+                                  DateTime transactionDateOnly = DateTime(
+                                    transactionDateTime.year,
+                                    transactionDateTime.month,
+                                    transactionDateTime.day,
+                                  );
 
-                            DateTime? previousTransactionDateOnly;
-                            if (index > 0) {
-                              TransactionDetails previousTransaction =
-                                  sortedList[index - 1];
-                              Timestamp previousTransactionDate =
-                                  previousTransaction.transactionDate;
-                              DateTime previousTransactionDateTime =
-                                  previousTransactionDate.toDate();
-                              previousTransactionDateOnly = DateTime(
-                                previousTransactionDateTime.year,
-                                previousTransactionDateTime.month,
-                                previousTransactionDateTime.day,
-                              );
-                            }
-
-                            bool showDateHeader =
-                                (previousTransactionDateOnly == null ||
-                                    !transactionDateOnly.isAtSameMomentAs(
-                                        previousTransactionDateOnly));
-
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                showDateHeader
-                                    ? Column(
-                                        children: [
-                                          Text(
-                                            DateFormat('dd MMM yyyy').format(
-                                                transactionDateOnly.toLocal()),
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                        ],
-                                      )
-                                    : Container(),
-                                HomeTransactionRow(
-                                  walletType: transaction.walletType,
-                                  amount: transaction.totalPaid.toString(),
-                                  type: transaction.transactionType,
-                                  transactionDetails: transaction,
-                                  buttonText: transaction.status,
-                                  btc: transaction.totalGoldBought.toString(),
-                                  image: viewModel.image(transaction),
-                                  imageBack: kcYellowBright,
-                                  btcColor: kcYellowBright,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            TransactiondetailsView(
-                                          transactionDetails: transaction,
-                                        ),
-                                      ),
+                                  DateTime? previousTransactionDateOnly;
+                                  if (index > 0) {
+                                    TransactionDetails previousTransaction =
+                                        sortedList[index - 1];
+                                    Timestamp previousTransactionDate =
+                                        previousTransaction.transactionDate;
+                                    DateTime previousTransactionDateTime =
+                                        previousTransactionDate.toDate();
+                                    previousTransactionDateOnly = DateTime(
+                                      previousTransactionDateTime.year,
+                                      previousTransactionDateTime.month,
+                                      previousTransactionDateTime.day,
                                     );
-                                  },
+                                  }
+
+                                  bool showDateHeader =
+                                      (previousTransactionDateOnly == null ||
+                                          !transactionDateOnly.isAtSameMomentAs(
+                                              previousTransactionDateOnly));
+
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      showDateHeader
+                                          ? Column(
+                                              children: [
+                                                Text(
+                                                  DateFormat('dd MMM yyyy')
+                                                      .format(
+                                                          transactionDateOnly
+                                                              .toLocal()),
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                              ],
+                                            )
+                                          : Container(),
+                                      HomeTransactionRow(
+                                        walletType: transaction.walletType,
+                                        amount:
+                                            transaction.totalPaid.toString(),
+                                        type: transaction.transactionType,
+                                        transactionDetails: transaction,
+                                        buttonText: transaction.status,
+                                        btc: transaction.totalGoldBought
+                                            .toString(),
+                                        image: viewModel.image(transaction),
+                                        imageBack: kcYellowBright,
+                                        btcColor: kcYellowBright,
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TransactiondetailsView(
+                                                transactionDetails: transaction,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        const SizedBox(
+                                  height: 0,
                                 ),
-                              ],
-                            );
-                          },
-                          separatorBuilder: (BuildContext context, int index) =>
-                              verticalSpaceSmall,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
+      // ),
     );
   }
 

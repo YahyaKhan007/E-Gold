@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,7 @@ PreferredSize kAppBar({
           ),
         ),
         AppBar(
+          backgroundColor: backgroundColor,
           clipBehavior: Clip.antiAlias,
           toolbarHeight: toolbarHeight,
           //backgroundColor: backgroundColor,
@@ -31,7 +33,10 @@ PreferredSize kAppBar({
           automaticallyImplyLeading: false,
           title: title,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: kcButtonBackground,
+            ),
             onPressed: onButtonPressed,
           ),
         ),
@@ -68,11 +73,17 @@ class KTextFormField extends StatelessWidget {
         borderSide: BorderSide(color: Colors.grey.shade300, width: 0.5),
         borderRadius: BorderRadius.circular(12.0));
     inputDecoration(String value, [suffixIcon]) => InputDecoration(
+          labelStyle: const TextStyle(
+            color: Colors.black,
+          ),
           enabledBorder: outlineInputBorder,
           focusedBorder: outlineInputBorder,
           errorBorder: outlineInputBorder,
           hintText: 'Enter $value',
           suffixIcon: suffixIcon,
+          hintStyle: const TextStyle(
+            color: Colors.black,
+          ),
         );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,11 +93,17 @@ class KTextFormField extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8.0),
           child: Text(
             label!,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(color: Colors.black),
           ),
         ),
         verticalSpaceTiny,
         TextFormField(
+          style: const TextStyle(
+            color: Color(0xff000D5E),
+          ),
           onTap: onTap,
           readOnly: readOnly ?? false,
           obscureText: obscureText!,
@@ -165,15 +182,28 @@ class KycLayoutWidgetFrontState extends State<KycLayoutWidget> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(36),
-                  shape: const StadiumBorder()),
-              onPressed: widget.onPressed,
-              child: Text(widget.buttonText),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.lightBlue.shade200,
+                    blurRadius: 5,
+                    offset: Offset(1, 2),
+                    spreadRadius: 0,
+                  )
+                ],
+              ),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(36),
+                    shape: const StadiumBorder()),
+                onPressed: widget.onPressed,
+                child: Text(widget.buttonText),
+              ),
             ),
           ),
-          verticalSpaceSmall,
+          verticalSpaceMedium,
         ],
       ),
     );

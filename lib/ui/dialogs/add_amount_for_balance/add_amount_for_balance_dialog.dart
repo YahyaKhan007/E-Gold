@@ -31,7 +31,7 @@ class AddAmountForBalanceDialog
           borderRadius: BorderRadius.circular(10),
         ),
         // backgroundColor: Colors.white,
-        backgroundColor: kcBackgroundColor,
+        backgroundColor: Colors.white,
         insetPadding: const EdgeInsets.all(20.0),
         children: [
           SimpleDialogOption(
@@ -49,19 +49,22 @@ class AddAmountForBalanceDialog
                   const SizedBox(
                     height: 40,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Center(
-                        child: GestureDetector(
+                  SizedBox(
+                    width: screenWidth(context) * 0.85,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
                           onTap: () => viewModel.cancel(context),
                           child: Container(
-                            width: 150,
+                            // width: 150,
+                            width: screenWidth(context) * 0.35,
+
                             height: 48,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 12),
                             decoration: ShapeDecoration(
-                              color: kcYellowBright,
+                              color: kcButtonBackground,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -74,29 +77,28 @@ class AddAmountForBalanceDialog
                                 ),
                               ],
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 'Cancel',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: screenWidth(context) * 0.035,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Center(
-                        child: GestureDetector(
+                        horizontalSpaceMedium,
+                        GestureDetector(
                           onTap: () => viewModel.addBalance(context),
                           child: Container(
-                            width: 150,
+                            width: screenWidth(context) * 0.35,
                             height: 48,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 12),
                             decoration: ShapeDecoration(
-                              color: kcYellowBright,
+                              color: kcButtonBackground,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -109,20 +111,20 @@ class AddAmountForBalanceDialog
                                 ),
                               ],
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 'Add Balance',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: screenWidth(context) * 0.035,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
