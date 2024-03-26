@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/transactionDetails.dart';
@@ -37,11 +39,15 @@ class TransactionDetailsService {
     String paymentMethod,
   ) async {
     try {
+      log("Fetching  Transactions 1");
+
       final querySnapshot = await _transactionDetailsCollection
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('transactions')
           .where('withdrawMethod', isEqualTo: paymentMethod)
           .get();
+
+      log("Fetching  Transactions 2");
 
       return querySnapshot.docs
           .map((doc) =>

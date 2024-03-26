@@ -111,11 +111,14 @@ class TransactionHistoryScreenView
                                       .toDate()
                                       .compareTo(a.transactionDate.toDate()));
 
-                                  TransactionDetails transaction =
+                                  // TransactionDetails transaction =
+                                  //     sortedList[index];
+
+                                  TransactionDetails transactionDetails =
                                       sortedList[index];
 
                                   Timestamp transactionDate =
-                                      transaction.transactionDate;
+                                      transactionDetails.transactionDate;
                                   DateTime transactionDateTime =
                                       transactionDate.toDate();
                                   DateTime transactionDateOnly = DateTime(
@@ -169,26 +172,30 @@ class TransactionHistoryScreenView
                                             )
                                           : Container(),
                                       HomeTransactionRow(
-                                        walletType: transaction.walletType,
-                                        amount:
-                                            transaction.totalPaid.toString(),
-                                        type: transaction.transactionType,
-                                        transactionDetails: transaction,
-                                        buttonText: transaction.status,
-                                        btc: transaction.totalGoldBought
+                                        walletType:
+                                            transactionDetails.walletType,
+                                        amount: transactionDetails.totalPaid
                                             .toString(),
-                                        image: viewModel.image(transaction),
+                                        type:
+                                            transactionDetails.transactionType,
+                                        transactionDetails: transactionDetails,
+                                        buttonText: transactionDetails.status,
+                                        btc: transactionDetails.totalGoldBought
+                                            .toString(),
+                                        image: 'assets/images/transaction.png',
+                                        //  viewModel.image(transactionDetails)
+
+                                        // ,
                                         imageBack: kcYellowBright,
                                         btcColor: kcYellowBright,
                                         onTap: () {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) =>
-                                                  TransactiondetailsView(
-                                                transactionDetails: transaction,
-                                              ),
-                                            ),
+                                                builder: (context) =>
+                                                    TransactiondetailsView(
+                                                        transactionDetails:
+                                                            transactionDetails)),
                                           );
                                         },
                                       ),

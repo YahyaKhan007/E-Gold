@@ -5,3 +5,6 @@ const String ksHomeBottomSheetDescription =
 final RegExp emailRegExp = RegExp(
   r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
 );
+
+const double currentGoldRate = 3100;
+double conversionFactor = 11.7;

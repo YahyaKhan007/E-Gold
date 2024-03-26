@@ -9,6 +9,8 @@ class AccountScreenViewModel extends BaseViewModel {
   final authService = locator<AuthService>();
   final kycService = locator<KycService>();
   final navigationService = locator<NavigationService>();
+
+  bool isNavigating = false;
   void logout() {
     authService.signOut();
     navigationService.replaceWithLoginView();
@@ -33,7 +35,10 @@ class AccountScreenViewModel extends BaseViewModel {
   }
 
   void onTapEditProfile() {
+    // isNavigating = true;
     navigationService.navigateToEditProfileView();
+    // isNavigating = false;
+    // rebuildUi();
   }
 
   void onTapChangePassword() {

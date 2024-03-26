@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 class MetalPriceService {
@@ -24,7 +25,7 @@ class MetalPriceService {
     final String apiUrl = 'https://www.goldapi.io/api/XAU/AED';
     final String accessToken = 'goldapi-j2xprls2zahtb-io';
 
-    print('came to fetchhing...');
+    log('came to fetchhing...');
 
     final response = await http.get(
       Uri.parse(apiUrl),

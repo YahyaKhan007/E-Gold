@@ -1,9 +1,6 @@
-import 'package:e_gold/ui/common/app_colors.dart';
-import 'package:e_gold/ui/common/app_images.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/widgets/AcoountCard.dart';
 import 'package:e_gold/ui/widgets/customAccountOageRow.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'account_screen_viewmodel.dart';
@@ -147,6 +144,27 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
               ),
             ),
           ),
+          // Positioned(
+          //     child: Visibility(
+          //   visible: viewModel.isNavigating,
+          //   child: Material(
+          //     type: MaterialType.transparency,
+          //     child: Center(
+          //       child: Column(
+          //         mainAxisSize: MainAxisSize.min,
+          //         children: [
+          //           Container(
+          //               padding: const EdgeInsets.all(50),
+          //               decoration: BoxDecoration(
+          //                   borderRadius:
+          //                       const BorderRadius.all(Radius.circular(15)),
+          //                   color: Colors.transparent.withOpacity(0.05)),
+          //               child: const CircularProgressIndicator())
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ))
         ],
       ),
     );

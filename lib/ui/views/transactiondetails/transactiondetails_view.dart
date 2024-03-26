@@ -1,10 +1,7 @@
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/ui/common/app_colors.dart';
-import 'package:e_gold/ui/common/app_widgets.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import 'transactiondetails_viewmodel.dart';

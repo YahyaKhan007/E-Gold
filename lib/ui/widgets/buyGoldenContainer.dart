@@ -1,9 +1,11 @@
-import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 
+import '../common/app_colors.dart';
+
 class BuyGoldenContainer extends StatelessWidget {
   final String amount;
+  final String grams;
   final String balance;
   final String margin;
   final VoidCallback onBack;
@@ -20,6 +22,7 @@ class BuyGoldenContainer extends StatelessWidget {
     required this.checkSilverFunc,
     required this.amount,
     required this.margin,
+    required this.grams,
   }) : super(key: key);
 
   @override
@@ -60,7 +63,7 @@ class BuyGoldenContainer extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.4,
                     height: screenHeight(context) * 0.06,
                     decoration: ShapeDecoration(
-                      color: kcLightButtonBackground,
+                      color: goldCheck ? kcLightButtonBackground : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -77,7 +80,7 @@ class BuyGoldenContainer extends StatelessWidget {
                       child: Text(
                         'Balance',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: goldCheck ? Colors.white : Colors.black,
                           fontSize: screenHeight(context) * 0.02,
                           fontWeight: FontWeight.w600,
                         ),
@@ -94,7 +97,7 @@ class BuyGoldenContainer extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.4,
                     height: screenHeight(context) * 0.06,
                     decoration: ShapeDecoration(
-                      color: kcLightButtonBackground,
+                      color: goldCheck ? Colors.white : kcLightButtonBackground,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -111,7 +114,7 @@ class BuyGoldenContainer extends StatelessWidget {
                       child: Text(
                         'Margin',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: goldCheck ? Colors.black : Colors.white,
                           fontSize: screenHeight(context) * 0.02,
                           fontWeight: FontWeight.w600,
                         ),
@@ -135,23 +138,23 @@ class BuyGoldenContainer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                goldCheck
-                    ? const Text(
-                        '(Balance)',
-                        style: TextStyle(
-                          color: kcLightButtonBackground,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      )
-                    : const Text(
-                        '(Margin)',
-                        style: TextStyle(
-                            color: kcLightButtonBackground,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                            decorationStyle: TextDecorationStyle.wavy),
-                      ),
+                // goldCheck
+                //     ? const Text(
+                //         '(Balance)',
+                //         style: TextStyle(
+                //           color: kcLightButtonBackground,
+                //           fontSize: 10,
+                //           fontWeight: FontWeight.w600,
+                //         ),
+                //       )
+                //     : const Text(
+                //         '(Margin)',
+                //         style: TextStyle(
+                //             color: kcLightButtonBackground,
+                //             fontSize: 10,
+                //             fontWeight: FontWeight.w500,
+                //             decorationStyle: TextDecorationStyle.wavy),
+                //       ),
               ],
             ),
             SizedBox(
@@ -170,7 +173,13 @@ class BuyGoldenContainer extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            Visibility(
+                visible: double.parse(grams) > 0 ? true : false,
+                child: Text("You buy $grams grams of gold")),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
             Text(
               'Balance:  $balance ',

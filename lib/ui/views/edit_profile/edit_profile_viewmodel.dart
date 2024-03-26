@@ -6,13 +6,15 @@ import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/models/userProfile.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/date_picker.dart';
 import 'package:flutter_holo_date_picker/i18n/date_picker_i18n.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+import '../account_screen/account_screen_viewmodel.dart';
+import '../home/home_viewmodel.dart';
 
 class EditProfileViewModel extends BaseViewModel {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -28,9 +30,12 @@ class EditProfileViewModel extends BaseViewModel {
   UserProfile? userProfle;
   PhoneNumber? initialValue;
 
+  // late final HomeViewModel homeScreenViewModel;
+
   void onViewModelReady() async {
     setBusy(true);
-    userProfle = await userProfileService.getUserProfileFromFirestore();
+    userProfle = HomeViewModel().userService.user;
+    // userProfle = await userProfileService.getUserProfileFromFirestore();
     firstNameController.text = userProfle!.name;
     emailController.text = userProfle!.email;
     countryCode = userProfle!.countryCode;

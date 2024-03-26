@@ -1,4 +1,5 @@
 import 'package:e_gold/ui/common/app_colors.dart';
+import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:e_gold/ui/views/buygoldorsilver/buygoldorsilver_viewmodel.dart';
 import 'package:e_gold/ui/widgets/buyGoldenContainer.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,6 +54,7 @@ class BuyGoldOrSilverView extends StackedView<BuyGoldOrSilverViewModel> {
                   checkGoldFunc: viewModel.goldVal,
                   checkSilverFunc: viewModel.silverVal,
                   amount: viewModel.amount,
+                  grams: viewModel.totalGramsToBuy.toString(),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(0.0),
@@ -74,6 +76,9 @@ class BuyGoldOrSilverView extends StackedView<BuyGoldOrSilverViewModel> {
                             ),
                             onKeyboardTap: (String text) {
                               viewModel.onKeyboardTap(text);
+                              viewModel.convertTolaToGrams(
+                                  double.parse(viewModel.amount),
+                                  currentGoldRate);
                             },
                             rightButtonFn: viewModel.rightButtonfn,
                             rightButtonLongPressFn: viewModel.rightButtonLongfn,

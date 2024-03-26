@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
@@ -7,6 +9,7 @@ import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/transaction_service.dart';
+import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -23,6 +26,7 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
   final String margin;
   BuyGoldOrSilverViewModel(this.balance, this.margin, this.withdrawMethod);
   String amount = '';
+  double totalGramsToBuy = 0.0;
   final withdrawMethod;
   double? enteredAmount;
   double? availableBalance;
@@ -49,14 +53,30 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
   void rightButtonfn() {
     if (amount.isNotEmpty) {
       amount = amount.substring(0, amount.length - 1);
+      if (amount.isEmpty) {
+        convertTolaToGrams(0.0, currentGoldRate);
+      } else {
+        convertTolaToGrams(double.parse(amount), currentGoldRate);
+      }
       print(amount);
       rebuildUi();
     }
   }
 
+  void convertTolaToGrams(double amountInTola, double goldRate) {
+    if (amountInTola > 0) {
+      totalGramsToBuy = amountInTola / goldRate;
+    } else {
+      totalGramsToBuy = 0.0;
+    }
+    log(totalGramsToBuy.toString());
+    rebuildUi();
+  }
+
   void rightButtonLongfn() {
     if (amount.isNotEmpty) {
       amount = '';
+      totalGramsToBuy = 0.0;
       rebuildUi();
     }
   }
@@ -71,8 +91,9 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
       withdrawMethod: 'In-Store',
       walletType: 'Main Street',
       transactionDate: Timestamp.now(),
-      transactionId:
-          'unique_transaction_id', // Replace with a unique ID for each transaction
+      transactionId: 'unique_transaction_id',
+      buyGoldRate:
+          currentGoldRate, // Replace with a unique ID for each transaction
     );
 
     await transactionDetailsService.addTransaction(
@@ -93,15 +114,16 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
       } else {
         TransactionDetails newTransaction = TransactionDetails(
           status: 'Completed',
-          totalPaid: 0,
+          totalPaid: ammount!,
           totalBonus: 0,
           transactionType: 'Buy',
-          totalGoldBought: ammount!,
+          totalGoldBought: totalGramsToBuy,
           withdrawMethod: withdrawMethod,
           walletType: withdrawMethod,
           transactionDate: Timestamp.now(),
-          transactionId:
-              'unique_transaction_id', // Replace with a unique ID for each transaction
+          transactionId: 'unique_transaction_id',
+          buyGoldRate:
+              currentGoldRate, // Replace with a unique ID for each transaction
         );
         if (withdrawMethod == 'Crypto') {
           bool check = false;

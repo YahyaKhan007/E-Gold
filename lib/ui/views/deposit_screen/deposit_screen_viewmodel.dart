@@ -7,6 +7,7 @@ import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/stripe_api.dart';
 import 'package:e_gold/services/transaction_service.dart';
+import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:stacked/stacked.dart';
@@ -106,8 +107,9 @@ class DepositScreenViewModel extends BaseViewModel {
       withdrawMethod: 'In-Store',
       walletType: 'Main Street',
       transactionDate: Timestamp.now(),
-      transactionId:
-          'unique_transaction_id', // Replace with a unique ID for each transaction
+      transactionId: 'unique_transaction_id',
+      buyGoldRate:
+          currentGoldRate, // Replace with a unique ID for each transaction
     );
 
     await transactionDetailsService.addTransaction(

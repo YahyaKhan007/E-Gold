@@ -104,8 +104,8 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.blue
-                      .withOpacity(0.2), // Adjust the opacity as needed
+                  color: kcButtonBackground
+                      .withOpacity(0.99), // Adjust the opacity as needed
                 ),
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(

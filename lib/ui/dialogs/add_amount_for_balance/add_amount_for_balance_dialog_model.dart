@@ -7,6 +7,7 @@ import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
+import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
@@ -57,6 +58,7 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
             transactionType: 'TopUp',
             transactionDate: Timestamp.now(),
             transactionId: 'transactionId',
+            buyGoldRate: currentGoldRate,
           );
           await _transactionService.addTransaction(
               userId: FirebaseAuth.instance.currentUser!.uid,
@@ -80,6 +82,7 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
             transactionType: 'TopUp',
             transactionDate: Timestamp.now(),
             transactionId: 'transactionId',
+            buyGoldRate: currentGoldRate,
           );
           await _transactionService.addTransaction(
               userId: FirebaseAuth.instance.currentUser!.uid,

@@ -1,5 +1,5 @@
 import 'package:e_gold/app/app.locator.dart';
-import 'package:e_gold/models/transactionDetails.dart';
+import 'package:e_gold/models/TransactionDetails.dart';
 import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:e_gold/ui/common/app_images.dart';

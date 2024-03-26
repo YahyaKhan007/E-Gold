@@ -12,10 +12,12 @@ class TransactionDetails {
   String walletType;
   Timestamp transactionDate;
   String transactionId;
+  double buyGoldRate;
 
   // Constructor
   TransactionDetails({
     required this.status,
+    required this.buyGoldRate,
     required this.totalPaid,
     required this.totalBonus,
     required this.totalGoldBought,
@@ -38,6 +40,7 @@ class TransactionDetails {
       'walletType': walletType,
       'transactionDate': transactionDate,
       'transactionId': transactionId,
+      'buyGoldRate': buyGoldRate,
     };
   }
 
@@ -53,6 +56,7 @@ class TransactionDetails {
       walletType: map['walletType'],
       transactionDate: map['transactionDate'] as Timestamp,
       transactionId: map['transactionId'],
+      buyGoldRate: map['buyGoldRate'],
     );
   }
 

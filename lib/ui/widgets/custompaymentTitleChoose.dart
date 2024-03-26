@@ -25,6 +25,7 @@ class choosePaymentTile extends StatelessWidget {
     return ListTile(
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       // children: [
+      onTap: onPressed,
       contentPadding: EdgeInsets.zero,
       leading: Container(
         height: 48,
@@ -36,7 +37,7 @@ class choosePaymentTile extends StatelessWidget {
             BoxShadow(
               color: Colors.grey.shade300,
               blurRadius: 2,
-              offset: Offset(1, 1),
+              offset: const Offset(1, 1),
             )
           ],
           // image: DecorationImage(

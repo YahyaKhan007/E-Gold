@@ -1,7 +1,12 @@
+// ignore_for_file: use_build_context_synchronously, unused_element, unused_local_variable, unused_import, duplicate_import
+
+import 'dart:developer';
+
 import 'package:e_gold/app/app.bottomsheets.dart';
 import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
+import 'package:e_gold/models/crypto.dart';
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/liveGoldSerice.dart';
@@ -13,6 +18,11 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../services/balance_service.dart';
+import '../../common/app_colors.dart';
+import '../../common/app_images.dart';
+import '../../common/ui_helpers.dart';
+import '../../widgets/customHomeTransactionRow.dart';
+import '../transactiondetails/transactiondetails_view.dart';
 
 class HomeViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -30,6 +40,17 @@ class HomeViewModel extends BaseViewModel {
   List<TransactionDetails> bankTransactions = [];
   List<TransactionDetails> inStoreTransactions = [];
   final _bottomService = locator<BottomSheetService>();
+
+  final ScrollController mainScrollController = ScrollController();
+
+  String isSelected = 'Card';
+  void changeSelection({required String selection}) {
+    isSelected = selection;
+    rebuildUi();
+    log("selected  is ==== >   $isSelected");
+  }
+
+  // *  Fetching transaction
 
   void seeAll() {
     _navigationService.navigateToTransactionHistoryScreenView(check: true);
@@ -49,9 +70,14 @@ class HomeViewModel extends BaseViewModel {
 
   void onViewModelReady() async {
     setBusy(true);
-    await userService.getUser();
+    log("The model is being ready");
+    if (userService.user == null) {
+      await userService.getUser();
+    }
+
     await balanceService.getBalanceData(userService.user!.uid);
     // await metalPriceService.fetchData();
+    // fetchTransactionRow(transactionType: cryptoTransactions);
     await fetchTransactions();
     setBusy(false);
   }
@@ -71,6 +97,7 @@ class HomeViewModel extends BaseViewModel {
               .getTransactionsByPaymentMethod('userId', 'In-Store'))
           .cast<TransactionDetails>();
       print('print data from fetch transaction');
+      log("Transactions fetched successfully");
       // Notify listeners about the changes
       notifyListeners();
     } catch (e) {

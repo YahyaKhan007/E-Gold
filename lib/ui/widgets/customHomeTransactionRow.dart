@@ -1,10 +1,14 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, dead_code
 
-import 'package:cloud_firestore_platform_interface/src/timestamp.dart';
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/models/transactionDetails.dart';
-import 'package:e_gold/ui/common/app_colors.dart';
+import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../views/transactiondetails/transactiondetails_view.dart';
 
 class HomeTransactionRow extends StatelessWidget {
   final String buttonText;
@@ -33,15 +37,31 @@ class HomeTransactionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double calculateDifference({required double newRate}) {
+      log((transactionDetails.buyGoldRate - newRate).toString());
+      return transactionDetails.buyGoldRate - newRate;
+      //  return originalValue - passValue;
+    }
+
     return GestureDetector(
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: ListTile(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TransactiondetailsView(
+                  transactionDetails: transactionDetails,
+                ),
+              ),
+            );
+          },
           contentPadding: EdgeInsets.zero,
           leading: CircleAvatar(
             radius: 21,
-            backgroundColor: Colors.green,
+            backgroundColor: const Color(0xff00DDA3),
             child: Center(
               child: Image.asset(
                 'assets/images/up_arrow.png',
@@ -66,34 +86,81 @@ class HomeTransactionRow extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-          subtitle: const Text(
-            "Five Lods",
-            style: TextStyle(color: Colors.grey),
+          subtitle: Text(
+            _formattedDate(transactionDetails.transactionDate),
+            style: const TextStyle(
+                fontSize: 12, fontWeight: FontWeight.w100, color: Colors.grey),
           ),
           trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               type == 'TopUp'
-                  ? Text(
-                      '\$$amount',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ? Row(
+                      children: [
+                        Text(
+                          calculateDifference(newRate: currentGoldRate)
+                              .toStringAsFixed(2),
+                        ),
+                        Text(
+                          '\$$amount',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     )
-                  : Text(
-                      '$btc ${transactionDetails.withdrawMethod} ',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          calculateDifference(newRate: currentGoldRate) > 0
+                              ? '+'
+                              : '',
+                          style: TextStyle(
+                              color: calculateDifference(
+                                          newRate: currentGoldRate) >
+                                      0
+                                  ? Colors.green
+                                  : Colors.red,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "${calculateDifference(newRate: currentGoldRate).toStringAsFixed(2)}  ",
+                          style: TextStyle(
+                              color: calculateDifference(
+                                          newRate: currentGoldRate) >
+                                      0
+                                  ? Colors.green
+                                  : Colors.red,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          double.parse(btc).toStringAsFixed(5),
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Text(
+                          " gm",
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
               Text(
-                _formattedDate(transactionDetails.transactionDate),
+                '${transactionDetails.withdrawMethod} ',
                 style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w100,
-                    color: Colors.grey),
-              )
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),

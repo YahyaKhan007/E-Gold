@@ -1,24 +1,14 @@
-import 'dart:developer';
-
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/views/home/home_viewmodel.dart';
-import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_screen_view.dart';
-import 'package:e_gold/ui/widgets/customHomeMetalButton.dart';
-import 'package:e_gold/ui/widgets/homeGoldenContainer.dart';
-import 'package:e_gold/ui/widgets/lastTransactionsWidget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:simple_progress_indicators/simple_progress_indicators.dart';
 
-import '../../../models/transactionDetails.dart';
 import '../../widgets/customHomeTransactionRow.dart';
-import '../transactiondetails/transactiondetails_view.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
@@ -29,41 +19,9 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
+    Size size = MediaQuery.of(context).size;
     final ScrollController mainScrollController = ScrollController();
 
-    List<Widget> transactionRows = [];
-    for (int i = 0; i < viewModel.cryptoTransactions.length; i++) {
-      TransactionDetails transaction = viewModel.cryptoTransactions[i];
-
-      // Add HomeTransactionRow
-      transactionRows.add(
-        HomeTransactionRow(
-          transactionDetails: transaction,
-          buttonText: transaction.status,
-          btc: transaction.totalGoldBought.toString(),
-          image: masterCard,
-          imageBack: kcYellowBright,
-          btcColor: kcYellowBright,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => TransactiondetailsView(
-                  transactionDetails: transaction,
-                ),
-              ),
-            );
-          },
-        ),
-      );
-
-      // Add separator except for the last item
-      if (i < viewModel.cardTransactions.length - 1) {
-        transactionRows.add(verticalSpaceSmall);
-      }
-    }
-
-    log(transactionRows.length.toString());
     // var height = MediaQuery.of(context).size.height;
     // var width = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -76,9 +34,6 @@ class HomeView extends StackedView<HomeViewModel> {
                   fit: BoxFit.cover)),
           child: CustomScrollView(
             controller: mainScrollController,
-            physics: const PageScrollPhysics(
-                // parent: PageScrollPhysics(),
-                ),
             slivers: [
               SliverAppBar(
                 // leading: CircleAvatar(
@@ -117,7 +72,7 @@ class HomeView extends StackedView<HomeViewModel> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CircleAvatar(
+                              const CircleAvatar(
                                   radius: 15,
                                   backgroundColor: Colors.black,
                                   backgroundImage:
@@ -133,16 +88,18 @@ class HomeView extends StackedView<HomeViewModel> {
                           ),
                         ),
                         verticalSpaceSmall,
-                        viewModel.isBusy
-                            ? CircularProgressIndicator()
-                            : Text(
-                                "Hi ${viewModel.userService.user!.name}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 34,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                        // viewModel.isBusy
+                        //     ?
+                        // const CircularProgressIndicator()
+                        // :
+                        Text(
+                          "Hi ${viewModel.userService.user!.name}",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 34,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         const Text(
                           "Here's Your Balance.",
                           style: TextStyle(
@@ -162,7 +119,7 @@ class HomeView extends StackedView<HomeViewModel> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Wallet",
                                       style: TextStyle(
                                           color: Colors.white,
@@ -172,7 +129,7 @@ class HomeView extends StackedView<HomeViewModel> {
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "\$",
                                           style: TextStyle(
                                               color: Colors.white,
@@ -183,14 +140,14 @@ class HomeView extends StackedView<HomeViewModel> {
                                           viewModel.balanceService.balanceData!
                                               .balance
                                               .toString(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ],
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsets.only(right: 30),
                                       child: ProgressBar(
                                         value: 0.8,
@@ -201,7 +158,7 @@ class HomeView extends StackedView<HomeViewModel> {
                                     ),
                                   ],
                                 )),
-                            Expanded(
+                            const Expanded(
                                 flex: 1,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -276,15 +233,35 @@ class HomeView extends StackedView<HomeViewModel> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              transactionTypes(context,
-                                  image: 'assets/images/bitcoin.png',
-                                  text: 'Crypto'),
-                              transactionTypes(context,
-                                  image: 'assets/images/credit_card.png',
-                                  text: 'Card'),
-                              transactionTypes(context,
-                                  image: 'assets/images/account_balance.png',
-                                  text: 'Bank'),
+                              GestureDetector(
+                                onTap: () {
+                                  viewModel.changeSelection(selection: 'Bank');
+                                },
+                                child: transactionTypes(context,
+                                    isSelected: viewModel.isSelected == 'Bank',
+                                    image: 'assets/images/account_balance.png',
+                                    text: 'Bank'),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  viewModel.changeSelection(selection: 'Card');
+                                },
+                                child: transactionTypes(context,
+                                    isSelected: viewModel.isSelected == 'Card',
+                                    image: 'assets/images/credit_card.png',
+                                    text: 'Card'),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  viewModel.changeSelection(
+                                      selection: 'Crypto');
+                                },
+                                child: transactionTypes(context,
+                                    isSelected:
+                                        viewModel.isSelected == 'Crypto',
+                                    image: 'assets/images/bitcoin.png',
+                                    text: 'Crypto'),
+                              ),
                             ],
                           ),
                           verticalSpaceMedium,
@@ -295,28 +272,177 @@ class HomeView extends StackedView<HomeViewModel> {
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold),
                           ),
-                          // for (int i = 1; i < 25; i++)
-                          //   const ListTile(
-                          //     leading: CircleAvatar(),
-                          //     title: Text("Dummy Person"),
-                          //   )
-                          // LastTransactionsWidget(
-                          //                     transactions: viewModel.cardTransactions,
-                          //                     transactionTypeImage: masterCard,
-                          //                   ),
-                          transactionRows.isEmpty
-                              ? const SizedBox(
-                                  height: 300,
-                                )
-                              : const SizedBox(
-                                  height: 0,
-                                ),
-                          ...transactionRows
                         ],
                       ),
                     ),
                   ),
                 ]),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    viewModel.isSelected == 'Card' &&
+                            viewModel.cardTransactions.isEmpty
+                        ? Container(
+                            color: Colors.white,
+                            height: 200,
+                            child: Center(
+                              child: viewModel.isBusy
+                                  ? const CircularProgressIndicator()
+                                  : const Text('No Transactions For Card Yet'),
+                            ),
+                          )
+                        : viewModel.isSelected == 'Crypto' &&
+                                viewModel.cryptoTransactions.isEmpty
+                            ? Container(
+                                color: Colors.white,
+                                height: 200,
+                                child: Center(
+                                  child: viewModel.isBusy
+                                      ? const CircularProgressIndicator()
+                                      : const Text(
+                                          'No Transactions For Crypto Yet'),
+                                ),
+                              )
+                            : viewModel.isSelected == 'Bank' &&
+                                    viewModel.bankTransactions.isEmpty
+                                ? Container(
+                                    color: Colors.white,
+                                    height: 200,
+                                    child: Center(
+                                      child: viewModel.isBusy
+                                          ? const CircularProgressIndicator()
+                                          : const Text(
+                                              'No Transactions For Bank Yet'),
+                                    ),
+                                  )
+                                : viewModel.isBusy
+                                    ? Container(
+                                        color: Colors.white,
+                                        height: 200,
+                                        child: const Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      )
+                                    : Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        color: Colors.white,
+                                        child: ListView.builder(
+                                          primary: false,
+                                          shrinkWrap: true,
+                                          dragStartBehavior:
+                                              DragStartBehavior.down,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: viewModel.isSelected ==
+                                                  'Card'
+                                              ? viewModel
+                                                  .cardTransactions.length
+                                              : viewModel.isSelected == 'Crypto'
+                                                  ? viewModel
+                                                      .cryptoTransactions.length
+                                                  : viewModel
+                                                      .bankTransactions.length,
+                                          itemBuilder: ((context, index) {
+                                            return Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                HomeTransactionRow(
+                                                  // profileLoss: viewModel.,
+                                                  transactionDetails: viewModel
+                                                              .isSelected ==
+                                                          'Card'
+                                                      ? viewModel
+                                                              .cardTransactions[
+                                                          index]
+                                                      : viewModel.isSelected ==
+                                                              'Crypto'
+                                                          ? viewModel
+                                                                  .cryptoTransactions[
+                                                              index]
+                                                          : viewModel
+                                                                  .bankTransactions[
+                                                              index],
+                                                  //  viewModel.cryptoTransactions[index],
+                                                  buttonText: viewModel
+                                                              .isSelected ==
+                                                          'Card'
+                                                      ? viewModel
+                                                          .cardTransactions[
+                                                              index]
+                                                          .status
+                                                      : viewModel.isSelected ==
+                                                              'Crypto'
+                                                          ? viewModel
+                                                              .cryptoTransactions[
+                                                                  index]
+                                                              .status
+                                                          : viewModel
+                                                              .bankTransactions[
+                                                                  index]
+                                                              .status,
+                                                  // viewModel.cryptoTransactions[index].status,
+                                                  btc: viewModel.isSelected ==
+                                                          'Card'
+                                                      ? viewModel
+                                                          .cardTransactions[
+                                                              index]
+                                                          .totalGoldBought
+                                                          .toString()
+                                                      : viewModel.isSelected ==
+                                                              'Crypto'
+                                                          ? viewModel
+                                                              .cryptoTransactions[
+                                                                  index]
+                                                              .totalGoldBought
+                                                              .toString()
+                                                          : viewModel
+                                                              .bankTransactions[
+                                                                  index]
+                                                              .totalGoldBought
+                                                              .toString(),
+
+                                                  //  viewModel
+                                                  //     .cryptoTransactions[index].totalGoldBought
+                                                  //     .toString(),
+                                                  image: masterCard,
+                                                  imageBack: kcYellowBright,
+                                                  btcColor: kcYellowBright,
+                                                  onTap: () {},
+                                                ),
+                                                SizedBox(
+                                                  height: viewModel
+                                                                  .isSelected ==
+                                                              'Card' &&
+                                                          viewModel
+                                                                  .cardTransactions
+                                                                  .length <
+                                                              2
+                                                      ? 150
+                                                      : viewModel.isSelected ==
+                                                                  'Crypto' &&
+                                                              viewModel
+                                                                      .cryptoTransactions
+                                                                      .length <
+                                                                  2
+                                                          ? 150
+                                                          : viewModel.isSelected ==
+                                                                      'Bank' &&
+                                                                  viewModel
+                                                                          .bankTransactions
+                                                                          .length <
+                                                                      2
+                                                              ? 150
+                                                              : 0,
+                                                )
+                                              ],
+                                            );
+                                          }),
+                                        ),
+                                      ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -413,12 +539,12 @@ class HomeView extends StackedView<HomeViewModel> {
   }
 
   Widget transactionTypes(BuildContext context,
-      {required String image, required String text}) {
+      {required String image, required String text, required bool isSelected}) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.18,
       width: MediaQuery.of(context).size.width * 0.28,
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: isSelected ? kcButtonBackground : Colors.white,
           borderRadius: BorderRadius.circular(25),
           boxShadow: [BoxShadow(blurRadius: 10, color: Colors.grey.shade300)]),
       child: Column(
@@ -427,13 +553,16 @@ class HomeView extends StackedView<HomeViewModel> {
         children: [
           Image.asset(
             image,
+            color: isSelected ? Colors.grey.shade100 : Colors.black,
             height: 40,
           ),
           verticalSpaceSmall,
           Text(
             text,
-            style: const TextStyle(
-                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 14,
+                color: isSelected ? Colors.white : Colors.black,
+                fontWeight: FontWeight.bold),
           )
         ],
       ),

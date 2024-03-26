@@ -37,33 +37,33 @@ class LastTransactionsWidgetState extends State<LastTransactionsWidget> {
             onTap: widget.onTapSell,
           ),
           verticalSpaceSmall,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Last Transactions',
-                style: TextStyle(
-                  color: kcTextColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              GestureDetector(
-                onTap: widget.onTapSeeAll,
-                child: const Text(
-                  'See All',
-                  style: TextStyle(
-                    color: kcLightButtonBackground,
-                    fontSize: 16,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                ),
-              )
-            ],
-          ),
-          verticalSpaceSmall,
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     const Text(
+          //       'Last Transactions',
+          //       style: TextStyle(
+          //         color: kcTextColor,
+          //         fontSize: 20,
+          //         fontWeight: FontWeight.w600,
+          //       ),
+          //     ),
+          //     GestureDetector(
+          //       onTap: widget.onTapSeeAll,
+          //       child: const Text(
+          //         'See All',
+          //         style: TextStyle(
+          //           color: kcLightButtonBackground,
+          //           fontSize: 16,
+          //           fontFamily: 'Poppins',
+          //           fontWeight: FontWeight.w400,
+          //           height: 0,
+          //         ),
+          //       ),
+          //     )
+          //   ],
+          // ),
+          // verticalSpaceSmall,
           Expanded(
               child: ListView.separated(
             itemCount: widget.transactions.length,

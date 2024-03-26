@@ -21,15 +21,9 @@ class StartupView extends StackedView<StartupViewModel> {
       backgroundColor: const Color(0xFFB3E5FC),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color(0xFFB3E5FC), // Light blue
-              Color(0xFFE1F5FE), // Lighter blue
-            ],
-          ),
-        ),
+            image: DecorationImage(
+                image: AssetImage('assets/images/back_home.png'),
+                fit: BoxFit.cover)),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -45,7 +39,7 @@ class StartupView extends StackedView<StartupViewModel> {
                       child: Image.asset(
                         'assets/images/gold_svgrepo_com1.png',
                         filterQuality: FilterQuality.high,
-                        color: kcLightButtonBackground,
+                        // color: Colors.white,
                         width: 248,
                         height: 248,
                         scale: 0.9,
@@ -60,14 +54,16 @@ class StartupView extends StackedView<StartupViewModel> {
                 text: TextSpan(
                   text: 'Welcome to the\nworld’s most\n',
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                      fontWeight: FontWeight.w900, color: kcTextColor),
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                      ),
                   children: [
                     TextSpan(
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium!
                           .copyWith(
-                              color: kcLightButtonBackground,
+                              color: Colors.yellow,
                               fontWeight: FontWeight.w900),
                       text: 'imaginative\n',
                     ),
@@ -76,7 +72,7 @@ class StartupView extends StackedView<StartupViewModel> {
                           .textTheme
                           .displayMedium!
                           .copyWith(
-                              fontWeight: FontWeight.w900, color: kcTextColor),
+                              fontWeight: FontWeight.w900, color: Colors.white),
                       text: 'marketplace',
                     ),
                   ],
@@ -88,13 +84,14 @@ class StartupView extends StackedView<StartupViewModel> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text('Loading ...',
-                            style: TextStyle(fontSize: 16, color: kcTextColor)),
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white)),
                         horizontalSpaceSmall,
                         SizedBox(
                           width: 20,
                           height: 20,
                           child: CircularProgressIndicator(
-                            color: kcButtonBackground,
+                            color: Colors.white,
                             strokeWidth: 6,
                           ),
                         )
