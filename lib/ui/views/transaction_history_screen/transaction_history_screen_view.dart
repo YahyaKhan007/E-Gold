@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../common/app_strings.dart';
 import 'transaction_history_screen_viewmodel.dart';
 
 class TransactionHistoryScreenView
@@ -24,6 +25,27 @@ class TransactionHistoryScreenView
     TransactionHistoryScreenViewModel viewModel,
     Widget? child,
   ) {
+    double calculateProfitLoss(
+        {required double gramsBought,
+        required double buyRate,
+        required double sellRate,
+        required double conversionRate}) {
+      double buyAmount = gramsBought * buyRate;
+      double sellAmount = gramsBought * sellRate;
+      // double buyInTola = gramsBought / conversionRate;
+      double profitLoss = sellAmount - buyAmount;
+
+      // Convert to tola for display purposes
+      // double profitLossInTola = profitLoss / conversionRate;
+
+      // print(
+      //     'Bought $gramsBought grams of gold at $buyRate per gram for $buyAmount');
+      // print('Sold for $sellRate per gram for $sellAmount');
+      // print('Profit/Loss: $profitLoss grams or $profitLossInTola tola');
+
+      return profitLoss;
+    }
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       // backgroundColor: check ? const Color(0xFFB3E5FC) : Colors.transparent,
@@ -192,11 +214,20 @@ class TransactionHistoryScreenView
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    TransactiondetailsView(
-                                                      
-                                                        transactionDetails:
-                                                            transactionDetails)),
+                                                builder: (context) => TransactiondetailsView(
+                                                    profitOrLoss: calculateProfitLoss(
+                                                        buyRate:
+                                                            transactionDetails
+                                                                .buyGoldRate,
+                                                        conversionRate:
+                                                            conversionFactor,
+                                                        gramsBought:
+                                                            transactionDetails
+                                                                .totalGoldBought,
+                                                        sellRate:
+                                                            currentGoldRate),
+                                                    transactionDetails:
+                                                        transactionDetails)),
                                           );
                                         },
                                       ),

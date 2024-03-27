@@ -13,10 +13,12 @@ class TransactionDetails {
   Timestamp transactionDate;
   String transactionId;
   double buyGoldRate;
+  bool isSold;
 
   // Constructor
   TransactionDetails({
     required this.status,
+    required this.isSold,
     required this.buyGoldRate,
     required this.totalPaid,
     required this.totalBonus,
@@ -32,6 +34,7 @@ class TransactionDetails {
   Map<String, dynamic> toMap() {
     return {
       'status': status,
+      'isSold': isSold,
       'totalPaid': totalPaid,
       'totalBonus': totalBonus,
       'transactionType': transactionType,
@@ -57,6 +60,7 @@ class TransactionDetails {
       transactionDate: map['transactionDate'] as Timestamp,
       transactionId: map['transactionId'],
       buyGoldRate: map['buyGoldRate'],
+      isSold: map['isSold'],
     );
   }
 

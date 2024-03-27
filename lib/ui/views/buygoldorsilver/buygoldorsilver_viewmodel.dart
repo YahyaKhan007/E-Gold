@@ -83,6 +83,7 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
 
   void enterBalance() async {
     TransactionDetails newTransaction = TransactionDetails(
+      isSold: false,
       status: 'Completed',
       totalPaid: 100.0,
       totalBonus: 20.0,
@@ -122,8 +123,8 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
           walletType: withdrawMethod,
           transactionDate: Timestamp.now(),
           transactionId: 'unique_transaction_id',
-          buyGoldRate:
-              currentGoldRate, // Replace with a unique ID for each transaction
+          buyGoldRate: currentGoldRate,
+          isSold: false, // Replace with a unique ID for each transaction
         );
         if (withdrawMethod == 'Crypto') {
           bool check = false;

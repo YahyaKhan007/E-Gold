@@ -59,6 +59,7 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
             transactionDate: Timestamp.now(),
             transactionId: 'transactionId',
             buyGoldRate: currentGoldRate,
+            isSold: false,
           );
           await _transactionService.addTransaction(
               userId: FirebaseAuth.instance.currentUser!.uid,
@@ -83,6 +84,7 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
             transactionDate: Timestamp.now(),
             transactionId: 'transactionId',
             buyGoldRate: currentGoldRate,
+            isSold: false,
           );
           await _transactionService.addTransaction(
               userId: FirebaseAuth.instance.currentUser!.uid,

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Crypto {
   String walletAddress;
-  double? balance;
+  double balance;
   double? margin;
   String securityPin;
 

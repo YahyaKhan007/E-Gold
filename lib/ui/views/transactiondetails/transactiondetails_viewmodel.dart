@@ -58,6 +58,13 @@ class TransactiondetailsViewModel extends BaseViewModel {
   void sellTransaction(TransactionDetails transactionDetails) async {
     try {
       if (transactionDetails.transactionType == 'Buy') {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('transactions')
+            .doc(transactionDetails.transactionId)
+            .update({'isSold': true});
+        log("came to Loss 1 --->  ");
         double profitLoss = calculateProfitLoss(
             gramsBought: transactionDetails.totalGoldBought,
             buyRate: transactionDetails.buyGoldRate,
@@ -66,24 +73,28 @@ class TransactiondetailsViewModel extends BaseViewModel {
         TransactionDetails newTransaction = TransactionDetails(
           status: 'Completed',
           // totalPaid: transactionDetails.totalPaid,
-          totalPaid: profitLoss,
-          totalBonus: 0,
+          totalPaid: transactionDetails.totalPaid + profitLoss,
+          totalBonus: profitLoss,
           transactionType: 'Sell',
           totalGoldBought: transactionDetails.totalGoldBought,
           withdrawMethod: transactionDetails.withdrawMethod,
           walletType: transactionDetails.walletType,
           transactionDate: Timestamp.now(),
           transactionId: 'unique_transaction_id',
-          buyGoldRate:
-              currentGoldRate, // Replace with a unique ID for each transaction
+          buyGoldRate: currentGoldRate,
+          isSold: true, // Replace with a unique ID for each transaction
         );
 
-        switch (transactionDetails.transactionType) {
+        log("came to Loss 2 --->  ");
+        log(transactionDetails.walletType);
+        switch (transactionDetails.walletType) {
           case 'Crypto':
+            log("came to Loss 3 --->  Crypto");
+
             bool check = false;
             if (gold) {
-              check = await cryptoService
-                  .addBalanceFromCryptoWallet(transactionDetails.totalPaid);
+              check = await cryptoService.addBalanceFromCryptoWallet(
+                  transactionDetails.totalPaid + profitLoss);
             } else {
               check = await cryptoService
                   .deductMarginFromCryptoWallet(transactionDetails.totalPaid);
@@ -103,7 +114,7 @@ class TransactiondetailsViewModel extends BaseViewModel {
                   transactionDetails: newTransaction);
               _snackbarService.showSnackbar(
                 message:
-                    'Congratulation you have sell gold of amount: $profitLoss',
+                    'Congratulation you have Sold gold of amount: ${transactionDetails.totalPaid + profitLoss}',
                 title: 'Success',
                 duration: const Duration(seconds: 2),
               );
@@ -123,6 +134,7 @@ class TransactiondetailsViewModel extends BaseViewModel {
           // case 'Crypto':
           // return;
           default:
+            log("Default has been run");
             navi
                 ? navigationService.replaceWithDashboardScreenView()
                 : navigationService.replaceWithDepositScreenView();

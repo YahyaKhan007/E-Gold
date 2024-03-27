@@ -1,14 +1,20 @@
+import 'dart:developer';
+
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import 'transactiondetails_viewmodel.dart';
 
 class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
   final TransactionDetails transactionDetails;
-  const TransactiondetailsView({Key? key, required this.transactionDetails})
+  final double profitOrLoss;
+  const TransactiondetailsView(
+      {Key? key, required this.profitOrLoss, required this.transactionDetails})
       : super(key: key);
 
   @override
@@ -111,9 +117,28 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                             fontSize: 22)
                                         .copyWith(color: Colors.white),
                                   ),
-                                  Text(
-                                    "${transactionDetails.totalPaid} + ${transactionDetails.totalBonus}",
-                                    style: const TextStyle(color: Colors.white),
+                                  FittedBox(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "${transactionDetails.isSold ? 0 : transactionDetails.totalPaid.toStringAsFixed(2)} ",
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        transactionDetails.isSold
+                                            ? const SizedBox()
+                                            : Text(
+                                                "${profitOrLoss > 0 ? "+" : ""}${profitOrLoss.toStringAsFixed(2)}",
+                                                style: TextStyle(
+                                                    color: profitOrLoss > 0
+                                                        ? Colors.greenAccent
+                                                        : Colors.redAccent),
+                                              )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -124,8 +149,8 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                               padding: const EdgeInsets.all(8),
                               decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(20),
-                                      bottomRight: Radius.circular(20)),
+                                      topRight: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)),
                                   image: DecorationImage(
                                       image: AssetImage(
                                         'assets/images/back_home.png',
@@ -145,20 +170,58 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                     MainAxisAlignment.spaceAround,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    "Profit",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 22)
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                  const Text(
-                                    "\$100",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                                  transactionDetails.transactionType != 'Sell'
+                                      ? Text(
+                                          profitOrLoss > 0 ? "Profit" : "Loss",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w900,
+                                                  fontSize: 22)
+                                              .copyWith(
+                                                  color: profitOrLoss > 0
+                                                      ? Colors.greenAccent
+                                                      : Colors.redAccent),
+                                        )
+                                      : Text(
+                                          transactionDetails.totalBonus > 0
+                                              ? "Profit"
+                                              : "Loss",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w900,
+                                                  fontSize: 22)
+                                              .copyWith(
+                                                  color: transactionDetails
+                                                              .totalBonus >
+                                                          0
+                                                      ? Colors.greenAccent
+                                                      : Colors.redAccent),
+                                        ),
+                                  transactionDetails.transactionType == 'Sell'
+                                      ? Text(
+                                          "${transactionDetails.totalBonus.toStringAsFixed(2)} \$",
+                                          style: TextStyle(
+                                              color: transactionDetails
+                                                          .totalBonus >=
+                                                      0
+                                                  ? Colors.greenAccent
+                                                  : Colors.redAccent,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      : Text(
+                                          "${profitOrLoss.toStringAsFixed(2)} \$",
+                                          style: TextStyle(
+                                              color: profitOrLoss > 0
+                                                  ? Colors.greenAccent
+                                                  : Colors.redAccent,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                 ],
                               ),
                             ),
@@ -204,13 +267,58 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                     color: kcLightButtonBackground,
                                     fontWeight: FontWeight.w400,
                                   ),
-                          title: Text(
-                            names[index],
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                          trailing: Text(
-                            values[index],
-                            style: const TextStyle(color: Colors.black54),
+                          title: index == 2 &&
+                                  transactionDetails.transactionType == 'Sell'
+                              ? transactionDetails.totalBonus >= 0
+                                  ? const Text("Profit",
+                                      style: TextStyle(color: Colors.black))
+                                  : const Text("Loss",
+                                      style: TextStyle(color: Colors.black))
+                              : index == 3 &&
+                                      transactionDetails.transactionType ==
+                                          'Sell'
+                                  ? const Text("Total Gold Sold",
+                                      style: TextStyle(color: Colors.black))
+                                  : Text(
+                                      names[index],
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                    ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "${values[index]} ${index == 2 || index == 1 ? "\$" : index == 3 ? 'grams' : ""}",
+                                style: const TextStyle(color: Colors.black54),
+                              ),
+                              index == 0 &&
+                                      transactionDetails.isSold == true &&
+                                      transactionDetails.transactionType ==
+                                          'Buy'
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        log("this should open the transactions in which it is sold");
+                                      },
+                                      child: const Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            " TX",
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(bottom: 5),
+                                            child: Icon(
+                                              Icons.star,
+                                              size: 6,
+                                              color: Colors.red,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  : const SizedBox()
+                            ],
                           ),
                         );
                       },
@@ -223,19 +331,39 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                       },
                     ),
                   ),
-                  Container(
-                      decoration: const BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.white,
-                            blurRadius: 5,
-                            offset: Offset(2, 4),
-                            spreadRadius: 0,
+                  Visibility(
+                    visible: !transactionDetails.isSold,
+                    child: Container(
+                        height: 50,
+                        width: size.width * 0.3,
+                        decoration: const BoxDecoration(
+                          color: kcButtonBackground,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white,
+                              blurRadius: 5,
+                              offset: Offset(2, 4),
+                              spreadRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            log(transactionDetails.isSold.toString());
+                            transactionDetails.isSold
+                                ? null
+                                : viewModel.sellTransaction(transactionDetails);
+                          },
+                          child: const Center(
+                            child: Text(
+                              'Sell',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
                           ),
-                        ],
-                      ),
-                      child: ElevatedButton(
-                          onPressed: () {}, child: const Text('Sell'))),
+                        )),
+                  ),
                   verticalSpaceLarge
                 ],
               ),

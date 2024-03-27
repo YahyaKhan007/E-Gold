@@ -108,8 +108,8 @@ class DepositScreenViewModel extends BaseViewModel {
       walletType: 'Main Street',
       transactionDate: Timestamp.now(),
       transactionId: 'unique_transaction_id',
-      buyGoldRate:
-          currentGoldRate, // Replace with a unique ID for each transaction
+      buyGoldRate: currentGoldRate,
+      isSold: false, // Replace with a unique ID for each transaction
     );
 
     await transactionDetailsService.addTransaction(

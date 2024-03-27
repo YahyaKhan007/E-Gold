@@ -612,7 +612,9 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<TransactiondetailsViewArguments>(nullOk: false);
       return _i40.MaterialPageRoute<dynamic>(
         builder: (context) => _i37.TransactiondetailsView(
-            key: args.key, transactionDetails: args.transactionDetails),
+            key: args.key,
+            profitOrLoss: args.profitOrLoss,
+            transactionDetails: args.transactionDetails),
         settings: data,
       );
     },
@@ -978,27 +980,32 @@ class KycApprovedViewArguments {
 class TransactiondetailsViewArguments {
   const TransactiondetailsViewArguments({
     this.key,
+    required this.profitOrLoss,
     required this.transactionDetails,
   });
 
   final _i40.Key? key;
 
+  final double profitOrLoss;
+
   final _i41.TransactionDetails transactionDetails;
 
   @override
   String toString() {
-    return '{"key": "$key", "transactionDetails": "$transactionDetails"}';
+    return '{"key": "$key", "profitOrLoss": "$profitOrLoss", "transactionDetails": "$transactionDetails"}';
   }
 
   @override
   bool operator ==(covariant TransactiondetailsViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key && other.transactionDetails == transactionDetails;
+    return other.key == key &&
+        other.profitOrLoss == profitOrLoss &&
+        other.transactionDetails == transactionDetails;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ transactionDetails.hashCode;
+    return key.hashCode ^ profitOrLoss.hashCode ^ transactionDetails.hashCode;
   }
 }
 
@@ -1576,6 +1583,7 @@ extension NavigatorStateExtension on _i42.NavigationService {
 
   Future<dynamic> navigateToTransactiondetailsView({
     _i40.Key? key,
+    required double profitOrLoss,
     required _i41.TransactionDetails transactionDetails,
     int? routerId,
     bool preventDuplicates = true,
@@ -1585,7 +1593,9 @@ extension NavigatorStateExtension on _i42.NavigationService {
   }) async {
     return navigateTo<dynamic>(Routes.transactiondetailsView,
         arguments: TransactiondetailsViewArguments(
-            key: key, transactionDetails: transactionDetails),
+            key: key,
+            profitOrLoss: profitOrLoss,
+            transactionDetails: transactionDetails),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -2193,6 +2203,7 @@ extension NavigatorStateExtension on _i42.NavigationService {
 
   Future<dynamic> replaceWithTransactiondetailsView({
     _i40.Key? key,
+    required double profitOrLoss,
     required _i41.TransactionDetails transactionDetails,
     int? routerId,
     bool preventDuplicates = true,
@@ -2202,7 +2213,9 @@ extension NavigatorStateExtension on _i42.NavigationService {
   }) async {
     return replaceWith<dynamic>(Routes.transactiondetailsView,
         arguments: TransactiondetailsViewArguments(
-            key: key, transactionDetails: transactionDetails),
+            key: key,
+            profitOrLoss: profitOrLoss,
+            transactionDetails: transactionDetails),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
