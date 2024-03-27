@@ -50,8 +50,7 @@ class TransactionDetailsService {
       log("Fetching  Transactions 2");
 
       return querySnapshot.docs
-          .map((doc) =>
-              TransactionDetails.fromMap(doc.data() as Map<String, dynamic>))
+          .map((doc) => TransactionDetails.fromMap(doc.data()))
           .toList();
     } catch (e) {
       print('Error retrieving transactions: $e');
@@ -69,8 +68,7 @@ class TransactionDetailsService {
           .get();
 
       return querySnapshot.docs
-          .map((doc) =>
-              TransactionDetails.fromMap(doc.data() as Map<String, dynamic>))
+          .map((doc) => TransactionDetails.fromMap(doc.data()))
           .toList();
     } catch (e) {
       print('Error retrieving transactions: $e');

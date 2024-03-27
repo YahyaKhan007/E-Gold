@@ -194,6 +194,7 @@ class TransactionHistoryScreenView
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     TransactiondetailsView(
+                                                      
                                                         transactionDetails:
                                                             transactionDetails)),
                                           );

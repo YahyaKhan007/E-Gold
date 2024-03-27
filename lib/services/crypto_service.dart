@@ -147,6 +147,36 @@ class CryptoService {
     }
   }
 
+
+  // ! Add balance to Crypto Wallet
+   Future<bool> addBalanceFromCryptoWallet(double amount) async {
+    try {
+      String uid = userService.user!.uid;
+      DocumentReference specificCryptoRef = _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('wallet')
+          .doc('balance')
+          .collection('crypto')
+          .doc('cryptoData');
+      Crypto? existingCryptoData = await getCryptoFromWallet();
+      // if (existingCryptoData != null && existingCryptoData.balance! >= amount) {
+        existingCryptoData?.balance = existingCryptoData.balance! + amount;
+        await specificCryptoRef.update({
+          'balance': existingCryptoData?.balance,
+        });
+        return true;
+      // } 
+      // else {
+      //   print('Insufficient balance for deduction');
+      //   return false;
+      // }
+    } catch (error) {
+      print('Error deducting from crypto in wallet: $error');
+      return false;
+    }
+  }
+
   Future<bool> deductMarginFromCryptoWallet(double amount) async {
     try {
       String uid = userService.user!.uid;

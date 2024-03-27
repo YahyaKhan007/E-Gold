@@ -145,6 +145,39 @@ class BalanceService {
     }
   }
 
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // ! Add balance
+  Future<void> addBalanceToWallet(String userId, double amount) async {
+    try {
+      BalanceModel? currentBalance = await dataGet(userId);
+
+      if (currentBalance != null) {
+        // if (currentBalance.balance >= amount) {
+        double newBalance = currentBalance.balance + amount;
+        await updateBalanceForDeduct(userId, newBalance);
+        _showSuccessSnackbar('Balance added successfully');
+        // } else {
+        //   _showErrorSnackbar('Insufficient funds');
+        // }
+      } else {
+        _showErrorSnackbar('Balance document does not exist');
+      }
+    } catch (e) {
+      _showErrorSnackbar('Error adding balance: $e');
+    }
+  }
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+
   Future<void> deductMargin(String userId, double amount) async {
     try {
       BalanceModel? currentBalance = await dataGet(userId);
@@ -164,6 +197,40 @@ class BalanceService {
       _showErrorSnackbar('Error deducting margin: $e');
     }
   }
+
+// * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // ! Add Margin
+  Future<void> addMarginToWallet(String userId, double amount) async {
+    try {
+      BalanceModel? currentBalance = await dataGet(userId);
+
+      if (currentBalance != null) {
+        if (currentBalance.margin >= amount) {
+          double newBalance = currentBalance.margin - amount;
+          await updateMarginForDeduct(userId, newBalance);
+          _showSuccessSnackbar('Margin deducted successfully');
+        } else {
+          _showErrorSnackbar('Insufficient funds');
+        }
+      } else {
+        _showErrorSnackbar('Balance document does not exist');
+      }
+    } catch (e) {
+      _showErrorSnackbar('Error deducting margin: $e');
+    }
+  }
+
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
+  // * _______________________________________________
 
   void _showErrorSnackbar(String message) {
     _showSnackbar(message, 'Error');

@@ -37,10 +37,25 @@ class HomeTransactionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double calculateDifference({required double newRate}) {
-      log((transactionDetails.buyGoldRate - newRate).toString());
-      return transactionDetails.buyGoldRate - newRate;
-      //  return originalValue - passValue;
+    double calculateProfitLoss(
+        {required double gramsBought,
+        required double buyRate,
+        required double sellRate,
+        required double conversionRate}) {
+      double buyAmount = gramsBought * buyRate;
+      double sellAmount = gramsBought * sellRate;
+      // double buyInTola = gramsBought / conversionRate;
+      double profitLoss = sellAmount - buyAmount;
+
+      // Convert to tola for display purposes
+      // double profitLossInTola = profitLoss / conversionRate;
+
+      // print(
+      //     'Bought $gramsBought grams of gold at $buyRate per gram for $buyAmount');
+      // print('Sold for $sellRate per gram for $sellAmount');
+      // print('Profit/Loss: $profitLoss grams or $profitLossInTola tola');
+
+      return profitLoss;
     }
 
     return GestureDetector(
@@ -99,7 +114,12 @@ class HomeTransactionRow extends StatelessWidget {
                   ? Row(
                       children: [
                         Text(
-                          calculateDifference(newRate: currentGoldRate)
+                          calculateProfitLoss(
+                                  buyRate: transactionDetails.buyGoldRate,
+                                  conversionRate: conversionFactor,
+                                  gramsBought:
+                                      transactionDetails.totalGoldBought,
+                                  sellRate: currentGoldRate)
                               .toStringAsFixed(2),
                         ),
                         Text(
@@ -115,12 +135,23 @@ class HomeTransactionRow extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          calculateDifference(newRate: currentGoldRate) > 0
+                          calculateProfitLoss(
+                                      buyRate: transactionDetails.buyGoldRate,
+                                      conversionRate: conversionFactor,
+                                      gramsBought:
+                                          transactionDetails.totalGoldBought,
+                                      sellRate: currentGoldRate) >
+                                  0
                               ? '+'
                               : '',
                           style: TextStyle(
-                              color: calculateDifference(
-                                          newRate: currentGoldRate) >
+                              color: calculateProfitLoss(
+                                          buyRate:
+                                              transactionDetails.buyGoldRate,
+                                          conversionRate: conversionFactor,
+                                          gramsBought: transactionDetails
+                                              .totalGoldBought,
+                                          sellRate: currentGoldRate) >
                                       0
                                   ? Colors.green
                                   : Colors.red,
@@ -128,10 +159,15 @@ class HomeTransactionRow extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "${calculateDifference(newRate: currentGoldRate).toStringAsFixed(2)}  ",
+                          "${calculateProfitLoss(buyRate: transactionDetails.buyGoldRate, conversionRate: conversionFactor, gramsBought: transactionDetails.totalGoldBought, sellRate: currentGoldRate).toStringAsFixed(2)}  ",
                           style: TextStyle(
-                              color: calculateDifference(
-                                          newRate: currentGoldRate) >
+                              color: calculateProfitLoss(
+                                          buyRate:
+                                              transactionDetails.buyGoldRate,
+                                          conversionRate: conversionFactor,
+                                          gramsBought: transactionDetails
+                                              .totalGoldBought,
+                                          sellRate: currentGoldRate) >
                                       0
                                   ? Colors.green
                                   : Colors.red,
