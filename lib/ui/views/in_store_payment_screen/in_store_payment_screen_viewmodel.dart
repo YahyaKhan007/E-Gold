@@ -79,10 +79,11 @@ class InStorePaymentScreenViewModel extends BaseViewModel {
           transactionId: 'transactionId',
           buyGoldRate: currentGoldRate,
           isSold: false,
+          soldTransactionId: '',
         );
         await _transactionService.addTransaction(
             userId: FirebaseAuth.instance.currentUser!.uid,
-            transactionDetails: transactionDetails);
+            newTransactionDetails: transactionDetails);
       } catch (e) {
         _snackbarService.showSnackbar(
           message: 'Error $e',

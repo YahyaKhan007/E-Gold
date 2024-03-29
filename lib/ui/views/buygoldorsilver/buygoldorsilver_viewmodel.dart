@@ -93,13 +93,13 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
       walletType: 'Main Street',
       transactionDate: Timestamp.now(),
       transactionId: 'unique_transaction_id',
-      buyGoldRate:
-          currentGoldRate, // Replace with a unique ID for each transaction
+      buyGoldRate: currentGoldRate,
+      soldTransactionId: '', // Replace with a unique ID for each transaction
     );
 
     await transactionDetailsService.addTransaction(
         userId: FirebaseAuth.instance.currentUser!.uid,
-        transactionDetails: newTransaction);
+        newTransactionDetails: newTransaction);
     // _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
   }
 
@@ -124,7 +124,9 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
           transactionDate: Timestamp.now(),
           transactionId: 'unique_transaction_id',
           buyGoldRate: currentGoldRate,
-          isSold: false, // Replace with a unique ID for each transaction
+          isSold: false,
+          soldTransactionId:
+              '', // Replace with a unique ID for each transaction
         );
         if (withdrawMethod == 'Crypto') {
           bool check = false;
@@ -145,7 +147,7 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
             await cryptoService.getCryptoData();
             await transactionDetailsService.addTransaction(
                 userId: FirebaseAuth.instance.currentUser!.uid,
-                transactionDetails: newTransaction);
+                newTransactionDetails: newTransaction);
             _snackbarService.showSnackbar(
               message:
                   'Congratulation you have bought gold of amount: $ammount',
@@ -178,7 +180,7 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
             await bankService.getBankData();
             await transactionDetailsService.addTransaction(
                 userId: FirebaseAuth.instance.currentUser!.uid,
-                transactionDetails: newTransaction);
+                newTransactionDetails: newTransaction);
             _snackbarService.showSnackbar(
               message:
                   'Congratulation you have bought gold of amount: $ammount',

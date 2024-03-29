@@ -6,5 +6,6 @@ final RegExp emailRegExp = RegExp(
   r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
 );
 
-const double currentGoldRate = 3100;
+const double currentGoldRate = 4000;
 double conversionFactor = 11.7;
+const double walletLimit = 200000;

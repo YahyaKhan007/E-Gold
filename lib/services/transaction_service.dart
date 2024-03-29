@@ -109,14 +109,30 @@ class TransactionDetailsService {
 
   Future<void> addTransaction({
     required String userId,
-    required TransactionDetails transactionDetails,
+    required TransactionDetails newTransactionDetails,
+    TransactionDetails? oldTransactionDetails,
   }) async {
     try {
       // Add a new document to the collection with an auto-generated ID
       final newDocRef = await _transactionDetailsCollection
           .doc(userId)
           .collection('transactions')
-          .add(transactionDetails.toMap());
+          .add(newTransactionDetails.toMap());
+
+// * ------------------------------------------
+
+// ! Checking if Old Transaction is not null
+
+// * ------------------------------------------
+
+      if (oldTransactionDetails != null) {
+        print('Old Transaction is not null');
+        await _transactionDetailsCollection
+            .doc(userId)
+            .collection('transactions')
+            .doc(oldTransactionDetails.transactionId)
+            .update({'soldTransactionId': newDocRef.id});
+      }
 
       // Get the newly generated document ID
       final newDocId = newDocRef.id;

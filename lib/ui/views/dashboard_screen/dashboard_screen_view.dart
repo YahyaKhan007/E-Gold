@@ -72,6 +72,7 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
                 isLast: false),
             navbarItem(
                 image: Timages.profile,
+                //  image: viewModel.homeModel.userService.user?.profileImg != ''? viewModel.homeModel.userService.user!.profileImg :   Timages.profile,
                 show: viewModel.currentPageIndex == 4 ? true : false,
                 isLast: true),
           ],

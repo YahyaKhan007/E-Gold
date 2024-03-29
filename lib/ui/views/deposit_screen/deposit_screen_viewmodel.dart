@@ -109,12 +109,13 @@ class DepositScreenViewModel extends BaseViewModel {
       transactionDate: Timestamp.now(),
       transactionId: 'unique_transaction_id',
       buyGoldRate: currentGoldRate,
-      isSold: false, // Replace with a unique ID for each transaction
+      isSold: false,
+      soldTransactionId: '', // Replace with a unique ID for each transaction
     );
 
     await transactionDetailsService.addTransaction(
         userId: FirebaseAuth.instance.currentUser!.uid,
-        transactionDetails: newTransaction);
+        newTransactionDetails: newTransaction);
     // _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
   }
 }

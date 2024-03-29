@@ -123,13 +123,13 @@ class TransactionHistoryScreenView
                               child: ListView.separated(
                                 padding: EdgeInsets.zero,
                                 controller: viewModel.scrollController,
-                                itemCount: viewModel.transactionService
-                                    .transactionDetails!.length,
+                                itemCount: viewModel.sortedList.length,
                                 itemBuilder: (context, index) {
-                                  List<TransactionDetails> sortedList = viewModel
-                                      .transactionService.transactionDetails!
-                                      .toList(); // Copy the list to avoid modifying the original data
-                                  sortedList.sort((a, b) => b.transactionDate
+                                  // List<TransactionDetails> sortedList = viewModel
+                                  //     .transactionService.transactionDetails!.where((item)=>item.transactionType != 'Sell')
+                                  // .toList(); // Copy the list to avoid modifying the original data
+                                  viewModel.sortedList.sort((a, b) => b
+                                      .transactionDate
                                       .toDate()
                                       .compareTo(a.transactionDate.toDate()));
 
@@ -137,7 +137,7 @@ class TransactionHistoryScreenView
                                   //     sortedList[index];
 
                                   TransactionDetails transactionDetails =
-                                      sortedList[index];
+                                      viewModel.sortedList[index];
 
                                   Timestamp transactionDate =
                                       transactionDetails.transactionDate;
@@ -152,7 +152,7 @@ class TransactionHistoryScreenView
                                   DateTime? previousTransactionDateOnly;
                                   if (index > 0) {
                                     TransactionDetails previousTransaction =
-                                        sortedList[index - 1];
+                                        viewModel.sortedList[index - 1];
                                     Timestamp previousTransactionDate =
                                         previousTransaction.transactionDate;
                                     DateTime previousTransactionDateTime =

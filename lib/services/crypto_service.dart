@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/crypto.dart';
 import 'package:e_gold/services/userProfileService.dart';
+
+import '../models/transactionDetails.dart';
 
 class CryptoService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -148,8 +152,10 @@ class CryptoService {
   }
 
   // ! Add balance to Crypto Wallet
-  Future<bool> addBalanceFromCryptoWallet(double amount) async {
+  Future<bool> addBalanceFromCryptoWallet(
+      double amount, TransactionDetails transactionDetails) async {
     try {
+      log("\n\n${amount.toString()}      Total amount added \n\n");
       String uid = userService.user!.uid;
       DocumentReference specificCryptoRef = _firestore
           .collection('users')
@@ -162,7 +168,8 @@ class CryptoService {
       // if (existingCryptoData != null && existingCryptoData.balance! >= amount) {
       existingCryptoData?.balance = existingCryptoData.balance + amount;
       await specificCryptoRef.update({
-        'balance': existingCryptoData?.balance,
+        // 'balance': existingCryptoData?.balance,
+        'balance': existingCryptoData!.balance + amount,
       });
       return true;
       // }

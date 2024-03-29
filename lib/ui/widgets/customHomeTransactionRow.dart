@@ -62,200 +62,244 @@ class HomeTransactionRow extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),
-        child: ListTile(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => TransactiondetailsView(
-                  profitOrLoss: calculateProfitLoss(
-                      buyRate: transactionDetails.buyGoldRate,
-                      conversionRate: conversionFactor,
-                      gramsBought: transactionDetails.totalGoldBought,
-                      sellRate: currentGoldRate),
-                  transactionDetails: transactionDetails,
-                ),
-              ),
-            );
-          },
-          contentPadding: EdgeInsets.zero,
-          leading: CircleAvatar(
-            radius: 21,
-            backgroundColor: calculateProfitLoss(
-                        buyRate: transactionDetails.buyGoldRate,
-                        conversionRate: conversionFactor,
-                        gramsBought: transactionDetails.totalGoldBought,
-                        sellRate: currentGoldRate) >=
-                    0
-                ? const Color(0xff00DDA3)
-                : const Color(0xff33404F),
-            child: Center(
-              child: transactionDetails.transactionType == 'Sell' &&
-                      transactionDetails.totalBonus >= 0
-                  ? Image.asset(
-                      transactionDetails.totalBonus >= 0
-                          ? 'assets/images/up_arrow.png'
-                          : 'assets/images/down_arrow.png',
-                      height: 12,
-                    )
-                  : Image.asset(
-                      calculateProfitLoss(
+        child: transactionDetails.transactionType == 'Sell'
+            ? const SizedBox()
+            : ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TransactiondetailsView(
+                        profitOrLoss: transactionDetails.isSold
+                            ? transactionDetails.totalBonus
+                            : calculateProfitLoss(
+                                buyRate: transactionDetails.buyGoldRate,
+                                conversionRate: conversionFactor,
+                                gramsBought: transactionDetails.totalGoldBought,
+                                sellRate: currentGoldRate),
+                        transactionDetails: transactionDetails,
+                      ),
+                    ),
+                  );
+                },
+                contentPadding: EdgeInsets.zero,
+                leading: CircleAvatar(
+                  radius: 21,
+                  backgroundColor: transactionDetails.isSold
+                      ? transactionDetails.totalBonus >= 0
+                          ? const Color(0xff00DDA3)
+                          : const Color(0xff33404F)
+                      : calculateProfitLoss(
                                   buyRate: transactionDetails.buyGoldRate,
                                   conversionRate: conversionFactor,
                                   gramsBought:
                                       transactionDetails.totalGoldBought,
                                   sellRate: currentGoldRate) >=
                               0
-                          ? 'assets/images/up_arrow.png'
-                          : 'assets/images/down_arrow.png',
-                      height: 12,
-                    ),
-            ),
-          ),
-          title: type == 'TopUp'
-              ? Text(
-                  walletType!,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              : const Text(
-                  'Gold',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                          ? const Color(0xff00DDA3)
+                          : const Color(0xff33404F),
+                  child: Center(
+                      child: Image.asset(
+                    transactionDetails.isSold
+                        ? transactionDetails.totalBonus >= 0
+                            ? 'assets/images/up_arrow.png'
+                            : 'assets/images/down_arrow.png'
+                        : calculateProfitLoss(
+                                    buyRate: transactionDetails.buyGoldRate,
+                                    conversionRate: conversionFactor,
+                                    gramsBought:
+                                        transactionDetails.totalGoldBought,
+                                    sellRate: currentGoldRate) >=
+                                0
+                            ? 'assets/images/up_arrow.png'
+                            : 'assets/images/down_arrow.png',
+                    height: 12,
+                  )),
                 ),
-          subtitle: Text(
-            _formattedDate(transactionDetails.transactionDate),
-            style: const TextStyle(
-                fontSize: 12, fontWeight: FontWeight.w100, color: Colors.grey),
-          ),
-          trailing: FittedBox(
-            // width: 100,
-            // height: 60,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                type == 'TopUp'
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Row(
-                            children: [
-                              // Text(
-                              //   calculateProfitLoss(
-                              //           buyRate: transactionDetails.buyGoldRate,
-                              //           conversionRate: conversionFactor,
-                              //           gramsBought:
-                              //               transactionDetails.totalGoldBought,
-                              //           sellRate: currentGoldRate)
-                              //       .toStringAsFixed(2),
-                              // ),
-                              Text(
-                                '\$$amount',
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
+                title: type == 'TopUp'
+                    ? Text(
+                        walletType!,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : const Text(
+                        'Gold',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                subtitle: Text(
+                  _formattedDate(transactionDetails.transactionDate),
+                  style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w100,
+                      color: Colors.grey),
+                ),
+                trailing: FittedBox(
+                  // width: 100,
+                  // height: 60,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      type == 'TopUp'
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Row(
+                                  children: [
+                                    // Text(
+                                    //   calculateProfitLoss(
+                                    //           buyRate: transactionDetails.buyGoldRate,
+                                    //           conversionRate: conversionFactor,
+                                    //           gramsBought:
+                                    //               transactionDetails.totalGoldBought,
+                                    //           sellRate: currentGoldRate)
+                                    //       .toStringAsFixed(2),
+                                    // ),
+                                    Text(
+                                      '\$$amount',
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
+                                Text(
+                                  '${transactionDetails.transactionType} ',
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // transactionDetails.isSold != true
+                                // ? Text(
+                                //     calculateProfitLoss(
+                                //                 buyRate: transactionDetails
+                                //                     .buyGoldRate,
+                                //                 conversionRate:
+                                //                     conversionFactor,
+                                //                 gramsBought:
+                                //                     transactionDetails
+                                //                         .totalGoldBought,
+                                //                 sellRate:
+                                //                     currentGoldRate) >=
+                                //             0
+                                //         ? '+'
+                                //         : '',
+                                //     style: TextStyle(
+                                //         color: calculateProfitLoss(
+                                //                     buyRate:
+                                //                         transactionDetails
+                                //                             .buyGoldRate,
+                                //                     conversionRate:
+                                //                         conversionFactor,
+                                //                     gramsBought:
+                                //                         transactionDetails
+                                //                             .totalGoldBought,
+                                //                     sellRate:
+                                //                         currentGoldRate) >=
+                                //                 0
+                                //             ? Colors.green
+                                //             : Colors.red,
+                                //         fontSize: 11,
+                                //         fontWeight: FontWeight.bold),
+                                //   )
+                                // : Text(
+                                //     transactionDetails.totalBonus >= 0
+                                //         ? '+'
+                                //         : '',
+                                //     style: TextStyle(
+                                //         color:
+                                //             transactionDetails.totalBonus >=
+                                //                     0
+                                //                 ? Colors.green
+                                //                 : Colors.red,
+                                //         fontSize: 11,
+                                //         fontWeight: FontWeight.bold),
+                                //   ),
+                                transactionDetails.isSold
+                                    ? Text(
+                                        "${transactionDetails.totalBonus.toStringAsFixed(2)}  ",
+                                        style: TextStyle(
+                                            color:
+                                                transactionDetails.totalBonus >=
+                                                        0
+                                                    ? Colors.green
+                                                    : Colors.red,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    : Text(
+                                        "${calculateProfitLoss(buyRate: transactionDetails.buyGoldRate, conversionRate: conversionFactor, gramsBought: transactionDetails.totalGoldBought, sellRate: currentGoldRate).toString()} ",
+                                        style: TextStyle(
+                                          color: calculateProfitLoss(
+                                                      buyRate:
+                                                          transactionDetails
+                                                              .buyGoldRate,
+                                                      conversionRate:
+                                                          conversionFactor,
+                                                      gramsBought:
+                                                          transactionDetails
+                                                              .totalGoldBought,
+                                                      sellRate:
+                                                          currentGoldRate) >=
+                                                  0
+                                              ? Colors.green
+                                              : Colors.red,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                Text(
+                                  double.parse(btc).toStringAsFixed(5),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Text(
+                                  " gm",
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
                           Text(
-                            '${transactionDetails.transactionType} ',
+                            '${transactionDetails.withdrawMethod} ',
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ],
-                      )
-                    : Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            calculateProfitLoss(
-                                        buyRate: transactionDetails.buyGoldRate,
-                                        conversionRate: conversionFactor,
-                                        gramsBought:
-                                            transactionDetails.totalGoldBought,
-                                        sellRate: currentGoldRate) >=
-                                    0
-                                ? '+'
-                                : '',
-                            style: TextStyle(
-                                color: calculateProfitLoss(
-                                            buyRate:
-                                                transactionDetails.buyGoldRate,
-                                            conversionRate: conversionFactor,
-                                            gramsBought: transactionDetails
-                                                .totalGoldBought,
-                                            sellRate: currentGoldRate) >=
-                                        0
-                                    ? Colors.green
-                                    : Colors.red,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "${calculateProfitLoss(buyRate: transactionDetails.buyGoldRate, conversionRate: conversionFactor, gramsBought: transactionDetails.totalGoldBought, sellRate: currentGoldRate).toStringAsFixed(2)}  ",
-                            style: TextStyle(
-                                color: calculateProfitLoss(
-                                            buyRate:
-                                                transactionDetails.buyGoldRate,
-                                            conversionRate: conversionFactor,
-                                            gramsBought: transactionDetails
-                                                .totalGoldBought,
-                                            sellRate: currentGoldRate) >=
-                                        0
-                                    ? Colors.green
-                                    : Colors.red,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            double.parse(btc).toStringAsFixed(5),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Text(
-                            " gm",
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          transactionDetails.isSold
+                              ? const Text(
+                                  "Sold",
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              : const SizedBox(),
                         ],
                       ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      '${transactionDetails.withdrawMethod} ',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    transactionDetails.isSold
-                        ? const Text(
-                            "Sold",
-                            style: TextStyle(color: Colors.red),
-                          )
-                        : const SizedBox(),
-                  ],
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
 
       //  Container(

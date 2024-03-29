@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import 'transactiondetails_viewmodel.dart';
@@ -135,7 +133,9 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                                 style: TextStyle(
                                                     color: profitOrLoss > 0
                                                         ? Colors.greenAccent
-                                                        : Colors.redAccent),
+                                                        : profitOrLoss == 0
+                                                            ? Colors.white
+                                                            : Colors.redAccent),
                                               )
                                       ],
                                     ),
@@ -172,7 +172,11 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                 children: [
                                   transactionDetails.transactionType != 'Sell'
                                       ? Text(
-                                          profitOrLoss > 0 ? "Profit" : "Loss",
+                                          profitOrLoss > 0
+                                              ? "Profit"
+                                              : profitOrLoss == 0
+                                                  ? 'Profit / Loss'
+                                                  : "Loss",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleLarge!
@@ -182,12 +186,17 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                               .copyWith(
                                                   color: profitOrLoss > 0
                                                       ? Colors.greenAccent
-                                                      : Colors.redAccent),
+                                                      : profitOrLoss == 0
+                                                          ? Colors.white
+                                                          : Colors.redAccent),
                                         )
                                       : Text(
                                           transactionDetails.totalBonus > 0
                                               ? "Profit"
-                                              : "Loss",
+                                              : transactionDetails.totalBonus ==
+                                                      0
+                                                  ? 'Profit / Loss'
+                                                  : "Loss",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleLarge!
@@ -199,17 +208,25 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                                               .totalBonus >
                                                           0
                                                       ? Colors.greenAccent
-                                                      : Colors.redAccent),
+                                                      : transactionDetails
+                                                                  .totalBonus ==
+                                                              0
+                                                          ? Colors.white
+                                                          : Colors.redAccent),
                                         ),
                                   transactionDetails.transactionType == 'Sell'
                                       ? Text(
                                           "${transactionDetails.totalBonus.toStringAsFixed(2)} \$",
                                           style: TextStyle(
                                               color: transactionDetails
-                                                          .totalBonus >=
+                                                          .totalBonus >
                                                       0
                                                   ? Colors.greenAccent
-                                                  : Colors.redAccent,
+                                                  : transactionDetails
+                                                              .totalBonus ==
+                                                          0
+                                                      ? Colors.white
+                                                      : Colors.redAccent,
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold),
                                         )
@@ -218,7 +235,9 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                           style: TextStyle(
                                               color: profitOrLoss > 0
                                                   ? Colors.greenAccent
-                                                  : Colors.redAccent,
+                                                  : profitOrLoss == 0
+                                                      ? Colors.white
+                                                      : Colors.redAccent,
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -288,7 +307,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                "${values[index]} ${index == 2 || index == 1 ? "\$" : index == 3 ? 'grams' : ""}",
+                                "${index == 0 && transactionDetails.isSold == true ? "Sold Successful" : values[index]} ${index == 2 || index == 1 ? "\$" : index == 3 ? 'grams' : ""}",
                                 style: const TextStyle(color: Colors.black54),
                               ),
                               index == 0 &&
@@ -296,7 +315,20 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                       transactionDetails.transactionType ==
                                           'Buy'
                                   ? GestureDetector(
-                                      onTap: () {
+                                      onTap: () async {
+                                        var soldTransaction = await viewModel
+                                            .getDocumentById(transactionDetails
+                                                .soldTransactionId);
+
+                                        if (soldTransaction == null) {
+                                          log('Transacion result is Empty');
+                                        } else {
+                                          viewModel.toSpeceficSellTransaction(
+                                              soldTransaction);
+                                        }
+
+                                        log(transactionDetails
+                                            .soldTransactionId);
                                         log("this should open the transactions in which it is sold");
                                       },
                                       child: const Row(

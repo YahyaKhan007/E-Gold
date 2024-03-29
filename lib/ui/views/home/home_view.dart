@@ -72,11 +72,17 @@ class HomeView extends StackedView<HomeViewModel> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const CircleAvatar(
-                                  radius: 15,
-                                  backgroundColor: Colors.black,
-                                  backgroundImage:
-                                      AssetImage('assets/images/profile.png')),
+                              CircleAvatar(
+                                radius:
+                                    16, // Adjust the radius to your desired size
+                                backgroundImage: viewModel.userService.user
+                                            ?.profileImg.isNotEmpty ==
+                                        true
+                                    ? NetworkImage(
+                                        viewModel.userService.user!.profileImg)
+                                    : const AssetImage(profile)
+                                        as ImageProvider,
+                              ),
                               GestureDetector(
                                 onTap: viewModel.notification,
                                 child: Image.asset(
@@ -147,10 +153,15 @@ class HomeView extends StackedView<HomeViewModel> {
                                         ),
                                       ],
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(right: 30),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 30),
                                       child: ProgressBar(
-                                        value: 0.8,
+                                        value: viewModel.calculateResult(
+                                            passedValue: double.parse(viewModel
+                                                .balanceService
+                                                .balanceData!
+                                                .balance
+                                                .toString())),
                                         backgroundColor: Colors.white,
                                         //specify only one: color or gradient
                                         color: Color(0xff00DDA3),

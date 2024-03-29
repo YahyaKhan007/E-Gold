@@ -53,6 +53,7 @@ import 'package:e_gold/ui/views/choose_payment_method/choose_payment_method_view
 import 'package:e_gold/ui/views/link_bank_account_screen/link_bank_account_screen_view.dart';
 import 'package:e_gold/ui/dialogs/add_amount_for_balance/add_amount_for_balance_dialog.dart';
 import 'package:e_gold/ui/bottom_sheets/sellgold/sellgold_sheet.dart';
+import 'package:e_gold/ui/views/specefic_sell_transaction/specefic_sell_transaction_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -97,6 +98,7 @@ import 'package:e_gold/ui/bottom_sheets/sellgold/sellgold_sheet.dart';
     MaterialRoute(page: TransactiondetailsView),
     MaterialRoute(page: ChoosePaymentMethodView),
     MaterialRoute(page: LinkBankAccountScreenView),
+    MaterialRoute(page: SpeceficSellTransactionView),
 // @stacked-route
   ],
   dependencies: [

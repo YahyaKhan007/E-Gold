@@ -93,7 +93,7 @@ class BankService {
     }
   }
 
-  Future<bool> addBalanceToBankWallet(double amount) async {
+  Future<bool> addBalanceToBankWallet(double amount, bool isTopUp) async {
     try {
       String uid = userService.user!.uid;
       DocumentReference specificBankRef = _firestore
@@ -107,10 +107,16 @@ class BankService {
       if (existingBankData != null) {
         existingBankData.balance = existingBankData.balance! + amount;
         existingBankData.margin = existingBankData.margin! + amount;
-        await specificBankRef.update({
-          'balance': existingBankData.balance,
-          'margin': existingBankData.margin,
-        });
+        if (isTopUp) {
+          await specificBankRef.update({
+            'balance': existingBankData.balance,
+            'margin': existingBankData.margin,
+          });
+        } else {
+          await specificBankRef.update({
+            'balance': existingBankData.balance,
+          });
+        }
       }
       return true;
     } catch (error) {

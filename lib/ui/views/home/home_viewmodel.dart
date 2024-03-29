@@ -50,6 +50,10 @@ class HomeViewModel extends BaseViewModel {
     log("selected  is ==== >   $isSelected");
   }
 
+  double calculateResult({required double passedValue}) {
+    return passedValue / walletLimit;
+  }
+
   // *  Fetching transaction
 
   void seeAll() {

@@ -4,6 +4,7 @@ import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/ui/views/account_screen/account_screen_view.dart';
 import 'package:e_gold/ui/views/choose_payment_method/choose_payment_method_view.dart';
 import 'package:e_gold/ui/views/home/home_view.dart';
+import 'package:e_gold/ui/views/home/home_viewmodel.dart';
 import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_screen_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,9 @@ import 'package:flutter/material.dart';
 class DashboardScreenViewModel extends BaseViewModel {
   final bankService = locator<BankService>();
   final cryptoService = locator<CryptoService>();
+
+  final homeModel = HomeViewModel();
+
   final List<Widget> pages = [
     const HomeView(),
     const TransactionHistoryScreenView(check: false),

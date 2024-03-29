@@ -43,12 +43,13 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
     if (validateForm()) {
       if (data == 'Bank') {
         bool check2 = await _bankService
-            .addBalanceToBankWallet(double.parse(amount.text.toString()));
+            .addBalanceToBankWallet(double.parse(amount.text.toString()), false);
         bool? check = await _balanceService.addBalance(
             FirebaseAuth.instance.currentUser!.uid,
             double.parse(amount.text.toString()));
         if (check! && check2) {
           TransactionDetails transactionDetails = TransactionDetails(
+            soldTransactionId: '',
             status: 'Completed',
             totalPaid: double.parse(amount.text.toString()),
             totalBonus: double.parse(amount.text.toString()),
@@ -63,7 +64,7 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
           );
           await _transactionService.addTransaction(
               userId: FirebaseAuth.instance.currentUser!.uid,
-              transactionDetails: transactionDetails);
+              newTransactionDetails: transactionDetails);
           Navigator.pop(context);
         }
       } else if (data == 'Crypto') {
@@ -85,10 +86,11 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
             transactionId: 'transactionId',
             buyGoldRate: currentGoldRate,
             isSold: false,
+            soldTransactionId: '',
           );
           await _transactionService.addTransaction(
               userId: FirebaseAuth.instance.currentUser!.uid,
-              transactionDetails: transactionDetails);
+              newTransactionDetails: transactionDetails);
           Navigator.pop(context);
         }
       }
