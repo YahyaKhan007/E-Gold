@@ -324,7 +324,9 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                           log('Transacion result is Empty');
                                         } else {
                                           viewModel.toSpeceficSellTransaction(
-                                              soldTransaction);
+                                              soldTransaction,
+                                              transactionDetails.totalPaid
+                                                  .toString());
                                         }
 
                                         log(transactionDetails
@@ -365,36 +367,36 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                   ),
                   Visibility(
                     visible: !transactionDetails.isSold,
-                    child: Container(
-                        height: 50,
-                        width: size.width * 0.3,
-                        decoration: const BoxDecoration(
-                          color: kcButtonBackground,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.white,
-                              blurRadius: 5,
-                              offset: Offset(2, 4),
-                              spreadRadius: 0,
-                            ),
-                          ],
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            log(transactionDetails.isSold.toString());
-                            transactionDetails.isSold
-                                ? null
-                                : viewModel.sellTransaction(transactionDetails);
-                          },
+                    child: GestureDetector(
+                      onTap: () {
+                        log(transactionDetails.isSold.toString());
+                        transactionDetails.isSold
+                            ? null
+                            : viewModel.sellTransaction(transactionDetails);
+                      },
+                      child: Container(
+                          height: 50,
+                          width: size.width * 0.3,
+                          decoration: const BoxDecoration(
+                            color: kcButtonBackground,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white,
+                                blurRadius: 5,
+                                offset: Offset(2, 4),
+                                spreadRadius: 0,
+                              ),
+                            ],
+                          ),
                           child: const Center(
                             child: Text(
                               'Sell',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 15),
                             ),
-                          ),
-                        )),
+                          )),
+                    ),
                   ),
                   verticalSpaceLarge
                 ],

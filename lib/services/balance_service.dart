@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/balance.dart';
@@ -55,6 +57,21 @@ class BalanceService {
     }
   }
 
+  Future<void> updateWalletBalanceFromMarginProfit(
+      String userId, double newBalance) async {
+    try {
+      await _usersCollection
+          .doc(userId)
+          .collection('wallet')
+          .doc('balance')
+          .update({'balance': newBalance.toInt()});
+    } catch (e) {
+      _showErrorSnackbar(
+        'Error updating balance: $e',
+      );
+    }
+  }
+
   Future<BalanceModel?> dataGet(String userId) async {
     try {
       DocumentSnapshot snapshot = await _usersCollection
@@ -105,13 +122,23 @@ class BalanceService {
     }
   }
 
-  Future<bool?> addBalance(String userId, double amount) async {
+  Future<bool?> addBalance(String userId, double amount, bool isProfit) async {
     try {
       BalanceModel? currentBalance = await dataGet(userId);
 
       if (currentBalance != null) {
+        log('Current Wallet Balance is  :  ${currentBalance.balance}');
+
+        double newMargin = double.parse(currentBalance.margin.toString());
+
         double newBalance = currentBalance.balance + amount;
-        double newMargin = currentBalance.margin + amount;
+        if (!isProfit) {
+          newMargin = currentBalance.margin + amount;
+        }
+
+        log('the Profit is : $amount');
+        log('After adding Profit,   Wallet Balance is  :  ${currentBalance.balance}');
+
         await updateBalance(userId, newBalance, newMargin);
         _showSuccessSnackbar('Balance added successfully');
         return true;
@@ -124,6 +151,8 @@ class BalanceService {
       return false;
     }
   }
+
+// ^  ************************
 
   Future<void> deductBalance(String userId, double amount) async {
     try {
@@ -205,17 +234,32 @@ class BalanceService {
   // * _______________________________________________
   // * _______________________________________________
   // ! Add Margin
-  Future<void> addMarginToWallet(String userId, double amount) async {
+  Future<void> addMarginToWallet(
+      String userId, double amount, bool isMargin) async {
     try {
       BalanceModel? currentBalance = await dataGet(userId);
 
       if (currentBalance != null) {
-        if (currentBalance.margin >= amount) {
-          double newBalance = currentBalance.margin - amount;
-          await updateMarginForDeduct(userId, newBalance);
-          _showSuccessSnackbar('Margin deducted successfully');
+        if (isMargin) {
+          if (currentBalance.margin >= amount) {
+            double newBalance = currentBalance.balance + amount;
+            await updateWalletBalanceFromMarginProfit(userId, newBalance);
+            _showSuccessSnackbar(isMargin
+                ? 'Margin added successfully'
+                : 'Margin deducted successfully');
+          } else {
+            _showErrorSnackbar('Insufficient funds');
+          }
         } else {
-          _showErrorSnackbar('Insufficient funds');
+          if (currentBalance.margin >= amount) {
+            double newBalance = currentBalance.margin - amount;
+            await updateMarginForDeduct(userId, newBalance);
+            _showSuccessSnackbar(isMargin
+                ? 'Margin added successfully'
+                : 'Margin deducted successfully');
+          } else {
+            _showErrorSnackbar('Insufficient funds');
+          }
         }
       } else {
         _showErrorSnackbar('Balance document does not exist');

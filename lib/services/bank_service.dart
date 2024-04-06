@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/bank.dart';
@@ -105,6 +107,10 @@ class BankService {
           .doc('bankData');
       Bank? existingBankData = await getBankFromWallet();
       if (existingBankData != null) {
+        log('before');
+        log("existingBankData.balance: ${existingBankData.balance}");
+        log("amount: $amount");
+
         existingBankData.balance = existingBankData.balance! + amount;
         existingBankData.margin = existingBankData.margin! + amount;
         if (isTopUp) {
@@ -116,6 +122,10 @@ class BankService {
           await specificBankRef.update({
             'balance': existingBankData.balance,
           });
+          log('after');
+          log("existingBankData.balance: ${existingBankData.balance}");
+          log("amount: $amount");
+          log('\n\n\t\t===================================\t\t\n\n');
         }
       }
       return true;

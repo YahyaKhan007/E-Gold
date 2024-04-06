@@ -2,6 +2,7 @@ import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 
 import '../common/app_colors.dart';
+import '../common/app_strings.dart';
 
 class BuyGoldenContainer extends StatelessWidget {
   final String amount;
@@ -126,6 +127,17 @@ class BuyGoldenContainer extends StatelessWidget {
             ),
             const SizedBox(
               height: 20,
+            ),
+            const Center(
+              child: Text(
+                'Current Gold rate: \$$currentGoldRate',
+                textAlign: TextAlign.end,
+                style: TextStyle(
+                  color: Color(0xff2F4A64),
+                  fontSize: 12,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

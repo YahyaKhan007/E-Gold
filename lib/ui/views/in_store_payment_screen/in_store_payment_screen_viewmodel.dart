@@ -80,6 +80,7 @@ class InStorePaymentScreenViewModel extends BaseViewModel {
           buyGoldRate: currentGoldRate,
           isSold: false,
           soldTransactionId: '',
+          isMargin: false,
         );
         await _transactionService.addTransaction(
             userId: FirebaseAuth.instance.currentUser!.uid,

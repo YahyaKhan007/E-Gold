@@ -43,7 +43,7 @@ class HomeViewModel extends BaseViewModel {
 
   final ScrollController mainScrollController = ScrollController();
 
-  String isSelected = 'Card';
+  String isSelected = 'Bank';
   void changeSelection({required String selection}) {
     isSelected = selection;
     rebuildUi();

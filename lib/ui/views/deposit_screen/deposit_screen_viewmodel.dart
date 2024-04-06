@@ -13,6 +13,8 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../buygoldorsilver/buygoldorsilver_viewmodel.dart';
+
 class DepositScreenViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _balanceService = locator<BalanceService>();
@@ -110,7 +112,8 @@ class DepositScreenViewModel extends BaseViewModel {
       transactionId: 'unique_transaction_id',
       buyGoldRate: currentGoldRate,
       isSold: false,
-      soldTransactionId: '', // Replace with a unique ID for each transaction
+      soldTransactionId: '',
+      isMargin: false, // Replace with a unique ID for each transaction
     );
 
     await transactionDetailsService.addTransaction(

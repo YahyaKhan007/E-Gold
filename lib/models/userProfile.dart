@@ -9,6 +9,7 @@ class UserProfile {
   String dateOfBirth;
   Timestamp? createdAt;
   String profileImg;
+  bool isAdmin;
 
   UserProfile({
     required this.name,
@@ -19,11 +20,13 @@ class UserProfile {
     required this.phoneNumber,
     required this.dateOfBirth,
     required this.createdAt,
+    required this.isAdmin,
   });
 
   // Method to convert the object to a Map for storing in Firestore
   Map<String, dynamic> toJson() {
     return {
+      'isAdmin': isAdmin,
       'name': name,
       'email': email,
       'countryCode': countryCode,
@@ -39,6 +42,7 @@ class UserProfile {
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
       name: json['name'],
+      isAdmin: json['isAdmin'],
       countryCode: json['countryCode'],
       profileImg: json['profileImg'],
       email: json['email'],
@@ -53,6 +57,7 @@ class UserProfile {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
 
     return UserProfile(
+      isAdmin: data['isAdmin'],
       name: data['name'],
       email: data['email'],
       countryCode: data['countryCode'],

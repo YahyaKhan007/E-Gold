@@ -94,7 +94,7 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
       transactionDate: Timestamp.now(),
       transactionId: 'unique_transaction_id',
       buyGoldRate: currentGoldRate,
-      soldTransactionId: '', // Replace with a unique ID for each transaction
+      soldTransactionId: '', isMargin: gold, // Replace with a unique ID for each transaction
     );
 
     await transactionDetailsService.addTransaction(
@@ -125,6 +125,7 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
           transactionId: 'unique_transaction_id',
           buyGoldRate: currentGoldRate,
           isSold: false,
+          isMargin: !gold,
           soldTransactionId:
               '', // Replace with a unique ID for each transaction
         );

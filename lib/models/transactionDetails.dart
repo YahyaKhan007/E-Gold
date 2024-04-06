@@ -14,6 +14,7 @@ class TransactionDetails {
   String transactionId;
   String soldTransactionId;
   double buyGoldRate;
+  bool isMargin;
   bool isSold;
 
   // Constructor
@@ -21,6 +22,7 @@ class TransactionDetails {
     required this.status,
     required this.soldTransactionId,
     required this.isSold,
+    required this.isMargin,
     required this.buyGoldRate,
     required this.totalPaid,
     required this.totalBonus,
@@ -36,6 +38,7 @@ class TransactionDetails {
   Map<String, dynamic> toMap() {
     return {
       'status': status,
+      'isMargin': isMargin,
       'soldTransactionId': soldTransactionId,
       'isSold': isSold,
       'totalPaid': totalPaid,
@@ -65,6 +68,7 @@ class TransactionDetails {
       transactionId: map['transactionId'],
       buyGoldRate: map['buyGoldRate'],
       isSold: map['isSold'],
+      isMargin: map['isMargin'],
     );
   }
 

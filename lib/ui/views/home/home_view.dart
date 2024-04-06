@@ -1,9 +1,11 @@
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
+import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/views/home/home_viewmodel.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:simple_progress_indicators/simple_progress_indicators.dart';
@@ -57,31 +59,42 @@ class HomeView extends StackedView<HomeViewModel> {
                 //     fontWeight: FontWeight.bold,
                 //   ),
                 // ),
-                expandedHeight: 250, // Set the expanded height
-                collapsedHeight: 80, // Set the collapsed height
+                expandedHeight: 280, // Set the expanded height
+                collapsedHeight: 90, // Set the collapsed height
                 flexibleSpace: FlexibleSpaceBar(
                   background: Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
+                    padding:
+                        const EdgeInsets.only(left: 22.0, right: 22, top: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 10, bottom: 10, left: 00, right: 15),
+                              top: 10, bottom: 00, left: 00, right: 0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CircleAvatar(
                                 radius:
                                     16, // Adjust the radius to your desired size
-                                backgroundImage: viewModel.userService.user
-                                            ?.profileImg.isNotEmpty ==
-                                        true
+                                backgroundImage: viewModel
+                                        .userService.user!.profileImg.isNotEmpty
                                     ? NetworkImage(
                                         viewModel.userService.user!.profileImg)
                                     : const AssetImage(profile)
                                         as ImageProvider,
+                              ),
+                              horizontalSpaceSmall,
+                              Expanded(
+                                child: Text(
+                                  "Hi ${viewModel.userService.user!.name}!",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
                               ),
                               GestureDetector(
                                 onTap: viewModel.notification,
@@ -93,133 +106,207 @@ class HomeView extends StackedView<HomeViewModel> {
                             ],
                           ),
                         ),
-                        verticalSpaceSmall,
+                        // verticalSpaceSmall,
                         // viewModel.isBusy
                         //     ?
                         // const CircularProgressIndicator()
                         // :
-                        Text(
-                          "Hi ${viewModel.userService.user!.name}",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 34,
-                            fontWeight: FontWeight.bold,
+                        // Text(
+                        //   "Hi ${viewModel.userService.user!.name}",
+                        //   style: const TextStyle(
+                        //     color: Colors.white,
+                        //     fontSize: 34,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Text(
+                                    "\$",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    viewModel
+                                        .balanceService.balanceData!.balance
+                                        .toString(),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              const Text(
+                                "Here's Your Balance",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w100,
+                                    letterSpacing: 2),
+                              ),
+                              verticalSpaceSmall,
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffFFD4B8),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: 'Current Gold rate: ',
+                                    // textAlign: TextAlign.end,
+                                    style: const TextStyle(
+                                      color: Color(0xff2F4A64),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: currentGoldRate.toString(),
+                                        style: const TextStyle(
+                                          // color: Color(0xff2F4A64),
+                                          color: Colors.black54,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const TextSpan(
+                                        text: ' AED ',
+                                        style: TextStyle(
+                                          // fontStyle: FontStyle.italic,
+                                          color: Color(0xff2F4A64),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        const Text(
-                          "Here's Your Balance.",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w100,
-                              letterSpacing: 2),
-                        ),
+                        // const Text(
+                        //   "Here's Your Balance.",
+                        //   style: TextStyle(
+                        //       color: Colors.white,
+                        //       fontSize: 24,
+                        //       fontWeight: FontWeight.w100,
+                        //       letterSpacing: 2),
+                        // ),
 
                         // ^  Wallet Showing
                         verticalSpaceMedium,
                         Row(
                           children: [
                             Expanded(
-                                flex: 1,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Wallet",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const Text(
-                                      "Wallet",
+                                      "\$",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 14,
+                                          fontSize: 13,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Text(
-                                          "\$",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          viewModel.balanceService.balanceData!
-                                              .balance
-                                              .toString(),
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 30),
-                                      child: ProgressBar(
-                                        value: viewModel.calculateResult(
-                                            passedValue: double.parse(viewModel
-                                                .balanceService
-                                                .balanceData!
-                                                .balance
-                                                .toString())),
-                                        backgroundColor: Colors.white,
-                                        //specify only one: color or gradient
-                                        color: Color(0xff00DDA3),
-                                      ),
+                                    Text(
+                                      viewModel
+                                          .balanceService.balanceData!.balance
+                                          .toString(),
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ],
-                                )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 30),
+                                  child: ProgressBar(
+                                    value: viewModel.calculateResult(
+                                        passedValue: double.parse(viewModel
+                                            .balanceService.balanceData!.balance
+                                            .toString())),
+                                    backgroundColor: Colors.white,
+                                    //specify only one: color or gradient
+                                    color: const Color(0xff00DDA3),
+                                  ),
+                                ),
+                              ],
+                            )),
+                            horizontalSpaceMedium,
                             const Expanded(
-                                flex: 1,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Portfolio",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
-                                      "Portfolio",
+                                      "\$",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 14,
+                                          fontSize: 13,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "\$",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          "9,615",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 30),
-                                      child: ProgressBar(
-                                        value: 0.4,
-                                        backgroundColor: Colors.white,
-                                        //specify only one: color or gradient
-                                        color: Colors.grey,
-                                      ),
-                                      // gradient: LinearGradient(
-                                      //   begin: Alignment.topLeft,
-                                      //   end: Alignment.bottomRight,
-                                      //   colors: [
-                                      //     Colors.yellowAccent,
-                                      //     Colors.deepOrange
-                                      //   ],
-                                      // ),
+                                    Text(
+                                      "9,615",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ],
-                                )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 0),
+                                  child: ProgressBar(
+                                    value: 0.4,
+                                    backgroundColor: Colors.white,
+                                    //specify only one: color or gradient
+                                    color: Colors.grey,
+                                  ),
+                                  // gradient: LinearGradient(
+                                  //   begin: Alignment.topLeft,
+                                  //   end: Alignment.bottomRight,
+                                  //   colors: [
+                                  //     Colors.yellowAccent,
+                                  //     Colors.deepOrange
+                                  //   ],
+                                  // ),
+                                ),
+                              ],
+                            )),
                           ],
                         )
                       ],
@@ -291,6 +378,8 @@ class HomeView extends StackedView<HomeViewModel> {
               ),
               SliverList(
                 delegate: SliverChildListDelegate(
+                  addRepaintBoundaries: true,
+                  addAutomaticKeepAlives: true,
                   [
                     viewModel.isSelected == 'Card' &&
                             viewModel.cardTransactions.isEmpty
@@ -340,6 +429,7 @@ class HomeView extends StackedView<HomeViewModel> {
                                             horizontal: 20),
                                         color: Colors.white,
                                         child: ListView.builder(
+                                          padding: EdgeInsets.zero,
                                           primary: false,
                                           shrinkWrap: true,
                                           dragStartBehavior:
@@ -356,102 +446,82 @@ class HomeView extends StackedView<HomeViewModel> {
                                                   : viewModel
                                                       .bankTransactions.length,
                                           itemBuilder: ((context, index) {
-                                            return Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                HomeTransactionRow(
-                                                  // profileLoss: viewModel.,
-                                                  transactionDetails: viewModel
-                                                              .isSelected ==
-                                                          'Card'
+                                            return HomeTransactionRow(
+                                              // profileLoss: viewModel.,
+                                              transactionDetails: viewModel
+                                                          .isSelected ==
+                                                      'Card'
+                                                  ? viewModel
+                                                      .cardTransactions[index]
+                                                  : viewModel.isSelected ==
+                                                          'Crypto'
                                                       ? viewModel
-                                                              .cardTransactions[
+                                                              .cryptoTransactions[
                                                           index]
-                                                      : viewModel.isSelected ==
-                                                              'Crypto'
-                                                          ? viewModel
-                                                                  .cryptoTransactions[
-                                                              index]
-                                                          : viewModel
-                                                                  .bankTransactions[
-                                                              index],
-                                                  //  viewModel.cryptoTransactions[index],
-                                                  buttonText: viewModel
-                                                              .isSelected ==
-                                                          'Card'
+                                                      : viewModel
+                                                              .bankTransactions[
+                                                          index],
+                                              //  viewModel.cryptoTransactions[index],
+                                              buttonText: viewModel
+                                                          .isSelected ==
+                                                      'Card'
+                                                  ? viewModel
+                                                      .cardTransactions[index]
+                                                      .status
+                                                  : viewModel.isSelected ==
+                                                          'Crypto'
                                                       ? viewModel
-                                                          .cardTransactions[
+                                                          .cryptoTransactions[
                                                               index]
                                                           .status
-                                                      : viewModel.isSelected ==
-                                                              'Crypto'
-                                                          ? viewModel
-                                                              .cryptoTransactions[
-                                                                  index]
-                                                              .status
-                                                          : viewModel
-                                                              .bankTransactions[
-                                                                  index]
-                                                              .status,
-                                                  // viewModel.cryptoTransactions[index].status,
-                                                  btc: viewModel.isSelected ==
-                                                          'Card'
+                                                      : viewModel
+                                                          .bankTransactions[
+                                                              index]
+                                                          .status,
+                                              // viewModel.cryptoTransactions[index].status,
+                                              btc: viewModel.isSelected ==
+                                                      'Card'
+                                                  ? viewModel
+                                                      .cardTransactions[index]
+                                                      .totalGoldBought
+                                                      .toString()
+                                                  : viewModel.isSelected ==
+                                                          'Crypto'
                                                       ? viewModel
-                                                          .cardTransactions[
+                                                          .cryptoTransactions[
                                                               index]
                                                           .totalGoldBought
                                                           .toString()
-                                                      : viewModel.isSelected ==
-                                                              'Crypto'
-                                                          ? viewModel
-                                                              .cryptoTransactions[
-                                                                  index]
-                                                              .totalGoldBought
-                                                              .toString()
-                                                          : viewModel
-                                                              .bankTransactions[
-                                                                  index]
-                                                              .totalGoldBought
-                                                              .toString(),
+                                                      : viewModel
+                                                          .bankTransactions[
+                                                              index]
+                                                          .totalGoldBought
+                                                          .toString(),
 
-                                                  //  viewModel
-                                                  //     .cryptoTransactions[index].totalGoldBought
-                                                  //     .toString(),
-                                                  image: masterCard,
-                                                  imageBack: kcYellowBright,
-                                                  btcColor: kcYellowBright,
-                                                  onTap: () {},
-                                                ),
-                                                SizedBox(
-                                                  height: viewModel
-                                                                  .isSelected ==
-                                                              'Card' &&
-                                                          viewModel
-                                                                  .cardTransactions
-                                                                  .length <
-                                                              2
-                                                      ? 150
-                                                      : viewModel.isSelected ==
-                                                                  'Crypto' &&
-                                                              viewModel
-                                                                      .cryptoTransactions
-                                                                      .length <
-                                                                  2
-                                                          ? 150
-                                                          : viewModel.isSelected ==
-                                                                      'Bank' &&
-                                                                  viewModel
-                                                                          .bankTransactions
-                                                                          .length <
-                                                                      2
-                                                              ? 150
-                                                              : 0,
-                                                )
-                                              ],
+                                              //  viewModel
+                                              //     .cryptoTransactions[index].totalGoldBought
+                                              //     .toString(),
+                                              image: masterCard,
+                                              imageBack: kcYellowBright,
+                                              btcColor: kcYellowBright,
+                                              onTap: () {},
                                             );
                                           }),
                                         ),
                                       ),
+                    Container(
+                      color: Colors.white,
+                      height: viewModel.isSelected == 'Card' &&
+                              viewModel.cardTransactions.length >= 2
+                          ? 50
+                          : viewModel.isSelected == 'Crypto' &&
+                                  viewModel.cryptoTransactions.length >= 2
+                              ? 50
+                              : viewModel.isSelected == 'Bank' &&
+                                      viewModel.bankTransactions.length >= 2
+                                  ? 50
+                                  : 100,
+                    )
                   ],
                 ),
               ),

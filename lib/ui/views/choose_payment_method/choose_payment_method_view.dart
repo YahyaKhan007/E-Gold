@@ -106,7 +106,8 @@ class ChoosePaymentMethodView
                     choosePaymentTile(
                       balance:
                           viewModel.bankService.bankData!.balance.toString(),
-                      margin: viewModel.bankService.bankData!.margin.toString(),
+                      margin:
+                          viewModel.bankService.bankData!.balance.toString(),
                       image: bank,
                       title: 'Link Bank Account',
                       text: 'Connect bank for easy deposits',

@@ -98,7 +98,9 @@ class CryptoService {
     }
   }
 
-  Future<bool> addBalanceToCryptoWallet(double amount) async {
+  Future<bool> addBalanceToCryptoWallet(
+    double amount,
+  ) async {
     try {
       String uid = userService.user!.uid;
       DocumentReference specificCryptoRef = _firestore
@@ -110,7 +112,7 @@ class CryptoService {
           .doc('cryptoData');
       Crypto? existingCryptoData = await getCryptoFromWallet();
       if (existingCryptoData != null) {
-        existingCryptoData.balance = existingCryptoData.balance! + amount;
+        existingCryptoData.balance = existingCryptoData.balance + amount;
         existingCryptoData.margin = existingCryptoData.margin! + amount;
         await specificCryptoRef.update({
           'balance': existingCryptoData.balance,
@@ -152,34 +154,38 @@ class CryptoService {
   }
 
   // ! Add balance to Crypto Wallet
-  Future<bool> addBalanceFromCryptoWallet(
-      double amount, TransactionDetails transactionDetails) async {
-    try {
-      log("\n\n${amount.toString()}      Total amount added \n\n");
-      String uid = userService.user!.uid;
-      DocumentReference specificCryptoRef = _firestore
-          .collection('users')
-          .doc(uid)
-          .collection('wallet')
-          .doc('balance')
-          .collection('crypto')
-          .doc('cryptoData');
-      Crypto? existingCryptoData = await getCryptoFromWallet();
-      // if (existingCryptoData != null && existingCryptoData.balance! >= amount) {
-      existingCryptoData?.balance = existingCryptoData.balance + amount;
-      await specificCryptoRef.update({
-        // 'balance': existingCryptoData?.balance,
-        'balance': existingCryptoData!.balance + amount,
-      });
+  Future<bool> addBalanceFromCryptoWallet(double amount,
+      TransactionDetails transactionDetails, bool isMargin) async {
+    if (isMargin) {
       return true;
-      // }
-      // else {
-      //   print('Insufficient balance for deduction');
-      //   return false;
-      // }
-    } catch (error) {
-      print('Error deducting from crypto in wallet: $error');
-      return false;
+    } else {
+      try {
+        log("\n\n${amount.toString()}      Total amount added \n\n");
+        String uid = userService.user!.uid;
+        DocumentReference specificCryptoRef = _firestore
+            .collection('users')
+            .doc(uid)
+            .collection('wallet')
+            .doc('balance')
+            .collection('crypto')
+            .doc('cryptoData');
+        Crypto? existingCryptoData = await getCryptoFromWallet();
+        // if (existingCryptoData != null && existingCryptoData.balance! >= amount) {
+        existingCryptoData?.balance = existingCryptoData.balance + amount;
+        await specificCryptoRef.update({
+          'balance': existingCryptoData?.balance,
+          // 'balance': existingCryptoData!.balance + amount,
+        });
+        return true;
+        // }
+        // else {
+        //   print('Insufficient balance for deduction');
+        //   return false;
+        // }
+      } catch (error) {
+        print('Error adding from crypto in wallet: $error');
+        return false;
+      }
     }
   }
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:e_gold/app/app.locator.dart';
@@ -77,6 +78,7 @@ class EditProfileViewModel extends BaseViewModel {
 
       // Update the UserProfile with the new image URL
       userProfle!.profileImg = imageUrl;
+      log(imageUrl);
 
       // Notify listeners to update the UI with the new image
       notifyListeners();

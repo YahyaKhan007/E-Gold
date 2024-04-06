@@ -42,13 +42,15 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
   void addBalance(BuildContext context) async {
     if (validateForm()) {
       if (data == 'Bank') {
-        bool check2 = await _bankService
-            .addBalanceToBankWallet(double.parse(amount.text.toString()), false);
+        bool check2 = await _bankService.addBalanceToBankWallet(
+            double.parse(amount.text.toString()), false);
         bool? check = await _balanceService.addBalance(
             FirebaseAuth.instance.currentUser!.uid,
-            double.parse(amount.text.toString()));
+            double.parse(amount.text.toString()),
+            false);
         if (check! && check2) {
           TransactionDetails transactionDetails = TransactionDetails(
+            isMargin: false,
             soldTransactionId: '',
             status: 'Completed',
             totalPaid: double.parse(amount.text.toString()),
@@ -72,9 +74,11 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
             .addBalanceToCryptoWallet(double.parse(amount.text.toString()));
         bool? check = await _balanceService.addBalance(
             FirebaseAuth.instance.currentUser!.uid,
-            double.parse(amount.text.toString()));
+            double.parse(amount.text.toString()),
+            false);
         if (check! && check2) {
           TransactionDetails transactionDetails = TransactionDetails(
+            isMargin: false,
             status: 'Completed',
             totalPaid: double.parse(amount.text.toString()),
             totalBonus: double.parse(amount.text.toString()),

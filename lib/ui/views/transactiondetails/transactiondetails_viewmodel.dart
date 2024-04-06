@@ -22,6 +22,8 @@ class TransactiondetailsViewModel extends BaseViewModel {
   final balanceService = locator<BalanceService>();
   final transactionDetailsService = locator<TransactionDetailsService>();
   final _snackbarService = locator<SnackbarService>();
+  final _bankService = locator<BankService>();
+
   bool navi = true;
 
   bool gold = true;
@@ -31,9 +33,12 @@ class TransactiondetailsViewModel extends BaseViewModel {
     navigationService.back();
   }
 
-  void toSpeceficSellTransaction(TransactionDetails sellTransactionDetails) {
+  void toSpeceficSellTransaction(TransactionDetails sellTransactionDetails,
+      String paidForGoldwhileBuying) {
     navigationService.navigateToSpeceficSellTransactionView(
-        sellTransactionDetails: sellTransactionDetails, key: null);
+        paidForGoldwhileBuying: paidForGoldwhileBuying,
+        sellTransactionDetails: sellTransactionDetails,
+        key: null);
   }
 
   String formattedDate(Timestamp timestamp) {
@@ -109,7 +114,7 @@ class TransactiondetailsViewModel extends BaseViewModel {
             conversionRate: conversionFactor,
             sellRate: currentGoldRate);
 
-        print("Profit Loss: $profitLoss");
+        log("Profit Loss: $profitLoss");
 
         FirebaseFirestore.instance
             .collection('users')
@@ -125,12 +130,10 @@ class TransactiondetailsViewModel extends BaseViewModel {
         // ^   ------------------------------------------
         // ^   ------------------------------------------
 
-        log("came to Loss 1 --->  ");
-
-        log((transactionDetails.totalPaid + profitLoss).toString());
-        log(" Total paid + profitLoss  ======>      ${(transactionDetails.totalPaid + profitLoss).toString()}");
+        log(" Total paid :  ${transactionDetails.totalPaid}  &   profitLoss  :  $profitLoss   ======>    ==  ${(transactionDetails.totalPaid + profitLoss).toString()}");
 
         TransactionDetails newTransaction = TransactionDetails(
+          isMargin: transactionDetails.isMargin,
           status: 'Completed',
           // totalPaid: transactionDetails.totalPaid,
           totalPaid: transactionDetails.totalPaid + profitLoss,
@@ -146,8 +149,8 @@ class TransactiondetailsViewModel extends BaseViewModel {
           soldTransactionId:
               '', // Replace with a unique ID for each transaction
         );
+        rebuildUi();
 
-        log("came to Loss 2 --->  ");
         log(transactionDetails.walletType);
         switch (transactionDetails.walletType) {
           // *   -----------------------------------------
@@ -169,28 +172,43 @@ class TransactiondetailsViewModel extends BaseViewModel {
           // *   -----------------------------------------
 
           case 'Crypto':
-            log("came to Loss 3 --->  Crypto");
+            log("\n\n\t\tCase : Crypto\n\n");
 
             bool check = false;
-            if (gold) {
+            if (transactionDetails.isMargin == false) {
+              log("\n\t========\tCame to Balance section\n\t========");
               check = await cryptoService.addBalanceFromCryptoWallet(
-                transactionDetails.totalPaid + profitLoss,
-                transactionDetails,
-              );
+                  transactionDetails.totalPaid + profitLoss,
+                  transactionDetails,
+                  false);
+
+              await balanceService.addBalanceToWallet(
+                  FirebaseAuth.instance.currentUser!.uid,
+                  transactionDetails.totalPaid + profitLoss);
             } else {
               // ^ remains For Margin
-              check = await cryptoService
-                  .deductMarginFromCryptoWallet(transactionDetails.totalPaid);
+              log("\n\t========\tCame to Margin Section\n\t========");
+
+              balanceService.addBalance(
+                  FirebaseAuth.instance.currentUser!.uid, profitLoss, true);
+
+              check = await cryptoService.addBalanceFromCryptoWallet(
+                  profitLoss, transactionDetails, false);
+
+              // await balanceService.addMarginToWallet(
+              //     FirebaseAuth.instance.currentUser!.uid,
+              //     transactionDetails.totalPaid,
+              //     true);
             }
 
             if (check) {
-              gold
-                  ? await balanceService.addBalanceToWallet(
-                      FirebaseAuth.instance.currentUser!.uid,
-                      transactionDetails.totalPaid)
-                  : await balanceService.addMarginToWallet(
-                      FirebaseAuth.instance.currentUser!.uid,
-                      transactionDetails.totalPaid);
+              // gold
+              //     ? await balanceService.addBalanceToWallet(
+              //         FirebaseAuth.instance.currentUser!.uid,
+              //         transactionDetails.totalPaid + profitLoss)
+              //     : await balanceService.addMarginToWallet(
+              //         FirebaseAuth.instance.currentUser!.uid,
+              //         transactionDetails.totalPaid);
               await cryptoService.getCryptoData();
               await transactionDetailsService.addTransaction(
                   oldTransactionDetails: transactionDetails,
@@ -211,7 +229,7 @@ class TransactiondetailsViewModel extends BaseViewModel {
               navi = true;
             }
             navigationService.replaceWithDashboardScreenView();
-            return;
+            break;
 
           // *   -----------------------------------------
           // *   -----------------------------------------
@@ -250,13 +268,20 @@ class TransactiondetailsViewModel extends BaseViewModel {
               gold
                   ? await balanceService.addBalanceToWallet(
                       FirebaseAuth.instance.currentUser!.uid,
-                      transactionDetails.totalPaid)
+                      transactionDetails.totalPaid + profitLoss)
                   :
                   // ^ Remains for Bank Margin
 
                   await balanceService.addMarginToWallet(
                       FirebaseAuth.instance.currentUser!.uid,
-                      transactionDetails.totalPaid);
+                      transactionDetails.totalPaid,
+                      true);
+
+              // await _bankService.addBalanceToBankWallet(
+              //     double.parse(
+              //         (transactionDetails.totalPaid + profitLoss).toString()),
+              //     false);
+
               await cryptoService.getCryptoData();
               await transactionDetailsService.addTransaction(
                   oldTransactionDetails: transactionDetails,
@@ -278,7 +303,7 @@ class TransactiondetailsViewModel extends BaseViewModel {
             }
             navigationService.replaceWithDashboardScreenView();
 
-            return;
+            break;
 
           // *   -----------------------------------------
           // *   -----------------------------------------
@@ -306,7 +331,7 @@ class TransactiondetailsViewModel extends BaseViewModel {
             navi
                 ? navigationService.replaceWithDashboardScreenView()
                 : navigationService.replaceWithDepositScreenView();
-            return;
+            break;
         }
       }
     } catch (e, stackTrace) {

@@ -644,7 +644,8 @@ class StackedRouter extends _i1.RouterBase {
           data.getArgs<SpeceficSellTransactionViewArguments>(nullOk: false);
       return _i41.MaterialPageRoute<dynamic>(
         builder: (context) => _i40.SpeceficSellTransactionView(args.key,
-            sellTransactionDetails: args.sellTransactionDetails),
+            sellTransactionDetails: args.sellTransactionDetails,
+            paidForGoldwhileBuying: args.paidForGoldwhileBuying),
         settings: data,
       );
     },
@@ -1031,27 +1032,33 @@ class SpeceficSellTransactionViewArguments {
   const SpeceficSellTransactionViewArguments({
     required this.key,
     required this.sellTransactionDetails,
+    required this.paidForGoldwhileBuying,
   });
 
   final _i41.Key? key;
 
   final _i42.TransactionDetails sellTransactionDetails;
 
+  final String paidForGoldwhileBuying;
+
   @override
   String toString() {
-    return '{"key": "$key", "sellTransactionDetails": "$sellTransactionDetails"}';
+    return '{"key": "$key", "sellTransactionDetails": "$sellTransactionDetails", "paidForGoldwhileBuying": "$paidForGoldwhileBuying"}';
   }
 
   @override
   bool operator ==(covariant SpeceficSellTransactionViewArguments other) {
     if (identical(this, other)) return true;
     return other.key == key &&
-        other.sellTransactionDetails == sellTransactionDetails;
+        other.sellTransactionDetails == sellTransactionDetails &&
+        other.paidForGoldwhileBuying == paidForGoldwhileBuying;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ sellTransactionDetails.hashCode;
+    return key.hashCode ^
+        sellTransactionDetails.hashCode ^
+        paidForGoldwhileBuying.hashCode;
   }
 }
 
@@ -1679,6 +1686,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   Future<dynamic> navigateToSpeceficSellTransactionView({
     required _i41.Key? key,
     required _i42.TransactionDetails sellTransactionDetails,
+    required String paidForGoldwhileBuying,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1687,7 +1695,9 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }) async {
     return navigateTo<dynamic>(Routes.speceficSellTransactionView,
         arguments: SpeceficSellTransactionViewArguments(
-            key: key, sellTransactionDetails: sellTransactionDetails),
+            key: key,
+            sellTransactionDetails: sellTransactionDetails,
+            paidForGoldwhileBuying: paidForGoldwhileBuying),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -2317,6 +2327,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   Future<dynamic> replaceWithSpeceficSellTransactionView({
     required _i41.Key? key,
     required _i42.TransactionDetails sellTransactionDetails,
+    required String paidForGoldwhileBuying,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2325,7 +2336,9 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }) async {
     return replaceWith<dynamic>(Routes.speceficSellTransactionView,
         arguments: SpeceficSellTransactionViewArguments(
-            key: key, sellTransactionDetails: sellTransactionDetails),
+            key: key,
+            sellTransactionDetails: sellTransactionDetails,
+            paidForGoldwhileBuying: paidForGoldwhileBuying),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

@@ -61,7 +61,7 @@ class HomeTransactionRow extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.only(bottom: 5),
         child: transactionDetails.transactionType == 'Sell'
             ? const SizedBox()
             : ListTile(
@@ -243,7 +243,7 @@ class HomeTransactionRow extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                       )
                                     : Text(
-                                        "${calculateProfitLoss(buyRate: transactionDetails.buyGoldRate, conversionRate: conversionFactor, gramsBought: transactionDetails.totalGoldBought, sellRate: currentGoldRate).toString()} ",
+                                        "${calculateProfitLoss(buyRate: transactionDetails.buyGoldRate, conversionRate: conversionFactor, gramsBought: transactionDetails.totalGoldBought, sellRate: currentGoldRate).toStringAsFixed(2).toString()} ",
                                         style: TextStyle(
                                           color: calculateProfitLoss(
                                                       buyRate:
@@ -263,7 +263,7 @@ class HomeTransactionRow extends StatelessWidget {
                                         ),
                                       ),
                                 Text(
-                                  double.parse(btc).toStringAsFixed(5),
+                                  double.parse(btc).toStringAsFixed(4),
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,

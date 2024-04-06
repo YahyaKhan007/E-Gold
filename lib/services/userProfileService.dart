@@ -46,7 +46,7 @@ class UserProfileService {
 
       // Reference to the Firestore collection
       CollectionReference usersCollection =
-          FirebaseFirestore.instance.collection('users');
+          FirebaseFirestore.instance.collection('user');
 
       // Document reference under the "users" collection with the user's UID
       DocumentReference userDocument = usersCollection.doc(uid);

@@ -8,9 +8,11 @@ import 'specefic_sell_transaction_viewmodel.dart';
 class SpeceficSellTransactionView
     extends StackedView<SpeceficSellTransactionViewModel> {
   final TransactionDetails sellTransactionDetails;
+  final String paidForGoldwhileBuying;
 
   const SpeceficSellTransactionView(Key? key,
-      {required this.sellTransactionDetails})
+      {required this.sellTransactionDetails,
+      required this.paidForGoldwhileBuying})
       : super(key: key);
 
   @override
@@ -79,13 +81,15 @@ class SpeceficSellTransactionView
                         rowName: 'Status',
                         value: sellTransactionDetails.status),
                     transactionRow(
-                        rowName: 'Total Got Payment',
+                        rowName: 'Paid for Buy Gold',
+                        value: "$paidForGoldwhileBuying AED"),
+                    transactionRow(
+                        rowName: 'Recieved After Selling',
                         value: "${sellTransactionDetails.totalPaid} AED"),
                     transactionRow(
-                        rowName: 'Total Got Payment',
-                        value: "${sellTransactionDetails.totalPaid} AED"),
-                    transactionRow(
-                        rowName: 'Bonus Earned',
+                        rowName: sellTransactionDetails.totalBonus >= 0
+                            ? 'Profit'
+                            : 'Loss',
                         value: "${sellTransactionDetails.totalBonus} AED"),
                     transactionRow(
                         rowName: 'Total Gold Sold',

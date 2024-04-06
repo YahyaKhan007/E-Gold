@@ -41,6 +41,7 @@ class AuthService {
       await credential.user?.sendEmailVerification();
 
       UserProfile user = UserProfile(
+          isAdmin: false,
           name: name,
           profileImg: '',
           countryCode: '',
@@ -208,6 +209,7 @@ class AuthService {
         return true;
       } else {
         UserProfile user = UserProfile(
+          isAdmin: false,
           name: '',
           profileImg: '',
           countryCode: '',
