@@ -14,13 +14,49 @@
       },
       "oauth_client": [
         {
-          "client_id": "609996616069-g6u7bvq8bj6buthkdh5ofabejs4agjqg.apps.googleusercontent.com",
+          "client_id": "609996616069-8s2mf3bsonp92ctdcr8ovfpdh0s1qlt7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.e_gold",
-            "certificate_hash": "f38dea953abfdbe7e6c4854542315bf6c277da71"
+            "certificate_hash": "b1b04124bcc864fd6beb2e1e1de88c8f35411b52"
           }
         },
+        {
+          "client_id": "609996616069-d3v24runvf2rg1kfcmlgs3aq0delf205.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-A6-xMYe9qr49RCxGmkPCsPXO8v2BR-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609996616069-d3v24runvf2rg1kfcmlgs3aq0delf205.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "609996616069-07p9ecmh8q22l6briuefusqd44j2qb4s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eGold"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609996616069:android:72ebeab3817d51c9cad4ec",
+        "android_client_info": {
+          "package_name": "com.example.egold_admin"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "609996616069-d3v24runvf2rg1kfcmlgs3aq0delf205.apps.googleusercontent.com",
           "client_type": 3

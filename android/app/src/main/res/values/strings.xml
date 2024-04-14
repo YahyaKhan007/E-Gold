@@ -1,4 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook_app_id">405445261853672</string>
-    <string name="facebook_client_token">437a5e8f79264f25936b1970795bbe15</string>
+    <string name="facebook_app_id">1460103368242961</string>
+    <string name="fb_login_protocol_scheme">fb1460103368242961</string>
+    <string name="facebook_client_token">aeca02654f63a81169d1421ed1f5447a</string>
+    <string name="app_name">"eGold"</string>
+
 </resources>

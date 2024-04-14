@@ -53,18 +53,17 @@ class TransactiondetailsViewModel extends BaseViewModel {
       required double conversionRate}) {
     double buyAmount = gramsBought * buyRate;
     double sellAmount = gramsBought * sellRate;
-    // double buyInTola = gramsBought / conversionRate;
     double profitLoss = sellAmount - buyAmount;
 
-    // Convert to tola for display purposes
-    // double profitLossInTola = profitLoss / conversionRate;
-
-    // print(
-    //     'Bought $gramsBought grams of gold at $buyRate per gram for $buyAmount');
-    // print('Sold for $sellRate per gram for $sellAmount');
-    // print('Profit/Loss: $profitLoss grams or $profitLossInTola tola');
-
     return profitLoss;
+  }
+
+  double calculateProfitPercentage(double profit) {
+    if (profit > 0) {
+      return profit * 0.015; // 1.5% of the profit
+    } else {
+      return 0.0; // Return 0 if there's no profit
+    }
   }
 
   // * Fetching a specefic Transaction
@@ -95,6 +94,40 @@ class TransactiondetailsViewModel extends BaseViewModel {
     }
   }
 
+// ~   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  // ~   Admin Profit Function
+// ~   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  Future<void> updateAdminTotalProfits({required double profitToAdd}) async {
+    final DocumentReference documentReference =
+        FirebaseFirestore.instance.collection('profits').doc('totalProfits');
+
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot snapshot = await transaction.get(documentReference);
+      double currentTotal = (snapshot.get('totalProfits') ?? 0).toDouble();
+      double newTotal = currentTotal + profitToAdd;
+      transaction.update(documentReference, {'totalProfits': newTotal});
+    });
+
+    log('admin profit updated');
+  }
+
+  Future<void> updateAdminTotalSalesDocument(
+      {required double saleToAdd}) async {
+    final DocumentReference documentReference =
+        FirebaseFirestore.instance.collection('sales').doc('totalSales');
+
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot snapshot = await transaction.get(documentReference);
+      double currentTotal = (snapshot.get('totalSales') ?? 0).toDouble();
+      double newTotal = currentTotal + saleToAdd;
+      transaction.update(documentReference, {'totalSales': newTotal});
+    });
+
+    log('admin sales updated');
+  }
+
+// ~   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   void sellTransaction(TransactionDetails transactionDetails) async {
     try {
       if (transactionDetails.transactionType == 'Buy') {
@@ -114,7 +147,23 @@ class TransactiondetailsViewModel extends BaseViewModel {
             conversionRate: conversionFactor,
             sellRate: currentGoldRate);
 
-        log("Profit Loss: $profitLoss");
+        log("total Profit Loss: $profitLoss");
+
+        double profitByAdmin = calculateProfitPercentage(profitLoss);
+
+        profitLoss = profitLoss - profitByAdmin;
+
+        log('profit made by admin   : $profitByAdmin ');
+
+        log("After admin decuction ,  Profit Loss: $profitLoss");
+
+        //~  For admin Panel
+        updateAdminTotalProfits(profitToAdd: profitByAdmin);
+
+        updateAdminTotalSalesDocument(
+            saleToAdd: transactionDetails.totalPaid + profitLoss);
+
+        //  ~ ------------------------------------------------------------------------------
 
         FirebaseFirestore.instance
             .collection('users')
@@ -150,6 +199,9 @@ class TransactiondetailsViewModel extends BaseViewModel {
               '', // Replace with a unique ID for each transaction
         );
         rebuildUi();
+
+        // ^   Responsible for adding the sales in to the firebase fiels totals sales
+        // ^ responsible for the adding     1.5 %     of the total profit of the user transactions
 
         log(transactionDetails.walletType);
         switch (transactionDetails.walletType) {

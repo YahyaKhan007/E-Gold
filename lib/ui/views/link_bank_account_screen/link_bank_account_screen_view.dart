@@ -101,7 +101,7 @@ class LinkBankAccountScreenView
                               children: [
                                 Center(
                                   child: GestureDetector(
-                                    onTap: viewModel.linkAccount,
+                                    onTap:()=> viewModel.linkAccount(context),
                                     child: Container(
                                       width: 150,
                                       height: 48,

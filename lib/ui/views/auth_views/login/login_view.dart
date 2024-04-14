@@ -181,7 +181,8 @@ class LoginView extends StackedView<LoginViewModel> {
                         children: [
                           for (int i = 0; i < 3; i++)
                             ElevatedButton(
-                              onPressed: () => viewModel.handleButtonPress(i),
+                              onPressed: () =>
+                                  viewModel.handleButtonPress(i, context),
                               style: styleFrom,
                               child: Icon(
                                 viewModel.iconData[i],

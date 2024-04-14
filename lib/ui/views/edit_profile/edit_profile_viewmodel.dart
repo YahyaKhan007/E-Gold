@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_holo_date_picker/date_picker.dart';
 import 'package:flutter_holo_date_picker/i18n/date_picker_i18n.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -28,37 +29,32 @@ class EditProfileViewModel extends BaseViewModel {
   TextEditingController phoneNoController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController dobController = TextEditingController();
-  UserProfile? userProfle;
+  UserProfile? userProfile;
   PhoneNumber? initialValue;
-
-  // late final HomeViewModel homeScreenViewModel;
 
   void onViewModelReady() async {
     setBusy(true);
-    userProfle = HomeViewModel().userService.user;
-    // userProfle = await userProfileService.getUserProfileFromFirestore();
-    firstNameController.text = userProfle!.name;
-    emailController.text = userProfle!.email;
-    countryCode = userProfle!.countryCode;
-    phoneNoController.text = userProfle!.phoneNumber;
+    userProfile = HomeViewModel().userService.user;
+    firstNameController.text = userProfile!.name;
+    emailController.text = userProfile!.email;
+    countryCode = userProfile!.countryCode;
+    phoneNoController.text = userProfile!.phoneNumber;
     initialValue = PhoneNumber(
-        dialCode: userProfle!.countryCode, phoneNumber: '', isoCode: 'AE');
-    print(initialValue);
-    print(initialValue);
-    dobController.text = userProfle!.dateOfBirth;
-    profileImgUrl = userProfle!.profileImg;
+        dialCode: userProfile!.countryCode, phoneNumber: '', isoCode: 'AE');
+    dobController.text = userProfile!.dateOfBirth;
+    profileImgUrl = userProfile!.profileImg;
     setBusy(false);
   }
 
   void submitForm() async {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      userProfle?.countryCode = countryCode;
-      userProfle?.name = firstNameController.text;
-      userProfle?.email = emailController.text;
-      userProfle?.phoneNumber = phoneNoController.text;
-      userProfle?.dateOfBirth = dobController.text;
-      await userProfileService.updateUserToFirestore(userProfle!);
+      userProfile?.countryCode = countryCode;
+      userProfile?.name = firstNameController.text;
+      userProfile?.email = emailController.text;
+      userProfile?.phoneNumber = phoneNoController.text;
+      userProfile?.dateOfBirth = dobController.text;
+      await userProfileService.updateUserToFirestore(userProfile!);
       await userProfileService.getUser();
       navigationService.replaceWithDashboardScreenView();
     }
@@ -72,15 +68,9 @@ class EditProfileViewModel extends BaseViewModel {
     File? selectedImage = await showOptions(context);
 
     if (selectedImage != null) {
-      // Upload the selected image to storage
       String imageUrl =
           await userProfileService.uploadImageToStorage(selectedImage);
-
-      // Update the UserProfile with the new image URL
-      userProfle!.profileImg = imageUrl;
-      log(imageUrl);
-
-      // Notify listeners to update the UI with the new image
+      userProfile!.profileImg = imageUrl;
       notifyListeners();
     }
   }
@@ -91,26 +81,24 @@ class EditProfileViewModel extends BaseViewModel {
     if (pickedFile != null) {
       File selectedImage = File(pickedFile.path);
       notifyListeners();
-      return selectedImage; // Return the File instance
+      return selectedImage;
     }
 
-    return null; // Return null if no image was selected
+    return null;
   }
 
-// Image Picker function to get image from camera
   Future<File?> getImageFromCamera() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
     if (pickedFile != null) {
       File capturedImage = File(pickedFile.path);
       notifyListeners();
-      return capturedImage; // Return the File instance
+      return capturedImage;
     }
 
-    return null; // Return null if no image was captured
+    return null;
   }
 
-// Show options to get image from camera or gallery
   Future<File> showOptions(BuildContext context) async {
     Completer<File> completer = Completer<File>();
 
@@ -121,18 +109,14 @@ class EditProfileViewModel extends BaseViewModel {
           CupertinoActionSheetAction(
             child: Text('Photo Gallery'),
             onPressed: () async {
-              // Close the options modal
               Navigator.of(context).pop();
-              // Get image from gallery and complete the Future
               completer.complete(await getImageFromGallery());
             },
           ),
           CupertinoActionSheetAction(
             child: Text('Camera'),
             onPressed: () async {
-              // Close the options modal
               Navigator.of(context).pop();
-              // Get image from camera and complete the Future
               completer.complete(await getImageFromCamera());
             },
           ),
@@ -140,7 +124,6 @@ class EditProfileViewModel extends BaseViewModel {
       ),
     );
 
-    // Return the Future that completes when the user selects an image
     return completer.future;
   }
 
@@ -153,6 +136,9 @@ class EditProfileViewModel extends BaseViewModel {
       locale: DateTimePickerLocale.en_us,
       looping: true,
     );
-    dobController.text = datePicked.toString();
+    if (datePicked != null) {
+      dobController.text =
+          DateFormat("dd-MMMM-yyyy").format(datePicked).toString();
+    }
   }
 }

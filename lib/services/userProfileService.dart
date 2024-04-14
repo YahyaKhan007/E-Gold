@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,7 +47,7 @@ class UserProfileService {
 
       // Reference to the Firestore collection
       CollectionReference usersCollection =
-          FirebaseFirestore.instance.collection('user');
+          FirebaseFirestore.instance.collection('users');
 
       // Document reference under the "users" collection with the user's UID
       DocumentReference userDocument = usersCollection.doc(uid);
@@ -57,9 +58,9 @@ class UserProfileService {
       // Save user data to the Firestore document
       await userDocument.update(userData);
 
-      print('User data added to Firestore successfully!');
+      log('User data added to Firestore successfully!');
     } catch (e) {
-      print('Error adding user data to Firestore: $e');
+      log('Error adding user data to Firestore: $e');
     }
   }
 

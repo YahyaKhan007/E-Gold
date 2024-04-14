@@ -100,7 +100,7 @@ class TransactionHistoryScreenView
             Positioned(
               top: size.height * 0.13,
               child: SizedBox(
-                height: size.height * 0.765,
+                height: size.height * 0.8,
                 width: size.width,
                 child: SingleChildScrollView(
                   child: Column(
@@ -119,7 +119,7 @@ class TransactionHistoryScreenView
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(30),
                                       topRight: Radius.circular(30))),
-                              height: screenHeight(context) * 0.765,
+                              height: screenHeight(context) * 0.8,
                               child: ListView.separated(
                                 padding: EdgeInsets.zero,
                                 controller: viewModel.scrollController,

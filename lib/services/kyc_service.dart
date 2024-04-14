@@ -26,6 +26,27 @@ class KycService {
     return downloadURL;
   }
 
+  // Future<void> saveKYCData(KYC kycData) async {
+  //   try {
+  //     // Get the current user's UID
+  //     String uid = FirebaseAuth.instance.currentUser!.uid;
+  //
+  //     // Reference to the Firestore collection
+  //     CollectionReference usersCollection =
+  //         FirebaseFirestore.instance.collection('users');
+  //
+  //     // Document reference under the "users" collection with the user's UID
+  //     DocumentReference userDocument = usersCollection.doc(uid);
+  //
+  //     // Save KYC data to the "kyc" subcollection
+  //     await userDocument.collection('kyc').doc().update(kycData.toJson());
+  //
+  //     print('KYC data saved successfully!');
+  //   } catch (e) {
+  //     print('Error saving KYC data: $e');
+  //   }
+  // }
+
   Future<void> saveKYCData(KYC kycData) async {
     try {
       // Get the current user's UID
@@ -38,10 +59,25 @@ class KycService {
       // Document reference under the "users" collection with the user's UID
       DocumentReference userDocument = usersCollection.doc(uid);
 
-      // Save KYC data to the "kyc" subcollection
-      await userDocument.collection('kyc').doc().set(kycData.toJson());
+      // Query for the first document in the "kyc" subcollection
+      QuerySnapshot kycSnapshot =
+          await userDocument.collection('kyc').limit(1).get();
 
-      print('KYC data saved successfully!');
+      // Check if there are any documents in the "kyc" subcollection
+      if (kycSnapshot.docs.isNotEmpty) {
+        // Get the reference to the first document
+        DocumentReference firstKYCDocument =
+            userDocument.collection('kyc').doc(kycSnapshot.docs.first.id);
+
+        // Update the data of the first document
+        await firstKYCDocument.update(kycData.toJson());
+
+        print('KYC data updated successfully!');
+      } else {
+        // If no documents found, create a new one
+        await userDocument.collection('kyc').add(kycData.toJson());
+        print('KYC data saved successfully!');
+      }
     } catch (e) {
       print('Error saving KYC data: $e');
     }

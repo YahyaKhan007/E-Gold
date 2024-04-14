@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/bank.dart';
@@ -145,6 +147,7 @@ class AuthService {
 
   Future<void> signOut() async {
     userProfileService.cleanUser();
+    await _googleSignIn.signOut();
     await _auth.signOut();
   }
 
@@ -275,20 +278,40 @@ class AuthService {
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    // final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    // // Obtain the auth details from the request
+    // final GoogleSignInAuthentication? googleAuth =
+    //     await googleUser?.authentication;
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+    // // Create a new credential
+    // final credential = GoogleAuthProvider.credential(
+    //   accessToken: googleAuth?.accessToken,
+    //   idToken: googleAuth?.idToken,
+    // );
 
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    // // Once signed in, return the UserCredential
+    // return await FirebaseAuth.instance.signInWithCredential(credential);
+
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      var userCred = await _auth.signInWithCredential(credential);
+
+      log(userCred.toString());
+
+      return userCred;
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      throw e;
+    }
   }
 
   Future<UserCredential> signInWithFacebook() async {

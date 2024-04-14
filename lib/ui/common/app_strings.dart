@@ -7,5 +7,6 @@ final RegExp emailRegExp = RegExp(
 );
 
 const double currentGoldRate = 3024.79;
+// const double currentGoldRate = 402224.79;
 double conversionFactor = 11.7;
 const double walletLimit = 3000;

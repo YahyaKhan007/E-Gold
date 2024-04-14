@@ -366,7 +366,8 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                     ),
                   ),
                   Visibility(
-                    visible: !transactionDetails.isSold,
+                    visible: !transactionDetails.isSold &&
+                        transactionDetails.transactionType != 'TopUp',
                     child: GestureDetector(
                       onTap: () {
                         log(transactionDetails.isSold.toString());

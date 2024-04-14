@@ -94,13 +94,29 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
       transactionDate: Timestamp.now(),
       transactionId: 'unique_transaction_id',
       buyGoldRate: currentGoldRate,
-      soldTransactionId: '', isMargin: gold, // Replace with a unique ID for each transaction
+      soldTransactionId: '',
+      isMargin: gold, // Replace with a unique ID for each transaction
     );
 
     await transactionDetailsService.addTransaction(
         userId: FirebaseAuth.instance.currentUser!.uid,
         newTransactionDetails: newTransaction);
     // _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
+  }
+
+  Future<void> updateAdminTotalPurchaseDocument(
+      {required double purchaseToAdd}) async {
+    final DocumentReference documentReference =
+        FirebaseFirestore.instance.collection('purchase').doc('totalPurchases');
+
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot snapshot = await transaction.get(documentReference);
+      double currentTotal = (snapshot.get('totalPurchases') ?? 0).toDouble();
+      double newTotal = currentTotal + purchaseToAdd;
+      transaction.update(documentReference, {'totalPurchases': newTotal});
+    });
+
+    log('admin totalPurchases updated');
   }
 
   void toContinue() async {
@@ -129,22 +145,26 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
           soldTransactionId:
               '', // Replace with a unique ID for each transaction
         );
+
         if (withdrawMethod == 'Crypto') {
           bool check = false;
           if (gold) {
             check = await cryptoService.deductBalanceFromCryptoWallet(ammount);
+            updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
           } else {
             check = await cryptoService.deductMarginFromCryptoWallet(ammount);
           }
 
           if (check) {
-            gold
-                ? await balanceService.deductBalance(
-                    FirebaseAuth.instance.currentUser!.uid,
-                    double.parse(amount))
-                : await balanceService.deductMargin(
-                    FirebaseAuth.instance.currentUser!.uid,
-                    double.parse(amount));
+            if (gold) {
+              await balanceService.deductBalance(
+                  FirebaseAuth.instance.currentUser!.uid, double.parse(amount));
+              updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
+            } else {
+              await balanceService.deductMargin(
+                  FirebaseAuth.instance.currentUser!.uid, double.parse(amount));
+            }
+
             await cryptoService.getCryptoData();
             await transactionDetailsService.addTransaction(
                 userId: FirebaseAuth.instance.currentUser!.uid,
@@ -167,6 +187,7 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
           bool check = false;
           if (gold) {
             check = await bankService.deductBalanceFromBankWallet(ammount);
+            updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
           } else {
             check = await bankService.deductMarginFromBankWallet(ammount);
           }

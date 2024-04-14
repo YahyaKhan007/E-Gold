@@ -48,7 +48,7 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
           Positioned(
             top: size.height * 0.13,
             child: Container(
-              height: size.height * 0.765,
+              height: size.height * 0.8,
               width: size.width,
               padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
               decoration: const BoxDecoration(

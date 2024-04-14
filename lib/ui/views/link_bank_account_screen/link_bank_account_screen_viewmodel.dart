@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:e_gold/app/app.dialogs.dart';
@@ -58,7 +59,7 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
     }
   }
 
-  void linkAccount() async {
+  void linkAccount(BuildContext context) async {
     if (validateForm()) {
       Bank bankData = Bank(
         bankName: bankName.text.toString(),
@@ -67,6 +68,7 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
       );
       try {
         bool success = await _bankService.addBankToWallet(bankData);
+        log(success.toString());
         if (success) {
           _snackbarService.showSnackbar(
             message: 'Bank Linked Successfully',
@@ -87,7 +89,8 @@ class LinkBankAccountScreenViewModel extends BaseViewModel {
           duration: const Duration(seconds: 2),
         );
       }
-      _navigationService.back();
+      Navigator.pop(context);
+      // Future.delayed(const Duration(seconds: 3)); _navigationService.back();
     }
   }
 }

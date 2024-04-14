@@ -83,7 +83,7 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                                   backgroundColor:
                                       kcLightButtonBackground.withOpacity(0.9)),
                               onPressed: () =>
-                                  viewModel.handleButtonPress(index),
+                                  viewModel.handleButtonPress(context, index),
                               icon: SvgPicture.asset(
                                 viewModel.buttonData[index]['icon'],
                                 height: 28.0,

@@ -17,12 +17,17 @@ class PhoneSignUpView extends StackedView<PhoneSignUpViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
+            verticalSpaceSmall,
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 48.0, horizontal: 12.5),

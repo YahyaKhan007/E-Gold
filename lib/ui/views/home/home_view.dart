@@ -5,7 +5,6 @@ import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/views/home/home_viewmodel.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:simple_progress_indicators/simple_progress_indicators.dart';
@@ -513,14 +512,14 @@ class HomeView extends StackedView<HomeViewModel> {
                       color: Colors.white,
                       height: viewModel.isSelected == 'Card' &&
                               viewModel.cardTransactions.length >= 2
-                          ? 50
+                          ? 200
                           : viewModel.isSelected == 'Crypto' &&
                                   viewModel.cryptoTransactions.length >= 2
-                              ? 50
+                              ? 200
                               : viewModel.isSelected == 'Bank' &&
                                       viewModel.bankTransactions.length >= 2
-                                  ? 50
-                                  : 100,
+                                  ? 200
+                                  : 200,
                     )
                   ],
                 ),
