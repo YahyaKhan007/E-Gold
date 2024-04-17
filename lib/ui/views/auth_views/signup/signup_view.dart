@@ -20,6 +20,18 @@ class SignupView extends StackedView<SignupViewModel> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              // color: Colors.white,
+            )),
+        backgroundColor: Colors.transparent,
+      ),
+      extendBodyBehindAppBar: true,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 40),
         height: size.height,
@@ -38,6 +50,9 @@ class SignupView extends StackedView<SignupViewModel> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(
+                height: 40,
+              ),
               const Center(
                   child: Text(
                 'Create Account',

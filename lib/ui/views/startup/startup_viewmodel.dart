@@ -3,6 +3,7 @@ import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/inStore_service.dart';
+import 'package:e_gold/services/sales_and_purchase_service_service.dart';
 import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,7 @@ import '../../../app/app.locator.dart';
 
 class StartupViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
+  final salesAndPurchases = locator<SalesAndPurchaseServiceService>();
   final userProfileService = locator<UserProfileService>();
   final _transactionService = locator<TransactionDetailsService>();
   final inStoreService = locator<InStoreService>();
@@ -28,6 +30,9 @@ class StartupViewModel extends BaseViewModel {
     if (user != null) {
       await userProfileService.getUser();
       await bankService.getBankData();
+      await salesAndPurchases.getAllSandP();
+      print(
+          "Length of S and P documnets are :    ${salesAndPurchases.salesAndPurchasesList.length}");
       print(
           '///////////////////////////////////////////////////////////////////////////////////////////////////////////');
       await cryptoService.getCryptoData();
@@ -35,9 +40,9 @@ class StartupViewModel extends BaseViewModel {
       await balanceService
           .getBalanceData(FirebaseAuth.instance.currentUser!.uid);
       await _transactionService.getAllTransactionDetails(user.uid);
-      navigationService.replaceWithDashboardScreenView();
-    } else {
-      navigationService.replaceWithLoginView();
+      navigationService.clearStackAndShow(Routes.dashboardScreenView);
+    } else { 
+      navigationService.clearStackAndShow(Routes.loginView);
     }
 
     rebuildUi();

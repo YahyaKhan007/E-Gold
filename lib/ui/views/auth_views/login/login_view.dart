@@ -81,42 +81,55 @@ class LoginView extends StackedView<LoginViewModel> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          TextFormField(
+                          Container(
+                            decoration: BoxDecoration(
+                                border: const Border(
+                                    bottom: BorderSide(color: Colors.grey)),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextFormField(
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                ),
+                                controller: viewModel.emailController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  label: Text(
+                                    'Email or Phone Number',
+                                  ),
+                                  labelStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                validator: Validator.validateEmail),
+                          ),
+                          verticalSpaceMedium,
+                          Container(
+                            decoration: BoxDecoration(
+                                border: const Border(
+                                    bottom: BorderSide(color: Colors.grey)),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextFormField(
+                              controller: viewModel.passwordController,
+                              obscureText: viewModel.isPasswordVisible,
                               style: const TextStyle(
                                 color: Colors.black,
                               ),
-                              controller: viewModel.emailController,
-                              decoration: const InputDecoration(
-                                label: Text(
-                                  'Email or Phone Number',
-                                ),
-                                labelStyle: TextStyle(
+                              validator: Validator.validatePassword,
+                              decoration: InputDecoration(
+                                // fillColor: Colors.transparent,
+                                label: const Text('Password'),
+                                labelStyle: const TextStyle(
                                   color: Colors.black,
                                 ),
-                              ),
-                              validator: Validator.validateEmail),
-                          verticalSpaceMedium,
-                          TextFormField(
-                            controller: viewModel.passwordController,
-                            obscureText: viewModel.isPasswordVisible,
-                            style: const TextStyle(
-                              color: Colors.black,
-                            ),
-                            validator: Validator.validatePassword,
-                            decoration: InputDecoration(
-                              // fillColor: Colors.transparent,
-                              label: const Text('Password'),
-                              labelStyle: const TextStyle(
-                                color: Colors.black,
-                              ),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  viewModel.isPasswordVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: Colors.black,
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    viewModel.isPasswordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Colors.black,
+                                  ),
+                                  onPressed: viewModel.showPassword,
                                 ),
-                                onPressed: viewModel.showPassword,
                               ),
                             ),
                           ),

@@ -153,6 +153,7 @@ class AuthService {
 
   Future<void> verifyPhoneNumber(String phoneNumber) async {
     try {
+      log("My Entered phone number is : $phoneNumber");
       await _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (AuthCredential authCredential) async {

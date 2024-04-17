@@ -8,14 +8,20 @@ import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/services/balance_service.dart';
 import 'package:e_gold/services/bank_service.dart';
 import 'package:e_gold/services/crypto_service.dart';
+import 'package:e_gold/services/sales_and_purchase_service_service.dart';
 import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../../services/kyc_service.dart';
+
 class BuyGoldOrSilverViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
+  final kycService = locator<KycService>();
+  final saleAndPurchaseServices = locator<SalesAndPurchaseServiceService>();
   final bankService = locator<BankService>();
   final _snackbarService = locator<SnackbarService>();
   final dialogService = locator<DialogService>();
@@ -120,113 +126,153 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
   }
 
   void toContinue() async {
-    try {
-      double? ammount = double.tryParse(amount);
-      if (amount.isEmpty) {
-        _snackbarService.showSnackbar(
-          message: 'Enter Some amount',
-          title: 'Error',
-          duration: const Duration(seconds: 2),
-        );
-      } else {
-        TransactionDetails newTransaction = TransactionDetails(
-          status: 'Completed',
-          totalPaid: ammount!,
-          totalBonus: 0,
-          transactionType: 'Buy',
-          totalGoldBought: totalGramsToBuy,
-          withdrawMethod: withdrawMethod,
-          walletType: withdrawMethod,
-          transactionDate: Timestamp.now(),
-          transactionId: 'unique_transaction_id',
-          buyGoldRate: currentGoldRate,
-          isSold: false,
-          isMargin: !gold,
-          soldTransactionId:
-              '', // Replace with a unique ID for each transaction
-        );
+    if (await kycService.isKycApproved()) {
+      try {
+        // await datesOfSaleAndPurchasesDocuments();
+        double? ammount = double.tryParse(amount);
+        if (amount.isEmpty) {
+          _snackbarService.showSnackbar(
+            message: 'Enter Some amount',
+            title: 'Error',
+            duration: const Duration(seconds: 2),
+          );
+        } else {
+          TransactionDetails newTransaction = TransactionDetails(
+            status: 'Completed',
+            totalPaid: ammount!,
+            totalBonus: 0,
+            transactionType: 'Buy',
+            totalGoldBought: totalGramsToBuy,
+            withdrawMethod: withdrawMethod,
+            walletType: withdrawMethod,
+            transactionDate: Timestamp.now(),
+            transactionId: 'unique_transaction_id',
+            buyGoldRate: currentGoldRate,
+            isSold: false,
+            isMargin: !gold,
+            soldTransactionId:
+                '', // Replace with a unique ID for each transaction
+          );
 
-        if (withdrawMethod == 'Crypto') {
-          bool check = false;
-          if (gold) {
-            check = await cryptoService.deductBalanceFromCryptoWallet(ammount);
-            updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
-          } else {
-            check = await cryptoService.deductMarginFromCryptoWallet(ammount);
-          }
+          // ^   For Admin Graph
 
-          if (check) {
+          // await datesOfSaleAndPurchasesDocuments();
+
+          // ^  ---------------------------------
+
+          if (withdrawMethod == 'Crypto') {
+            bool check = false;
             if (gold) {
-              await balanceService.deductBalance(
-                  FirebaseAuth.instance.currentUser!.uid, double.parse(amount));
+              check =
+                  await cryptoService.deductBalanceFromCryptoWallet(ammount);
               updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
             } else {
-              await balanceService.deductMargin(
-                  FirebaseAuth.instance.currentUser!.uid, double.parse(amount));
+              check = await cryptoService.deductMarginFromCryptoWallet(ammount);
             }
 
-            await cryptoService.getCryptoData();
-            await transactionDetailsService.addTransaction(
-                userId: FirebaseAuth.instance.currentUser!.uid,
-                newTransactionDetails: newTransaction);
-            _snackbarService.showSnackbar(
-              message:
-                  'Congratulation you have bought gold of amount: $ammount',
-              title: 'Success',
-              duration: const Duration(seconds: 2),
-            );
-          } else {
-            _snackbarService.showSnackbar(
-              message: 'Not enough balance in your account',
-              title: 'Error',
-              duration: const Duration(seconds: 2),
-            );
-            navi = false;
-          }
-        } else if (withdrawMethod == 'Bank') {
-          bool check = false;
-          if (gold) {
-            check = await bankService.deductBalanceFromBankWallet(ammount);
-            updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
-          } else {
-            check = await bankService.deductMarginFromBankWallet(ammount);
-          }
-          if (check) {
-            gold
-                ? await balanceService.deductBalance(
-                    FirebaseAuth.instance.currentUser!.uid,
-                    double.parse(amount))
-                : await balanceService.deductMargin(
+            if (check) {
+              if (gold) {
+                await balanceService.deductBalance(
                     FirebaseAuth.instance.currentUser!.uid,
                     double.parse(amount));
-            await bankService.getBankData();
-            await transactionDetailsService.addTransaction(
-                userId: FirebaseAuth.instance.currentUser!.uid,
-                newTransactionDetails: newTransaction);
-            _snackbarService.showSnackbar(
-              message:
-                  'Congratulation you have bought gold of amount: $ammount',
-              title: 'Success',
-              duration: const Duration(seconds: 2),
-            );
-          } else {
-            _snackbarService.showSnackbar(
-              message: 'Not enough balance in your account',
-              title: 'Error',
-              duration: const Duration(seconds: 2),
-            );
-            navi = false;
-          }
-        } else {}
-        await balanceService
-            .getBalanceData(FirebaseAuth.instance.currentUser!.uid);
-        await transactionDetailsService
-            .getAllTransactionDetails(FirebaseAuth.instance.currentUser!.uid);
-        navi
-            ? navigationService.replaceWithDashboardScreenView()
-            : navigationService.replaceWithDepositScreenView();
-      }
-    } catch (e) {}
+                updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
+              } else {
+                await balanceService.deductMargin(
+                    FirebaseAuth.instance.currentUser!.uid,
+                    double.parse(amount));
+              }
+
+              await cryptoService.getCryptoData();
+              await transactionDetailsService.addTransaction(
+                  userId: FirebaseAuth.instance.currentUser!.uid,
+                  newTransactionDetails: newTransaction);
+              _snackbarService.showSnackbar(
+                message:
+                    'Congratulation you have bought gold of amount: $ammount',
+                title: 'Success',
+                duration: const Duration(seconds: 2),
+              );
+            } else {
+              _snackbarService.showSnackbar(
+                message: 'Not enough balance in your account',
+                title: 'Error',
+                duration: const Duration(seconds: 2),
+              );
+              navi = false;
+            }
+          } else if (withdrawMethod == 'Bank') {
+            bool check = false;
+            if (gold) {
+              check = await bankService.deductBalanceFromBankWallet(ammount);
+              updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
+            } else {
+              check = await bankService.deductMarginFromBankWallet(ammount);
+            }
+            if (check) {
+              gold
+                  ? await balanceService.deductBalance(
+                      FirebaseAuth.instance.currentUser!.uid,
+                      double.parse(amount))
+                  : await balanceService.deductMargin(
+                      FirebaseAuth.instance.currentUser!.uid,
+                      double.parse(amount));
+              await bankService.getBankData();
+              await transactionDetailsService.addTransaction(
+                  userId: FirebaseAuth.instance.currentUser!.uid,
+                  newTransactionDetails: newTransaction);
+              _snackbarService.showSnackbar(
+                message:
+                    'Congratulation you have bought gold of amount: $ammount',
+                title: 'Success',
+                duration: const Duration(seconds: 2),
+              );
+            } else {
+              _snackbarService.showSnackbar(
+                message: 'Not enough balance in your account',
+                title: 'Error',
+                duration: const Duration(seconds: 2),
+              );
+              navi = false;
+            }
+          } else {}
+          await balanceService
+              .getBalanceData(FirebaseAuth.instance.currentUser!.uid);
+          await transactionDetailsService
+              .getAllTransactionDetails(FirebaseAuth.instance.currentUser!.uid);
+          navi
+              ? navigationService.replaceWithDashboardScreenView()
+              : navigationService.replaceWithDepositScreenView();
+        }
+      } catch (e) {}
+    } else {
+      _snackbarService.showSnackbar(
+        message:
+            'Please Go to KYC Section and enter KYC details and wait for approval ',
+        title: 'KYC Not Found',
+        duration: const Duration(seconds: 2),
+      );
+    }
+  }
+
+  void addPurchaseRcordForAdmin() async {
+    final DocumentReference documentReference =
+        FirebaseFirestore.instance.collection('SandP').doc('totalPurchases');
+  }
+
+  Future<void> datesOfSaleAndPurchasesDocuments() async {
+    for (int salePurchaseIndex = 0;
+        salePurchaseIndex <
+            saleAndPurchaseServices.salesAndPurchasesList.length;
+        salePurchaseIndex++) {
+      var date = saleAndPurchaseServices
+          .salesAndPurchasesList[salePurchaseIndex].createdAt
+          .toDate();
+      log('created date is : ${saleAndPurchaseServices.salesAndPurchasesList[salePurchaseIndex].createdAt}');
+      log('day of the week is : ${DateFormat('EEEE').format(date)}');
+      log('day of the Month is : ${DateFormat('MMMM').format(date)}');
+      log('Year is  : ${date.day}');
+      log('Year is  : ${date.year}');
+    }
   }
 
   void onBack() {

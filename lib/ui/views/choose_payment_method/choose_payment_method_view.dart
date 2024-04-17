@@ -85,21 +85,42 @@ class ChoosePaymentMethodView
                       image: crypto,
                       title: 'Crypto',
                       text: 'Deposit from your crypto app',
-                      onPressed: viewModel.openBuyCrypto,
+                      onPressed: () async {
+                        if (await viewModel.kycService.isKycApproved()) {
+                          viewModel.openBuyCrypto();
+                        } else {
+                          viewModel.snackbarService.showSnackbar(
+                            message:
+                                'Please Go to KYC Section and enter KYC details and wait for approval ',
+                            title: 'KYC Not Found',
+                            duration: const Duration(seconds: 2),
+                          );
+                        }
+                      },
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     choosePaymentTile(
-                      balance:
-                          viewModel.bankService.bankData!.balance.toString(),
-                      margin:
-                          viewModel.bankService.bankData!.balance.toString(),
-                      image: masterCard,
-                      title: 'Debit or Credit Card',
-                      text: 'Use Visa, Master and more',
-                      onPressed: viewModel.openBuyCard,
-                    ),
+                        balance:
+                            viewModel.bankService.bankData!.balance.toString(),
+                        margin:
+                            viewModel.bankService.bankData!.balance.toString(),
+                        image: masterCard,
+                        title: 'Debit or Credit Card',
+                        text: 'Use Visa, Master and more',
+                        onPressed: () async {
+                          if (await viewModel.kycService.isKycApproved()) {
+                            viewModel.openBuyCard();
+                          } else {
+                            viewModel.snackbarService.showSnackbar(
+                              message:
+                                  'Please Go to KYC Section and enter KYC details and wait for approval ',
+                              title: 'KYC Not Found',
+                              duration: const Duration(seconds: 2),
+                            );
+                          }
+                        }),
                     const SizedBox(
                       height: 20,
                     ),
@@ -111,7 +132,18 @@ class ChoosePaymentMethodView
                       image: bank,
                       title: 'Link Bank Account',
                       text: 'Connect bank for easy deposits',
-                      onPressed: viewModel.openBuyBank,
+                      onPressed: () async {
+                        if (await viewModel.kycService.isKycApproved()) {
+                          viewModel.openBuyBank();
+                        } else {
+                          viewModel.snackbarService.showSnackbar(
+                            message:
+                                'Please Go to KYC Section and enter KYC details and wait for approval ',
+                            title: 'KYC Not Found',
+                            duration: const Duration(seconds: 2),
+                          );
+                        }
+                      },
                     ),
                     const SizedBox(
                       height: 20,
@@ -124,7 +156,18 @@ class ChoosePaymentMethodView
                           .toString(),
                       title: 'In-store',
                       text: 'Deposit in-person at our stores',
-                      onPressed: viewModel.openBuyInStore,
+                      onPressed: () async {
+                        if (await viewModel.kycService.isKycApproved()) {
+                          viewModel.openBuyInStore();
+                        } else {
+                          viewModel.snackbarService.showSnackbar(
+                            message:
+                                'Please Go to KYC Section and enter KYC details and wait for approval ',
+                            title: 'KYC Not Found',
+                            duration: const Duration(seconds: 2),
+                          );
+                        }
+                      },
                     ),
                     const SizedBox(
                       height: 20,

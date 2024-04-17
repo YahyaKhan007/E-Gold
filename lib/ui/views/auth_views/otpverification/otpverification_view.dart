@@ -14,6 +14,15 @@ class OtpverificationView extends StackedView<OtpverificationViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: Column(

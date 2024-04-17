@@ -99,7 +99,18 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           AccountPageRow(
                             text: 'Add a Payment Method',
                             icon: Icons.add,
-                            onPressed: viewModel.addPaymentMethod,
+                            onPressed: () async {
+                              if (await viewModel.kycService.isKycApproved()) {
+                                viewModel.addPaymentMethod();
+                              } else {
+                                viewModel.snackbarService.showSnackbar(
+                                  message:
+                                      'Please Go to KYC Section and enter KYC details and wait for approval ',
+                                  title: 'KYC Not Found',
+                                  duration: const Duration(seconds: 2),
+                                );
+                              }
+                            },
                           ),
                           AccountPageRow(
                             text: 'KYC',
@@ -109,7 +120,15 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           AccountPageRow(
                             text: 'Fund History',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: viewModel.fundHistory,
+                            onPressed: () async {
+                              // if  (await viewModel.fundHistory)} else {
+                              //     viewModel.snackbarService.showSnackbar(
+                              //       message:
+                              //           'Please Go to KYC Section and enter KYC details and wait for approval ',
+                              //       title: 'KYC Not Found',
+                              //       duration: const Duration(seconds: 2),
+                              // );
+                            },
                           ),
                           AccountPageRow(
                             text: 'More',

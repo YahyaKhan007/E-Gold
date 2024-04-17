@@ -54,6 +54,8 @@ import 'package:e_gold/ui/views/link_bank_account_screen/link_bank_account_scree
 import 'package:e_gold/ui/dialogs/add_amount_for_balance/add_amount_for_balance_dialog.dart';
 import 'package:e_gold/ui/bottom_sheets/sellgold/sellgold_sheet.dart';
 import 'package:e_gold/ui/views/specefic_sell_transaction/specefic_sell_transaction_view.dart';
+
+import '../services/sales_and_purchase_service_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -116,6 +118,7 @@ import 'package:e_gold/ui/views/specefic_sell_transaction/specefic_sell_transact
     LazySingleton(classType: CryptoService),
     LazySingleton(classType: InStoreService),
     LazySingleton(classType: MetalPriceService),
+    LazySingleton(classType: SalesAndPurchaseServiceService)
     // @stacked-service
   ],
   bottomsheets: [

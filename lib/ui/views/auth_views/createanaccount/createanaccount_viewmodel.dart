@@ -31,7 +31,23 @@ class CreateanaccountViewModel extends BaseViewModel {
       _navigator.navigateToPhoneSignUpView();
     }
     if (buttonNumber == 1) {
-      _navigator.navigateToSignupView();
+      // _navigator.navigateToSignupView();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          showCloseIcon: true,
+          behavior: SnackBarBehavior.floating,
+          content: ListTile(
+            title: Text(
+              "Coming sooon...",
+              style: TextStyle(color: Colors.white),
+            ),
+            subtitle: Text(
+              "Will be implemented soon",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      );
     }
     if (buttonNumber == 2) {
       // log('Google');
@@ -58,7 +74,7 @@ class CreateanaccountViewModel extends BaseViewModel {
   }
 
   void onPressedSignup() {
-    _navigator.replaceWithSignupView();
+    _navigator.navigateToSignupView();
   }
 
   void onPressedLogin() {

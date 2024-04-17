@@ -66,189 +66,267 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                       topRight: Radius.circular(30))),
               height: screenHeight(context),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    height: 140,
-                    width: screenWidth(context),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 7),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Container(
+                  verticalSpaceMedium,
+                  transactionDetails.transactionType == 'TopUp'
+                      ? const Text(
+                          "TopUp",
+                          style: TextStyle(
+                              fontSize: 40,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        )
+                      : transactionDetails.isSold == true
+                          ? const Text(
+                              "Transaction Sold",
+                              style: TextStyle(
+                                  fontSize: 35,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          : Container(
                               padding: const EdgeInsets.all(8),
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                      'assets/images/back_home.png',
-                                    ),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromARGB(60, 201, 180, 180),
-                                    blurRadius: 10,
-                                    offset: Offset(2, 0),
-                                    spreadRadius: 0,
-                                  ),
-                                ],
-                              ),
                               height: 140,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Holding",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22)
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                  FittedBox(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "${transactionDetails.isSold ? 0 : transactionDetails.totalPaid.toStringAsFixed(2)} ",
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
+                              width: screenWidth(context),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 7),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: const BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                'assets/images/back_home.png',
+                                              ),
+                                              fit: BoxFit.cover),
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            bottomLeft: Radius.circular(10),
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color.fromARGB(
+                                                  60, 201, 180, 180),
+                                              blurRadius: 10,
+                                              offset: Offset(2, 0),
+                                              spreadRadius: 0,
+                                            ),
+                                          ],
                                         ),
-                                        transactionDetails.isSold
-                                            ? const SizedBox()
-                                            : Text(
-                                                "${profitOrLoss > 0 ? "+" : ""}${profitOrLoss.toStringAsFixed(2)}",
-                                                style: TextStyle(
-                                                    color: profitOrLoss > 0
-                                                        ? Colors.greenAccent
-                                                        : profitOrLoss == 0
-                                                            ? Colors.white
-                                                            : Colors.redAccent),
-                                              )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(10),
-                                      bottomRight: Radius.circular(10)),
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/back_home.png',
+                                        height: 140,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Holding",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 22)
+                                                  .copyWith(
+                                                      color: Colors.white),
+                                            ),
+                                            FittedBox(
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    "${transactionDetails.isSold ? 0 : transactionDetails.totalPaid.toStringAsFixed(2)} ",
+                                                    style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  transactionDetails.isSold
+                                                      ? const SizedBox()
+                                                      : Text(
+                                                          "${profitOrLoss > 0 ? "+" : ""}${profitOrLoss.toStringAsFixed(2)}",
+                                                          style: TextStyle(
+                                                              color: profitOrLoss >
+                                                                      0
+                                                                  ? Colors
+                                                                      .greenAccent
+                                                                  : profitOrLoss ==
+                                                                          0
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .redAccent),
+                                                        )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                      fit: BoxFit.cover),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.white70,
-                                      blurRadius: 10,
-                                      offset: Offset(2, 0),
-                                      spreadRadius: 0,
                                     ),
-                                  ]),
-                              height: 140,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  transactionDetails.transactionType != 'Sell'
-                                      ? Text(
-                                          profitOrLoss > 0
-                                              ? "Profit"
-                                              : profitOrLoss == 0
-                                                  ? 'Profit / Loss'
-                                                  : "Loss",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.w900,
-                                                  fontSize: 22)
-                                              .copyWith(
-                                                  color: profitOrLoss > 0
-                                                      ? Colors.greenAccent
-                                                      : profitOrLoss == 0
-                                                          ? Colors.white
-                                                          : Colors.redAccent),
-                                        )
-                                      : Text(
-                                          transactionDetails.totalBonus > 0
-                                              ? "Profit"
-                                              : transactionDetails.totalBonus ==
-                                                      0
-                                                  ? 'Profit / Loss'
-                                                  : "Loss",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.w900,
-                                                  fontSize: 22)
-                                              .copyWith(
-                                                  color: transactionDetails
-                                                              .totalBonus >
-                                                          0
-                                                      ? Colors.greenAccent
-                                                      : transactionDetails
-                                                                  .totalBonus ==
-                                                              0
-                                                          ? Colors.white
-                                                          : Colors.redAccent),
+                                    Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(10),
+                                                bottomRight:
+                                                    Radius.circular(10)),
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                  'assets/images/back_home.png',
+                                                ),
+                                                fit: BoxFit.cover),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.white70,
+                                                blurRadius: 10,
+                                                offset: Offset(2, 0),
+                                                spreadRadius: 0,
+                                              ),
+                                            ]),
+                                        height: 140,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            transactionDetails
+                                                        .transactionType !=
+                                                    'Sell'
+                                                ? Text(
+                                                    profitOrLoss > 0
+                                                        ? "Profit"
+                                                        : profitOrLoss == 0
+                                                            ? 'Profit / Loss'
+                                                            : "Loss",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleLarge!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize: 22)
+                                                        .copyWith(
+                                                            color: profitOrLoss >
+                                                                    0
+                                                                ? Colors
+                                                                    .greenAccent
+                                                                : profitOrLoss ==
+                                                                        0
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .redAccent),
+                                                  )
+                                                : Text(
+                                                    transactionDetails
+                                                                .totalBonus >
+                                                            0
+                                                        ? "Profit"
+                                                        : transactionDetails
+                                                                    .totalBonus ==
+                                                                0
+                                                            ? 'Profit / Loss'
+                                                            : "Loss",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleLarge!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize: 22)
+                                                        .copyWith(
+                                                            color: transactionDetails
+                                                                        .totalBonus >
+                                                                    0
+                                                                ? Colors
+                                                                    .greenAccent
+                                                                : transactionDetails
+                                                                            .totalBonus ==
+                                                                        0
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .redAccent),
+                                                  ),
+                                            transactionDetails
+                                                        .transactionType ==
+                                                    'Sell'
+                                                ? Text(
+                                                    "${transactionDetails.totalBonus.toStringAsFixed(2)} \$",
+                                                    style: TextStyle(
+                                                        color: transactionDetails
+                                                                    .totalBonus >
+                                                                0
+                                                            ? Colors.greenAccent
+                                                            : transactionDetails
+                                                                        .totalBonus ==
+                                                                    0
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .redAccent,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                : Text(
+                                                    "${profitOrLoss.toStringAsFixed(2)} \$",
+                                                    style: TextStyle(
+                                                        color: profitOrLoss > 0
+                                                            ? Colors.greenAccent
+                                                            : profitOrLoss == 0
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .redAccent,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                          ],
                                         ),
-                                  transactionDetails.transactionType == 'Sell'
-                                      ? Text(
-                                          "${transactionDetails.totalBonus.toStringAsFixed(2)} \$",
-                                          style: TextStyle(
-                                              color: transactionDetails
-                                                          .totalBonus >
-                                                      0
-                                                  ? Colors.greenAccent
-                                                  : transactionDetails
-                                                              .totalBonus ==
-                                                          0
-                                                      ? Colors.white
-                                                      : Colors.redAccent,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : Text(
-                                          "${profitOrLoss.toStringAsFixed(2)} \$",
-                                          style: TextStyle(
-                                              color: profitOrLoss > 0
-                                                  ? Colors.greenAccent
-                                                  : profitOrLoss == 0
-                                                      ? Colors.white
-                                                      : Colors.redAccent,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  transactionDetails.isSold == true
+                      ? verticalSpaceTiny
+                      : verticalSpaceLarge,
+                  Visibility(
+                      visible: transactionDetails.isSold == true,
+                      child: GestureDetector(
+                        onTap: () async {
+                          var soldTransaction = await viewModel.getDocumentById(
+                              transactionDetails.soldTransactionId);
+
+                          if (soldTransaction == null) {
+                            log('Transacion result is Empty');
+                          } else {
+                            viewModel.toSpeceficSellTransaction(soldTransaction,
+                                transactionDetails.totalPaid.toString());
+                          }
+
+                          log(transactionDetails.soldTransactionId);
+                          log("this should open the transactions in which it is sold");
+                        },
+                        child: const Text(
+                          'View Details*',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      )),
+                  transactionDetails.isSold == true
+                      ? verticalSpaceLarge
+                      : verticalSpaceTiny,
                   SizedBox(
                     height: size.height * 0.5,
                     child: ListView.separated(
@@ -314,41 +392,47 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                       transactionDetails.isSold == true &&
                                       transactionDetails.transactionType ==
                                           'Buy'
-                                  ? GestureDetector(
-                                      onTap: () async {
-                                        var soldTransaction = await viewModel
-                                            .getDocumentById(transactionDetails
-                                                .soldTransactionId);
+                                  ? Visibility(
+                                      visible: false,
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          var soldTransaction =
+                                              await viewModel.getDocumentById(
+                                                  transactionDetails
+                                                      .soldTransactionId);
 
-                                        if (soldTransaction == null) {
-                                          log('Transacion result is Empty');
-                                        } else {
-                                          viewModel.toSpeceficSellTransaction(
-                                              soldTransaction,
-                                              transactionDetails.totalPaid
-                                                  .toString());
-                                        }
+                                          if (soldTransaction == null) {
+                                            log('Transacion result is Empty');
+                                          } else {
+                                            viewModel.toSpeceficSellTransaction(
+                                                soldTransaction,
+                                                transactionDetails.totalPaid
+                                                    .toString());
+                                          }
 
-                                        log(transactionDetails
-                                            .soldTransactionId);
-                                        log("this should open the transactions in which it is sold");
-                                      },
-                                      child: const Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            " TX",
-                                            style: TextStyle(color: Colors.red),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(bottom: 5),
-                                            child: Icon(
-                                              Icons.star,
-                                              size: 6,
-                                              color: Colors.red,
+                                          log(transactionDetails
+                                              .soldTransactionId);
+                                          log("this should open the transactions in which it is sold");
+                                        },
+                                        child: const Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              " TX",
+                                              style:
+                                                  TextStyle(color: Colors.red),
                                             ),
-                                          )
-                                        ],
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(bottom: 5),
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 6,
+                                                color: Colors.red,
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     )
                                   : const SizedBox()

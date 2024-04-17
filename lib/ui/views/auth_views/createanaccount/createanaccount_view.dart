@@ -2,6 +2,7 @@ import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
 import '../../../common/ui_helpers.dart';
@@ -24,6 +25,14 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            )),
         title: const Text(
           'Create an account',
           style: TextStyle(
@@ -93,35 +102,131 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                             ),
                           ),
                         )),
-                    verticalSpaceLarge,
-                    Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: viewModel.onPressedSignup,
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: const Size.fromHeight(48),
-                            shape: const StadiumBorder(),
-                          ),
-                          child: const Text('Sign up'),
-                        ),
-                        verticalSpaceSmall,
-                        ElevatedButton(
-                          onPressed: viewModel.onPressedLogin,
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: const Size.fromHeight(48),
-                            shape: const StadiumBorder(
-                                side: BorderSide(
-                              width: 2.0,
+                    // verticalSpaceLarge,
+                    verticalSpaceSmall,
+                    GestureDetector(
+                      onTap: viewModel.onPressedSignup,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            color: kcLightButtonBackground.withOpacity(0.9),
+                            borderRadius: BorderRadius.circular(30)),
+                        height: 58,
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.email,
+                              size: 28.0,
                               color: Colors.white,
-                            )),
-                            backgroundColor: kcButtonBackground,
-                            foregroundColor: Colors.white,
-                          ),
-                          child: const Text('Login'),
+                            ),
+                            horizontalSpaceSmall,
+                            Text(
+                              'Create with Email',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
                         ),
-                        verticalSpaceSmall,
+                      ),
+                    ),
+                    verticalSpaceMedium,
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 1,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          horizontalSpaceSmall,
+                          const Text(
+                            'OR',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          horizontalSpaceSmall,
+                          Expanded(
+                              child: Container(
+                            height: 1,
+                            color: Colors.grey,
+                          ))
+                        ],
+                      ),
+                    ),
+                    verticalSpaceMedium,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Already have an account?',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 13,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        horizontalSpaceTiny,
+                        GestureDetector(
+                          onTap: viewModel.onPressedLogin,
+                          child: const Text(
+                            'Login',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
                       ],
-                    )
+                    ),
+                    // Column(
+                    //   children: [
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: ElevatedButton.icon(
+                    //     style: ElevatedButton.styleFrom(
+                    //         fixedSize: const Size.fromHeight(48),
+                    //         shape: const StadiumBorder(),
+                    //         backgroundColor:
+                    //             kcLightButtonBackground.withOpacity(0.9)),
+                    //     onPressed: () => viewModel.onPressedSignup,
+                    //     icon: const Icon(Icons.email, size: 28.0),
+                    //     label: const Text('Sign up'),
+                    //   ),
+                    // ),
+                    // ElevatedButton(
+                    //   onPressed: viewModel.onPressedSignup,
+                    //   style: ElevatedButton.styleFrom(
+                    //     fixedSize: const Size.fromHeight(48),
+                    //     shape: const StadiumBorder(),
+                    //   ),
+                    //   child: const Text('Sign up'),
+                    // ),
+                    //     verticalSpaceSmall,
+                    //     ElevatedButton(
+                    //       onPressed: viewModel.onPressedLogin,
+                    //       style: ElevatedButton.styleFrom(
+                    //         fixedSize: const Size.fromHeight(48),
+                    //         shape: const StadiumBorder(
+                    //             side: BorderSide(
+                    //           width: 2.0,
+                    //           color: Colors.white,
+                    //         )),
+                    //         backgroundColor: kcButtonBackground,
+                    //         foregroundColor: Colors.white,
+                    //       ),
+                    //       child: const Text('Login'),
+                    //     ),
+                    //     verticalSpaceSmall,
+                    //   ],
+                    // )
                   ],
                 ),
               ),

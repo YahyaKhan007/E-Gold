@@ -75,20 +75,26 @@ class ForgetpasswordView extends StackedView<ForgetpasswordViewModel> {
                       children: [
                         Form(
                           key: viewModel.formKey,
-                          child: TextFormField(
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
-                              controller: viewModel.emailController,
-                              decoration: const InputDecoration(
-                                label: Text(
-                                  'Email',
-                                ),
-                                labelStyle: TextStyle(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: const Border(
+                                    bottom: BorderSide(color: Colors.grey)),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextFormField(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
-                              ),
-                              validator: Validator.validateEmail),
+                                controller: viewModel.emailController,
+                                decoration: const InputDecoration(
+                                  label: Text(
+                                    'Email',
+                                  ),
+                                  labelStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                validator: Validator.validateEmail),
+                          ),
                         ),
                         verticalSpaceSmall,
                         //   child: InternationalPhoneNumberInput(

@@ -52,78 +52,82 @@ class LoginViewModel extends BaseViewModel {
   final _snackbarService = locator<SnackbarService>();
 
   void onGoogleLogin(BuildContext context) async {
-    var userCred = await _authService.signInWithGoogle();
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    try {
+      var userCred = await _authService.signInWithGoogle();
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
 
-    var user = userCred.user;
+      var user = userCred.user;
 
-    if (user != null) {
-      if (userCred.additionalUserInfo!.isNewUser) {
-        UserProfile user = UserProfile(
-            isAdmin: false,
-            name: userCred.user!.displayName.toString(),
-            profileImg: '',
-            countryCode: '',
-            email: userCred.user!.email.toString(),
-            uid: userCred.user!.uid.toString(),
-            phoneNumber: "",
-            dateOfBirth: '',
-            createdAt: Timestamp.now());
-        Crypto cryptoData = Crypto(walletAddress: '', securityPin: '');
-        Bank bankData = Bank(bankName: '', accountNumber: '', swiftCode: '');
-        InStore instoreData = InStore(uid: userCred.user!.uid, balance: 0.0);
-        KYC kycData = KYC(
-            cnicNumber: '',
-            cardFrontPhotoLink: '',
-            cardBackPhotoLink: '',
-            passportNumber: '',
-            bankAccountNumber: '',
-            bankName: '',
-            concentAgreement: false,
-            isApproved: false,
-            ifscCode: '',
-            profilePhotoLink: '',
-            dateOfBirth: '');
-        await userProfileService.addUserToFirestore(user);
-        await userProfileService.getUser();
-        await balanceService.createBalance(
-            FirebaseAuth.instance.currentUser!.uid, 0.0, 0.0);
-        await _kycService.saveKYCData(kycData);
-        await cryptoService.addCryptoToWallet(cryptoData);
-        await bankService.addBankToWallet(bankData);
-        await inStoreService.addInStoreToWallet(instoreData);
+      if (user != null) {
+        if (userCred.additionalUserInfo!.isNewUser) {
+          UserProfile user = UserProfile(
+              isAdmin: false,
+              name: userCred.user!.displayName.toString(),
+              profileImg: '',
+              countryCode: '',
+              email: userCred.user!.email.toString(),
+              uid: userCred.user!.uid.toString(),
+              phoneNumber: "",
+              dateOfBirth: '',
+              createdAt: Timestamp.now());
+          Crypto cryptoData = Crypto(walletAddress: '', securityPin: '');
+          Bank bankData = Bank(bankName: '', accountNumber: '', swiftCode: '');
+          InStore instoreData = InStore(uid: userCred.user!.uid, balance: 0.0);
+          KYC kycData = KYC(
+              cnicNumber: '',
+              cardFrontPhotoLink: '',
+              cardBackPhotoLink: '',
+              passportNumber: '',
+              bankAccountNumber: '',
+              bankName: '',
+              concentAgreement: false,
+              isApproved: false,
+              ifscCode: '',
+              profilePhotoLink: '',
+              dateOfBirth: '');
+          await userProfileService.addUserToFirestore(user);
+          await userProfileService.getUser();
+          await balanceService.createBalance(
+              FirebaseAuth.instance.currentUser!.uid, 0.0, 0.0);
+          await _kycService.saveKYCData(kycData);
+          await cryptoService.addCryptoToWallet(cryptoData);
+          await bankService.addBankToWallet(bankData);
+          await inStoreService.addInStoreToWallet(instoreData);
 
-        await userProfileService.getUser();
-        await bankService.getBankData();
-        await cryptoService.getCryptoData();
-        await inStoreService.getInStoreData();
-        await balanceService
-            .getBalanceData(FirebaseAuth.instance.currentUser!.uid);
-        await _transactionService.getAllTransactionDetails(user.uid);
+          await userProfileService.getUser();
+          await bankService.getBankData();
+          await cryptoService.getCryptoData();
+          await inStoreService.getInStoreData();
+          await balanceService
+              .getBalanceData(FirebaseAuth.instance.currentUser!.uid);
+          await _transactionService.getAllTransactionDetails(user.uid);
 
-        Navigator.pop(context);
-        navigationService.replaceWithDashboardScreenView();
+          Navigator.pop(context);
+          navigationService.replaceWithDashboardScreenView();
 
-        // _showSuccessSnackbar('Sign-up successful! Verification email sent.');
-      } else {
-        await userProfileService.getUser();
-        await bankService.getBankData();
-        await cryptoService.getCryptoData();
-        await inStoreService.getInStoreData();
-        await balanceService
-            .getBalanceData(FirebaseAuth.instance.currentUser!.uid);
-        await _transactionService.getAllTransactionDetails(user.uid);
-        Navigator.pop(context);
-        navigationService.replaceWithDashboardScreenView();
+          // _showSuccessSnackbar('Sign-up successful! Verification email sent.');
+        } else {
+          await userProfileService.getUser();
+          await bankService.getBankData();
+          await cryptoService.getCryptoData();
+          await inStoreService.getInStoreData();
+          await balanceService
+              .getBalanceData(FirebaseAuth.instance.currentUser!.uid);
+          await _transactionService.getAllTransactionDetails(user.uid);
+          Navigator.pop(context);
+          navigationService.replaceWithDashboardScreenView();
+        }
       }
+    } catch (e, stackTrace) {
+      log("stackTrace: $stackTrace");
     }
   }
 

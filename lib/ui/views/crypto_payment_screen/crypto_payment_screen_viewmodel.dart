@@ -6,8 +6,12 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:flutter/material.dart';
 
+import '../../../services/kyc_service.dart';
+
 class CryptoPaymentScreenViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
+  final kycService = locator<KycService>();
+
   final TextEditingController walletAddress = TextEditingController();
   final TextEditingController securityPin = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -27,11 +31,26 @@ class CryptoPaymentScreenViewModel extends BaseViewModel {
   }
 
   void addBalance() async {
-    bool check = await _cryptoService.doesCryptoCollectionExist();
-    if (check) {
-      _dialogService.showCustomDialog(
-        variant: DialogType.addAmountForBalance,
-        data: 'Crypto',
+    if (await kycService.isKycApproved()) {
+      bool check = await _cryptoService.doesCryptoCollectionExist();
+      if (check) {
+        _dialogService.showCustomDialog(
+          variant: DialogType.addAmountForBalance,
+          data: 'Crypto',
+        );
+      } else {
+        _snackbarService.showSnackbar(
+          message: 'Please enter Wallet details',
+          title: 'Wallet Not Found',
+          duration: const Duration(seconds: 2),
+        );
+      }
+    } else {
+      _snackbarService.showSnackbar(
+        message:
+            'Please Go to KYC Section and enter KYC details and wait for approval ',
+        title: 'KYC Not Found',
+        duration: const Duration(seconds: 2),
       );
     }
   }
@@ -52,34 +71,43 @@ class CryptoPaymentScreenViewModel extends BaseViewModel {
 
   void toContinue(BuildContext context) async {
     // _navigationService.navigateToAddCryptoScreenView();
-    if (validateForm()) {
-      Crypto cryptoData = Crypto(
-        walletAddress: walletAddress.text.toString(),
-        securityPin: securityPin.text.toString(),
-      );
-      try {
-        bool success = await _cryptoService.addCryptoToWallet(cryptoData);
-        if (success) {
+    if (await kycService.isKycApproved()) {
+      if (validateForm()) {
+        Crypto cryptoData = Crypto(
+          walletAddress: walletAddress.text.toString(),
+          securityPin: securityPin.text.toString(),
+        );
+        try {
+          bool success = await _cryptoService.addCryptoToWallet(cryptoData);
+          if (success) {
+            _snackbarService.showSnackbar(
+              message: 'Crypto added Successfully',
+              title: 'Success',
+              duration: const Duration(seconds: 2),
+            );
+          } else {
+            _snackbarService.showSnackbar(
+              message: 'There were problems adding Crypto',
+              title: 'Error',
+              duration: const Duration(seconds: 2),
+            );
+          }
+        } catch (e) {
           _snackbarService.showSnackbar(
-            message: 'Crypto added Successfully',
-            title: 'Success',
-            duration: const Duration(seconds: 2),
-          );
-        } else {
-          _snackbarService.showSnackbar(
-            message: 'There were problems adding Crypto',
+            message: 'Error $e',
             title: 'Error',
             duration: const Duration(seconds: 2),
           );
         }
-      } catch (e) {
-        _snackbarService.showSnackbar(
-          message: 'Error $e',
-          title: 'Error',
-          duration: const Duration(seconds: 2),
-        );
+        Navigator.pop(context);
       }
-      Navigator.pop(context);
+    } else {
+      _snackbarService.showSnackbar(
+        message:
+            'Please Go to KYC Section and enter KYC details and wait for approval ',
+        title: 'KYC Not Found',
+        duration: const Duration(seconds: 2),
+      );
     }
   }
 }

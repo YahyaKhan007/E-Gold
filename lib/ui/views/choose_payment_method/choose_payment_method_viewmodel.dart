@@ -9,8 +9,12 @@ import 'package:e_gold/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../../services/kyc_service.dart';
+
 class ChoosePaymentMethodViewModel extends BaseViewModel {
   final crytpoService = locator<CryptoService>();
+  final kycService = locator<KycService>();
+
   final _navigationService = locator<NavigationService>();
   final balanceService = locator<BalanceService>();
   final inStoreService = locator<InStoreService>();

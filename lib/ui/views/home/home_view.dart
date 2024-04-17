@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
 import 'package:e_gold/ui/common/app_strings.dart';
@@ -42,7 +44,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 //   backgroundImage: NetworkImage(
                 //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa-PSsyWm0gWoz9gEe0eUxWoSO04S5QWvBbg&usqp=CAU'),
                 // ),
-                pinned: false,
+                pinned: true,
                 // excludeHeaderSemantics: true,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
@@ -118,82 +120,126 @@ class HomeView extends StackedView<HomeViewModel> {
                         //     fontWeight: FontWeight.bold,
                         //   ),
                         // ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset(
+                                    'assets/images/gold_ingots_gold_svgrepo_com1.png',
+                                    height: 30),
+                                const Text(
+                                  "  AED ",
+                                  style: TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      color: Colors.yellow,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  currentGoldRate.toString(),
+                                  style: const TextStyle(
+                                      color: Colors.yellow,
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Text(
+                                  ' per Gram',
+                                  style: TextStyle(
+                                      color: Colors.yellow,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            Visibility(
+                              visible: true,
+                              child: Row(
                                 children: [
-                                  const Text(
-                                    "\$",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold),
+                                  Image.asset(
+                                    'assets/images/up_arrow_icon.png',
+                                    color: kcGreen,
                                   ),
-                                  Text(
-                                    viewModel
-                                        .balanceService.balanceData!.balance
-                                        .toString(),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 40,
-                                        fontWeight: FontWeight.bold),
+                                  const Text(
+                                    ' Up to 5%',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: kcGreen,
+                                    ),
                                   ),
                                 ],
                               ),
-                              const Text(
-                                "Here's Your Balance",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w100,
-                                    letterSpacing: 2),
-                              ),
-                              verticalSpaceSmall,
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 8),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xffFFD4B8),
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: 'Current Gold rate: ',
-                                    // textAlign: TextAlign.end,
-                                    style: const TextStyle(
-                                      color: Color(0xff2F4A64),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: currentGoldRate.toString(),
-                                        style: const TextStyle(
-                                          // color: Color(0xff2F4A64),
-                                          color: Colors.black54,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const TextSpan(
-                                        text: ' AED ',
-                                        style: TextStyle(
-                                          // fontStyle: FontStyle.italic,
-                                          color: Color(0xff2F4A64),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      ),
-                                    ],
+                            ),
+                            Visibility(
+                              visible: false,
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/up_arrow_icon.png',
+                                    color: kcFailRed,
                                   ),
-                                ),
+                                  const Text(
+                                    ' Down to 5%',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: kcFailRed,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                            // const Text(
+                            //   "Here's Your Balance",
+                            //   style: TextStyle(
+                            //       color: Colors.white,
+                            //       fontSize: 14,
+                            //       fontWeight: FontWeight.w100,
+                            //       letterSpacing: 2),
+                            // ),
+                            // verticalSpaceSmall,
+                            // Container(
+                            //   padding: const EdgeInsets.symmetric(
+                            //       horizontal: 20, vertical: 8),
+                            //   decoration: BoxDecoration(
+                            //     color: const Color(0xffFFD4B8),
+                            //     borderRadius: BorderRadius.circular(50),
+                            //   ),
+                            //   child: RichText(
+                            //     text: TextSpan(
+                            //       text: 'Current Gold rate: ',
+                            //       // textAlign: TextAlign.end,
+                            //       style: const TextStyle(
+                            //         color: Color(0xff2F4A64),
+                            //         fontSize: 14,
+                            //         fontWeight: FontWeight.normal,
+                            //       ),
+                            //       children: [
+                            //         TextSpan(
+                            //           text: currentGoldRate.toString(),
+                            //           style: const TextStyle(
+                            //             // color: Color(0xff2F4A64),
+                            //             color: Colors.black54,
+                            //             fontSize: 17,
+                            //             fontWeight: FontWeight.bold,
+                            //           ),
+                            //         ),
+                            //         const TextSpan(
+                            //           text: ' AED ',
+                            //           style: TextStyle(
+                            //             // fontStyle: FontStyle.italic,
+                            //             color: Color(0xff2F4A64),
+                            //             fontSize: 14,
+                            //             fontWeight: FontWeight.normal,
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
                         ),
                         // const Text(
                         //   "Here's Your Balance.",
@@ -205,106 +251,158 @@ class HomeView extends StackedView<HomeViewModel> {
                         // ),
 
                         // ^  Wallet Showing
-                        verticalSpaceMedium,
+                        verticalSpaceSmall,
                         Row(
                           children: [
                             Expanded(
-                                child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Wallet",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Text(
-                                      "\$",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold),
+                                child: Container(
+                              height: size.height * 0.13,
+                              decoration: BoxDecoration(
+                                // border: Border.all(color: Colors.white),
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 60, sigmaY: 60),
+                                  child: SizedBox(
+                                    height: size.height * 0.13,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          "Wallet",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        FittedBox(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Text(
+                                                  "AED  ",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  viewModel.balanceService
+                                                      .balanceData!.balance
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 35,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        // Padding(
+                                        //   padding: const EdgeInsets.only(right: 30),
+                                        //   child: ProgressBar(
+                                        //     value: viewModel.calculateResult(
+                                        //         passedValue: double.parse(viewModel
+                                        //             .balanceService.balanceData!.balance
+                                        //             .toString())),
+                                        //     backgroundColor: Colors.white,
+                                        //     //specify only one: color or gradient
+                                        //     color: const Color(0xff00DDA3),
+                                        //   ),
+                                        // ),
+                                      ],
                                     ),
-                                    Text(
-                                      viewModel
-                                          .balanceService.balanceData!.balance
-                                          .toString(),
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 30),
-                                  child: ProgressBar(
-                                    value: viewModel.calculateResult(
-                                        passedValue: double.parse(viewModel
-                                            .balanceService.balanceData!.balance
-                                            .toString())),
-                                    backgroundColor: Colors.white,
-                                    //specify only one: color or gradient
-                                    color: const Color(0xff00DDA3),
                                   ),
                                 ),
-                              ],
+                              ),
                             )),
+                            // horizontalSpaceLarge,
                             horizontalSpaceMedium,
-                            const Expanded(
-                                child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Portfolio",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "\$",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "9,615",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 0),
-                                  child: ProgressBar(
-                                    value: 0.4,
-                                    backgroundColor: Colors.white,
-                                    //specify only one: color or gradient
-                                    color: Colors.grey,
+                            Expanded(
+                                child: Container(
+                              height: size.height * 0.13,
+                              decoration: BoxDecoration(
+                                // border: Border.all(color: Colors.white),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 60, sigmaY: 60),
+                                  child: const Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Portfolio",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      FittedBox(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                "AED  ",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text(
+                                                "9,615",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 35,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      // Padding(
+                                      //   padding: EdgeInsets.only(right: 0),
+                                      //   child: ProgressBar(
+                                      //     value: 0.4,
+                                      //     backgroundColor: Colors.white,
+                                      //     //specify only one: color or gradient
+                                      //     color: Colors.grey,
+                                      //   ),
+                                      // gradient: LinearGradient(
+                                      //   begin: Alignment.topLeft,
+                                      //   end: Alignment.bottomRight,
+                                      //   colors: [
+                                      //     Colors.yellowAccent,
+                                      //     Colors.deepOrange
+                                      //   ],
+                                      // ),
+                                      // ),
+                                    ],
                                   ),
-                                  // gradient: LinearGradient(
-                                  //   begin: Alignment.topLeft,
-                                  //   end: Alignment.bottomRight,
-                                  //   colors: [
-                                  //     Colors.yellowAccent,
-                                  //     Colors.deepOrange
-                                  //   ],
-                                  // ),
                                 ),
-                              ],
+                              ),
                             )),
                           ],
                         )

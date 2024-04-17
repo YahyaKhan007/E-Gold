@@ -19,6 +19,7 @@ import '../services/crypto_service.dart';
 import '../services/inStore_service.dart';
 import '../services/kyc_service.dart';
 import '../services/liveGoldSerice.dart';
+import '../services/sales_and_purchase_service_service.dart';
 import '../services/stripe_api.dart';
 import '../services/transaction_service.dart';
 import '../services/userProfileService.dart';
@@ -48,4 +49,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => CryptoService());
   locator.registerLazySingleton(() => InStoreService());
   locator.registerLazySingleton(() => MetalPriceService());
+  locator.registerLazySingleton(() => SalesAndPurchaseServiceService());
 }

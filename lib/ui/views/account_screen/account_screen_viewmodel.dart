@@ -8,6 +8,8 @@ import 'package:stacked_services/stacked_services.dart';
 class AccountScreenViewModel extends BaseViewModel {
   final authService = locator<AuthService>();
   final kycService = locator<KycService>();
+  final snackbarService = locator<SnackbarService>();
+
   final navigationService = locator<NavigationService>();
 
   bool isNavigating = false;
