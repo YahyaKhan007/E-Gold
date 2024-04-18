@@ -28,7 +28,7 @@ class CreateanaccountViewModel extends BaseViewModel {
     int buttonNumber,
   ) {
     if (buttonNumber == 0) {
-      _navigator.navigateToPhoneSignUpView();
+      // _navigator.navigateToPhoneSignUpView();
     }
     if (buttonNumber == 1) {
       // _navigator.navigateToSignupView();

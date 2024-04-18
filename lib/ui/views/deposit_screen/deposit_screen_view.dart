@@ -25,7 +25,7 @@ class DepositScreenView extends StackedView<DepositScreenViewModel> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: const Text(
-          'Deposit',
+          'Top Up',
           style: TextStyle(
             color: Colors.white,
             fontSize: 24,
@@ -68,7 +68,7 @@ class DepositScreenView extends StackedView<DepositScreenViewModel> {
                 children: [
                   verticalSpaceSmall,
                   const Text(
-                    'Add a payment Method',
+                    'Choose a payment Method',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,

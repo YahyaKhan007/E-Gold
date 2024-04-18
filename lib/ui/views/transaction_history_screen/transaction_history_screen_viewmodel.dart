@@ -13,10 +13,16 @@ class TransactionHistoryScreenViewModel extends BaseViewModel {
   final transactionService = locator<TransactionDetailsService>();
   final _userService = locator<UserProfileService>();
   final ScrollController scrollController = ScrollController();
-  List<TransactionDetails> get sortedList {
-    return transactionService.transactionDetails!
+  List<TransactionDetails> sortedList = List.empty(growable: true);
+
+  void onViewModelReady() async {
+    setBusy(true);
+    final transactionDetails = await transactionService
+        .getAllTransactionDetails(_userService.user!.uid);
+    sortedList.addAll(transactionDetails
         .where((item) => item.transactionType != 'Sell')
-        .toList();
+        .toList());
+    setBusy(false);
   }
 
   void goBack() {

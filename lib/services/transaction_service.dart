@@ -5,19 +5,38 @@ import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class TransactionDetailsService {
   List<TransactionDetails>? transactionDetails;
   final userService = locator<UserProfileService>();
 
-  getAllTransactionDetails(String userID) async {
+  Future<void> updateAdminTotalPurchaseDocument(
+      {required double purchaseToAdd}) async {
+    final DocumentReference documentReference =
+        FirebaseFirestore.instance.collection('purchase').doc('totalPurchases');
+
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot snapshot = await transaction.get(documentReference);
+      double currentTotal = (snapshot.get('totalPurchases') ?? 0).toDouble();
+      double newTotal = currentTotal + purchaseToAdd;
+      transaction.update(documentReference, {'totalPurchases': newTotal});
+    });
+
+    log('admin totalPurchases updated');
+  }
+
+  Future<List<TransactionDetails>> getAllTransactionDetails(
+      String userID) async {
     transactionDetails = await getAllTransactions(userID);
+    return transactionDetails ?? [];
   }
 
   final CollectionReference _transactionDetailsCollection =
+      FirebaseFirestore.instance.collection('users');
+
+  final CollectionReference portfolioTransactionReference =
       FirebaseFirestore.instance.collection(
-          'users'); // Adjust the collection name as per your Firebase structure
+          'portfolio'); // Adjust the collection name as per your Firebase structure
 
   // Future<void> createTransaction({
   //   required String userId,
@@ -55,6 +74,15 @@ class TransactionDetailsService {
     } catch (e) {
       print('Error retrieving transactions: $e');
       return [];
+    }
+  }
+
+// ^ Add Transaction to portfolio
+  Future<void> addTransactionToPortfolio({
+    required String userId,
+  }) async {
+    try {} catch (e) {
+      print('Error creating transaction: $e');
     }
   }
 

@@ -38,7 +38,7 @@ class AccountScreenViewModel extends BaseViewModel {
 
   void onTapEditProfile() {
     // isNavigating = true;
-    navigationService.navigateToEditProfileView();
+    navigationService.navigateToEditProfileView(isProperAccount: true);
     // isNavigating = false;
     // rebuildUi();
   }

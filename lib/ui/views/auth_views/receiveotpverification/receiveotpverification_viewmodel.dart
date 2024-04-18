@@ -40,9 +40,9 @@ class ReceiveotpverificationViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  void onPressedContinue() async {
+  void onPressedContinue(BuildContext context) async {
     print(pinCode);
-    bool flag = await authService.signInWithPhoneNumber(pinCode!);
+    bool flag = await authService.signInWithPhoneNumber(pinCode!, context);
     if (flag) {
       navigationService.replaceWithDashboardScreenView();
     } else {

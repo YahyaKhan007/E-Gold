@@ -14,7 +14,7 @@ class BuyGoldenContainer extends StatelessWidget {
   final VoidCallback checkGoldFunc;
   final VoidCallback checkSilverFunc;
 
-  BuyGoldenContainer({
+  const BuyGoldenContainer({
     Key? key,
     required this.goldCheck,
     required this.onBack,
@@ -128,11 +128,11 @@ class BuyGoldenContainer extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Center(
+            Center(
               child: Text(
-                'Current Gold rate: \$$currentGoldRate',
+                'Current Gold rate: AED $currentGoldRate',
                 textAlign: TextAlign.end,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xff2F4A64),
                   fontSize: 12,
                   fontWeight: FontWeight.normal,
@@ -193,20 +193,26 @@ class BuyGoldenContainer extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            Text(
-              'Balance:  $balance ',
-              style: const TextStyle(
-                color: kcTextColor,
-                fontSize: 13.87,
-                letterSpacing: 1.28,
+            Visibility(
+              visible: goldCheck == true ? true : false,
+              child: Text(
+                'Balance:  $balance ',
+                style: const TextStyle(
+                  color: kcTextColor,
+                  fontSize: 13.87,
+                  letterSpacing: 1.28,
+                ),
               ),
             ),
-            Text(
-              'Magrin:  $margin  ',
-              style: const TextStyle(
-                color: kcTextColor,
-                fontSize: 13.87,
-                letterSpacing: 1.28,
+            Visibility(
+              visible: goldCheck == true ? false : true,
+              child: Text(
+                'Magrin:  $margin  ',
+                style: const TextStyle(
+                  color: kcTextColor,
+                  fontSize: 13.87,
+                  letterSpacing: 1.28,
+                ),
               ),
             ),
           ],

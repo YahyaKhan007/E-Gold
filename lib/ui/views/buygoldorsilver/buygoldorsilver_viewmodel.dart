@@ -17,9 +17,11 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../services/kyc_service.dart';
+import '../../../services/userProfileService.dart';
 
 class BuyGoldOrSilverViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
+  final userService = locator<UserProfileService>();
   final kycService = locator<KycService>();
   final saleAndPurchaseServices = locator<SalesAndPurchaseServiceService>();
   final bankService = locator<BankService>();
@@ -110,33 +112,25 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
     // _balanceService.addBalance(FirebaseAuth.instance.currentUser!.uid, 10.0);
   }
 
-  Future<void> updateAdminTotalPurchaseDocument(
-      {required double purchaseToAdd}) async {
-    final DocumentReference documentReference =
-        FirebaseFirestore.instance.collection('purchase').doc('totalPurchases');
-
-    FirebaseFirestore.instance.runTransaction((transaction) async {
-      DocumentSnapshot snapshot = await transaction.get(documentReference);
-      double currentTotal = (snapshot.get('totalPurchases') ?? 0).toDouble();
-      double newTotal = currentTotal + purchaseToAdd;
-      transaction.update(documentReference, {'totalPurchases': newTotal});
-    });
-
-    log('admin totalPurchases updated');
-  }
-
   void toContinue() async {
     if (await kycService.isKycApproved()) {
       try {
         // await datesOfSaleAndPurchasesDocuments();
         double? ammount = double.tryParse(amount);
         if (amount.isEmpty) {
+          // await transactionDetailsService.addTransactionToPortfolio(
+          //   userId: 'zPAcetKOVqdX4EeIHByx',
+          // );
           _snackbarService.showSnackbar(
             message: 'Enter Some amount',
             title: 'Error',
             duration: const Duration(seconds: 2),
           );
         } else {
+// ? update user portfolio
+          userService.user!.totalGoldHoldings += totalGramsToBuy;
+          userService.updateUserToFirestore(userService.user!);
+
           TransactionDetails newTransaction = TransactionDetails(
             status: 'Completed',
             totalPaid: ammount!,
@@ -154,18 +148,15 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
                 '', // Replace with a unique ID for each transaction
           );
 
-          // ^   For Admin Graph
-
-          // await datesOfSaleAndPurchasesDocuments();
-
-          // ^  ---------------------------------
-
           if (withdrawMethod == 'Crypto') {
+//  ^ for portfolio
+
             bool check = false;
             if (gold) {
               check =
                   await cryptoService.deductBalanceFromCryptoWallet(ammount);
-              updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
+              transactionDetailsService.updateAdminTotalPurchaseDocument(
+                  purchaseToAdd: ammount);
             } else {
               check = await cryptoService.deductMarginFromCryptoWallet(ammount);
             }
@@ -175,7 +166,8 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
                 await balanceService.deductBalance(
                     FirebaseAuth.instance.currentUser!.uid,
                     double.parse(amount));
-                updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
+                transactionDetailsService.updateAdminTotalPurchaseDocument(
+                    purchaseToAdd: ammount);
               } else {
                 await balanceService.deductMargin(
                     FirebaseAuth.instance.currentUser!.uid,
@@ -204,7 +196,8 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
             bool check = false;
             if (gold) {
               check = await bankService.deductBalanceFromBankWallet(ammount);
-              updateAdminTotalPurchaseDocument(purchaseToAdd: ammount);
+              transactionDetailsService.updateAdminTotalPurchaseDocument(
+                  purchaseToAdd: ammount);
             } else {
               check = await bankService.deductMarginFromBankWallet(ammount);
             }
@@ -240,8 +233,8 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
           await transactionDetailsService
               .getAllTransactionDetails(FirebaseAuth.instance.currentUser!.uid);
           navi
-              ? navigationService.replaceWithDashboardScreenView()
-              : navigationService.replaceWithDepositScreenView();
+              ? navigationService.clearStackAndShow(Routes.dashboardScreenView)
+              : navigationService.navigateTo(Routes.depositScreenView);
         }
       } catch (e) {}
     } else {

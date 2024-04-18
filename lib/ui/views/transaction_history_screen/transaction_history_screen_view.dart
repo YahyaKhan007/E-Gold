@@ -120,126 +120,141 @@ class TransactionHistoryScreenView
                                       topLeft: Radius.circular(30),
                                       topRight: Radius.circular(30))),
                               height: screenHeight(context) * 0.8,
-                              child: ListView.separated(
-                                padding: EdgeInsets.zero,
-                                controller: viewModel.scrollController,
-                                itemCount: viewModel.sortedList.length,
-                                itemBuilder: (context, index) {
-                                  // List<TransactionDetails> sortedList = viewModel
-                                  //     .transactionService.transactionDetails!.where((item)=>item.transactionType != 'Sell')
-                                  // .toList(); // Copy the list to avoid modifying the original data
-                                  viewModel.sortedList.sort((a, b) => b
-                                      .transactionDate
-                                      .toDate()
-                                      .compareTo(a.transactionDate.toDate()));
+                              child: viewModel.isBusy
+                                  ? Center(child: CircularProgressIndicator())
+                                  : ListView.separated(
+                                      padding: EdgeInsets.zero,
+                                      controller: viewModel.scrollController,
+                                      itemCount: viewModel.sortedList.length,
+                                      itemBuilder: (context, index) {
+                                        // List<TransactionDetails> sortedList = viewModel
+                                        //     .transactionService.transactionDetails!.where((item)=>item.transactionType != 'Sell')
+                                        // .toList(); // Copy the list to avoid modifying the original data
+                                        viewModel.sortedList.sort((a, b) => b
+                                            .transactionDate
+                                            .toDate()
+                                            .compareTo(
+                                                a.transactionDate.toDate()));
 
-                                  // TransactionDetails transaction =
-                                  //     sortedList[index];
+                                        // TransactionDetails transaction =
+                                        //     sortedList[index];
 
-                                  TransactionDetails transactionDetails =
-                                      viewModel.sortedList[index];
+                                        TransactionDetails transactionDetails =
+                                            viewModel.sortedList[index];
 
-                                  Timestamp transactionDate =
-                                      transactionDetails.transactionDate;
-                                  DateTime transactionDateTime =
-                                      transactionDate.toDate();
-                                  DateTime transactionDateOnly = DateTime(
-                                    transactionDateTime.year,
-                                    transactionDateTime.month,
-                                    transactionDateTime.day,
-                                  );
+                                        Timestamp transactionDate =
+                                            transactionDetails.transactionDate;
+                                        DateTime transactionDateTime =
+                                            transactionDate.toDate();
+                                        DateTime transactionDateOnly = DateTime(
+                                          transactionDateTime.year,
+                                          transactionDateTime.month,
+                                          transactionDateTime.day,
+                                        );
 
-                                  DateTime? previousTransactionDateOnly;
-                                  if (index > 0) {
-                                    TransactionDetails previousTransaction =
-                                        viewModel.sortedList[index - 1];
-                                    Timestamp previousTransactionDate =
-                                        previousTransaction.transactionDate;
-                                    DateTime previousTransactionDateTime =
-                                        previousTransactionDate.toDate();
-                                    previousTransactionDateOnly = DateTime(
-                                      previousTransactionDateTime.year,
-                                      previousTransactionDateTime.month,
-                                      previousTransactionDateTime.day,
-                                    );
-                                  }
-
-                                  bool showDateHeader =
-                                      (previousTransactionDateOnly == null ||
-                                          !transactionDateOnly.isAtSameMomentAs(
-                                              previousTransactionDateOnly));
-
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      showDateHeader
-                                          ? Column(
-                                              children: [
-                                                Text(
-                                                  DateFormat('dd MMM yyyy')
-                                                      .format(
-                                                          transactionDateOnly
-                                                              .toLocal()),
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 20,
-                                                ),
-                                              ],
-                                            )
-                                          : Container(),
-                                      HomeTransactionRow(
-                                        walletType:
-                                            transactionDetails.walletType,
-                                        amount: transactionDetails.totalPaid
-                                            .toString(),
-                                        type:
-                                            transactionDetails.transactionType,
-                                        transactionDetails: transactionDetails,
-                                        buttonText: transactionDetails.status,
-                                        btc: transactionDetails.totalGoldBought
-                                            .toString(),
-                                        image: 'assets/images/transaction.png',
-                                        //  viewModel.image(transactionDetails)
-
-                                        // ,
-                                        imageBack: kcYellowBright,
-                                        btcColor: kcYellowBright,
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => TransactiondetailsView(
-                                                    profitOrLoss: calculateProfitLoss(
-                                                        buyRate:
-                                                            transactionDetails
-                                                                .buyGoldRate,
-                                                        conversionRate:
-                                                            conversionFactor,
-                                                        gramsBought:
-                                                            transactionDetails
-                                                                .totalGoldBought,
-                                                        sellRate:
-                                                            currentGoldRate),
-                                                    transactionDetails:
-                                                        transactionDetails)),
+                                        DateTime? previousTransactionDateOnly;
+                                        if (index > 0) {
+                                          TransactionDetails
+                                              previousTransaction =
+                                              viewModel.sortedList[index - 1];
+                                          Timestamp previousTransactionDate =
+                                              previousTransaction
+                                                  .transactionDate;
+                                          DateTime previousTransactionDateTime =
+                                              previousTransactionDate.toDate();
+                                          previousTransactionDateOnly =
+                                              DateTime(
+                                            previousTransactionDateTime.year,
+                                            previousTransactionDateTime.month,
+                                            previousTransactionDateTime.day,
                                           );
-                                        },
+                                        }
+
+                                        bool showDateHeader =
+                                            (previousTransactionDateOnly ==
+                                                    null ||
+                                                !transactionDateOnly
+                                                    .isAtSameMomentAs(
+                                                        previousTransactionDateOnly));
+
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            showDateHeader
+                                                ? Column(
+                                                    children: [
+                                                      Text(
+                                                        DateFormat(
+                                                                'dd MMM yyyy')
+                                                            .format(
+                                                                transactionDateOnly
+                                                                    .toLocal()),
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Container(),
+                                            HomeTransactionRow(
+                                              walletType:
+                                                  transactionDetails.walletType,
+                                              amount: transactionDetails
+                                                  .totalPaid
+                                                  .toString(),
+                                              type: transactionDetails
+                                                  .transactionType,
+                                              transactionDetails:
+                                                  transactionDetails,
+                                              buttonText:
+                                                  transactionDetails.status,
+                                              btc: transactionDetails
+                                                  .totalGoldBought
+                                                  .toString(),
+                                              image:
+                                                  'assets/images/transaction.png',
+                                              //  viewModel.image(transactionDetails)
+
+                                              // ,
+                                              imageBack: kcYellowBright,
+                                              btcColor: kcYellowBright,
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) => TransactiondetailsView(
+                                                          profitOrLoss: calculateProfitLoss(
+                                                              buyRate:
+                                                                  transactionDetails
+                                                                      .buyGoldRate,
+                                                              conversionRate:
+                                                                  conversionFactor,
+                                                              gramsBought:
+                                                                  transactionDetails
+                                                                      .totalGoldBought,
+                                                              sellRate:
+                                                                  currentGoldRate),
+                                                          transactionDetails:
+                                                              transactionDetails)),
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                      separatorBuilder:
+                                          (BuildContext context, int index) =>
+                                              const SizedBox(
+                                        height: 0,
                                       ),
-                                    ],
-                                  );
-                                },
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        const SizedBox(
-                                  height: 0,
-                                ),
-                              ),
+                                    ),
                             ),
                           ],
                         ),
@@ -254,6 +269,12 @@ class TransactionHistoryScreenView
       ),
       // ),
     );
+  }
+
+  @override
+  void onViewModelReady(TransactionHistoryScreenViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
   }
 
   @override

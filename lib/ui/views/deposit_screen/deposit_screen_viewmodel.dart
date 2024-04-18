@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
@@ -43,7 +45,7 @@ class DepositScreenViewModel extends BaseViewModel {
         currency: 'EUR',
       );
 
-      print('Payment Intent: $paymentIntent');
+      log('Payment Intent: $paymentIntent');
     } catch (e) {
       print('Error creating payment intent: $e');
       // Handle error
@@ -66,9 +68,29 @@ class DepositScreenViewModel extends BaseViewModel {
           )
           .then((value) => {});
 
-      await Stripe.instance
-          .presentPaymentSheet()
-          .then((value) => print("Payment success"));
+      await Stripe.instance.presentPaymentSheet().then((paymentResult) {
+        if (paymentResult != null) {
+          log('came..............');
+          log(paymentResult.label);
+          // if (paymentResult.label == PaymentSheetResultStatus.success) {
+          //   final transactionId = paymentResult.paymentIntent['id'];
+          //   print("Payment success! Transaction ID: $transactionId");
+          //   // Handle successful payment with the ID
+          // } else if (paymentResult.status == PaymentSheetResultStatus.failed) {
+          //   print("Payment failed: ${paymentResult.errorMessage}");
+          //   // Handle payment failure appropriately
+          // } else {
+          //   print("Payment Sheet canceled");
+          // }
+        }
+      });
+
+      // await Stripe.instance
+      //     .presentPaymentSheet()
+      //     .then((value) {
+
+      //       print("Payment success");
+      //     });
     } catch (e) {
       print('Error during payment: $e');
       // Handle payment failure

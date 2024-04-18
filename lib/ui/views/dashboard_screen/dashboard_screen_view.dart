@@ -34,13 +34,17 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
           PageView(
         controller: viewModel.pageController,
         onPageChanged: viewModel.pageChange,
+        // allowImplicitScrolling: false,
         children: viewModel.pages,
+        physics: const NeverScrollableScrollPhysics(),
       ),
       // ),
       resizeToAvoidBottomInset: true,
       bottomNavigationBar: SizedBox(
         height: 85,
         child: BottomNavigationBar(
+          selectedLabelStyle:
+              const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
           type: BottomNavigationBarType.fixed,
           // selectedItemColor: Colors.red, // Change selected color to red
           // unselectedItemColor: Colors.black, // Change unselected color to black
@@ -57,20 +61,25 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
             navbarItem(
                 image: Timages.home,
                 show: viewModel.currentPageIndex == 0 ? true : false,
+                label: 'Dashboard',
                 isLast: false),
             navbarItem(
+                label: 'history',
                 image: Timages.history,
                 show: viewModel.currentPageIndex == 1 ? true : false,
                 isLast: false),
             navbarItem(
+                label: 'BUY',
                 image: Timages.buy,
                 show: viewModel.currentPageIndex == 2 ? true : false,
                 isLast: false),
             navbarItem(
+                label: 'SIP',
                 image: Timages.sip,
                 show: viewModel.currentPageIndex == 3 ? true : false,
                 isLast: false),
             navbarItem(
+                label: 'Profile',
                 image: Timages.profile,
                 //  image: viewModel.homeModel.userService.user?.profileImg != ''? viewModel.homeModel.userService.user!.profileImg :   Timages.profile,
                 show: viewModel.currentPageIndex == 4 ? true : false,
@@ -82,7 +91,10 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
   }
 
   BottomNavigationBarItem navbarItem(
-      {required String image, required bool show, required bool isLast}) {
+      {required String image,
+      required bool show,
+      required bool isLast,
+      required String label}) {
     return BottomNavigationBarItem(
       icon: Padding(
         padding: const EdgeInsets.only(top: 10),
@@ -90,11 +102,11 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
           image,
           height: 25,
 
-          color: isLast ? null : Colors.blueGrey.shade200,
+          color: isLast ? null : Colors.blueGrey.shade800,
           // height: 30,
         ),
       ),
-      label: '',
+      label: label,
       activeIcon: Visibility(
         visible: show,
         child: Stack(

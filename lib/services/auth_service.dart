@@ -13,7 +13,9 @@ import 'package:e_gold/services/crypto_service.dart';
 import 'package:e_gold/services/inStore_service.dart';
 import 'package:e_gold/services/kyc_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
+import 'package:e_gold/ui/views/edit_profile/edit_profile_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -43,6 +45,7 @@ class AuthService {
       await credential.user?.sendEmailVerification();
 
       UserProfile user = UserProfile(
+          totalGoldHoldings: 0.0,
           isAdmin: false,
           name: name,
           profileImg: '',
@@ -51,6 +54,7 @@ class AuthService {
           uid: credential.user!.uid,
           phoneNumber: "",
           dateOfBirth: '',
+          lastDayGoldPrice: 0.0,
           createdAt: Timestamp.now());
       Crypto cryptoData = Crypto(walletAddress: '', securityPin: '');
       Bank bankData = Bank(bankName: '', accountNumber: '', swiftCode: '');
@@ -188,7 +192,8 @@ class AuthService {
   //     print("Error during phone number verification: $e");
   //   }
   // }
-  Future<bool> signInWithPhoneNumber(String smsCode) async {
+  Future<bool> signInWithPhoneNumber(
+      String smsCode, BuildContext context) async {
     try {
       AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: _verificationId,
@@ -213,6 +218,7 @@ class AuthService {
         return true;
       } else {
         UserProfile user = UserProfile(
+          totalGoldHoldings: 0.0,
           isAdmin: false,
           name: '',
           profileImg: '',
@@ -221,12 +227,19 @@ class AuthService {
           uid: userAuth.uid,
           phoneNumber: '',
           dateOfBirth: '',
+          lastDayGoldPrice: 0.0,
           createdAt: Timestamp.now(),
         );
         _UserProfileService.addUserToFirestore(user);
         // User data doesn't exist, create a new document
         print('New user created');
         _showSuccessSnackbar('Successfully signed in with phone number!');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (builder) => const EditProfileView(
+                      isProperAccount: false,
+                    )));
         return true;
       }
     } catch (e) {

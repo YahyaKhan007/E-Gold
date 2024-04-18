@@ -2,6 +2,7 @@ import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/widgets/AcoountCard.dart';
 import 'package:e_gold/ui/widgets/customAccountOageRow.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'account_screen_viewmodel.dart';
 
@@ -19,11 +20,11 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        leading: const Icon(
-          Icons.settings,
-          size: 24,
-          color: Colors.white,
-        ),
+        // leading: const Icon(
+        //   Icons.settings,
+        //   size: 24,
+        //   color: Colors.white,
+        // ),
         centerTitle: true,
         title: Text(
           'Account',
@@ -117,23 +118,29 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                             icon: Icons.arrow_forward_ios,
                             onPressed: viewModel.kyc,
                           ),
-                          AccountPageRow(
-                            text: 'Fund History',
-                            icon: Icons.arrow_forward_ios,
-                            onPressed: () async {
-                              // if  (await viewModel.fundHistory)} else {
-                              //     viewModel.snackbarService.showSnackbar(
-                              //       message:
-                              //           'Please Go to KYC Section and enter KYC details and wait for approval ',
-                              //       title: 'KYC Not Found',
-                              //       duration: const Duration(seconds: 2),
-                              // );
-                            },
+                          Visibility(
+                            visible: false,
+                            child: AccountPageRow(
+                              text: 'Fund History',
+                              icon: Icons.arrow_forward_ios,
+                              onPressed: () async {
+                                // if  (await viewModel.fundHistory)} else {
+                                //     viewModel.snackbarService.showSnackbar(
+                                //       message:
+                                //           'Please Go to KYC Section and enter KYC details and wait for approval ',
+                                //       title: 'KYC Not Found',
+                                //       duration: const Duration(seconds: 2),
+                                // );
+                              },
+                            ),
                           ),
-                          AccountPageRow(
-                            text: 'More',
-                            icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
+                          Visibility(
+                            visible: false,
+                            child: AccountPageRow(
+                              text: 'More',
+                              icon: Icons.arrow_forward_ios,
+                              onPressed: () {},
+                            ),
                           ),
                           AccountPageRow(
                             text: 'About Us',

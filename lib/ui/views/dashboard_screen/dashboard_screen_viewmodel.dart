@@ -8,10 +8,14 @@ import 'package:e_gold/ui/views/home/home_viewmodel.dart';
 import 'package:e_gold/ui/views/transaction_history_screen/transaction_history_screen_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+import '../../../app/app.router.dart';
 
 class DashboardScreenViewModel extends BaseViewModel {
   final bankService = locator<BankService>();
   final cryptoService = locator<CryptoService>();
+  final navigationService = locator<NavigationService>();
 
   final homeModel = HomeViewModel();
 

@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/models/transactionDetails.dart';
 import 'package:e_gold/ui/common/app_strings.dart';
+import 'package:e_gold/ui/views/home/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -37,26 +38,7 @@ class HomeTransactionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double calculateProfitLoss(
-        {required double gramsBought,
-        required double buyRate,
-        required double sellRate,
-        required double conversionRate}) {
-      double buyAmount = gramsBought * buyRate;
-      double sellAmount = gramsBought * sellRate;
-      // double buyInTola = gramsBought / conversionRate;
-      double profitLoss = sellAmount - buyAmount;
-
-      // Convert to tola for display purposes
-      // double profitLossInTola = profitLoss / conversionRate;
-
-      // print(
-      //     'Bought $gramsBought grams of gold at $buyRate per gram for $buyAmount');
-      // print('Sold for $sellRate per gram for $sellAmount');
-      // print('Profit/Loss: $profitLoss grams or $profitLossInTola tola');
-
-      return profitLoss;
-    }
+    HomeViewModel viewModel = HomeViewModel();
 
     return GestureDetector(
       onTap: onTap,
@@ -72,7 +54,7 @@ class HomeTransactionRow extends StatelessWidget {
                       builder: (context) => TransactiondetailsView(
                         profitOrLoss: transactionDetails.isSold
                             ? transactionDetails.totalBonus
-                            : calculateProfitLoss(
+                            : viewModel.calculateProfitLoss(
                                 buyRate: transactionDetails.buyGoldRate,
                                 conversionRate: conversionFactor,
                                 gramsBought: transactionDetails.totalGoldBought,
@@ -89,7 +71,7 @@ class HomeTransactionRow extends StatelessWidget {
                       ? transactionDetails.totalBonus >= 0
                           ? const Color(0xff00DDA3)
                           : const Color(0xff33404F)
-                      : calculateProfitLoss(
+                      : viewModel.calculateProfitLoss(
                                   buyRate: transactionDetails.buyGoldRate,
                                   conversionRate: conversionFactor,
                                   gramsBought:
@@ -104,7 +86,7 @@ class HomeTransactionRow extends StatelessWidget {
                         ? transactionDetails.totalBonus >= 0
                             ? 'assets/images/up_arrow.png'
                             : 'assets/images/down_arrow.png'
-                        : calculateProfitLoss(
+                        : viewModel.calculateProfitLoss(
                                     buyRate: transactionDetails.buyGoldRate,
                                     conversionRate: conversionFactor,
                                     gramsBought:
@@ -243,9 +225,9 @@ class HomeTransactionRow extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                       )
                                     : Text(
-                                        "${calculateProfitLoss(buyRate: transactionDetails.buyGoldRate, conversionRate: conversionFactor, gramsBought: transactionDetails.totalGoldBought, sellRate: currentGoldRate).toStringAsFixed(2).toString()} ",
+                                        "${viewModel.calculateProfitLoss(buyRate: transactionDetails.buyGoldRate, conversionRate: conversionFactor, gramsBought: transactionDetails.totalGoldBought, sellRate: currentGoldRate).toStringAsFixed(2).toString()} ",
                                         style: TextStyle(
-                                          color: calculateProfitLoss(
+                                          color: viewModel.calculateProfitLoss(
                                                       buyRate:
                                                           transactionDetails
                                                               .buyGoldRate,

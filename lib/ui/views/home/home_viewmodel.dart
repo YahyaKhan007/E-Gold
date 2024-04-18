@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, unused_element, unused_local_variable, unused_import, duplicate_import
 
+import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:e_gold/app/app.bottomsheets.dart';
 import 'package:e_gold/app/app.dialogs.dart';
@@ -14,6 +16,7 @@ import 'package:e_gold/services/transaction_service.dart';
 import 'package:e_gold/services/userProfileService.dart';
 import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -33,21 +36,90 @@ class HomeViewModel extends BaseViewModel {
 
   final userService = locator<UserProfileService>();
   final balanceService = locator<BalanceService>();
-
+  Timer? serverConnectionTimer;
   final metalPriceService = locator<MetalPriceService>();
   List<TransactionDetails> cryptoTransactions = [];
   List<TransactionDetails> cardTransactions = [];
   List<TransactionDetails> bankTransactions = [];
   List<TransactionDetails> inStoreTransactions = [];
+  List<TransactionDetails> marginTransactionList = [];
   final _bottomService = locator<BottomSheetService>();
 
   final ScrollController mainScrollController = ScrollController();
 
   String isSelected = 'Bank';
+
+  double calculateProfitLoss(
+      {required double gramsBought,
+      required double buyRate,
+      required double sellRate,
+      required double conversionRate}) {
+    double buyAmount = gramsBought * buyRate;
+    double sellAmount = gramsBought * sellRate;
+    // double buyInTola = gramsBought / conversionRate;
+    double profitLoss = sellAmount - buyAmount;
+
+    // Convert to tola for display purposes
+    // double profitLossInTola = profitLoss / conversionRate;
+
+    // print(
+    //     'Bought $gramsBought grams of gold at $buyRate per gram for $buyAmount');
+    // print('Sold for $sellRate per gram for $sellAmount');
+    // print('Profit/Loss: $profitLoss grams or $profitLossInTola tola');
+
+    return profitLoss;
+  }
+
   void changeSelection({required String selection}) {
     isSelected = selection;
     rebuildUi();
     log("selected  is ==== >   $isSelected");
+  }
+
+  void _startServerConnectionTimer() {
+    // Start a timer that calls connectToServer every 5 minutes
+    serverConnectionTimer =
+        Timer.periodic(const Duration(seconds: 20), (timer) {
+      connectToServer();
+      log('Text 1');
+    });
+  }
+
+  void connectToServer() async {
+    try {
+      // Establish connection with the server
+      int port = 57578;
+      Socket socket = await Socket.connect('165.73.253.101', port);
+
+      // Update isConnected state to true
+      // setState(() {
+      //   isConnected = true;
+      // });
+
+      // Listen for data from the server
+      socket.listen(
+        (Uint8List data) {
+          currentGoldRate = double.parse(String.fromCharCodes(data).trim());
+          rebuildUi();
+          for (var transaction in marginTransactionList) {
+            totalMarginProfit += calculateProfitLoss(
+                gramsBought: transaction.totalGoldBought,
+                buyRate: transaction.buyGoldRate,
+                sellRate: currentGoldRate,
+                conversionRate: conversionFactor);
+          }
+          rebuildUi();
+          // setState(() {
+          //   serverResponse = String.fromCharCodes(data).trim();
+          // });
+        },
+      );
+
+      // Close the connection
+      // socket.close();
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   double calculateResult({required double passedValue}) {
@@ -83,6 +155,8 @@ class HomeViewModel extends BaseViewModel {
     // await metalPriceService.fetchData();
     // fetchTransactionRow(transactionType: cryptoTransactions);
     await fetchTransactions();
+    calulateMarginFromTransationsPortFolio();
+    _startServerConnectionTimer();
     setBusy(false);
   }
 
@@ -110,6 +184,36 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
+  calulateMarginFromTransationsPortFolio() {
+    if (inStoreTransactions.isNotEmpty) {
+      for (var transaction in inStoreTransactions) {
+        if (transaction.isMargin == true && transaction.isSold == false) {
+          marginTransactionList.add(transaction);
+        }
+      }
+    } else if (cardTransactions.isNotEmpty) {
+      for (var transaction in cardTransactions) {
+        if (transaction.isMargin == true && transaction.isSold == false) {
+          marginTransactionList.add(transaction);
+        }
+      }
+    } else if (bankTransactions.isNotEmpty) {
+      for (var transaction in bankTransactions) {
+        if (transaction.isMargin == true && transaction.isSold == false) {
+          marginTransactionList.add(transaction);
+        }
+      }
+    } else if (cryptoTransactions.isNotEmpty) {
+      for (var transaction in cryptoTransactions) {
+        if (transaction.isMargin == true && transaction.isSold == false) {
+          marginTransactionList.add(transaction);
+        }
+      }
+    }
+
+    log('Total Margin Transaction List Length is : ${marginTransactionList.length}');
+  }
+
   void onTapSell() {
     _bottomService.showCustomSheet(
       variant: BottomSheetType.sellgold,
@@ -118,6 +222,18 @@ class HomeViewModel extends BaseViewModel {
 
   void onTapEditProfile() {
     navigationService.navigateToTransactionHistoryScreenView;
+  }
+
+  void _stopServerConnectionTimer() {
+    // Cancel the timer when no longer needed
+    serverConnectionTimer?.cancel();
+  }
+
+  @override
+  void dispose() {
+    // Dispose of resources when the ViewModel is disposed
+    _stopServerConnectionTimer();
+    super.dispose();
   }
 
   final PageController pageController = PageController(initialPage: 0);

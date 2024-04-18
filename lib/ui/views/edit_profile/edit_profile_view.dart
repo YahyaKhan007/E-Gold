@@ -10,7 +10,9 @@ import 'package:stacked/stacked.dart';
 import 'edit_profile_viewmodel.dart';
 
 class EditProfileView extends StackedView<EditProfileViewModel> {
-  const EditProfileView({Key? key}) : super(key: key);
+  final bool isProperAccount;
+  const EditProfileView({Key? key, required this.isProperAccount})
+      : super(key: key);
 
   @override
   Widget builder(

@@ -9,8 +9,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import 'package:simple_progress_indicators/simple_progress_indicators.dart';
-
 import '../../widgets/customHomeTransactionRow.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
@@ -139,15 +137,23 @@ class HomeView extends StackedView<HomeViewModel> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(
-                                  currentGoldRate.toString(),
-                                  style: const TextStyle(
-                                      color: Colors.yellow,
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.bold),
-                                ),
+                                viewModel.isBusy
+                                    ? const Text(
+                                        ' ...  ',
+                                        style: TextStyle(
+                                            color: Colors.yellow,
+                                            fontSize: 40,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    : Text(
+                                        currentGoldRate.toStringAsFixed(3),
+                                        style: const TextStyle(
+                                            color: Colors.yellow,
+                                            fontSize: 40,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                 const Text(
-                                  ' per Gram',
+                                  ' per gram',
                                   style: TextStyle(
                                       color: Colors.yellow,
                                       fontSize: 15,
@@ -343,26 +349,52 @@ class HomeView extends StackedView<HomeViewModel> {
                                 child: BackdropFilter(
                                   filter:
                                       ImageFilter.blur(sigmaX: 60, sigmaY: 60),
-                                  child: const Column(
+                                  child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        "Portfolio",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            "Portfolio",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            " / ",
+                                            style: TextStyle(
+                                                color: totalMarginProfit >= 0
+                                                    ? Colors.yellow
+                                                    : Colors.red,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            "Margin",
+                                            style: TextStyle(
+                                                color: totalMarginProfit >= 0
+                                                    ? Colors.yellow
+                                                    : Colors.red,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
                                       ),
                                       FittedBox(
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 8),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 "AED  ",
                                                 style: TextStyle(
                                                     color: Colors.white,
@@ -371,10 +403,37 @@ class HomeView extends StackedView<HomeViewModel> {
                                                         FontWeight.bold),
                                               ),
                                               Text(
-                                                "9,615",
-                                                style: TextStyle(
+                                                (viewModel.userService.user!
+                                                            .totalGoldHoldings *
+                                                        currentGoldRate)
+                                                    .toStringAsFixed(2)
+                                                    .toString(),
+                                                style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 35,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text(
+                                                " / ",
+                                                style: TextStyle(
+                                                    color:
+                                                        totalMarginProfit >= 0
+                                                            ? Colors.yellow
+                                                            : Colors.red,
+                                                    fontSize: 25,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text(
+                                                totalMarginProfit
+                                                    .toStringAsFixed(2),
+                                                style: TextStyle(
+                                                    color:
+                                                        totalMarginProfit >= 0
+                                                            ? Colors.yellow
+                                                            : Colors.red,
+                                                    fontSize: 20,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),

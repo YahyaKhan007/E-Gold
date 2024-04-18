@@ -28,7 +28,7 @@ class ChoosePaymentMethodView
         centerTitle: true,
         title: const Center(
           child: Text(
-            'Choose Payment Method',
+            'Buy Gold',
             style: TextStyle(
               color: Colors.white,
               fontSize: 22,
@@ -66,7 +66,7 @@ class ChoosePaymentMethodView
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const Text(
-                      'Add a payment Method',
+                      'Choose a payment Method',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,

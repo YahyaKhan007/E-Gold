@@ -10,8 +10,11 @@ class UserProfile {
   Timestamp? createdAt;
   String profileImg;
   bool isAdmin;
+  double totalGoldHoldings;
+  double lastDayGoldPrice = 0.0;
 
   UserProfile({
+    required this.totalGoldHoldings,
     required this.name,
     required this.countryCode,
     required this.email,
@@ -21,12 +24,14 @@ class UserProfile {
     required this.dateOfBirth,
     required this.createdAt,
     required this.isAdmin,
+    required this.lastDayGoldPrice,
   });
 
   // Method to convert the object to a Map for storing in Firestore
   Map<String, dynamic> toJson() {
     return {
       'isAdmin': isAdmin,
+      'totalGoldHoldings': totalGoldHoldings,
       'name': name,
       'email': email,
       'countryCode': countryCode,
@@ -35,6 +40,7 @@ class UserProfile {
       'phoneNumber': phoneNumber,
       'dateOfBirth': dateOfBirth,
       'createdAt': createdAt,
+      'lastDayGoldPrice': lastDayGoldPrice,
     };
   }
 
@@ -42,6 +48,7 @@ class UserProfile {
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
       name: json['name'],
+      totalGoldHoldings: json['totalGoldHoldings'],
       isAdmin: json['isAdmin'],
       countryCode: json['countryCode'],
       profileImg: json['profileImg'],
@@ -49,6 +56,7 @@ class UserProfile {
       uid: json['uid'],
       phoneNumber: json['phoneNumber'],
       dateOfBirth: json['dateOfBirth'],
+      lastDayGoldPrice: json['lastDayGoldPrice'],
       createdAt:
           json['createdAt'] == null ? null : (json['createdAt'] as Timestamp),
     );
@@ -58,6 +66,7 @@ class UserProfile {
 
     return UserProfile(
       isAdmin: data['isAdmin'],
+      totalGoldHoldings: data['totalGoldHoldings'],
       name: data['name'],
       email: data['email'],
       countryCode: data['countryCode'],
@@ -66,6 +75,7 @@ class UserProfile {
       phoneNumber: data['phoneNumber'],
       dateOfBirth: data['dateOfBirth'],
       createdAt: data['createdAt'],
+      lastDayGoldPrice: data['lastDayGoldPrice'],
     );
   }
 }

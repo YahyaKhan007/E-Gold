@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/bank_service.dart';
+import 'package:e_gold/services/userProfileService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +19,7 @@ import '../../common/app_strings.dart';
 
 class TransactiondetailsViewModel extends BaseViewModel {
   final cryptoService = locator<CryptoService>();
+  final userService = locator<UserProfileService>();
   final bankService = locator<BankService>();
   final balanceService = locator<BalanceService>();
   final transactionDetailsService = locator<TransactionDetailsService>();
@@ -27,6 +29,8 @@ class TransactiondetailsViewModel extends BaseViewModel {
   bool navi = true;
 
   bool gold = true;
+
+  late TransactionDetails transaction;
 
   final navigationService = locator<NavigationService>();
   void onBack() {
@@ -141,6 +145,11 @@ class TransactiondetailsViewModel extends BaseViewModel {
         // ^   ---------------------
         // ^   ---------------------
 
+        userService.user!.totalGoldHoldings -=
+            transactionDetails.totalGoldBought;
+
+        userService.updateUserToFirestore(userService.user!);
+
         double profitLoss = calculateProfitLoss(
             gramsBought: transactionDetails.totalGoldBought,
             buyRate: transactionDetails.buyGoldRate,
@@ -198,6 +207,7 @@ class TransactiondetailsViewModel extends BaseViewModel {
           soldTransactionId:
               '', // Replace with a unique ID for each transaction
         );
+        transaction = newTransaction;
         rebuildUi();
 
         // ^   Responsible for adding the sales in to the firebase fiels totals sales
@@ -389,5 +399,10 @@ class TransactiondetailsViewModel extends BaseViewModel {
     } catch (e, stackTrace) {
       log("stackTrace    ----:----  $stackTrace");
     }
+  }
+
+  void onViewModelReady(TransactionDetails transaction) {
+    this.transaction = transaction;
+    rebuildUi();
   }
 }

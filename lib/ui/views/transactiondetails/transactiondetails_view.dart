@@ -69,7 +69,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   verticalSpaceMedium,
-                  transactionDetails.transactionType == 'TopUp'
+                  viewModel.transaction.transactionType == 'TopUp'
                       ? const Text(
                           "TopUp",
                           style: TextStyle(
@@ -77,7 +77,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                               color: Colors.black,
                               fontWeight: FontWeight.bold),
                         )
-                      : transactionDetails.isSold == true
+                      : viewModel.transaction.isSold == true
                           ? const Text(
                               "Transaction Sold",
                               style: TextStyle(
@@ -141,14 +141,14 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
                                                   Text(
-                                                    "${transactionDetails.isSold ? 0 : transactionDetails.totalPaid.toStringAsFixed(2)} ",
+                                                    "${viewModel.transaction.isSold ? 0 : viewModel.transaction.totalPaid.toStringAsFixed(2)} ",
                                                     style: const TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
-                                                  transactionDetails.isSold
+                                                  viewModel.transaction.isSold
                                                       ? const SizedBox()
                                                       : Text(
                                                           "${profitOrLoss > 0 ? "+" : ""}${profitOrLoss.toStringAsFixed(2)}",
@@ -262,7 +262,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                                         .transactionType ==
                                                     'Sell'
                                                 ? Text(
-                                                    "${transactionDetails.totalBonus.toStringAsFixed(2)} \$",
+                                                    "${viewModel.transaction.totalBonus.toStringAsFixed(2)} AED",
                                                     style: TextStyle(
                                                         color: transactionDetails
                                                                     .totalBonus >
@@ -279,7 +279,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                                             FontWeight.bold),
                                                   )
                                                 : Text(
-                                                    "${profitOrLoss.toStringAsFixed(2)} \$",
+                                                    "${profitOrLoss.toStringAsFixed(2)} AED",
                                                     style: TextStyle(
                                                         color: profitOrLoss > 0
                                                             ? Colors.greenAccent
@@ -299,24 +299,24 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                 ),
                               ),
                             ),
-                  transactionDetails.isSold == true
+                  viewModel.transaction.isSold == true
                       ? verticalSpaceTiny
                       : verticalSpaceLarge,
                   Visibility(
-                      visible: transactionDetails.isSold == true,
+                      visible: viewModel.transaction.isSold == true,
                       child: GestureDetector(
                         onTap: () async {
                           var soldTransaction = await viewModel.getDocumentById(
-                              transactionDetails.soldTransactionId);
+                              viewModel.transaction.soldTransactionId);
 
                           if (soldTransaction == null) {
                             log('Transacion result is Empty');
                           } else {
                             viewModel.toSpeceficSellTransaction(soldTransaction,
-                                transactionDetails.totalPaid.toString());
+                                viewModel.transaction.totalPaid.toString());
                           }
 
-                          log(transactionDetails.soldTransactionId);
+                          log(viewModel.transaction.soldTransactionId);
                           log("this should open the transactions in which it is sold");
                         },
                         child: const Text(
@@ -324,7 +324,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                           style: TextStyle(color: Colors.red),
                         ),
                       )),
-                  transactionDetails.isSold == true
+                  viewModel.transaction.isSold == true
                       ? verticalSpaceLarge
                       : verticalSpaceTiny,
                   SizedBox(
@@ -333,14 +333,14 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         List<String> values = [
-                          transactionDetails.status,
-                          transactionDetails.totalPaid.toString(),
-                          transactionDetails.totalBonus.toString(),
-                          transactionDetails.totalGoldBought.toString(),
-                          transactionDetails.withdrawMethod,
+                          viewModel.transaction.status,
+                          viewModel.transaction.totalPaid.toString(),
+                          viewModel.transaction.totalBonus.toString(),
+                          viewModel.transaction.totalGoldBought.toString(),
+                          viewModel.transaction.withdrawMethod,
                           viewModel.formattedDate(
-                              transactionDetails.transactionDate),
-                          transactionDetails.transactionId,
+                              viewModel.transaction.transactionDate),
+                          viewModel.transaction.transactionId,
                         ];
 
                         List<String> names = [
@@ -365,14 +365,15 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                     fontWeight: FontWeight.w400,
                                   ),
                           title: index == 2 &&
-                                  transactionDetails.transactionType == 'Sell'
-                              ? transactionDetails.totalBonus >= 0
+                                  viewModel.transaction.transactionType ==
+                                      'Sell'
+                              ? viewModel.transaction.totalBonus >= 0
                                   ? const Text("Profit",
                                       style: TextStyle(color: Colors.black))
                                   : const Text("Loss",
                                       style: TextStyle(color: Colors.black))
                               : index == 3 &&
-                                      transactionDetails.transactionType ==
+                                      viewModel.transaction.transactionType ==
                                           'Sell'
                                   ? const Text("Total Gold Sold",
                                       style: TextStyle(color: Colors.black))
@@ -385,12 +386,12 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                "${index == 0 && transactionDetails.isSold == true ? "Sold Successful" : values[index]} ${index == 2 || index == 1 ? "\$" : index == 3 ? 'grams' : ""}",
+                                "${index == 0 && viewModel.transaction.isSold == true ? "Sold Successful" : values[index]} ${index == 2 || index == 1 ? "AED" : index == 3 ? 'grams' : ""}",
                                 style: const TextStyle(color: Colors.black54),
                               ),
                               index == 0 &&
-                                      transactionDetails.isSold == true &&
-                                      transactionDetails.transactionType ==
+                                      viewModel.transaction.isSold == true &&
+                                      viewModel.transaction.transactionType ==
                                           'Buy'
                                   ? Visibility(
                                       visible: false,
@@ -406,7 +407,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                           } else {
                                             viewModel.toSpeceficSellTransaction(
                                                 soldTransaction,
-                                                transactionDetails.totalPaid
+                                                viewModel.transaction.totalPaid
                                                     .toString());
                                           }
 
@@ -450,12 +451,12 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                     ),
                   ),
                   Visibility(
-                    visible: !transactionDetails.isSold &&
-                        transactionDetails.transactionType != 'TopUp',
+                    visible: !viewModel.transaction.isSold &&
+                        viewModel.transaction.transactionType != 'TopUp',
                     child: GestureDetector(
                       onTap: () {
-                        log(transactionDetails.isSold.toString());
-                        transactionDetails.isSold
+                        log(viewModel.transaction.isSold.toString());
+                        viewModel.transaction.isSold
                             ? null
                             : viewModel.sellTransaction(transactionDetails);
                       },
@@ -491,6 +492,12 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
         ],
       ),
     );
+  }
+
+  @override
+  void onViewModelReady(TransactiondetailsViewModel viewModel) {
+    viewModel.onViewModelReady(transactionDetails);
+    super.onViewModelReady(viewModel);
   }
 
   @override

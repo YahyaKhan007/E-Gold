@@ -582,8 +582,10 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i31.EditProfileView: (data) {
+      final args = data.getArgs<EditProfileViewArguments>(nullOk: false);
       return _i41.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i31.EditProfileView(),
+        builder: (context) => _i31.EditProfileView(
+            key: args.key, isProperAccount: args.isProperAccount),
         settings: data,
       );
     },
@@ -993,6 +995,33 @@ class KycApprovedViewArguments {
   @override
   int get hashCode {
     return key.hashCode ^ isApproved.hashCode;
+  }
+}
+
+class EditProfileViewArguments {
+  const EditProfileViewArguments({
+    this.key,
+    required this.isProperAccount,
+  });
+
+  final _i41.Key? key;
+
+  final bool isProperAccount;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "isProperAccount": "$isProperAccount"}';
+  }
+
+  @override
+  bool operator ==(covariant EditProfileViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.isProperAccount == isProperAccount;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ isProperAccount.hashCode;
   }
 }
 
@@ -1550,14 +1579,18 @@ extension NavigatorStateExtension on _i43.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToEditProfileView([
+  Future<dynamic> navigateToEditProfileView({
+    _i41.Key? key,
+    required bool isProperAccount,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.editProfileView,
+        arguments: EditProfileViewArguments(
+            key: key, isProperAccount: isProperAccount),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -2191,14 +2224,18 @@ extension NavigatorStateExtension on _i43.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithEditProfileView([
+  Future<dynamic> replaceWithEditProfileView({
+    _i41.Key? key,
+    required bool isProperAccount,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.editProfileView,
+        arguments: EditProfileViewArguments(
+            key: key, isProperAccount: isProperAccount),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

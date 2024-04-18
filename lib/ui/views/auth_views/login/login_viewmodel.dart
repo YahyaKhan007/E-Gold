@@ -69,6 +69,7 @@ class LoginViewModel extends BaseViewModel {
       if (user != null) {
         if (userCred.additionalUserInfo!.isNewUser) {
           UserProfile user = UserProfile(
+              totalGoldHoldings: 0.0,
               isAdmin: false,
               name: userCred.user!.displayName.toString(),
               profileImg: '',
@@ -77,6 +78,7 @@ class LoginViewModel extends BaseViewModel {
               uid: userCred.user!.uid.toString(),
               phoneNumber: "",
               dateOfBirth: '',
+              lastDayGoldPrice : 0.0,
               createdAt: Timestamp.now());
           Crypto cryptoData = Crypto(walletAddress: '', securityPin: '');
           Bank bankData = Bank(bankName: '', accountNumber: '', swiftCode: '');
@@ -153,6 +155,7 @@ class LoginViewModel extends BaseViewModel {
           if (userCredential.user != null) {
             if (userCredential.additionalUserInfo!.isNewUser) {
               UserProfile user = UserProfile(
+                  totalGoldHoldings: 0.0,
                   isAdmin: false,
                   name: userCredential.user!.displayName.toString(),
                   profileImg: '',
@@ -161,6 +164,7 @@ class LoginViewModel extends BaseViewModel {
                   uid: userCredential.user!.uid.toString(),
                   phoneNumber: "",
                   dateOfBirth: '',
+                  lastDayGoldPrice: 0.0,
                   createdAt: Timestamp.now());
               Crypto cryptoData = Crypto(walletAddress: '', securityPin: '');
               Bank bankData =

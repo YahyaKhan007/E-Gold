@@ -85,20 +85,24 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                           4,
                           (index) => Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                  fixedSize: const Size.fromHeight(48),
-                                  shape: const StadiumBorder(),
-                                  backgroundColor:
-                                      kcLightButtonBackground.withOpacity(0.9)),
-                              onPressed: () =>
-                                  viewModel.handleButtonPress(context, index),
-                              icon: SvgPicture.asset(
-                                viewModel.buttonData[index]['icon'],
-                                height: 28.0,
-                                width: 28.0,
+                            child: Visibility(
+                              visible: index == 0 ? false : true,
+                              child: ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                    fixedSize: const Size.fromHeight(48),
+                                    shape: const StadiumBorder(),
+                                    backgroundColor: kcLightButtonBackground
+                                        .withOpacity(0.9)),
+                                onPressed: () =>
+                                    viewModel.handleButtonPress(context, index),
+                                icon: SvgPicture.asset(
+                                  viewModel.buttonData[index]['icon'],
+                                  height: 28.0,
+                                  width: 28.0,
+                                ),
+                                label:
+                                    Text(viewModel.buttonData[index]['text']),
                               ),
-                              label: Text(viewModel.buttonData[index]['text']),
                             ),
                           ),
                         )),

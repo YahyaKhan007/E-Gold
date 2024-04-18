@@ -54,7 +54,8 @@ class SignupViewModel extends BaseViewModel {
           nameController.text);
 
       if (user != null) {
-        navigationService.navigateToLoginView();
+        navigationService.clearStackAndShow(Routes.loginView);
+        // navigationService.navigateToLoginView();
       }
     }
   }
