@@ -18,7 +18,7 @@ class CryptoService {
 
   Future<Crypto?> getCryptoFromWallet() async {
     try {
-      String uid = userService.user!.uid;
+    String uid = userService.user!.uid;
       DocumentReference specificCryptoRef = _firestore
           .collection('users')
           .doc(uid)

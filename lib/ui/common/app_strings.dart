@@ -7,6 +7,8 @@ final RegExp emailRegExp = RegExp(
 );
 
 double currentGoldRate = 283.75;
+double fixedGoldPrice = 290.99;
+double goldPercent = 0;
 double totalMarginProfit = 0;
 // const double currentGoldRate = 402224.79;
 double conversionFactor = 11.7;

@@ -12,7 +12,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+   
   Stripe.publishableKey =
       "pk_test_51OSXyfDaYHvKB9OxPUTYQxbGj1dcLtV3YX3Qg5EEmUYfpr1PP1oQp3LTaJy2UBPu99paLgS0woQn26TpTpJnRfvc00fYQ6RUFR";
   await Firebase.initializeApp(

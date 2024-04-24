@@ -18,6 +18,7 @@ import '../../common/app_strings.dart';
 
 class StartupViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
+  // final navigationService1 = locator<Mar>();
   final salesAndPurchases = locator<SalesAndPurchaseServiceService>();
   final userProfileService = locator<UserProfileService>();
   final _transactionService = locator<TransactionDetailsService>();

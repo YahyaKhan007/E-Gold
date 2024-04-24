@@ -58,7 +58,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 //     fontWeight: FontWeight.bold,
                 //   ),
                 // ),
-                expandedHeight: 280, // Set the expanded height
+                expandedHeight: 500, // Set the expanded height
                 collapsedHeight: 90, // Set the collapsed height
                 flexibleSpace: FlexibleSpaceBar(
                   background: Padding(
@@ -125,6 +125,8 @@ class HomeView extends StackedView<HomeViewModel> {
                           children: [
                             Row(
                               mainAxisSize: MainAxisSize.min,
+                              // mainAxisAlignment: MainAxisAlignment.end,
+                              // crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Image.asset(
                                     'assets/images/gold_ingots_gold_svgrepo_com1.png',
@@ -134,7 +136,7 @@ class HomeView extends StackedView<HomeViewModel> {
                                   style: TextStyle(
                                       fontStyle: FontStyle.normal,
                                       color: Colors.yellow,
-                                      fontSize: 16,
+                                      fontSize: 30,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 viewModel.isBusy
@@ -142,14 +144,14 @@ class HomeView extends StackedView<HomeViewModel> {
                                         ' ...  ',
                                         style: TextStyle(
                                             color: Colors.yellow,
-                                            fontSize: 40,
+                                            fontSize: 30,
                                             fontWeight: FontWeight.bold),
                                       )
                                     : Text(
-                                        currentGoldRate.toStringAsFixed(3),
+                                        currentGoldRate.toStringAsFixed(2),
                                         style: const TextStyle(
                                             color: Colors.yellow,
-                                            fontSize: 40,
+                                            fontSize: 50,
                                             fontWeight: FontWeight.bold),
                                       ),
                                 const Text(
@@ -165,15 +167,28 @@ class HomeView extends StackedView<HomeViewModel> {
                               visible: true,
                               child: Row(
                                 children: [
-                                  Image.asset(
-                                    'assets/images/up_arrow_icon.png',
-                                    color: kcGreen,
-                                  ),
-                                  const Text(
-                                    ' Up to 5%',
+                                  goldPercent >= 0
+                                      ? Image.asset(
+                                          'assets/images/up_arrow_icon.png',
+                                          color: kcGreen,
+                                        )
+                                      : Transform.rotate(
+                                          angle: 3.14,
+                                          child: Image.asset(
+                                            'assets/images/up_arrow_icon.png',
+                                            color: Colors.red.shade700,
+                                          ),
+                                        ),
+                                  Text(
+                                    // ' Up to 5%',
+                                    " ${goldPercent >= 0 ? 'Up ' : 'Down '} ${goldPercent.toStringAsFixed(2).toString()} %",
+
                                     style: TextStyle(
                                       fontSize: 15,
-                                      color: kcGreen,
+                                      fontWeight: FontWeight.bold,
+                                      color: goldPercent >= 0
+                                          ? kcGreen
+                                          : Colors.red.shade700,
                                     ),
                                   ),
                                 ],
@@ -255,138 +270,50 @@ class HomeView extends StackedView<HomeViewModel> {
                         //       fontWeight: FontWeight.w100,
                         //       letterSpacing: 2),
                         // ),
-
+                        verticalSpaceSmall,
                         // ^  Wallet Showing
                         verticalSpaceSmall,
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Expanded(
                                 child: Container(
-                              height: size.height * 0.13,
+                              height: size.height * 0.17,
                               decoration: BoxDecoration(
-                                // border: Border.all(color: Colors.white),
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
+                                  // border: Border.all(color: Colors.white),
+                                  // color: kcButtonBackground,
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 3,
+                                      spreadRadius: 0.5,
+                                      color: Colors.black38.withOpacity(0.4),
+                                    )
+                                  ]),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child: BackdropFilter(
-                                  filter:
-                                      ImageFilter.blur(sigmaX: 60, sigmaY: 60),
-                                  child: SizedBox(
-                                    height: size.height * 0.13,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          "Wallet",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        FittedBox(
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                const Text(
-                                                  "AED  ",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Text(
-                                                  viewModel.balanceService
-                                                      .balanceData!.balance
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 35,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        // Padding(
-                                        //   padding: const EdgeInsets.only(right: 30),
-                                        //   child: ProgressBar(
-                                        //     value: viewModel.calculateResult(
-                                        //         passedValue: double.parse(viewModel
-                                        //             .balanceService.balanceData!.balance
-                                        //             .toString())),
-                                        //     backgroundColor: Colors.white,
-                                        //     //specify only one: color or gradient
-                                        //     color: const Color(0xff00DDA3),
-                                        //   ),
-                                        // ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )),
-                            // horizontalSpaceLarge,
-                            horizontalSpaceMedium,
-                            Expanded(
-                                child: Container(
-                              height: size.height * 0.13,
-                              decoration: BoxDecoration(
-                                // border: Border.all(color: Colors.white),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: BackdropFilter(
-                                  filter:
-                                      ImageFilter.blur(sigmaX: 60, sigmaY: 60),
+                                child:
+                                    //  BackdropFilter(
+                                    //   filter:
+                                    //       ImageFilter.blur(sigmaX: 60, sigmaY: 60),
+                                    //   child:
+                                    SizedBox(
+                                  height: size.height * 0.17,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          const Text(
-                                            "Portfolio",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            " / ",
-                                            style: TextStyle(
-                                                color: totalMarginProfit >= 0
-                                                    ? Colors.yellow
-                                                    : Colors.red,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            "Margin",
-                                            style: TextStyle(
-                                                color: totalMarginProfit >= 0
-                                                    ? Colors.yellow
-                                                    : Colors.red,
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
+                                      const Text(
+                                        "Wallet",
+                                        style: TextStyle(
+                                            color: kcGreen,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
                                       ),
+                                      verticalSpaceSmall,
                                       FittedBox(
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
@@ -397,43 +324,18 @@ class HomeView extends StackedView<HomeViewModel> {
                                               const Text(
                                                 "AED  ",
                                                 style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 13,
+                                                    color: Colors.black,
+                                                    fontSize: 14,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
                                               Text(
-                                                (viewModel.userService.user!
-                                                            .totalGoldHoldings *
-                                                        currentGoldRate)
-                                                    .toStringAsFixed(2)
+                                                viewModel.balanceService
+                                                    .balanceData!.balance
                                                     .toString(),
                                                 style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 35,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Text(
-                                                " / ",
-                                                style: TextStyle(
-                                                    color:
-                                                        totalMarginProfit >= 0
-                                                            ? Colors.yellow
-                                                            : Colors.red,
-                                                    fontSize: 25,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Text(
-                                                totalMarginProfit
-                                                    .toStringAsFixed(2),
-                                                style: TextStyle(
-                                                    color:
-                                                        totalMarginProfit >= 0
-                                                            ? Colors.yellow
-                                                            : Colors.red,
-                                                    fontSize: 20,
+                                                    color: Colors.black,
+                                                    fontSize: 14,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
@@ -442,27 +344,304 @@ class HomeView extends StackedView<HomeViewModel> {
                                         ),
                                       ),
                                       // Padding(
-                                      //   padding: EdgeInsets.only(right: 0),
+                                      //   padding: const EdgeInsets.only(right: 30),
                                       //   child: ProgressBar(
-                                      //     value: 0.4,
+                                      //     value: viewModel.calculateResult(
+                                      //         passedValue: double.parse(viewModel
+                                      //             .balanceService.balanceData!.balance
+                                      //             .toString())),
                                       //     backgroundColor: Colors.white,
                                       //     //specify only one: color or gradient
-                                      //     color: Colors.grey,
+                                      //     color: const Color(0xff00DDA3),
                                       //   ),
-                                      // gradient: LinearGradient(
-                                      //   begin: Alignment.topLeft,
-                                      //   end: Alignment.bottomRight,
-                                      //   colors: [
-                                      //     Colors.yellowAccent,
-                                      //     Colors.deepOrange
-                                      //   ],
-                                      // ),
                                       // ),
                                     ],
                                   ),
                                 ),
                               ),
+                              // ),
                             )),
+                            // horizontalSpaceLarge,
+                            horizontalSpaceMedium,
+                            // Expanded(
+                            //     child: Container(
+                            //   height: size.height * 0.13,
+                            //   decoration: BoxDecoration(
+                            //     // border: Border.all(color: Colors.white),
+                            //     borderRadius: BorderRadius.circular(15),
+                            //   ),
+                            //   child: ClipRRect(
+                            //     borderRadius: BorderRadius.circular(15),
+                            //     child: BackdropFilter(
+                            //       filter:
+                            //           ImageFilter.blur(sigmaX: 60, sigmaY: 60),
+                            //       child: Column(
+                            //         mainAxisAlignment: MainAxisAlignment.center,
+                            //         crossAxisAlignment:
+                            //             CrossAxisAlignment.center,
+                            //         children: [
+                            //           Row(
+                            //             mainAxisAlignment:
+                            //                 MainAxisAlignment.center,
+                            //             crossAxisAlignment:
+                            //                 CrossAxisAlignment.center,
+                            //             children: [
+                            //               const Text(
+                            //                 "Portfolio",
+                            //                 style: TextStyle(
+                            //                     color: Colors.white,
+                            //                     fontSize: 14,
+                            //                     fontWeight: FontWeight.bold),
+                            //               ),
+                            //               Text(
+                            //                 " / ",
+                            //                 style: TextStyle(
+                            //                     color: totalMarginProfit >= 0
+                            //                         ? Colors.yellow
+                            //                         : Colors.red,
+                            //                     fontSize: 12,
+                            //                     fontWeight: FontWeight.bold),
+                            //               ),
+                            //               Text(
+                            //                 "Margin",
+                            //                 style: TextStyle(
+                            //                     color: totalMarginProfit >= 0
+                            //                         ? Colors.yellow
+                            //                         : Colors.red,
+                            //                     fontSize: 11,
+                            //                     fontWeight: FontWeight.bold),
+                            //               ),
+                            //             ],
+                            //           ),
+                            //           FittedBox(
+                            //             child: Padding(
+                            //               padding: const EdgeInsets.symmetric(
+                            //                   horizontal: 8),
+                            //               child: Row(
+                            //                 mainAxisSize: MainAxisSize.min,
+                            //                 children: [
+                            //                   const Text(
+                            //                     "AED  ",
+                            //                     style: TextStyle(
+                            //                         color: Colors.white,
+                            //                         fontSize: 13,
+                            //                         fontWeight:
+                            //                             FontWeight.bold),
+                            //                   ),
+                            //                   Text(
+                            //                     (viewModel.userService.user!
+                            //                                 .totalGoldHoldings *
+                            //                             currentGoldRate)
+                            //                         .toStringAsFixed(2)
+                            //                         .toString(),
+                            //                     style: const TextStyle(
+                            //                         color: Colors.white,
+                            //                         fontSize: 35,
+                            //                         fontWeight:
+                            //                             FontWeight.bold),
+                            //                   ),
+                            //                   Text(
+                            //                     " / ",
+                            //                     style: TextStyle(
+                            //                         color:
+                            //                             totalMarginProfit >= 0
+                            //                                 ? Colors.yellow
+                            //                                 : Colors.red,
+                            //                         fontSize: 25,
+                            //                         fontWeight:
+                            //                             FontWeight.bold),
+                            //                   ),
+                            //                   Text(
+                            //                     totalMarginProfit
+                            //                         .toStringAsFixed(2),
+                            //                     style: TextStyle(
+                            //                         color:
+                            //                             totalMarginProfit >= 0
+                            //                                 ? Colors.yellow
+                            //                                 : Colors.red,
+                            //                         fontSize: 20,
+                            //                         fontWeight:
+                            //                             FontWeight.bold),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //           ),
+                            //           // Padding(
+                            //           //   padding: EdgeInsets.only(right: 0),
+                            //           //   child: ProgressBar(
+                            //           //     value: 0.4,
+                            //           //     backgroundColor: Colors.white,
+                            //           //     //specify only one: color or gradient
+                            //           //     color: Colors.grey,
+                            //           //   ),
+                            //           // gradient: LinearGradient(
+                            //           //   begin: Alignment.topLeft,
+                            //           //   end: Alignment.bottomRight,
+                            //           //   colors: [
+                            //           //     Colors.yellowAccent,
+                            //           //     Colors.deepOrange
+                            //           //   ],
+                            //           // ),
+                            //           // ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ),
+                            // )),
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                      height: size.height * 0.08,
+                                      decoration: BoxDecoration(
+                                          // color: kcButtonBackground,
+                                          color: Colors.white,
+                                          //  Colors.yellow.shade300
+                                          //     .withOpacity(0.65),
+                                          // border: Border.all(color: Colors.white),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 3,
+                                              spreadRadius: 0.5,
+                                              color: Colors.black38
+                                                  .withOpacity(0.4),
+                                            )
+                                          ]),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child:
+                                            //  BackdropFilter(
+                                            //   filter: ImageFilter.blur(
+                                            //       sigmaX: 20, sigmaY: 20),
+                                            //   child:
+                                            Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              const Text(
+                                                "Portfolio",
+                                                style: TextStyle(
+                                                    color: Colors.yellow,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              verticalSpaceSmall,
+                                              // Text("12.5 grams"),
+                                              FittedBox(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const Text(
+                                                      "AED ",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      " ${(viewModel.userService.user!.totalGoldHoldings * currentGoldRate).toStringAsFixed(2).toString()} / 3.2 grams",
+                                                      style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        // ),
+                                      )),
+                                  verticalSpaceSmall,
+                                  Container(
+                                      height: size.height * 0.08,
+                                      decoration: BoxDecoration(
+                                          // color: kcButtonBackground,
+                                          color: Colors.white,
+                                          // border: Border.all(color: Colors.white),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 3,
+                                              spreadRadius: 0.5,
+                                              color: Colors.black38
+                                                  .withOpacity(0.4),
+                                            )
+                                          ]),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: BackdropFilter(
+                                          filter: ImageFilter.blur(
+                                              sigmaX: 0, sigmaY: 0),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                const Text(
+                                                  "Margin",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                verticalSpaceSmall,
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const Text(
+                                                      "AED ",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      (viewModel
+                                                                  .userService
+                                                                  .user!
+                                                                  .totalGoldHoldings *
+                                                              currentGoldRate)
+                                                          .toStringAsFixed(2)
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ))
+                                ],
+                              ),
+                            ),
                           ],
                         )
                       ],
@@ -473,63 +652,64 @@ class HomeView extends StackedView<HomeViewModel> {
               SliverList(
                 delegate: SliverChildListDelegate([
                   Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50),
-                            topRight: Radius.circular(50))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          verticalSpaceMedium,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  viewModel.changeSelection(selection: 'Bank');
-                                },
-                                child: transactionTypes(context,
-                                    isSelected: viewModel.isSelected == 'Bank',
-                                    image: 'assets/images/account_balance.png',
-                                    text: 'Bank'),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  viewModel.changeSelection(selection: 'Card');
-                                },
-                                child: transactionTypes(context,
-                                    isSelected: viewModel.isSelected == 'Card',
-                                    image: 'assets/images/credit_card.png',
-                                    text: 'Card'),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  viewModel.changeSelection(
-                                      selection: 'Crypto');
-                                },
-                                child: transactionTypes(context,
-                                    isSelected:
-                                        viewModel.isSelected == 'Crypto',
-                                    image: 'assets/images/bitcoin.png',
-                                    text: 'Crypto'),
-                              ),
-                            ],
-                          ),
-                          verticalSpaceMedium,
-                          const Text(
-                            "Transactions",
-                            style: TextStyle(
-                                color: Color(0xff33404F),
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50))),
+                      child: transactionViewtypes())
+                  //   Padding(
+                  //     padding: const EdgeInsets.all(16.0),
+                  //     child: Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         verticalSpaceMedium,
+                  //         Row(
+                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //           children: [
+                  //             GestureDetector(
+                  //               onTap: () {
+                  //                 viewModel.changeSelection(selection: 'Bank');
+                  //               },
+                  //               child: transactionTypes(context,
+                  //                   isSelected: viewModel.isSelected == 'Bank',
+                  //                   image: 'assets/images/account_balance.png',
+                  //                   text: 'Bank'),
+                  //             ),
+                  //             GestureDetector(
+                  //               onTap: () {
+                  //                 viewModel.changeSelection(selection: 'Card');
+                  //               },
+                  //               child: transactionTypes(context,
+                  //                   isSelected: viewModel.isSelected == 'Card',
+                  //                   image: 'assets/images/credit_card.png',
+                  //                   text: 'Card'),
+                  //             ),
+                  //             GestureDetector(
+                  //               onTap: () {
+                  //                 viewModel.changeSelection(
+                  //                     selection: 'Crypto');
+                  //               },
+                  //               child: transactionTypes(context,
+                  //                   isSelected:
+                  //                       viewModel.isSelected == 'Crypto',
+                  //                   image: 'assets/images/bitcoin.png',
+                  //                   text: 'Crypto'),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         verticalSpaceMedium,
+                  //         const Text(
+                  //           "Transactions",
+                  //           style: TextStyle(
+                  //               color: Color(0xff33404F),
+                  //               fontSize: 24,
+                  //               fontWeight: FontWeight.bold),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ]),
               ),
               SliverList(
@@ -772,6 +952,46 @@ class HomeView extends StackedView<HomeViewModel> {
         //   },
         // ),
       ),
+    );
+  }
+
+  transactionViewtypes() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Container(
+            height: 40,
+            width: 100,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8), color: Colors.blue),
+            child: Center(
+                child: Text(
+              'Bank',
+              style: TextStyle(color: Colors.white),
+            ))),
+        Container(
+            height: 40,
+            width: 100,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.grey.shade300),
+            child: Center(
+                child: Text(
+              'Card',
+              style: TextStyle(color: Colors.black),
+            ))),
+        Container(
+            height: 40,
+            width: 100,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.grey.shade300),
+            child: Center(
+                child: Text(
+              'Crypto',
+              style: TextStyle(color: Colors.black),
+            )))
+      ]),
     );
   }
 

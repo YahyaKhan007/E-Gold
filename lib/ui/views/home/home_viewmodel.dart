@@ -70,6 +70,14 @@ class HomeViewModel extends BaseViewModel {
     return profitLoss;
   }
 
+  // double
+  void calculatePercentageChange(double fixedGoldPrice, double updatedPrice) {
+    log('created date is : ${fixedGoldPrice}');
+    goldPercent = ((updatedPrice - fixedGoldPrice) / fixedGoldPrice) * 100;
+    rebuildUi();
+    // return goldPercent;
+  }
+
   void changeSelection({required String selection}) {
     isSelected = selection;
     rebuildUi();
@@ -78,8 +86,8 @@ class HomeViewModel extends BaseViewModel {
 
   void _startServerConnectionTimer() {
     // Start a timer that calls connectToServer every 5 minutes
-    serverConnectionTimer =
-        Timer.periodic(const Duration(seconds: 20), (timer) {
+    serverConnectionTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      calculatePercentageChange(fixedGoldPrice, currentGoldRate);
       connectToServer();
       log('Text 1');
     });
@@ -101,6 +109,7 @@ class HomeViewModel extends BaseViewModel {
         (Uint8List data) {
           currentGoldRate = double.parse(String.fromCharCodes(data).trim());
           rebuildUi();
+          calculatePercentageChange(fixedGoldPrice, currentGoldRate);
           for (var transaction in marginTransactionList) {
             totalMarginProfit += calculateProfitLoss(
                 gramsBought: transaction.totalGoldBought,
