@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/models/transactionDetails.dart';
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_strings.dart';
 import 'package:e_gold/ui/views/home/home_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +70,8 @@ class HomeTransactionRow extends StatelessWidget {
                   radius: 21,
                   backgroundColor: transactionDetails.isSold
                       ? transactionDetails.totalBonus >= 0
-                          ? const Color(0xff00DDA3)
-                          : const Color(0xff33404F)
+                          ? kcProfitColor
+                          : kcLossColor
                       : viewModel.calculateProfitLoss(
                                   buyRate: transactionDetails.buyGoldRate,
                                   conversionRate: conversionFactor,
@@ -78,8 +79,8 @@ class HomeTransactionRow extends StatelessWidget {
                                       transactionDetails.totalGoldBought,
                                   sellRate: currentGoldRate) >=
                               0
-                          ? const Color(0xff00DDA3)
-                          : const Color(0xff33404F),
+                          ? kcProfitColor
+                          : kcLossColor,
                   child: Center(
                       child: Image.asset(
                     transactionDetails.isSold
@@ -96,13 +97,14 @@ class HomeTransactionRow extends StatelessWidget {
                             ? 'assets/images/up_arrow.png'
                             : 'assets/images/down_arrow.png',
                     height: 12,
+                    color: Colors.black,
                   )),
                 ),
                 title: type == 'TopUp'
                     ? Text(
                         walletType!,
                         style: const TextStyle(
-                          color: Colors.black,
+                          color: kcTextColor,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -110,7 +112,7 @@ class HomeTransactionRow extends StatelessWidget {
                     : const Text(
                         'Gold',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: kcTextColor,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -120,7 +122,7 @@ class HomeTransactionRow extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w100,
-                      color: Colors.grey),
+                      color: kcLightTextColor),
                 ),
                 trailing: FittedBox(
                   // width: 100,
@@ -149,6 +151,7 @@ class HomeTransactionRow extends StatelessWidget {
                                       '\$$amount',
                                       style: const TextStyle(
                                         fontSize: 13,
+                                        color: kcTextColor,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -158,6 +161,7 @@ class HomeTransactionRow extends StatelessWidget {
                                   '${transactionDetails.transactionType} ',
                                   style: const TextStyle(
                                     fontSize: 13,
+                                    color: kcLightTextColor,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -248,6 +252,7 @@ class HomeTransactionRow extends StatelessWidget {
                                   double.parse(btc).toStringAsFixed(4),
                                   style: const TextStyle(
                                     fontSize: 14,
+                                    color: kcTextColor,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -255,6 +260,7 @@ class HomeTransactionRow extends StatelessWidget {
                                   " gm",
                                   style: TextStyle(
                                     fontSize: 11,
+                                    color: kcTextColor,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -268,6 +274,7 @@ class HomeTransactionRow extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
+                              color: kcLightTextColor,
                             ),
                           ),
                           transactionDetails.isSold

@@ -98,7 +98,7 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                             onPressed: viewModel.onTapChangePassword,
                           ),
                           AccountPageRow(
-                            text: 'Add a Payment Method',
+                            text: 'Add TopUp',
                             icon: Icons.add,
                             onPressed: () async {
                               if (await viewModel.kycService.isKycApproved()) {

@@ -17,7 +17,7 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
   ) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kcContainerColor,
       body:
           // Container(
           //   decoration: const BoxDecoration(
@@ -34,17 +34,18 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
           PageView(
         controller: viewModel.pageController,
         onPageChanged: viewModel.pageChange,
+        physics: const NeverScrollableScrollPhysics(),
         // allowImplicitScrolling: false,
         children: viewModel.pages,
-        physics: const NeverScrollableScrollPhysics(),
       ),
       // ),
       resizeToAvoidBottomInset: true,
       bottomNavigationBar: SizedBox(
         height: 85,
         child: BottomNavigationBar(
-          selectedLabelStyle:
-              const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+          backgroundColor: kcAppBackgroundColor,
+          selectedLabelStyle: const TextStyle(
+              fontSize: 12, fontWeight: FontWeight.w600, color: Colors.red),
           type: BottomNavigationBarType.fixed,
           // selectedItemColor: Colors.red, // Change selected color to red
           // unselectedItemColor: Colors.black, // Change unselected color to black
@@ -57,6 +58,10 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
                 curve: Curves.ease);
             viewModel.pageController.jumpToPage(newIndex);
           },
+          selectedItemColor: kcProfitColor,
+          unselectedItemColor: Colors.white,
+          // unselectedLabelStyle: const TextStyle(color: Colors.yellow, fontSize: 12),
+
           items: [
             navbarItem(
                 image: Timages.home,
@@ -97,12 +102,12 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
       required String label}) {
     return BottomNavigationBarItem(
       icon: Padding(
-        padding: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(top: 10, bottom: 5),
         child: Image.asset(
           image,
           height: 25,
 
-          color: isLast ? null : Colors.blueGrey.shade800,
+          color: isLast ? null : Colors.white,
           // height: 30,
         ),
       ),
@@ -113,11 +118,11 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
           children: [
             // Circle with reduced opacity
             Padding(
-              padding: const EdgeInsets.only(top: 7),
+              padding: const EdgeInsets.only(top: 7, bottom: 5),
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: kcButtonBackground
+                  color: kcProfitColor
                       .withOpacity(0.99), // Adjust the opacity as needed
                 ),
                 padding: const EdgeInsets.all(8.0),

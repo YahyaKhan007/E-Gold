@@ -22,7 +22,7 @@ class DashboardScreenViewModel extends BaseViewModel {
   final List<Widget> pages = [
     const HomeView(),
     const TransactionHistoryScreenView(check: false),
-    const ChoosePaymentMethodView(),
+     ChoosePaymentMethodView(),
     const Center(child: Text("PROFILE SCREEN3")),
     const AccountScreenView(),
   ];

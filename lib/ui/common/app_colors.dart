@@ -19,8 +19,16 @@ const Color kcPendingGrey = Color(0xFFA5AAC7);
 const Color kcLightText = Color(0xFF626262);
 const Color kcLightYellow = Color(0xFFF9D075);
 const Color kcGoldYellow = Color(0xFFF7C047);
+const Color kcProfitColor = Color(0xFFCAAF89);
+const Color kcLossColor = Color(0xFFFFFFFF);
+
+
+
 
 // ^  new Theme
-const Color kcTextColor = Color(0xff000D5E);
+const Color kcTextColor = Colors.white;
+const Color kcLightTextColor = Colors.white70;
+const Color kcContainerColor = Color.fromARGB(255, 92, 90, 90);
 const Color kcButtonBackground = Color(0xff5B9DDC);
 const Color kcLightButtonBackground = Color(0xFF56BBF3);
+const Color kcAppBackgroundColor = Color(0xFF2C2C2C);

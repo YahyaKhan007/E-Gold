@@ -10,7 +10,9 @@ import 'choose_payment_method_viewmodel.dart';
 
 class ChoosePaymentMethodView
     extends StackedView<ChoosePaymentMethodViewModel> {
-  const ChoosePaymentMethodView({Key? key}) : super(key: key);
+   bool? showBack;
+
+   ChoosePaymentMethodView( {Key? key, this.showBack=false,}) : super(key: key);
 
   @override
   Widget builder(

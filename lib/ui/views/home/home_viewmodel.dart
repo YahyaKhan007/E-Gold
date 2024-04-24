@@ -163,9 +163,10 @@ class HomeViewModel extends BaseViewModel {
     await balanceService.getBalanceData(userService.user!.uid);
     // await metalPriceService.fetchData();
     // fetchTransactionRow(transactionType: cryptoTransactions);
-    await fetchTransactions();
+    // await fetchTransactions();
     calulateMarginFromTransationsPortFolio();
     _startServerConnectionTimer();
+    log("InStore Length is ==== > ${inStoreTransactions.length.toString()}");
     setBusy(false);
   }
 
@@ -248,6 +249,7 @@ class HomeViewModel extends BaseViewModel {
   final PageController pageController = PageController(initialPage: 0);
   int currentPageIndex = 0;
   void navigateToPage(int pageIndex) {
+    log("page trying to move to : $pageIndex");
     pageController.animateToPage(
       pageIndex,
       duration: const Duration(milliseconds: 300),
