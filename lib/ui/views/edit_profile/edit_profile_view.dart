@@ -71,7 +71,7 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
                       padding:
                           const EdgeInsets.only(left: 20, right: 20, top: 0),
                       decoration: const BoxDecoration(
-                          color: Colors.white,
+                          color: kcAppBackgroundColor,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(30),
                               topRight: Radius.circular(30))),
@@ -95,18 +95,17 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
                                       child: Container(
                                         decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.white,
-                                              blurRadius: 5,
-                                              offset: Offset(1, -2),
-                                              spreadRadius: 0,
-                                            )
-                                          ],
+                                          // boxShadow: [
+                                          //   BoxShadow(
+                                          //     color: kcLightTextColor,
+                                          //     blurRadius: 5,
+                                          //     offset: Offset(1, -2),
+                                          //     spreadRadius: 0,
+                                          //   )
+                                          // ],
                                         ),
                                         child: CircleAvatar(
-                                          backgroundColor:
-                                              kcLightButtonBackground,
+                                          backgroundColor: kcContainerColor,
                                           radius: 58,
                                           backgroundImage: viewModel
                                                   .profileImgUrl.isNotEmpty
@@ -117,7 +116,7 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
                                               ? const Icon(
                                                   Icons.camera_alt,
                                                   size: 50,
-                                                  color: Colors.white,
+                                                  color: kcLightTextColor,
                                                 )
                                               : null,
                                         ),
@@ -144,6 +143,11 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
                                     ),
                                     verticalSpaceSmall,
                                     InternationalPhoneNumberInput(
+                                      inputDecoration: const InputDecoration(),
+                                      textStyle: const TextStyle(
+                                          color: kcAppBackgroundColor),
+                                      selectorTextStyle:
+                                          const TextStyle(color: kcProfitColor),
                                       initialValue: viewModel.initialValue,
                                       textFieldController:
                                           viewModel.phoneNoController,
@@ -174,16 +178,18 @@ class EditProfileView extends StackedView<EditProfileViewModel> {
                             verticalSpaceMedium,
                             Container(
                               decoration: const BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white,
-                                    blurRadius: 5,
-                                    offset: Offset(1, 2),
-                                    spreadRadius: 0,
-                                  )
-                                ],
-                              ),
+                                  // boxShadow: [
+                                  //   BoxShadow(
+                                  //     color: Colors.white,
+                                  //     blurRadius: 5,
+                                  //     offset: Offset(1, 2),
+                                  //     spreadRadius: 0,
+                                  //   )
+                                  // ],
+                                  ),
                               child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: kcProfitColor),
                                 onPressed: viewModel.submitForm,
                                 child: const Text('Save'),
                               ),

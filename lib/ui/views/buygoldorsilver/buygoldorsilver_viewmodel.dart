@@ -260,7 +260,7 @@ class BuyGoldOrSilverViewModel extends BaseViewModel {
       var date = saleAndPurchaseServices
           .salesAndPurchasesList[salePurchaseIndex].createdAt
           .toDate();
-      log('created date is : ${saleAndPurchaseServices.salesAndPurchasesList[salePurchaseIndex].createdAt}');
+      // log('created date is : ${saleAndPurchaseServices.salesAndPurchasesList[salePurchaseIndex].createdAt}');
       log('day of the week is : ${DateFormat('EEEE').format(date)}');
       log('day of the Month is : ${DateFormat('MMMM').format(date)}');
       log('Year is  : ${date.day}');

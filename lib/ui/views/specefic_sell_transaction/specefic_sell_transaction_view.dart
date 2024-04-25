@@ -23,6 +23,7 @@ class SpeceficSellTransactionView
   ) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: kcAppBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(
@@ -53,9 +54,9 @@ class SpeceficSellTransactionView
             Container(
               height: size.height,
               width: size.width,
-              margin: EdgeInsets.only(top: size.height * 0.15),
+              margin: EdgeInsets.only(top: size.height * 0.12),
               decoration: const BoxDecoration(
-                color: Colors.white,
+                color: kcAppBackgroundColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -125,13 +126,19 @@ class SpeceficSellTransactionView
                   Text(
                     rowName,
                     style: const TextStyle(
-                        fontSize: 13, fontWeight: FontWeight.bold),
+                        color: kcTextColor,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold),
                   ),
-                  Text(value.toString()),
+                  Text(
+                    value.toString(),
+                    style: const TextStyle(color: kcLightText),
+                  ),
                 ]),
           ),
           const Divider(
             height: 35,
+            color: kcLightText,
           ),
         ],
       ),

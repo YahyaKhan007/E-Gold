@@ -1,7 +1,9 @@
 import 'package:e_gold/ui/common/app_colors.dart';
+import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/widgets/customTextField.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import 'link_bank_account_screen_viewmodel.dart';
@@ -56,20 +58,21 @@ class LinkBankAccountScreenView
               width: size.width,
               padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
               decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: kcAppBackgroundColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
               child: Form(
                 key: viewModel.formKey,
                 child: Container(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(size.height * 0.005),
                   child: viewModel.isBusy
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
                       : Column(
                           children: [
+                            verticalSpaceMedium,
                             CustomTextField(
                               title: 'Bank Name',
                               controller: viewModel.bankName,
@@ -96,19 +99,20 @@ class LinkBankAccountScreenView
                             const SizedBox(
                               height: 20,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Center(
-                                  child: GestureDetector(
-                                    onTap:()=> viewModel.linkAccount(context),
+                            FittedBox(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () => viewModel.linkAccount(context),
                                     child: Container(
                                       width: 150,
                                       height: 48,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 12),
                                       decoration: ShapeDecoration(
-                                        color: kcButtonBackground,
+                                        color: kcProfitColor,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(12),
@@ -134,9 +138,8 @@ class LinkBankAccountScreenView
                                       ),
                                     ),
                                   ),
-                                ),
-                                Center(
-                                  child: GestureDetector(
+                                  horizontalSpaceMedium,
+                                  GestureDetector(
                                     onTap: viewModel.addBalance,
                                     child: Container(
                                       width: 150,
@@ -144,7 +147,7 @@ class LinkBankAccountScreenView
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 12),
                                       decoration: ShapeDecoration(
-                                        color: kcButtonBackground,
+                                        color: kcProfitColor,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(12),
@@ -170,8 +173,8 @@ class LinkBankAccountScreenView
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),

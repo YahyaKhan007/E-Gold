@@ -9,7 +9,6 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../models/transactionDetails.dart';
-import '../home/home_viewmodel.dart';
 
 class TransactionHistoryScreenViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();

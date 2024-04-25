@@ -1,8 +1,8 @@
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/widgets/AcoountCard.dart';
 import 'package:e_gold/ui/widgets/customAccountOageRow.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'account_screen_viewmodel.dart';
 
@@ -17,7 +17,7 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: kcAppBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         // leading: const Icon(
@@ -30,7 +30,7 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
           'Account',
           style: TextStyle(
             color: Colors.white,
-            fontSize: screenHeight(context) * 0.03,
+            fontSize: screenHeight(context) * 0.04,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -47,13 +47,13 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                     fit: BoxFit.cover)),
           ),
           Positioned(
-            top: size.height * 0.13,
+            top: size.height * 0.12,
             child: Container(
               height: size.height * 0.8,
               width: size.width,
               padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
               decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: kcAppBackgroundColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
@@ -63,7 +63,7 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                     const AccountCard(),
                     verticalSpaceMedium,
                     Container(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(size.height * 0.005),
                       // decoration: ShapeDecoration(
                       //   color: kcLightButtonBackground.withOpacity(0.2),
                       //   shape: RoundedRectangleBorder(

@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -69,7 +70,7 @@ class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
                             minimumSize: const Size(128, 48),
                             foregroundColor: Colors.black,
                             backgroundColor: idBackUploaded
-                                ? Color.fromARGB(255, 172, 241, 176)
+                                ? kcAppBackgroundColor
                                 : Colors.white,
                             elevation: 0,
                             shape: const StadiumBorder(
@@ -77,8 +78,11 @@ class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
                             ),
                           ),
                           child: idBackUploaded
-                              ? Text("Uploaded")
-                              : Text("+ Upload"),
+                              ? const Text(
+                                  "Uploaded",
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              : const Text("+ Upload"),
                         )
                       ],
                     ),
@@ -95,7 +99,7 @@ class KycidcardbackView extends StackedView<KycidcardbackViewModel> {
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text(
+                      child: const Text(
                           'I hereby agree that the above document belongs to me and voluntarily give my consent to E-Gold Capital Pvt Ltd to utilize it as my address proof for KYC on purpose only'),
                     ),
                   ],

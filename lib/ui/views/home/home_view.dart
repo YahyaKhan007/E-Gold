@@ -1,15 +1,13 @@
-import 'dart:ui';
-
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/views/home/home_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../common/app_strings.dart';
 import '../choose_payment_method/choose_payment_method_view.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
@@ -26,60 +24,65 @@ class HomeView extends StackedView<HomeViewModel> {
     // var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.blue,
+        backgroundColor: kcAppBackgroundColor,
         body: Container(
+            height: size.height,
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/back_home.png'),
                     fit: BoxFit.cover)),
-            child: Column(
-              children: [
-                topRow(viewModel),
-                goldenContainer(viewModel, size),
-                verticalSpaceSmall,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: walletTypes(viewModel, size),
-                ),
-                verticalSpaceMedium,
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>  ChoosePaymentMethodView(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    height: 48,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      color: kcProfitColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(
-                          'assets/images/gold_icon.png',
-                          scale: 2.5,
-                        ),
-                        horizontalSpaceSmall,
-                        const Text(
-                          "BUY GOLD",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: kcTextColor,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  topRow(viewModel),
+                  goldenContainer(viewModel, size),
+                  verticalSpaceSmall,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: walletTypes(viewModel, size),
                   ),
-                )
-              ],
+                  verticalSpaceMedium,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChoosePaymentMethodView(
+                            showBack: true,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      height: 48,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        color: kcProfitColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(
+                            'assets/images/gold_icon.png',
+                            scale: 2.5,
+                          ),
+                          horizontalSpaceSmall,
+                          const Text(
+                            "BUY GOLD",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: kcTextColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             )
 
             //  CustomScrollView(
@@ -1062,31 +1065,17 @@ class HomeView extends StackedView<HomeViewModel> {
                     "Wallet",
                     style: TextStyle(
                         color: kcProfitColor,
-                        fontSize: 25,
+                        fontSize: 23,
                         fontWeight: FontWeight.normal),
                   ),
                   verticalSpaceSmall,
                   FittedBox(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'AED ',
-                          style: TextStyle(
-                              color: kcProfitColor,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          viewModel.balanceService.balanceData!.balance
-                              .toString(),
-                          style: const TextStyle(
-                              color: kcProfitColor,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
+                    child: Text(
+                      "AED ${viewModel.balanceService.balanceData!.balance.toString()}",
+                      style: const TextStyle(
+                          color: kcProfitColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
                   )
                 ],
@@ -1102,38 +1091,24 @@ class HomeView extends StackedView<HomeViewModel> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Margin",
                     style: TextStyle(
                         color: kcProfitColor,
-                        fontSize: 25,
+                        fontSize: 23,
                         fontWeight: FontWeight.normal),
                   ),
                   verticalSpaceSmall,
                   FittedBox(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'AED ',
-                          style: TextStyle(
-                              color: kcProfitColor,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          (viewModel.userService.user!.totalGoldHoldings *
-                                  currentGoldRate)
-                              .toStringAsFixed(2)
-                              .toString(),
-                          // viewModel.userService.user!.totalGoldHoldings.toString(),
-                          style: const TextStyle(
-                              color: kcProfitColor,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
+                    child: Text(
+                      (viewModel.totalMarginProfit)
+                          .toStringAsFixed(2)
+                          .toString(),
+                      // viewModel.userService.user!.totalGoldHoldings.toString(),
+                      style: const TextStyle(
+                          color: kcProfitColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
                   )
                 ],
@@ -1148,16 +1123,27 @@ class HomeView extends StackedView<HomeViewModel> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: kcAppBackgroundColor),
-          child: const Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "Portfolio",
                 style: TextStyle(
                     color: kcProfitColor,
-                    fontSize: 25,
+                    fontSize: 23,
                     fontWeight: FontWeight.normal),
+              ),
+              verticalSpaceSmall,
+              FittedBox(
+                child: Text(
+                  "${viewModel.userService.user!.totalGoldHoldings.toStringAsFixed(3)}g/AED ${(viewModel.userService.user!.totalGoldHoldings * currentGoldRate).toStringAsFixed(2).toString()}",
+                  // viewModel.userService.user!.totalGoldHoldings.toString(),
+                  style: const TextStyle(
+                      color: kcProfitColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
               )
             ],
           ),
@@ -1180,19 +1166,39 @@ class HomeView extends StackedView<HomeViewModel> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
-              children: [
-                Icon(
-                  Icons.circle,
-                  color: Colors.red,
-                  size: 16,
-                ),
-                horizontalSpaceTiny,
-                Text(
-                  "Live Price",
-                  style: TextStyle(color: kcProfitColor, fontSize: 12),
-                ),
-              ],
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.red,
+              ),
+              padding:
+                  const EdgeInsets.only(top: 2, left: 12, right: 12, bottom: 2),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    "LIVE",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  horizontalSpaceSmall,
+                  AvatarGlow(
+                    animate: true,
+                    repeat: true,
+                    glowColor: Colors.white,
+                    glowCount: 3,
+                    glowRadiusFactor: 0.5,
+                    glowShape: BoxShape.circle,
+                    child: const Icon(
+                      Icons.circle,
+                      color: Colors.red,
+                      size: 10,
+                    ),
+                  ),
+                ],
+              ),
             ),
             verticalSpaceTiny,
             showLivePrice(viewModel),
@@ -1260,7 +1266,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 top: 0,
                 child: Image.asset(
                   'assets/images/gold.png',
-                  scale: 1.4,
+                  height: size.height * 0.14,
                 ))
           ],
         ),

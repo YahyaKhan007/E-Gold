@@ -31,7 +31,7 @@ class choosePaymentTile extends StatelessWidget {
         height: 48,
         width: 48,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: kcProfitColor,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
@@ -59,7 +59,7 @@ class choosePaymentTile extends StatelessWidget {
         title,
         textAlign: TextAlign.start,
         style: const TextStyle(
-          color: Colors.black,
+          color: kcTextColor,
           fontSize: 16,
           fontWeight: FontWeight.bold,
         ),
@@ -74,7 +74,7 @@ class choosePaymentTile extends StatelessWidget {
             text,
             textAlign: TextAlign.start,
             style: const TextStyle(
-              color: Colors.black54,
+              color: kcLightTextColor,
               fontSize: 12,
               fontWeight: FontWeight.w100,
             ),
@@ -83,7 +83,7 @@ class choosePaymentTile extends StatelessWidget {
             'Balance:  $balance',
             textAlign: TextAlign.start,
             style: const TextStyle(
-              color: Colors.black54,
+              color: kcLightTextColor,
               fontSize: 12,
               fontWeight: FontWeight.w100,
             ),
@@ -92,7 +92,7 @@ class choosePaymentTile extends StatelessWidget {
             'Margin: $margin',
             textAlign: TextAlign.center,
             style: const TextStyle(
-              color: Colors.black54,
+              color: kcLightTextColor,
               fontSize: 12,
               fontWeight: FontWeight.w100,
             ),
@@ -106,7 +106,7 @@ class choosePaymentTile extends StatelessWidget {
               icon: const Icon(
                 Icons.arrow_forward_ios,
                 size: 18,
-                color: kcButtonBackground,
+                color: kcLightTextColor,
               ),
             )
           : Container(),

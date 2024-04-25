@@ -90,9 +90,9 @@ class KycprofileView extends StackedView<KycprofileViewModel> {
                             onPressed: uploadProfile,
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(128, 48),
-                              foregroundColor: kcTextColor,
+                              foregroundColor: kcAppBackgroundColor,
                               backgroundColor: profileImgupLoaded
-                                  ? const Color.fromARGB(255, 172, 241, 176)
+                                  ? kcAppBackgroundColor
                                   : Colors.white,
                               elevation: 0,
                               shape: const StadiumBorder(
@@ -100,7 +100,10 @@ class KycprofileView extends StackedView<KycprofileViewModel> {
                               ),
                             ),
                             child: profileImgupLoaded
-                                ? const Text("Uploaded")
+                                ? const Text(
+                                    "Uploaded",
+                                    style: TextStyle(color: Colors.white),
+                                  )
                                 : const Text("+ Upload"),
                           )
                         ],

@@ -96,7 +96,7 @@ class KTextFormField extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
-                .copyWith(color: Colors.black),
+                .copyWith(color: kcTextColor),
           ),
         ),
         verticalSpaceTiny,
@@ -126,7 +126,7 @@ class KycLayoutWidget extends StatefulWidget {
   final String title, subtitle, buttonText;
   final Widget? trailing;
 
-  KycLayoutWidget(
+  const KycLayoutWidget(
       {required this.onPressed,
       required this.children,
       required this.title,
@@ -185,17 +185,18 @@ class KycLayoutWidgetFrontState extends State<KycLayoutWidget> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.lightBlue.shade200,
-                    blurRadius: 5,
-                    offset: Offset(1, 2),
-                    spreadRadius: 0,
-                  )
-                ],
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.lightBlue.shade200,
+                //     blurRadius: 5,
+                //     offset: const Offset(1, 2),
+                //     spreadRadius: 0,
+                //   )
+                // ],
               ),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                    backgroundColor: kcAppBackgroundColor,
                     minimumSize: const Size.fromHeight(36),
                     shape: const StadiumBorder()),
                 onPressed: widget.onPressed,

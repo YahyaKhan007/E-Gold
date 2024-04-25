@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -86,7 +87,8 @@ class KycApprovedView extends StackedView<KycApprovedViewModel> {
                       verticalSpaceMedium,
                       ElevatedButton.icon(
                         onPressed: viewModel.onPressedBackToHome,
-                        style: ElevatedButton.styleFrom(minimumSize: null),
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: null, backgroundColor: kcProfitColor),
                         icon: const Icon(
                           Icons.arrow_back_ios_new_rounded,
                           size: 20,

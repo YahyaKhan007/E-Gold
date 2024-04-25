@@ -25,16 +25,16 @@ class AddPaymentMethod extends StatelessWidget {
       leading: Container(
         height: 48,
         width: 48,
-        decoration: BoxDecoration(
-          color: Colors.white,
+        decoration: const BoxDecoration(
+          color: kcProfitColor,
           shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade300,
-              blurRadius: 2,
-              offset: const Offset(1, 1),
-            )
-          ],
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.grey.shade300,
+          //     blurRadius: 2,
+          //     offset: const Offset(1, 1),
+          //   )
+          // ],
           // image: DecorationImage(
           //   image: AssetImage(
           //     image,
@@ -45,7 +45,7 @@ class AddPaymentMethod extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           child: Image.asset(
             image,
-            color: Colors.black,
+            color: kcTextColor,
           ),
         ),
       ),
@@ -55,7 +55,7 @@ class AddPaymentMethod extends StatelessWidget {
           title,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            color: Colors.black,
+            color: kcTextColor,
             fontSize: 14,
             fontWeight: FontWeight.bold,
           ),
@@ -66,7 +66,7 @@ class AddPaymentMethod extends StatelessWidget {
               onPressed: onPressed,
               icon: const Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.black,
+                color: kcTextColor,
                 size: 18,
               ),
             )

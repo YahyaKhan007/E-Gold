@@ -53,7 +53,7 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                     fit: BoxFit.cover)),
           ),
           Positioned(
-            top: size.height * 0.18,
+            top: size.height * 0.12,
             child: SingleChildScrollView(
               child: Container(
                 padding:
@@ -61,7 +61,7 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                 height: size.height,
                 width: size.width,
                 decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: kcAppBackgroundColor,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30))),
@@ -76,7 +76,7 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black),
+                          color: kcTextColor),
                     ),
                     verticalSpaceLarge,
                     Column(
@@ -91,8 +91,8 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                                 style: ElevatedButton.styleFrom(
                                     fixedSize: const Size.fromHeight(48),
                                     shape: const StadiumBorder(),
-                                    backgroundColor: kcLightButtonBackground
-                                        .withOpacity(0.9)),
+                                    backgroundColor:
+                                        kcProfitColor.withOpacity(0.9)),
                                 onPressed: () =>
                                     viewModel.handleButtonPress(context, index),
                                 icon: SvgPicture.asset(
@@ -113,7 +113,7 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
-                            color: kcLightButtonBackground.withOpacity(0.9),
+                            color: kcProfitColor,
                             borderRadius: BorderRadius.circular(30)),
                         height: 58,
                         child: const Row(
@@ -153,7 +153,7 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                           horizontalSpaceSmall,
                           const Text(
                             'OR',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15, color: kcTextColor),
                           ),
                           horizontalSpaceSmall,
                           Expanded(
@@ -173,7 +173,7 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                         const Text(
                           'Already have an account?',
                           style: TextStyle(
-                              color: Colors.grey,
+                              color: kcLightTextColor,
                               fontSize: 13,
                               fontWeight: FontWeight.normal),
                         ),
@@ -183,7 +183,7 @@ class CreateanaccountView extends StackedView<CreateanaccountViewModel> {
                           child: const Text(
                             'Login',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: kcTextColor,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold),
                           ),

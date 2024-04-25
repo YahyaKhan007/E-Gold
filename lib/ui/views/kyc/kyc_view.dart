@@ -25,7 +25,7 @@ class KycView extends StackedView<KycViewModel> {
       if (viewModel.currentPage >= stepNumber) {
         return const CircleAvatar(
           maxRadius: 28,
-          backgroundColor: Colors.blue,
+          backgroundColor: kcAppBackgroundColor,
           child: Icon(
             Icons.check,
             color: Colors.white,
@@ -35,7 +35,7 @@ class KycView extends StackedView<KycViewModel> {
       } else {
         return CircleAvatar(
           maxRadius: 28,
-          backgroundColor: kcLightButtonBackground,
+          backgroundColor: kcAppBackgroundColor.withOpacity(0.5),
           child: Text(
             '${stepNumber + 1}',
             style: const TextStyle(color: Colors.white),

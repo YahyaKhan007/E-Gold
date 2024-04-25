@@ -1,7 +1,6 @@
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/validator.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -27,7 +26,7 @@ class SignupView extends StackedView<SignupViewModel> {
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
-              // color: Colors.white,
+              color: kcTextColor,
             )),
         backgroundColor: Colors.transparent,
       ),
@@ -36,16 +35,7 @@ class SignupView extends StackedView<SignupViewModel> {
         padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 40),
         height: size.height,
         width: size.width,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color(0xFFB3E5FC), // Light blue
-              Color(0xFFE1F5FE), // Lighter blue
-            ],
-          ),
-        ),
+        decoration: const BoxDecoration(color: kcAppBackgroundColor),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -78,7 +68,7 @@ class SignupView extends StackedView<SignupViewModel> {
                   children: [
                     TextFormField(
                         style: const TextStyle(
-                          color: Color(0xff000D5E),
+                          color: kcAppBackgroundColor,
                         ),
                         controller: viewModel.nameController,
                         decoration: const InputDecoration(
@@ -86,14 +76,14 @@ class SignupView extends StackedView<SignupViewModel> {
                             'Name',
                           ),
                           labelStyle: TextStyle(
-                            color: Color(0xff000D5E),
+                            color: kcAppBackgroundColor,
                           ),
                         ),
                         validator: Validator.validateText),
                     verticalSpaceSmall,
                     TextFormField(
                         style: const TextStyle(
-                          color: Color(0xff000D5E),
+                          color: kcTextColor,
                         ),
                         controller: viewModel.emailController,
                         decoration: const InputDecoration(
@@ -101,14 +91,14 @@ class SignupView extends StackedView<SignupViewModel> {
                             'Email',
                           ),
                           labelStyle: TextStyle(
-                            color: Color(0xff000D5E),
+                            color: kcAppBackgroundColor,
                           ),
                         ),
                         validator: Validator.validateEmail),
                     verticalSpaceSmall,
                     TextFormField(
                       style: const TextStyle(
-                        color: Color(0xff000D5E),
+                        color: kcAppBackgroundColor,
                       ),
                       controller: viewModel.passwordController,
                       obscureText: viewModel.isPasswordVisible,
@@ -116,14 +106,14 @@ class SignupView extends StackedView<SignupViewModel> {
                       decoration: InputDecoration(
                         label: const Text('Password'),
                         labelStyle: const TextStyle(
-                          color: Color(0xff000D5E),
+                          color: kcAppBackgroundColor,
                         ),
                         suffixIcon: IconButton(
                           icon: Icon(
                             viewModel.isPasswordVisible
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: kcButtonBackground,
+                            color: kcAppBackgroundColor,
                           ),
                           onPressed: viewModel.showPassword,
                         ),
@@ -132,21 +122,21 @@ class SignupView extends StackedView<SignupViewModel> {
                     verticalSpaceSmall,
                     TextFormField(
                       style: const TextStyle(
-                        color: Color(0xff000D5E),
+                        color: kcAppBackgroundColor,
                       ),
                       controller: viewModel.conformPasswordController,
                       obscureText: viewModel.isConformPasswordVisible,
                       decoration: InputDecoration(
                         label: const Text('Conform Password'),
                         labelStyle: const TextStyle(
-                          color: Color(0xff000D5E),
+                          color: kcAppBackgroundColor,
                         ),
                         suffixIcon: IconButton(
                             icon: Icon(
                               viewModel.isConformPasswordVisible
                                   ? Icons.visibility
                                   : Icons.visibility_off,
-                              color: kcButtonBackground,
+                              color: kcAppBackgroundColor,
                             ),
                             onPressed: viewModel.showConfirmPassword),
                       ),
@@ -159,12 +149,19 @@ class SignupView extends StackedView<SignupViewModel> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              kcProfitColor // Change the background color here
+                          ),
                       onPressed: viewModel.onTapSignUp,
                       child: const Text('Sign up')),
                   verticalSpaceMedium,
                   TextButton(
                       onPressed: viewModel.onPressedAlreadyHaveAnAccount,
-                      child: const Text('Already have an account?')),
+                      child: const Text(
+                        'Already have an account?',
+                        style: TextStyle(color: kcTextColor),
+                      )),
                 ],
               ),
               verticalSpaceSmall,

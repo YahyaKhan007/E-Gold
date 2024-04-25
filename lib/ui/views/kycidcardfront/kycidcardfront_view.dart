@@ -1,3 +1,4 @@
+import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/validator.dart';
 import 'package:e_gold/ui/views/kyc/kyc_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +108,7 @@ class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
                             minimumSize: const Size(128, 48),
                             foregroundColor: Colors.black,
                             backgroundColor: idFrontUploaded
-                                ? Color.fromARGB(255, 172, 241, 176)
+                                ? kcAppBackgroundColor
                                 : Colors.white,
                             elevation: 0,
                             shape: const StadiumBorder(
@@ -115,8 +116,11 @@ class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
                             ),
                           ),
                           child: idFrontUploaded
-                              ? Text("Uploaded")
-                              : Text("+ Upload"),
+                              ? const Text(
+                                  "Uploaded",
+                                  style:  TextStyle(color: kcTextColor),
+                                )
+                              : const Text("+ Upload"),
                         )
                       ],
                     ),

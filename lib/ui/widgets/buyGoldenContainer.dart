@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 
@@ -29,17 +31,16 @@ class BuyGoldenContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [
-            Color(0xFFB3E5FC), // Light blue
-            Color(0xFFE1F5FE), // Lighter blue
-          ],
-        ),
-      ),
-      height: screenHeight(context) * 0.5,
+      decoration: const BoxDecoration(color: kcAppBackgroundColor
+          //   begin: Alignment.topRight,
+          //   end: Alignment.bottomLeft,
+          //   colors: [
+          //     kcAppBackgroundColor, // Light blue
+          //     kcContainerColor, // Lighter blue
+          //   ],
+          // ),
+          ),
+      height: screenHeight(context) * 0.45,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -51,7 +52,8 @@ class BuyGoldenContainer extends StatelessWidget {
                 onPressed: onBack,
                 icon: const Icon(
                   Icons.arrow_back_ios,
-                  color: kcButtonBackground,
+                  size: 17,
+                  color: kcTextColor,
                 ),
               ),
             ),
@@ -64,7 +66,7 @@ class BuyGoldenContainer extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.4,
                     height: screenHeight(context) * 0.06,
                     decoration: ShapeDecoration(
-                      color: goldCheck ? kcLightButtonBackground : Colors.white,
+                      color: goldCheck ? kcProfitColor : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -98,7 +100,7 @@ class BuyGoldenContainer extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.4,
                     height: screenHeight(context) * 0.06,
                     decoration: ShapeDecoration(
-                      color: goldCheck ? Colors.white : kcLightButtonBackground,
+                      color: goldCheck ? Colors.white : kcProfitColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -133,7 +135,7 @@ class BuyGoldenContainer extends StatelessWidget {
                 'Current Gold rate: AED $currentGoldRate',
                 textAlign: TextAlign.end,
                 style: const TextStyle(
-                  color: Color(0xff2F4A64),
+                  color: kcLightTextColor,
                   fontSize: 12,
                   fontWeight: FontWeight.normal,
                 ),
@@ -189,7 +191,10 @@ class BuyGoldenContainer extends StatelessWidget {
             ),
             Visibility(
                 visible: double.parse(grams) > 0 ? true : false,
-                child: Text("You buy $grams grams of gold")),
+                child: Text(
+                  "You buy $grams grams of gold",
+                  style: const TextStyle(color: kcLightTextColor),
+                )),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),

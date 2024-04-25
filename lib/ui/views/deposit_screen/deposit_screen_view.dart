@@ -58,7 +58,7 @@ class DepositScreenView extends StackedView<DepositScreenViewModel> {
               width: size.width,
               padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
               decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: kcAppBackgroundColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
@@ -71,7 +71,7 @@ class DepositScreenView extends StackedView<DepositScreenViewModel> {
                     'Choose a payment Method',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: kcTextColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),

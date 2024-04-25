@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
           title,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            color: Colors.black,
+            color: kcTextColor,
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),

@@ -60,7 +60,7 @@ class ChangePasswordView extends StackedView<ChangePasswordViewModel> {
               height: size.height,
               width: size.width,
               decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: kcAppBackgroundColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
@@ -76,7 +76,7 @@ class ChangePasswordView extends StackedView<ChangePasswordViewModel> {
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black),
+                            color: kcTextColor),
                       ),
                       verticalSpaceLarge,
                       Padding(
@@ -98,6 +98,7 @@ class ChangePasswordView extends StackedView<ChangePasswordViewModel> {
                                     viewModel.isPasswordVisible
                                         ? Icons.visibility
                                         : Icons.visibility_off,
+                                    color: kcContainerColor,
                                   ),
                                   onPressed: viewModel.showPassword,
                                 ),
@@ -143,16 +144,18 @@ class ChangePasswordView extends StackedView<ChangePasswordViewModel> {
                               verticalSpaceLarge,
                               Container(
                                 decoration: const BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.white,
-                                      blurRadius: 5,
-                                      offset: Offset(1, 2),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
+                                    // boxShadow: [
+                                    //   BoxShadow(
+                                    //     color: Colors.white,
+                                    //     blurRadius: 5,
+                                    //     offset: Offset(1, 2),
+                                    //     spreadRadius: 0,
+                                    //   )
+                                    // ],
+                                    ),
                                 child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: kcProfitColor),
                                     onPressed: viewModel.submitForm,
                                     child: const Text('Submit')),
                               )

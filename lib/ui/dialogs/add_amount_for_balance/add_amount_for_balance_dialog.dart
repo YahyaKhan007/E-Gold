@@ -31,7 +31,7 @@ class AddAmountForBalanceDialog
           borderRadius: BorderRadius.circular(10),
         ),
         // backgroundColor: Colors.white,
-        backgroundColor: Colors.white,
+        backgroundColor: kcAppBackgroundColor,
         insetPadding: const EdgeInsets.all(20.0),
         children: [
           SimpleDialogOption(
@@ -51,79 +51,81 @@ class AddAmountForBalanceDialog
                   ),
                   SizedBox(
                     width: screenWidth(context) * 0.85,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () => viewModel.cancel(context),
-                          child: Container(
-                            // width: 150,
-                            width: screenWidth(context) * 0.35,
+                    child: FittedBox(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () => viewModel.cancel(context),
+                            child: Container(
+                              // width: 150,
+                              width: screenWidth(context) * 0.35,
 
-                            height: 48,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 12),
-                            decoration: ShapeDecoration(
-                              color: kcButtonBackground,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              shadows: const [
-                                BoxShadow(
-                                  color: Color(0x3FF5B119),
-                                  blurRadius: 8,
-                                  offset: Offset(2, 4),
-                                  spreadRadius: 0,
+                              height: 48,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 12),
+                              decoration: ShapeDecoration(
+                                color: kcProfitColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: screenWidth(context) * 0.035,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                // shadows: const [
+                                //   BoxShadow(
+                                //     color: Color(0x3FF5B119),
+                                //     blurRadius: 8,
+                                //     offset: Offset(2, 4),
+                                //     spreadRadius: 0,
+                                //   ),
+                                // ],
                               ),
-                            ),
-                          ),
-                        ),
-                        horizontalSpaceMedium,
-                        GestureDetector(
-                          onTap: () => viewModel.addBalance(context),
-                          child: Container(
-                            width: screenWidth(context) * 0.35,
-                            height: 48,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 12),
-                            decoration: ShapeDecoration(
-                              color: kcButtonBackground,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              shadows: const [
-                                BoxShadow(
-                                  color: Color(0x3FF5B119),
-                                  blurRadius: 8,
-                                  offset: Offset(2, 4),
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Add Balance',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: screenWidth(context) * 0.035,
-                                  fontWeight: FontWeight.w600,
+                              child: Center(
+                                child: Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: screenWidth(context) * 0.035,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          horizontalSpaceMedium,
+                          GestureDetector(
+                            onTap: () => viewModel.addBalance(context),
+                            child: Container(
+                              width: screenWidth(context) * 0.35,
+                              height: 48,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 12),
+                              decoration: ShapeDecoration(
+                                color: kcProfitColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                // shadows: const [
+                                //   BoxShadow(
+                                //     color: Color(0x3FF5B119),
+                                //     blurRadius: 8,
+                                //     offset: Offset(2, 4),
+                                //     spreadRadius: 0,
+                                //   ),
+                                // ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Add Balance',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: screenWidth(context) * 0.035,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

@@ -32,105 +32,97 @@ class BuyGoldOrSilverView extends StackedView<BuyGoldOrSilverViewModel> {
         body: Container(
           height: size.height,
           width: size.width,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFFB3E5FC), // Light blue
-                Color(0xFFE1F5FE), // Lighter blue
-              ],
-            ),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                BuyGoldenContainer(
-                  onBack: viewModel.onBack,
-                  balance: viewModel.balance,
-                  margin: viewModel.margin,
-                  goldCheck: viewModel.gold,
-                  checkGoldFunc: viewModel.goldVal,
-                  checkSilverFunc: viewModel.silverVal,
-                  amount: viewModel.amount,
-                  grams: viewModel.totalGramsToBuy.toString(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.65,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          NumericKeyboard(
-                            textStyle: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: -1.28,
+          decoration: const BoxDecoration(color: kcTextColor
+              // gradient: LinearGradient(
+              //   begin: Alignment.topRight,
+              //   end: Alignment.bottomLeft,
+              //   colors: [
+              //     kcAppBackgroundColor, // Light blue
+              //     kcContainerColor, // Lighter blue
+              //   ],
+              // ),
+              ),
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              BuyGoldenContainer(
+                onBack: viewModel.onBack,
+                balance: viewModel.balance,
+                margin: viewModel.margin,
+                goldCheck: viewModel.gold,
+                checkGoldFunc: viewModel.goldVal,
+                checkSilverFunc: viewModel.silverVal,
+                amount: viewModel.amount,
+                grams: viewModel.totalGramsToBuy.toString(),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    NumericKeyboard(
+                      textStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: -1.28,
+                      ),
+                      rightIcon: const Icon(
+                        Icons.backspace_outlined,
+                      ),
+                      onKeyboardTap: (String text) {
+                        viewModel.onKeyboardTap(text);
+                        viewModel.convertTolaToGrams(
+                            double.parse(viewModel.amount), currentGoldRate);
+                      },
+                      rightButtonFn: viewModel.rightButtonfn,
+                      rightButtonLongPressFn: viewModel.rightButtonLongfn,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.01,
+                    ),
+                    GestureDetector(
+                      onTap: viewModel.toContinue,
+                      child: Center(
+                        child: Container(
+                          width: 236,
+                          height: 48,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 12),
+                          decoration: ShapeDecoration(
+                            color: kcProfitColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                            rightIcon: const Icon(
-                              Icons.backspace_outlined,
-                            ),
-                            onKeyboardTap: (String text) {
-                              viewModel.onKeyboardTap(text);
-                              viewModel.convertTolaToGrams(
-                                  double.parse(viewModel.amount),
-                                  currentGoldRate);
-                            },
-                            rightButtonFn: viewModel.rightButtonfn,
-                            rightButtonLongPressFn: viewModel.rightButtonLongfn,
+                            // shadows: const [
+                            //   BoxShadow(
+                            //     color: Color(0x3FF5B119),
+                            //     blurRadius: 8,
+                            //     offset: Offset(2, 4),
+                            //     spreadRadius: 0,
+                            //   ),
+                            // ],
                           ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01,
-                          ),
-                          GestureDetector(
-                            onTap: viewModel.toContinue,
-                            child: Center(
-                              child: Container(
-                                width: 236,
-                                height: 48,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 12),
-                                decoration: ShapeDecoration(
-                                  color: kcButtonBackground,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  shadows: const [
-                                    BoxShadow(
-                                      color: Color(0x3FF5B119),
-                                      blurRadius: 8,
-                                      offset: Offset(2, 4),
-                                      spreadRadius: 0,
-                                    ),
-                                  ],
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    'Continue',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
+                          child: const Center(
+                            child: Text(
+                              'Continue',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

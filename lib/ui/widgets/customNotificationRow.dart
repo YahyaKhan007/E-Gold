@@ -20,7 +20,7 @@ class NotificationsRow extends StatelessWidget {
                 width: 48,
                 height: 48,
                 decoration: const ShapeDecoration(
-                  color: Color(0xff5A9DDC),
+                  color: kcProfitColor,
                   shape: OvalBorder(),
                 ),
                 child: Image.asset(
@@ -37,7 +37,7 @@ class NotificationsRow extends StatelessWidget {
                   const Text(
                     'New Update Available',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: kcTextColor,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -47,7 +47,7 @@ class NotificationsRow extends StatelessWidget {
                     child: const Text(
                       'Update the spilitwise and enjoy new features for a better spilt bill experience',
                       style: TextStyle(
-                        color: Colors.black54,
+                        color: kcLightTextColor,
                         fontSize: 12,
                         fontWeight: FontWeight.w100,
                       ),
@@ -62,7 +62,7 @@ class NotificationsRow extends StatelessWidget {
               const Text(
                 '36m',
                 style: TextStyle(
-                  color: Colors.black54,
+                  color: kcLightTextColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
@@ -71,7 +71,7 @@ class NotificationsRow extends StatelessWidget {
                   onPressed: () {},
                   icon: const Icon(
                     Icons.more_vert,
-                    color: Colors.black54,
+                    color: kcLightTextColor,
                   )),
             ],
           ),

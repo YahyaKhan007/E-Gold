@@ -23,7 +23,7 @@ class LoginView extends StackedView<LoginViewModel> {
     var styleFrom = ElevatedButton.styleFrom(
       minimumSize: const Size(48, 48),
       padding: const EdgeInsets.all(4),
-      backgroundColor: kcButtonBackground,
+      backgroundColor: kcProfitColor,
     );
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -51,13 +51,13 @@ class LoginView extends StackedView<LoginViewModel> {
                     fit: BoxFit.cover)),
           ),
           Positioned(
-            top: size.height * 0.18,
+            top: size.height * 0.12,
             child: Container(
               padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 40),
               height: size.height,
               width: size.width,
               decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: kcAppBackgroundColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
@@ -72,7 +72,7 @@ class LoginView extends StackedView<LoginViewModel> {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black54,
+                        color: kcTextColor,
                       ),
                     ),
                     verticalSpaceLarge,
@@ -83,8 +83,8 @@ class LoginView extends StackedView<LoginViewModel> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                                border: const Border(
-                                    bottom: BorderSide(color: Colors.grey)),
+                                // border: const Border(
+                                //     bottom: BorderSide(color: Colors.grey)),
                                 borderRadius: BorderRadius.circular(10)),
                             child: TextFormField(
                                 style: const TextStyle(
@@ -105,8 +105,8 @@ class LoginView extends StackedView<LoginViewModel> {
                           verticalSpaceMedium,
                           Container(
                             decoration: BoxDecoration(
-                                border: const Border(
-                                    bottom: BorderSide(color: Colors.grey)),
+                                // border: const Border(
+                                //     bottom: BorderSide(color: Colors.grey)),
                                 borderRadius: BorderRadius.circular(10)),
                             child: TextFormField(
                               controller: viewModel.passwordController,
@@ -141,14 +141,17 @@ class LoginView extends StackedView<LoginViewModel> {
                       textAlign: TextAlign.right,
                       text: TextSpan(
                         text: 'Forget password? ',
-                        style: Theme.of(context).textTheme.titleSmall,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: kcLightTextColor),
                         children: [
                           TextSpan(
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
                                   .copyWith(
-                                    color: Colors.black,
+                                    color: kcTextColor,
                                   ),
                               text: 'Change',
                               recognizer: TapGestureRecognizer()
@@ -162,12 +165,16 @@ class LoginView extends StackedView<LoginViewModel> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: kcProfitColor,
+                              foregroundColor: Colors.white,
+                            ),
                             onPressed: viewModel.onPressedLogin,
                             child: const Text('Sign in')),
                         verticalSpaceMedium,
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xff1D80C9),
+                              backgroundColor: kcProfitColor,
                               foregroundColor: Colors.white,
                             ),
                             onPressed: viewModel.onPressedCreateNewAccount,
@@ -181,7 +188,7 @@ class LoginView extends StackedView<LoginViewModel> {
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black,
+                        color: kcTextColor,
                       ),
                     ),
                     verticalSpaceMedium,

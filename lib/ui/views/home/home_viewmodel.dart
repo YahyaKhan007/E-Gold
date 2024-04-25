@@ -44,10 +44,12 @@ class HomeViewModel extends BaseViewModel {
   List<TransactionDetails> inStoreTransactions = [];
   List<TransactionDetails> marginTransactionList = [];
   final _bottomService = locator<BottomSheetService>();
+  List<TransactionDetails> sortedList = List.empty(growable: true);
 
   final ScrollController mainScrollController = ScrollController();
 
   String isSelected = 'Bank';
+  double totalMarginProfit = 0.0;
 
   double calculateProfitLoss(
       {required double gramsBought,
@@ -72,7 +74,7 @@ class HomeViewModel extends BaseViewModel {
 
   // double
   void calculatePercentageChange(double fixedGoldPrice, double updatedPrice) {
-    log('created date is : ${fixedGoldPrice}');
+    // log('created date is : ${fixedGoldPrice}');
     goldPercent = ((updatedPrice - fixedGoldPrice) / fixedGoldPrice) * 100;
     rebuildUi();
     // return goldPercent;
@@ -89,7 +91,6 @@ class HomeViewModel extends BaseViewModel {
     serverConnectionTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
       calculatePercentageChange(fixedGoldPrice, currentGoldRate);
       connectToServer();
-      log('Text 1');
     });
   }
 
@@ -98,7 +99,9 @@ class HomeViewModel extends BaseViewModel {
       // Establish connection with the server
       int port = 57578;
       Socket socket = await Socket.connect('165.73.253.101', port);
-
+      log('server running...');
+      totalMarginProfit = await getMarginProfit();
+      rebuildUi();
       // Update isConnected state to true
       // setState(() {
       //   isConnected = true;
@@ -156,6 +159,13 @@ class HomeViewModel extends BaseViewModel {
   void onViewModelReady() async {
     setBusy(true);
     log("The model is being ready");
+    final transactionDetails = await _transactionService
+        .getAllTransactionDetails(userService.user!.uid);
+    sortedList.addAll(transactionDetails
+        .where((item) => item.transactionType != 'Sell')
+        .toList());
+
+    log("total Transaction in HomeBiewMdel is : ${sortedList.length}");
     if (userService.user == null) {
       await userService.getUser();
     }
@@ -164,10 +174,34 @@ class HomeViewModel extends BaseViewModel {
     // await metalPriceService.fetchData();
     // fetchTransactionRow(transactionType: cryptoTransactions);
     // await fetchTransactions();
-    calulateMarginFromTransationsPortFolio();
+    // calulateMarginFromTransationsPortFolio();
     _startServerConnectionTimer();
-    log("InStore Length is ==== > ${inStoreTransactions.length.toString()}");
     setBusy(false);
+  }
+
+  // void calculateProfit() {
+  //   totalMarginProfit = 0;
+  //   rebuildUi();
+  //   // Clear the list before calculating again
+  //   for (double profit in getMarginProfit()) {
+  //     totalMarginProfit += profit;
+  //     log('Total Margin Profit   : $totalMarginProfit');
+  //     rebuildUi();
+  //   }
+  // }
+
+  Future<double> getMarginProfit() async {
+    var profit = 0.0;
+    for (TransactionDetails transaction in sortedList) {
+      if (transaction.isMargin == true) {
+        double profitLoss = currentGoldRate - transaction.buyGoldRate;
+        if (profitLoss > 0) {
+          profit += profitLoss;
+        }
+      }
+    }
+    log('Total Margin Profit   : $profit');
+    return profit;
   }
 
   Future<void> fetchTransactions() async {
@@ -192,36 +226,6 @@ class HomeViewModel extends BaseViewModel {
       // Handle error
       print('Error fetching transactions: $e');
     }
-  }
-
-  calulateMarginFromTransationsPortFolio() {
-    if (inStoreTransactions.isNotEmpty) {
-      for (var transaction in inStoreTransactions) {
-        if (transaction.isMargin == true && transaction.isSold == false) {
-          marginTransactionList.add(transaction);
-        }
-      }
-    } else if (cardTransactions.isNotEmpty) {
-      for (var transaction in cardTransactions) {
-        if (transaction.isMargin == true && transaction.isSold == false) {
-          marginTransactionList.add(transaction);
-        }
-      }
-    } else if (bankTransactions.isNotEmpty) {
-      for (var transaction in bankTransactions) {
-        if (transaction.isMargin == true && transaction.isSold == false) {
-          marginTransactionList.add(transaction);
-        }
-      }
-    } else if (cryptoTransactions.isNotEmpty) {
-      for (var transaction in cryptoTransactions) {
-        if (transaction.isMargin == true && transaction.isSold == false) {
-          marginTransactionList.add(transaction);
-        }
-      }
-    }
-
-    log('Total Margin Transaction List Length is : ${marginTransactionList.length}');
   }
 
   void onTapSell() {

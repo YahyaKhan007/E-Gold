@@ -22,7 +22,7 @@ class InStorePaymentScreenView
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: kcAppBackgroundColor,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -60,7 +60,7 @@ class InStorePaymentScreenView
               width: size.width,
               padding: const EdgeInsets.only(left: 0, right: 0, top: 0),
               decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: kcAppBackgroundColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
@@ -81,14 +81,14 @@ class InStorePaymentScreenView
                                   Container(
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.lightBlue.shade200,
-                                            blurRadius: 3,
-                                            offset: const Offset(0, 1),
-                                            spreadRadius: 0,
-                                          ),
-                                        ],
+                                        // boxShadow: [
+                                        //   BoxShadow(
+                                        //     color: Colors.lightBlue.shade200,
+                                        //     blurRadius: 3,
+                                        //     offset: const Offset(0, 1),
+                                        //     spreadRadius: 0,
+                                        //   ),
+                                        // ],
                                       ),
                                       padding: const EdgeInsets.all(2.0),
                                       child: Image.asset(profile)),
@@ -102,7 +102,7 @@ class InStorePaymentScreenView
                                       Text(
                                         'User',
                                         style: TextStyle(
-                                          color: Colors.black,
+                                          color: kcTextColor,
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -110,7 +110,7 @@ class InStorePaymentScreenView
                                       Text(
                                         'Make a payment at the store',
                                         style: TextStyle(
-                                          color: Colors.black54,
+                                          color: kcLightTextColor,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -125,7 +125,7 @@ class InStorePaymentScreenView
                               const Text(
                                 'Select In-Store Payment',
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: kcTextColor,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -154,7 +154,7 @@ class InStorePaymentScreenView
                               const Text(
                                 'Visit Physical Store',
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: kcTextColor,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -185,7 +185,7 @@ class InStorePaymentScreenView
                                         Text(
                                           'Instructions:',
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: kcTextColor,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -195,7 +195,7 @@ class InStorePaymentScreenView
                                           child: Text(
                                             'Visit the store and show the \ngenerated unique ID to the cashier.',
                                             style: TextStyle(
-                                              color: Colors.black54,
+                                              color: kcLightTextColor,
                                               fontSize: 14,
                                               overflow: TextOverflow.ellipsis,
                                               fontWeight: FontWeight.w400,
@@ -219,18 +219,18 @@ class InStorePaymentScreenView
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 12),
                                     decoration: ShapeDecoration(
-                                      color: kcButtonBackground,
+                                      color: kcProfitColor,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      shadows: const [
-                                        BoxShadow(
-                                          color: Color(0x3FF5B119),
-                                          blurRadius: 8,
-                                          offset: Offset(2, 4),
-                                          spreadRadius: 0,
-                                        ),
-                                      ],
+                                      // shadows: const [
+                                      //   BoxShadow(
+                                      //     color: Color(0x3FF5B119),
+                                      //     blurRadius: 8,
+                                      //     offset: Offset(2, 4),
+                                      //     spreadRadius: 0,
+                                      //   ),
+                                      // ],
                                     ),
                                     child: const Center(
                                       child: Text(

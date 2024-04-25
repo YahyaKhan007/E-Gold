@@ -30,7 +30,7 @@ class ForgetpasswordView extends StackedView<ForgetpasswordViewModel> {
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: kcTextColor,
           ),
         ),
       ),
@@ -46,13 +46,13 @@ class ForgetpasswordView extends StackedView<ForgetpasswordViewModel> {
                     fit: BoxFit.cover)),
           ),
           Positioned(
-            top: size.height * 0.18,
+            top: size.height * 0.12,
             child: Container(
               padding: const EdgeInsets.only(left: 25.0, right: 25.0),
               height: size.height,
               width: size.width,
               decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: kcAppBackgroundColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
@@ -67,7 +67,7 @@ class ForgetpasswordView extends StackedView<ForgetpasswordViewModel> {
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
-                          .copyWith(color: Colors.black),
+                          .copyWith(color: kcTextColor),
                     ),
                     verticalSpaceLarge,
                     Column(
@@ -122,7 +122,10 @@ class ForgetpasswordView extends StackedView<ForgetpasswordViewModel> {
                           child: RichText(
                             text: TextSpan(
                               text: 'Remember the password? ',
-                              style: Theme.of(context).textTheme.titleMedium,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(color: kcLightTextColor),
                               children: [
                                 TextSpan(
                                     style: Theme.of(context)
@@ -138,13 +141,10 @@ class ForgetpasswordView extends StackedView<ForgetpasswordViewModel> {
                         ),
                         verticalSpaceLarge,
                         ElevatedButton(
-                            style: Theme.of(context)
-                                .elevatedButtonTheme
-                                .style!
-                                .copyWith(
-                                  fixedSize: MaterialStateProperty.resolveWith(
-                                      (states) => const Size.fromHeight(48)),
-                                ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: kcProfitColor,
+                              foregroundColor: Colors.white,
+                            ),
                             onPressed: viewModel.onPressedSubmit,
                             child: const Text('Submit'))
                       ],

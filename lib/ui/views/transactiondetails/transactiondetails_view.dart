@@ -60,7 +60,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
               width: size.width,
               padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
               decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: kcAppBackgroundColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
@@ -74,7 +74,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                           "TopUp",
                           style: TextStyle(
                               fontSize: 40,
-                              color: Colors.black,
+                              color: kcTextColor,
                               fontWeight: FontWeight.bold),
                         )
                       : viewModel.transaction.isSold == true
@@ -82,7 +82,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                               "Transaction Sold",
                               style: TextStyle(
                                   fontSize: 35,
-                                  color: Colors.black,
+                                  color: kcTextColor,
                                   fontWeight: FontWeight.bold),
                             )
                           : Container(
@@ -97,23 +97,24 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                     Expanded(
                                       child: Container(
                                         padding: const EdgeInsets.all(8),
-                                        decoration: const BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                'assets/images/back_home.png',
-                                              ),
-                                              fit: BoxFit.cover),
-                                          borderRadius: BorderRadius.only(
+                                        decoration: BoxDecoration(
+                                          color: kcAppBackgroundColor,
+                                          // image: DecorationImage(
+                                          //     image: AssetImage(
+                                          //       'assets/images/back_home.png',
+                                          //     ),
+                                          //     fit: BoxFit.cover),
+                                          borderRadius: const BorderRadius.only(
                                             topLeft: Radius.circular(10),
                                             bottomLeft: Radius.circular(10),
                                           ),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Color.fromARGB(
-                                                  60, 201, 180, 180),
-                                              blurRadius: 10,
-                                              offset: Offset(2, 0),
-                                              spreadRadius: 0,
+                                              color: kcContainerColor
+                                                  .withOpacity(0.5),
+                                              blurRadius: 0.5,
+                                              offset: const Offset(-2, 2),
+                                              spreadRadius: 0.5,
                                             ),
                                           ],
                                         ),
@@ -133,8 +134,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 22)
-                                                  .copyWith(
-                                                      color: Colors.white),
+                                                  .copyWith(color: kcTextColor),
                                             ),
                                             FittedBox(
                                               child: Row(
@@ -143,7 +143,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                                   Text(
                                                     "${viewModel.transaction.isSold ? 0 : viewModel.transaction.totalPaid.toStringAsFixed(2)} ",
                                                     style: const TextStyle(
-                                                        color: Colors.white,
+                                                        color: kcTextColor,
                                                         fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -174,24 +174,26 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                     Expanded(
                                       child: Container(
                                         padding: const EdgeInsets.all(8),
-                                        decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(10),
-                                                bottomRight:
-                                                    Radius.circular(10)),
-                                            image: DecorationImage(
-                                                image: AssetImage(
-                                                  'assets/images/back_home.png',
-                                                ),
-                                                fit: BoxFit.cover),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.white70,
-                                                blurRadius: 10,
-                                                offset: Offset(2, 0),
-                                                spreadRadius: 0,
-                                              ),
-                                            ]),
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.only(
+                                              topRight: Radius.circular(10),
+                                              bottomRight: Radius.circular(10)),
+                                          color: kcAppBackgroundColor,
+                                          // image: DecorationImage(
+                                          //     image: AssetImage(
+                                          //       'assets/images/back_home.png',
+                                          //     ),
+                                          //     fit: BoxFit.cover),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: kcContainerColor
+                                                  .withOpacity(0.5),
+                                              blurRadius: 0.5,
+                                              offset: const Offset(2, 2),
+                                              spreadRadius: 0.5,
+                                            ),
+                                          ],
+                                        ),
                                         height: 140,
                                         child: Column(
                                           mainAxisAlignment:
@@ -369,25 +371,25 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                                       'Sell'
                               ? viewModel.transaction.totalBonus >= 0
                                   ? const Text("Profit",
-                                      style: TextStyle(color: Colors.black))
+                                      style: TextStyle(color: kcTextColor))
                                   : const Text("Loss",
-                                      style: TextStyle(color: Colors.black))
+                                      style: TextStyle(color: kcTextColor))
                               : index == 3 &&
                                       viewModel.transaction.transactionType ==
                                           'Sell'
                                   ? const Text("Total Gold Sold",
-                                      style: TextStyle(color: Colors.black))
+                                      style: TextStyle(color: kcTextColor))
                                   : Text(
                                       names[index],
                                       style:
-                                          const TextStyle(color: Colors.black),
+                                          const TextStyle(color: kcTextColor),
                                     ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 "${index == 0 && viewModel.transaction.isSold == true ? "Sold Successful" : values[index]} ${index == 2 || index == 1 ? "AED" : index == 3 ? 'grams' : ""}",
-                                style: const TextStyle(color: Colors.black54),
+                                style: const TextStyle(color: kcLightText),
                               ),
                               index == 0 &&
                                       viewModel.transaction.isSold == true &&
@@ -445,7 +447,7 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                       separatorBuilder: (BuildContext context, int index) {
                         return const Divider(
                           height: 1.0,
-                          color: Colors.black38,
+                          color: kcLightText,
                         );
                       },
                     ),
@@ -464,16 +466,16 @@ class TransactiondetailsView extends StackedView<TransactiondetailsViewModel> {
                           height: 50,
                           width: size.width * 0.3,
                           decoration: const BoxDecoration(
-                            color: kcButtonBackground,
+                            color: kcProfitColor,
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.white,
-                                blurRadius: 5,
-                                offset: Offset(2, 4),
-                                spreadRadius: 0,
-                              ),
-                            ],
+                            // boxShadow: [
+                            //   BoxShadow(
+                            //     color: Colors.white,
+                            //     blurRadius: 5,
+                            //     offset: Offset(2, 4),
+                            //     spreadRadius: 0,
+                            //   ),
+                            // ],
                           ),
                           child: const Center(
                             child: Text(

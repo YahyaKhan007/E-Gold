@@ -23,7 +23,7 @@ class CryptoPaymentScreenView
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: kcAppBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
@@ -62,7 +62,7 @@ class CryptoPaymentScreenView
                 width: size.width,
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
                 decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: kcAppBackgroundColor,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30))),
@@ -105,18 +105,18 @@ class CryptoPaymentScreenView
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 12),
                                     decoration: ShapeDecoration(
-                                      color: kcButtonBackground,
+                                      color: kcProfitColor,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      shadows: const [
-                                        BoxShadow(
-                                          color: Color(0x3FF5B119),
-                                          blurRadius: 8,
-                                          offset: Offset(2, 4),
-                                          spreadRadius: 0,
-                                        ),
-                                      ],
+                                      // shadows: const [
+                                      //   BoxShadow(
+                                      //     color: Color(0x3FF5B119),
+                                      //     blurRadius: 8,
+                                      //     offset: Offset(2, 4),
+                                      //     spreadRadius: 0,
+                                      //   ),
+                                      // ],
                                     ),
                                     child: const Center(
                                       child: Text(
@@ -140,18 +140,18 @@ class CryptoPaymentScreenView
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 12),
                                     decoration: ShapeDecoration(
-                                      color: kcButtonBackground,
+                                      color: kcProfitColor,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      shadows: const [
-                                        BoxShadow(
-                                          color: Color(0x3FF5B119),
-                                          blurRadius: 8,
-                                          offset: Offset(2, 4),
-                                          spreadRadius: 0,
-                                        ),
-                                      ],
+                                      // shadows: const [
+                                      //   BoxShadow(
+                                      //     color: Color(0x3FF5B119),
+                                      //     blurRadius: 8,
+                                      //     offset: Offset(2, 4),
+                                      //     spreadRadius: 0,
+                                      //   ),
+                                      // ],
                                     ),
                                     child: const Center(
                                       child: Text(

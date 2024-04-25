@@ -16,14 +16,14 @@ class NotificationScreenView extends StackedView<NotificationScreenViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kcAppBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: kcAppBackgroundColor,
         centerTitle: true,
         title: const Text(
           'Notification',
           style: TextStyle(
-            color: Colors.black,
+            color: kcTextColor,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -32,13 +32,13 @@ class NotificationScreenView extends StackedView<NotificationScreenViewModel> {
           onPressed: viewModel.goBack,
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: kcTextColor,
           ),
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
-          decoration: const BoxDecoration(color: Colors.white
+          decoration: const BoxDecoration(color: kcAppBackgroundColor
               // gradient: LinearGradient(
               //   begin: Alignment.topRight,
               //   end: Alignment.bottomLeft,
@@ -63,7 +63,7 @@ class NotificationScreenView extends StackedView<NotificationScreenViewModel> {
                     Text(
                       'New',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: kcTextColor,
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),

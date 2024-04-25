@@ -630,8 +630,12 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i38.ChoosePaymentMethodView: (data) {
+      final args = data.getArgs<ChoosePaymentMethodViewArguments>(
+        orElse: () => const ChoosePaymentMethodViewArguments(),
+      );
       return _i41.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i38.ChoosePaymentMethodView(),
+        builder: (context) => _i38.ChoosePaymentMethodView(
+            key: args.key, showBack: args.showBack),
         settings: data,
       );
     },
@@ -1054,6 +1058,33 @@ class TransactiondetailsViewArguments {
   @override
   int get hashCode {
     return key.hashCode ^ profitOrLoss.hashCode ^ transactionDetails.hashCode;
+  }
+}
+
+class ChoosePaymentMethodViewArguments {
+  const ChoosePaymentMethodViewArguments({
+    this.key,
+    this.showBack = false,
+  });
+
+  final _i41.Key? key;
+
+  final bool? showBack;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "showBack": "$showBack"}';
+  }
+
+  @override
+  bool operator ==(covariant ChoosePaymentMethodViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.showBack == showBack;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ showBack.hashCode;
   }
 }
 
@@ -1688,14 +1719,18 @@ extension NavigatorStateExtension on _i43.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToChoosePaymentMethodView([
+  Future<dynamic> navigateToChoosePaymentMethodView({
+    _i41.Key? key,
+    bool? showBack = false,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.choosePaymentMethodView,
+        arguments:
+            ChoosePaymentMethodViewArguments(key: key, showBack: showBack),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -2333,14 +2368,18 @@ extension NavigatorStateExtension on _i43.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithChoosePaymentMethodView([
+  Future<dynamic> replaceWithChoosePaymentMethodView({
+    _i41.Key? key,
+    bool? showBack = false,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.choosePaymentMethodView,
+        arguments:
+            ChoosePaymentMethodViewArguments(key: key, showBack: showBack),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

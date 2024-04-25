@@ -17,7 +17,7 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
   ) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: kcContainerColor,
+      backgroundColor: kcAppBackgroundColor,
       body:
           // Container(
           //   decoration: const BoxDecoration(
