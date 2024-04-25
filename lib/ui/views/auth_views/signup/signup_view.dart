@@ -83,7 +83,7 @@ class SignupView extends StackedView<SignupViewModel> {
                     verticalSpaceSmall,
                     TextFormField(
                         style: const TextStyle(
-                          color: kcTextColor,
+                          color: kcAppBackgroundColor,
                         ),
                         controller: viewModel.emailController,
                         decoration: const InputDecoration(

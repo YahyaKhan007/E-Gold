@@ -1,6 +1,5 @@
 import 'package:e_gold/ui/common/app_colors.dart';
 import 'package:e_gold/ui/common/app_images.dart';
-import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,7 +14,6 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
     DashboardScreenViewModel viewModel,
     Widget? child,
   ) {
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: kcAppBackgroundColor,
       body:
@@ -85,8 +83,14 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
                 isLast: false),
             navbarItem(
                 label: 'Profile',
-                image: Timages.profile,
-                //  image: viewModel.homeModel.userService.user?.profileImg != ''? viewModel.homeModel.userService.user!.profileImg :   Timages.profile,
+                // image: Timages.profile,
+                image: viewModel.homeModel.userService.user?.profileImg != ''
+                    ? viewModel.homeModel.userService.user!.profileImg
+                    : Timages.profile,
+                isProfileShow:
+                    viewModel.homeModel.userService.user?.profileImg != ''
+                        ? true
+                        : false,
                 show: viewModel.currentPageIndex == 4 ? true : false,
                 isLast: true),
           ],
@@ -99,41 +103,102 @@ class DashboardScreenView extends StackedView<DashboardScreenViewModel> {
       {required String image,
       required bool show,
       required bool isLast,
+      bool? isProfileShow,
       required String label}) {
     return BottomNavigationBarItem(
       icon: Padding(
         padding: const EdgeInsets.only(top: 10, bottom: 5),
-        child: Image.asset(
-          image,
-          height: 25,
+        child: isProfileShow == true
+            ? CircleAvatar(
+                radius: 15,
+                backgroundColor: Colors.transparent,
+                backgroundImage: NetworkImage(
+                  image,
+                  // height: 25,
+                  // color: isLast ? null : Colors.white,
+                  // fit: BoxFit.cover,
+                ),
+              )
+            : Image.asset(
+                image,
+                height: 25,
 
-          color: isLast ? null : Colors.white,
-          // height: 30,
-        ),
+                color: isLast ? null : Colors.white,
+                // height: 30,
+              ),
       ),
       label: label,
       activeIcon: Visibility(
         visible: show,
-        child: Stack(
-          children: [
-            // Circle with reduced opacity
-            Padding(
-              padding: const EdgeInsets.only(top: 7, bottom: 5),
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: kcProfitColor
-                      .withOpacity(0.99), // Adjust the opacity as needed
-                ),
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  image,
-                  height: 25,
-                ), // Replace with your active icon
+        child: isProfileShow == true && isLast == true
+            ? Stack(
+                children: [
+                  // Circle with reduced opacity
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7, bottom: 5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                            image,
+                          ),
+                          // height: 25,
+                          // color: isLast ? null : Colors.white,
+                          // fit: BoxFit.cover,
+                        ),
+
+                        shape: BoxShape.circle,
+                        color: kcProfitColor
+                            .withOpacity(0.99), // Adjust the opacity as needed
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: isProfileShow == true
+                          ? Image.network(
+                              image,
+                              height: 25,
+                            )
+                          : Image.asset(
+                              image,
+                              height: 25,
+                            ), // Replace with your active icon
+                    ),
+                  ),
+                ],
+              )
+            : Stack(
+                children: [
+                  // Circle with reduced opacity
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7, bottom: 5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            image,
+                          ),
+                          // height: 25,
+                          // color: isLast ? null : Colors.white,
+                          // fit: BoxFit.cover,
+                        ),
+
+                        shape: BoxShape.circle,
+                        color: kcProfitColor
+                            .withOpacity(0.99), // Adjust the opacity as needed
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: isProfileShow == true
+                          ? Image.network(
+                              image,
+                              height: 25,
+                            )
+                          : Image.asset(
+                              image,
+                              height: 25,
+                            ), // Replace with your active icon
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

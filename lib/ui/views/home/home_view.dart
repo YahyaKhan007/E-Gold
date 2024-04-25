@@ -3,11 +3,11 @@ import 'package:e_gold/ui/common/app_images.dart';
 import 'package:e_gold/ui/common/ui_helpers.dart';
 import 'package:e_gold/ui/views/home/home_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../common/app_strings.dart';
 import '../choose_payment_method/choose_payment_method_view.dart';
-import 'package:avatar_glow/avatar_glow.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
@@ -1161,70 +1161,66 @@ class HomeView extends StackedView<HomeViewModel> {
           color: kcAppBackgroundColor,
           borderRadius: BorderRadius.circular(30),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
+        child: Stack(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.red,
-              ),
-              padding:
-                  const EdgeInsets.only(top: 2, left: 12, right: 12, bottom: 2),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    "LIVE",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  horizontalSpaceSmall,
-                  AvatarGlow(
-                    animate: true,
-                    repeat: true,
-                    glowColor: Colors.white,
-                    glowCount: 3,
-                    glowRadiusFactor: 0.5,
-                    glowShape: BoxShape.circle,
-                    child: const Icon(
-                      Icons.circle,
-                      color: Colors.red,
-                      size: 10,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Lottie.asset('assets/lottie/live_rate.json',
+                        height: 30,
+                        options:
+                            LottieOptions(enableApplyingOpacityToLayers: true)),
+                    horizontalSpaceTiny,
+                    const Text(
+                      "Live Price",
+                      style: TextStyle(
+                          color: kcProfitColor,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold),
                     ),
+                  ],
+                ),
+                verticalSpaceSmall,
+                showLivePrice(viewModel),
+                // verticalSpaceTiny,
+                goldPurity(size: size),
+                Container(
+                  height: 1,
+                  width: size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  color: kcLightTextColor,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Your current gold balance is:",
+                        style: TextStyle(fontSize: 12, color: kcProfitColor),
+                      ),
+                      Text(
+                        "${viewModel.userService.user!.totalGoldHoldings.toStringAsFixed(4)}g",
+                        style:
+                            const TextStyle(fontSize: 12, color: kcProfitColor),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                )
+              ],
             ),
-            verticalSpaceTiny,
-            showLivePrice(viewModel),
-            goldPurity(size: size),
-            Container(
-              height: 1,
-              width: size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 15),
-              color: kcLightTextColor,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Your current gold balance is:",
-                    style: TextStyle(fontSize: 12, color: kcProfitColor),
-                  ),
-                  Text(
-                    "${viewModel.userService.user!.totalGoldHoldings.toStringAsFixed(4)}g",
-                    style: const TextStyle(fontSize: 12, color: kcProfitColor),
-                  ),
-                ],
-              ),
-            )
+            Positioned(
+                right: -20,
+                top: size.height * 0.06,
+                child: Image.asset(
+                  'assets/images/gold.png',
+                  height: size.height * 0.14,
+                ))
           ],
         ));
   }
@@ -1233,41 +1229,29 @@ class HomeView extends StackedView<HomeViewModel> {
     return Expanded(
       child: SizedBox(
         width: size.width,
-        child: Stack(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                verticalSpaceTiny,
-                const Text(
-                  "this price includes 3% GST",
-                  style: TextStyle(color: kcProfitColor, fontSize: 12),
-                ),
-                verticalSpaceSmall,
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                  decoration: BoxDecoration(
-                      color: kcProfitColor,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: const Text(
-                    "24k - 99.9%",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12),
-                  ),
-                )
-              ],
+            verticalSpaceTiny,
+            const Text(
+              "this price includes 3% GST",
+              style: TextStyle(color: kcProfitColor, fontSize: 12),
             ),
-            Positioned(
-                right: -20,
-                top: 0,
-                child: Image.asset(
-                  'assets/images/gold.png',
-                  height: size.height * 0.14,
-                ))
+            verticalSpaceSmall,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+              decoration: BoxDecoration(
+                  color: kcProfitColor,
+                  borderRadius: BorderRadius.circular(20)),
+              child: const Text(
+                "24k - 99.9%",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12),
+              ),
+            )
           ],
         ),
       ),
@@ -1287,7 +1271,7 @@ class HomeView extends StackedView<HomeViewModel> {
           style: TextStyle(
               fontStyle: FontStyle.normal,
               color: kcProfitColor,
-              fontSize: 30,
+              fontSize: 32,
               fontWeight: FontWeight.bold),
         ),
         viewModel.isBusy
@@ -1295,14 +1279,14 @@ class HomeView extends StackedView<HomeViewModel> {
                 ' ...  ',
                 style: TextStyle(
                     color: kcProfitColor,
-                    fontSize: 30,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold),
               )
             : Text(
                 "${currentGoldRate.toStringAsFixed(2)}/G",
                 style: const TextStyle(
                     color: kcProfitColor,
-                    fontSize: 30,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold),
               ),
       ],
