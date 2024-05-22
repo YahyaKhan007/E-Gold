@@ -22,8 +22,12 @@ class DashboardScreenViewModel extends BaseViewModel {
   final List<Widget> pages = [
     const HomeView(),
     const TransactionHistoryScreenView(check: false),
-     ChoosePaymentMethodView(),
-    const Center(child: Text("PROFILE SCREEN3")),
+    ChoosePaymentMethodView(),
+    const Center(
+        child: Text(
+      "Coming soon",
+      style: TextStyle(color: Colors.white),
+    )),
     const AccountScreenView(),
   ];
   PageController pageController = PageController(initialPage: 0);

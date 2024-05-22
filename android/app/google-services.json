@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "609996616069",
+    "firebase_url": "https://egold-1f352-default-rtdb.firebaseio.com",
     "project_id": "egold-1f352",
     "storage_bucket": "egold-1f352.appspot.com"
   },
@@ -14,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "609996616069-8s2mf3bsonp92ctdcr8ovfpdh0s1qlt7.apps.googleusercontent.com",
+          "client_id": "609996616069-8hhevp3q70af3nv0qjh0ctc7e22in8io.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.e_gold",
-            "certificate_hash": "b1b04124bcc864fd6beb2e1e1de88c8f35411b52"
+            "certificate_hash": "d53380d16c2891f3f3719d63ed8243a2bfc9946c"
           }
         },
         {

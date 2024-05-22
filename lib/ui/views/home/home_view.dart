@@ -1235,7 +1235,7 @@ class HomeView extends StackedView<HomeViewModel> {
           children: [
             verticalSpaceTiny,
             const Text(
-              "this price includes 3% GST",
+              "this price includes 5% GST",
               style: TextStyle(color: kcProfitColor, fontSize: 12),
             ),
             verticalSpaceSmall,
