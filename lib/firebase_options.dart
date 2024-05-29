@@ -49,14 +49,16 @@ class DefaultFirebaseOptions {
     messagingSenderId: '609996616069',
     projectId: 'egold-1f352',
     authDomain: 'egold-1f352.firebaseapp.com',
+    databaseURL: 'https://egold-1f352-default-rtdb.firebaseio.com',
     storageBucket: 'egold-1f352.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB-A6-xMYe9qr49RCxGmkPCsPXO8v2BR-c',
-    appId: '1:609996616069:android:8b12efb88b34f65ccad4ec',
+    appId: '1:609996616069:android:22077c643e19d2ebcad4ec',
     messagingSenderId: '609996616069',
     projectId: 'egold-1f352',
+    databaseURL: 'https://egold-1f352-default-rtdb.firebaseio.com',
     storageBucket: 'egold-1f352.appspot.com',
   );
 
@@ -65,7 +67,10 @@ class DefaultFirebaseOptions {
     appId: '1:609996616069:ios:7e8a555f7b3db790cad4ec',
     messagingSenderId: '609996616069',
     projectId: 'egold-1f352',
+    databaseURL: 'https://egold-1f352-default-rtdb.firebaseio.com',
     storageBucket: 'egold-1f352.appspot.com',
+    androidClientId: '609996616069-8hhevp3q70af3nv0qjh0ctc7e22in8io.apps.googleusercontent.com',
+    iosClientId: '609996616069-07p9ecmh8q22l6briuefusqd44j2qb4s.apps.googleusercontent.com',
     iosBundleId: 'com.example.eGold',
   );
 
