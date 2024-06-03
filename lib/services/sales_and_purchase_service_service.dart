@@ -31,7 +31,7 @@ class SalesAndPurchaseServiceService {
       return;
     }
   }
- 
+
   Future<void> addSandP(SandPModel salesAndPurchase) async {
     try {
       await sAndPCollection

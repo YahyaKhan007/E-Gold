@@ -15,7 +15,6 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../account_screen/account_screen_viewmodel.dart';
 import '../home/home_viewmodel.dart';
 
 class EditProfileViewModel extends BaseViewModel {

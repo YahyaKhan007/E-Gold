@@ -5,7 +5,7 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:e_gold/models/transactionDetails.dart' as _i42;
+import 'package:e_gold/models/transactionDetails.dart' as _i44;
 import 'package:e_gold/ui/views/account_screen/account_screen_view.dart'
     as _i16;
 import 'package:e_gold/ui/views/add_crypto_screen/add_crypto_screen_view.dart'
@@ -38,6 +38,8 @@ import 'package:e_gold/ui/views/crypto_payment_screen/crypto_payment_screen_view
     as _i24;
 import 'package:e_gold/ui/views/dashboard_screen/dashboard_screen_view.dart'
     as _i7;
+import 'package:e_gold/ui/views/delete_account/delete_account_view.dart'
+    as _i42;
 import 'package:e_gold/ui/views/deposit_screen/deposit_screen_view.dart'
     as _i22;
 import 'package:e_gold/ui/views/edit_profile/edit_profile_view.dart' as _i31;
@@ -60,6 +62,8 @@ import 'package:e_gold/ui/views/link_bank_account_screen/link_bank_account_scree
     as _i39;
 import 'package:e_gold/ui/views/notification_screen/notification_screen_view.dart'
     as _i15;
+import 'package:e_gold/ui/views/privacy_policy/privacy_policy_view.dart'
+    as _i41;
 import 'package:e_gold/ui/views/sliverbalancehistory/sliverbalancehistory_view.dart'
     as _i33;
 import 'package:e_gold/ui/views/specefic_sell_transaction/specefic_sell_transaction_view.dart'
@@ -73,9 +77,9 @@ import 'package:e_gold/ui/views/transaction_screen/transaction_screen_view.dart'
 import 'package:e_gold/ui/views/transactiondetails/transactiondetails_view.dart'
     as _i37;
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as _i41;
+import 'package:flutter/material.dart' as _i43;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i43;
+import 'package:stacked_services/stacked_services.dart' as _i45;
 
 class Routes {
   static const homeView = '/home-view';
@@ -158,6 +162,10 @@ class Routes {
 
   static const speceficSellTransactionView = '/specefic-sell-transaction-view';
 
+  static const privacyPolicyView = '/privacy-policy-view';
+
+  static const deleteAccountView = '/delete-account-view';
+
   static const all = <String>{
     homeView,
     startupView,
@@ -198,6 +206,8 @@ class Routes {
     choosePaymentMethodView,
     linkBankAccountScreenView,
     speceficSellTransactionView,
+    privacyPolicyView,
+    deleteAccountView,
   };
 }
 
@@ -359,78 +369,86 @@ class StackedRouter extends _i1.RouterBase {
       Routes.speceficSellTransactionView,
       page: _i40.SpeceficSellTransactionView,
     ),
+    _i1.RouteDef(
+      Routes.privacyPolicyView,
+      page: _i41.PrivacyPolicyView,
+    ),
+    _i1.RouteDef(
+      Routes.deleteAccountView,
+      page: _i42.DeleteAccountView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.LoginView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.LoginView(),
         settings: data,
       );
     },
     _i5.SignupView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.SignupView(),
         settings: data,
       );
     },
     _i6.CreateanaccountView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.CreateanaccountView(),
         settings: data,
       );
     },
     _i7.DashboardScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.DashboardScreenView(),
         settings: data,
       );
     },
     _i8.ForgetpasswordView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.ForgetpasswordView(),
         settings: data,
       );
     },
     _i9.OtpverificationView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.OtpverificationView(),
         settings: data,
       );
     },
     _i10.ReceiveotpverificationView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.ReceiveotpverificationView(),
         settings: data,
       );
     },
     _i11.ChangepasswordView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.ChangepasswordView(),
         settings: data,
       );
     },
     _i12.KycView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.KycView(),
         settings: data,
       );
     },
     _i13.BuyGoldOrSilverView: (data) {
       final args = data.getArgs<BuyGoldOrSilverViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => _i13.BuyGoldOrSilverView(
             key: args.key,
             balance: args.balance,
@@ -442,27 +460,27 @@ class StackedRouter extends _i1.RouterBase {
     _i14.TransactionHistoryScreenView: (data) {
       final args =
           data.getArgs<TransactionHistoryScreenViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i14.TransactionHistoryScreenView(key: args.key, check: args.check),
         settings: data,
       );
     },
     _i15.NotificationScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i15.NotificationScreenView(),
         settings: data,
       );
     },
     _i16.AccountScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i16.AccountScreenView(),
         settings: data,
       );
     },
     _i17.KycidcardfrontView: (data) {
       final args = data.getArgs<KycidcardfrontViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => _i17.KycidcardfrontView(
             key: args.key,
             cnicController: args.cnicController,
@@ -475,7 +493,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i18.KycidcardbackView: (data) {
       final args = data.getArgs<KycidcardbackViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => _i18.KycidcardbackView(
             key: args.key,
             idBackUploaded: args.idBackUploaded,
@@ -488,7 +506,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i19.KycbankaccountView: (data) {
       final args = data.getArgs<KycbankaccountViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => _i19.KycbankaccountView(
             key: args.key,
             accountNoController: args.accountNoController,
@@ -502,7 +520,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i20.KycprofileView: (data) {
       final args = data.getArgs<KycprofileViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => _i20.KycprofileView(
             key: args.key,
             uploadProfile: args.uploadProfile,
@@ -516,7 +534,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i21.KycpassportView: (data) {
       final args = data.getArgs<KycpassportViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => _i21.KycpassportView(
             key: args.key,
             passportNoController: args.passportNoController,
@@ -526,56 +544,56 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i22.DepositScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i22.DepositScreenView(),
         settings: data,
       );
     },
     _i23.InStorePaymentScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i23.InStorePaymentScreenView(),
         settings: data,
       );
     },
     _i24.CryptoPaymentScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i24.CryptoPaymentScreenView(),
         settings: data,
       );
     },
     _i25.CardPaymentScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i25.CardPaymentScreenView(),
         settings: data,
       );
     },
     _i26.AddNewCardPaymentScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i26.AddNewCardPaymentScreenView(),
         settings: data,
       );
     },
     _i27.AddCryptoScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i27.AddCryptoScreenView(),
         settings: data,
       );
     },
     _i28.TransactionScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i28.TransactionScreenView(),
         settings: data,
       );
     },
     _i29.KycCompletedView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i29.KycCompletedView(),
         settings: data,
       );
     },
     _i30.KycApprovedView: (data) {
       final args = data.getArgs<KycApprovedViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i30.KycApprovedView(key: args.key, isApproved: args.isApproved),
         settings: data,
@@ -583,45 +601,45 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i31.EditProfileView: (data) {
       final args = data.getArgs<EditProfileViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => _i31.EditProfileView(
             key: args.key, isProperAccount: args.isProperAccount),
         settings: data,
       );
     },
     _i32.ChangePasswordView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i32.ChangePasswordView(),
         settings: data,
       );
     },
     _i33.SliverbalancehistoryView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i33.SliverbalancehistoryView(),
         settings: data,
       );
     },
     _i34.GoldbalancehistoryView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i34.GoldbalancehistoryView(),
         settings: data,
       );
     },
     _i35.StatisticView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i35.StatisticView(),
         settings: data,
       );
     },
     _i36.PhoneSignUpView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i36.PhoneSignUpView(),
         settings: data,
       );
     },
     _i37.TransactiondetailsView: (data) {
       final args = data.getArgs<TransactiondetailsViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => _i37.TransactiondetailsView(
             key: args.key,
             profitOrLoss: args.profitOrLoss,
@@ -633,14 +651,14 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ChoosePaymentMethodViewArguments>(
         orElse: () => const ChoosePaymentMethodViewArguments(),
       );
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => _i38.ChoosePaymentMethodView(
             key: args.key, showBack: args.showBack),
         settings: data,
       );
     },
     _i39.LinkBankAccountScreenView: (data) {
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => const _i39.LinkBankAccountScreenView(),
         settings: data,
       );
@@ -648,10 +666,22 @@ class StackedRouter extends _i1.RouterBase {
     _i40.SpeceficSellTransactionView: (data) {
       final args =
           data.getArgs<SpeceficSellTransactionViewArguments>(nullOk: false);
-      return _i41.MaterialPageRoute<dynamic>(
+      return _i43.MaterialPageRoute<dynamic>(
         builder: (context) => _i40.SpeceficSellTransactionView(args.key,
             sellTransactionDetails: args.sellTransactionDetails,
             paidForGoldwhileBuying: args.paidForGoldwhileBuying),
+        settings: data,
+      );
+    },
+    _i41.PrivacyPolicyView: (data) {
+      return _i43.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i41.PrivacyPolicyView(),
+        settings: data,
+      );
+    },
+    _i42.DeleteAccountView: (data) {
+      return _i43.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i42.DeleteAccountView(),
         settings: data,
       );
     },
@@ -672,7 +702,7 @@ class BuyGoldOrSilverViewArguments {
     required this.withdrawMethod,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
   final String balance;
 
@@ -709,7 +739,7 @@ class TransactionHistoryScreenViewArguments {
     required this.check,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
   final bool check;
 
@@ -740,9 +770,9 @@ class KycidcardfrontViewArguments {
     required this.formKey,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
-  final _i41.TextEditingController cnicController;
+  final _i43.TextEditingController cnicController;
 
   final void Function() onClickNext;
 
@@ -750,7 +780,7 @@ class KycidcardfrontViewArguments {
 
   final bool idFrontUploaded;
 
-  final _i41.GlobalKey<_i41.FormState> formKey;
+  final _i43.GlobalKey<_i43.FormState> formKey;
 
   @override
   String toString() {
@@ -789,7 +819,7 @@ class KycidcardbackViewArguments {
     required this.onClickNext,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
   final bool idBackUploaded;
 
@@ -839,19 +869,19 @@ class KycbankaccountViewArguments {
     required this.formkey,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
-  final _i41.TextEditingController accountNoController;
+  final _i43.TextEditingController accountNoController;
 
-  final _i41.TextEditingController confirmNoController;
+  final _i43.TextEditingController confirmNoController;
 
   final void Function() onClickNext;
 
-  final _i41.TextEditingController bankNameController;
+  final _i43.TextEditingController bankNameController;
 
-  final _i41.TextEditingController ifscCodeController;
+  final _i43.TextEditingController ifscCodeController;
 
-  final _i41.GlobalKey<_i41.FormState> formkey;
+  final _i43.GlobalKey<_i43.FormState> formkey;
 
   @override
   String toString() {
@@ -893,19 +923,19 @@ class KycprofileViewArguments {
     required this.formkey,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
   final void Function() uploadProfile;
 
   final void Function() onTapDOB;
 
-  final _i41.TextEditingController dobController;
+  final _i43.TextEditingController dobController;
 
   final bool profileImgupLoaded;
 
   final void Function() sumbitKyc;
 
-  final _i41.GlobalKey<_i41.FormState> formkey;
+  final _i43.GlobalKey<_i43.FormState> formkey;
 
   @override
   String toString() {
@@ -944,13 +974,13 @@ class KycpassportViewArguments {
     required this.formkey,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
-  final _i41.TextEditingController passportNoController;
+  final _i43.TextEditingController passportNoController;
 
   final void Function() onClickNext;
 
-  final _i41.GlobalKey<_i41.FormState> formkey;
+  final _i43.GlobalKey<_i43.FormState> formkey;
 
   @override
   String toString() {
@@ -981,7 +1011,7 @@ class KycApprovedViewArguments {
     required this.isApproved,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
   final bool isApproved;
 
@@ -1008,7 +1038,7 @@ class EditProfileViewArguments {
     required this.isProperAccount,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
   final bool isProperAccount;
 
@@ -1036,11 +1066,11 @@ class TransactiondetailsViewArguments {
     required this.transactionDetails,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
   final double profitOrLoss;
 
-  final _i42.TransactionDetails transactionDetails;
+  final _i44.TransactionDetails transactionDetails;
 
   @override
   String toString() {
@@ -1067,7 +1097,7 @@ class ChoosePaymentMethodViewArguments {
     this.showBack = false,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
   final bool? showBack;
 
@@ -1095,9 +1125,9 @@ class SpeceficSellTransactionViewArguments {
     required this.paidForGoldwhileBuying,
   });
 
-  final _i41.Key? key;
+  final _i43.Key? key;
 
-  final _i42.TransactionDetails sellTransactionDetails;
+  final _i44.TransactionDetails sellTransactionDetails;
 
   final String paidForGoldwhileBuying;
 
@@ -1122,7 +1152,7 @@ class SpeceficSellTransactionViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i43.NavigationService {
+extension NavigatorStateExtension on _i45.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -1278,7 +1308,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToBuyGoldOrSilverView({
-    _i41.Key? key,
+    _i43.Key? key,
     required String balance,
     required String margin,
     required String withdrawMethod,
@@ -1301,7 +1331,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToTransactionHistoryScreenView({
-    _i41.Key? key,
+    _i43.Key? key,
     required bool check,
     int? routerId,
     bool preventDuplicates = true,
@@ -1347,12 +1377,12 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToKycidcardfrontView({
-    _i41.Key? key,
-    required _i41.TextEditingController cnicController,
+    _i43.Key? key,
+    required _i43.TextEditingController cnicController,
     required void Function() onClickNext,
     required void Function() onClickUpload,
     required bool idFrontUploaded,
-    required _i41.GlobalKey<_i41.FormState> formKey,
+    required _i43.GlobalKey<_i43.FormState> formKey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1374,7 +1404,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToKycidcardbackView({
-    _i41.Key? key,
+    _i43.Key? key,
     required bool idBackUploaded,
     required void Function() onCnicBack,
     required void Function(bool?) onChangedCheckbox,
@@ -1401,13 +1431,13 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToKycbankaccountView({
-    _i41.Key? key,
-    required _i41.TextEditingController accountNoController,
-    required _i41.TextEditingController confirmNoController,
+    _i43.Key? key,
+    required _i43.TextEditingController accountNoController,
+    required _i43.TextEditingController confirmNoController,
     required void Function() onClickNext,
-    required _i41.TextEditingController bankNameController,
-    required _i41.TextEditingController ifscCodeController,
-    required _i41.GlobalKey<_i41.FormState> formkey,
+    required _i43.TextEditingController bankNameController,
+    required _i43.TextEditingController ifscCodeController,
+    required _i43.GlobalKey<_i43.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1430,13 +1460,13 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToKycprofileView({
-    _i41.Key? key,
+    _i43.Key? key,
     required void Function() uploadProfile,
     required void Function() onTapDOB,
-    required _i41.TextEditingController dobController,
+    required _i43.TextEditingController dobController,
     required bool profileImgupLoaded,
     required void Function() sumbitKyc,
-    required _i41.GlobalKey<_i41.FormState> formkey,
+    required _i43.GlobalKey<_i43.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1459,10 +1489,10 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToKycpassportView({
-    _i41.Key? key,
-    required _i41.TextEditingController passportNoController,
+    _i43.Key? key,
+    required _i43.TextEditingController passportNoController,
     required void Function() onClickNext,
-    required _i41.GlobalKey<_i41.FormState> formkey,
+    required _i43.GlobalKey<_i43.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1594,7 +1624,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToKycApprovedView({
-    _i41.Key? key,
+    _i43.Key? key,
     required bool isApproved,
     int? routerId,
     bool preventDuplicates = true,
@@ -1611,7 +1641,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToEditProfileView({
-    _i41.Key? key,
+    _i43.Key? key,
     required bool isProperAccount,
     int? routerId,
     bool preventDuplicates = true,
@@ -1699,9 +1729,9 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToTransactiondetailsView({
-    _i41.Key? key,
+    _i43.Key? key,
     required double profitOrLoss,
-    required _i42.TransactionDetails transactionDetails,
+    required _i44.TransactionDetails transactionDetails,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1720,7 +1750,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToChoosePaymentMethodView({
-    _i41.Key? key,
+    _i43.Key? key,
     bool? showBack = false,
     int? routerId,
     bool preventDuplicates = true,
@@ -1752,8 +1782,8 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> navigateToSpeceficSellTransactionView({
-    required _i41.Key? key,
-    required _i42.TransactionDetails sellTransactionDetails,
+    required _i43.Key? key,
+    required _i44.TransactionDetails sellTransactionDetails,
     required String paidForGoldwhileBuying,
     int? routerId,
     bool preventDuplicates = true,
@@ -1766,6 +1796,34 @@ extension NavigatorStateExtension on _i43.NavigationService {
             key: key,
             sellTransactionDetails: sellTransactionDetails,
             paidForGoldwhileBuying: paidForGoldwhileBuying),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToPrivacyPolicyView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.privacyPolicyView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToDeleteAccountView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.deleteAccountView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1927,7 +1985,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithBuyGoldOrSilverView({
-    _i41.Key? key,
+    _i43.Key? key,
     required String balance,
     required String margin,
     required String withdrawMethod,
@@ -1950,7 +2008,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithTransactionHistoryScreenView({
-    _i41.Key? key,
+    _i43.Key? key,
     required bool check,
     int? routerId,
     bool preventDuplicates = true,
@@ -1996,12 +2054,12 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithKycidcardfrontView({
-    _i41.Key? key,
-    required _i41.TextEditingController cnicController,
+    _i43.Key? key,
+    required _i43.TextEditingController cnicController,
     required void Function() onClickNext,
     required void Function() onClickUpload,
     required bool idFrontUploaded,
-    required _i41.GlobalKey<_i41.FormState> formKey,
+    required _i43.GlobalKey<_i43.FormState> formKey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2023,7 +2081,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithKycidcardbackView({
-    _i41.Key? key,
+    _i43.Key? key,
     required bool idBackUploaded,
     required void Function() onCnicBack,
     required void Function(bool?) onChangedCheckbox,
@@ -2050,13 +2108,13 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithKycbankaccountView({
-    _i41.Key? key,
-    required _i41.TextEditingController accountNoController,
-    required _i41.TextEditingController confirmNoController,
+    _i43.Key? key,
+    required _i43.TextEditingController accountNoController,
+    required _i43.TextEditingController confirmNoController,
     required void Function() onClickNext,
-    required _i41.TextEditingController bankNameController,
-    required _i41.TextEditingController ifscCodeController,
-    required _i41.GlobalKey<_i41.FormState> formkey,
+    required _i43.TextEditingController bankNameController,
+    required _i43.TextEditingController ifscCodeController,
+    required _i43.GlobalKey<_i43.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2079,13 +2137,13 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithKycprofileView({
-    _i41.Key? key,
+    _i43.Key? key,
     required void Function() uploadProfile,
     required void Function() onTapDOB,
-    required _i41.TextEditingController dobController,
+    required _i43.TextEditingController dobController,
     required bool profileImgupLoaded,
     required void Function() sumbitKyc,
-    required _i41.GlobalKey<_i41.FormState> formkey,
+    required _i43.GlobalKey<_i43.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2108,10 +2166,10 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithKycpassportView({
-    _i41.Key? key,
-    required _i41.TextEditingController passportNoController,
+    _i43.Key? key,
+    required _i43.TextEditingController passportNoController,
     required void Function() onClickNext,
-    required _i41.GlobalKey<_i41.FormState> formkey,
+    required _i43.GlobalKey<_i43.FormState> formkey,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2243,7 +2301,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithKycApprovedView({
-    _i41.Key? key,
+    _i43.Key? key,
     required bool isApproved,
     int? routerId,
     bool preventDuplicates = true,
@@ -2260,7 +2318,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithEditProfileView({
-    _i41.Key? key,
+    _i43.Key? key,
     required bool isProperAccount,
     int? routerId,
     bool preventDuplicates = true,
@@ -2348,9 +2406,9 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithTransactiondetailsView({
-    _i41.Key? key,
+    _i43.Key? key,
     required double profitOrLoss,
-    required _i42.TransactionDetails transactionDetails,
+    required _i44.TransactionDetails transactionDetails,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2369,7 +2427,7 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithChoosePaymentMethodView({
-    _i41.Key? key,
+    _i43.Key? key,
     bool? showBack = false,
     int? routerId,
     bool preventDuplicates = true,
@@ -2401,8 +2459,8 @@ extension NavigatorStateExtension on _i43.NavigationService {
   }
 
   Future<dynamic> replaceWithSpeceficSellTransactionView({
-    required _i41.Key? key,
-    required _i42.TransactionDetails sellTransactionDetails,
+    required _i43.Key? key,
+    required _i44.TransactionDetails sellTransactionDetails,
     required String paidForGoldwhileBuying,
     int? routerId,
     bool preventDuplicates = true,
@@ -2415,6 +2473,34 @@ extension NavigatorStateExtension on _i43.NavigationService {
             key: key,
             sellTransactionDetails: sellTransactionDetails,
             paidForGoldwhileBuying: paidForGoldwhileBuying),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithPrivacyPolicyView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.privacyPolicyView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithDeleteAccountView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.deleteAccountView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

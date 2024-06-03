@@ -8,7 +8,7 @@ class Validator {
     // You can replace the regex pattern with a more sophisticated email validation
     // based on your specific requirements
     final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-  if (!emailRegex.hasMatch(value)) {
+    if (!emailRegex.hasMatch(value)) {
       return 'Please enter a valid email address';
     }
 

@@ -22,9 +22,6 @@ const Color kcGoldYellow = Color(0xFFF7C047);
 const Color kcProfitColor = Color(0xFFCAAF89);
 const Color kcLossColor = Color(0xFFFFFFFF);
 
-
-
-
 // ^  new Theme
 const Color kcTextColor = Colors.white;
 const Color kcLightTextColor = Colors.white70;

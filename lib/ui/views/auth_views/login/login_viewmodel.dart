@@ -78,7 +78,7 @@ class LoginViewModel extends BaseViewModel {
               uid: userCred.user!.uid.toString(),
               phoneNumber: "",
               dateOfBirth: '',
-              lastDayGoldPrice : 0.0,
+              lastDayGoldPrice: 0.0,
               createdAt: Timestamp.now());
           Crypto cryptoData = Crypto(walletAddress: '', securityPin: '');
           Bank bankData = Bank(bankName: '', accountNumber: '', swiftCode: '');

@@ -118,7 +118,7 @@ class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
                           child: idFrontUploaded
                               ? const Text(
                                   "Uploaded",
-                                  style:  TextStyle(color: kcTextColor),
+                                  style: TextStyle(color: kcTextColor),
                                 )
                               : const Text("+ Upload"),
                         )

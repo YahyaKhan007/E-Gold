@@ -150,12 +150,17 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           AccountPageRow(
                             text: 'Privacy Policy',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
+                            onPressed: viewModel.onTapPrivacyPolicy,
                           ),
                           AccountPageRow(
                             text: 'Terms and Conditions',
                             icon: Icons.arrow_forward_ios,
                             onPressed: () {},
+                          ),
+                          AccountPageRow(
+                            text: 'Delete Account',
+                            icon: Icons.arrow_forward_ios,
+                            onPressed: viewModel.deleteAccountPage,
                           ),
                           AccountPageRow(
                             text: 'Logout',

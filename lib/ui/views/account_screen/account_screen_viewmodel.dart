@@ -1,3 +1,4 @@
+import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/auth_service.dart';
@@ -11,6 +12,7 @@ class AccountScreenViewModel extends BaseViewModel {
   final snackbarService = locator<SnackbarService>();
 
   final navigationService = locator<NavigationService>();
+  final dialogeService = locator<DialogService>();
 
   bool isNavigating = false;
   void logout() {
@@ -47,7 +49,21 @@ class AccountScreenViewModel extends BaseViewModel {
     navigationService.navigateToChangePasswordView();
   }
 
+  void onTapPrivacyPolicy() {
+    navigationService.navigateToPrivacyPolicyView();
+  }
+
   void fundHistory() {
     navigationService.navigateToStatisticView();
+  }
+
+  void confirmDeleteDialog() {
+    dialogeService.showCustomDialog(
+      variant: DialogType.confirmDialog,
+    );
+  }
+
+  void deleteAccountPage() {
+    navigationService.navigateToDeleteAccountView();
   }
 }

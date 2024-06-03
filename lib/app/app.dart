@@ -56,6 +56,9 @@ import 'package:e_gold/ui/bottom_sheets/sellgold/sellgold_sheet.dart';
 import 'package:e_gold/ui/views/specefic_sell_transaction/specefic_sell_transaction_view.dart';
 
 import '../services/sales_and_purchase_service_service.dart';
+import 'package:e_gold/ui/views/privacy_policy/privacy_policy_view.dart';
+import 'package:e_gold/ui/views/delete_account/delete_account_view.dart';
+import 'package:e_gold/ui/dialogs/confirm_dialog/confirm_dialog_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -101,6 +104,8 @@ import '../services/sales_and_purchase_service_service.dart';
     MaterialRoute(page: ChoosePaymentMethodView),
     MaterialRoute(page: LinkBankAccountScreenView),
     MaterialRoute(page: SpeceficSellTransactionView),
+    MaterialRoute(page: PrivacyPolicyView),
+    MaterialRoute(page: DeleteAccountView),
 // @stacked-route
   ],
   dependencies: [
@@ -130,6 +135,7 @@ import '../services/sales_and_purchase_service_service.dart';
     StackedDialog(classType: InfoAlertDialog),
     StackedDialog(classType: BuyDialogDialog),
     StackedDialog(classType: AddAmountForBalanceDialog),
+    StackedDialog(classType: ConfirmDialogDialog),
 // @stacked-dialog
   ],
 )

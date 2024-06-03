@@ -79,7 +79,7 @@ class ReceiveotpverificationView
                   style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
                       fixedSize: const Size(144, 40)),
-                  onPressed: (){
+                  onPressed: () {
                     viewModel.onPressedContinue(context);
                   },
                   child: const Text("Continue"))

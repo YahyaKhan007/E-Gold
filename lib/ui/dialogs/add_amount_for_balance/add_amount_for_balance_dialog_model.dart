@@ -39,8 +39,6 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
     Navigator.pop(context);
   }
 
-  
-
   void addBalance(BuildContext context) async {
     if (validateForm()) {
       if (data == 'Bank') {
@@ -52,7 +50,10 @@ class AddAmountForBalanceDialogModel extends BaseViewModel {
             false);
         if (check! && check2) {
           // ~ For admin
-          FirebaseFirestore.instance.collection('users').doc('admin').update({});
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc('admin')
+              .update({});
           // ~ ------------------------------------------------------------
           TransactionDetails transactionDetails = TransactionDetails(
             isMargin: false,

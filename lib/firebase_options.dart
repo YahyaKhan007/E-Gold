@@ -69,8 +69,10 @@ class DefaultFirebaseOptions {
     projectId: 'egold-1f352',
     databaseURL: 'https://egold-1f352-default-rtdb.firebaseio.com',
     storageBucket: 'egold-1f352.appspot.com',
-    androidClientId: '609996616069-8hhevp3q70af3nv0qjh0ctc7e22in8io.apps.googleusercontent.com',
-    iosClientId: '609996616069-07p9ecmh8q22l6briuefusqd44j2qb4s.apps.googleusercontent.com',
+    androidClientId:
+        '609996616069-8hhevp3q70af3nv0qjh0ctc7e22in8io.apps.googleusercontent.com',
+    iosClientId:
+        '609996616069-07p9ecmh8q22l6briuefusqd44j2qb4s.apps.googleusercontent.com',
     iosBundleId: 'com.example.eGold',
   );
 
