@@ -1,4 +1,4 @@
-package com.example.e_gold
+package com.stackwise.e_gold_24k
 
 
 import io.flutter.embedding.android.FlutterActivity

@@ -1,49 +1,63 @@
 {
   "project_info": {
-    "project_number": "609996616069",
-    "project_id": "egold-1f352",
-    "storage_bucket": "egold-1f352.appspot.com"
+    "project_number": "1087711211627",
+    "project_id": "e-gold24k",
+    "storage_bucket": "e-gold24k.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:609996616069:android:8b12efb88b34f65ccad4ec",
+        "mobilesdk_app_id": "1:1087711211627:android:c58ea60e891a27b1b7812e",
         "android_client_info": {
-          "package_name": "com.example.e_gold"
+          "package_name": "com.stackwise.e_gold_24k"
         }
       },
       "oauth_client": [
         {
-          "client_id": "609996616069-g6u7bvq8bj6buthkdh5ofabejs4agjqg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.e_gold",
-            "certificate_hash": "f38dea953abfdbe7e6c4854542315bf6c277da71"
-          }
-        },
-        {
-          "client_id": "609996616069-d3v24runvf2rg1kfcmlgs3aq0delf205.apps.googleusercontent.com",
+          "client_id": "1087711211627-0qdgtim70onm1rtdfecc7dgqoq3us61j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB-A6-xMYe9qr49RCxGmkPCsPXO8v2BR-c"
+          "current_key": "AIzaSyCWKQzlSFEdLVe1gPa218YN-nG6idOC2JA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "609996616069-d3v24runvf2rg1kfcmlgs3aq0delf205.apps.googleusercontent.com",
+              "client_id": "1087711211627-0qdgtim70onm1rtdfecc7dgqoq3us61j.apps.googleusercontent.com",
               "client_type": 3
-            },
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087711211627:android:2878597c2ed48d6eb7812e",
+        "android_client_info": {
+          "package_name": "com.stackwise.egold"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087711211627-0qdgtim70onm1rtdfecc7dgqoq3us61j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWKQzlSFEdLVe1gPa218YN-nG6idOC2JA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
             {
-              "client_id": "609996616069-07p9ecmh8q22l6briuefusqd44j2qb4s.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.eGold"
-              }
+              "client_id": "1087711211627-0qdgtim70onm1rtdfecc7dgqoq3us61j.apps.googleusercontent.com",
+              "client_type": 3
             }
           ]
         }
