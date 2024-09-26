@@ -90,47 +90,51 @@ class HomeViewModel extends BaseViewModel {
     // Start a timer that calls connectToServer every 5 minutes
     serverConnectionTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
       calculatePercentageChange(fixedGoldPrice, currentGoldRate);
-      connectToServer();
+      connectToServer("108.181.198.193", 1098);
     });
   }
 
-  void connectToServer() async {
+   void connectToServer(String serverAddress, int serverPort) async {
     try {
       // Establish connection with the server
-      int port = 57578;
-      Socket socket = await Socket.connect('165.73.253.101', port);
-      log('server running...');
+      Socket socket = await Socket.connect(serverAddress, serverPort);
+      log('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
+
       totalMarginProfit = await getMarginProfit();
       rebuildUi();
-      // Update isConnected state to true
-      // setState(() {
-      //   isConnected = true;
-      // });
 
       // Listen for data from the server
       socket.listen(
         (Uint8List data) {
+          // Parse the incoming data to double and trim any whitespace
           currentGoldRate = double.parse(String.fromCharCodes(data).trim());
           rebuildUi();
           calculatePercentageChange(fixedGoldPrice, currentGoldRate);
+
+          // Calculate total margin profit based on current gold rate
           for (var transaction in marginTransactionList) {
             totalMarginProfit += calculateProfitLoss(
-                gramsBought: transaction.totalGoldBought,
-                buyRate: transaction.buyGoldRate,
-                sellRate: currentGoldRate,
-                conversionRate: conversionFactor);
+              gramsBought: transaction.totalGoldBought,
+              buyRate: transaction.buyGoldRate,
+              sellRate: currentGoldRate,
+              conversionRate: conversionFactor,
+            );
           }
           rebuildUi();
-          // setState(() {
-          //   serverResponse = String.fromCharCodes(data).trim();
-          // });
+        },
+        onError: (error) {
+          print('Socket error: $error'); // Handle any socket errors
+        },
+        onDone: () {
+          print('Server closed the connection.'); // Handle server closure
+          socket.destroy(); // Clean up socket
         },
       );
 
-      // Close the connection
-      // socket.close();
+      // Optional: Add a mechanism to close the socket after a certain condition
+      // For example, you might want to close the connection after a specific amount of time or based on a user action.
     } catch (e) {
-      print('Error: $e');
+      print('Error: $e'); // Handle connection errors
     }
   }
 
