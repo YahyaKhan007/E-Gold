@@ -167,6 +167,7 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                             icon: Icons.logout_rounded,
                             onPressed: viewModel.logout,
                           ),
+                          verticalSpaceMedium,
                         ],
                       ),
                     ),

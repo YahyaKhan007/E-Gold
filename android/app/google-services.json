@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:609996616069:android:8b12efb88b34f65ccad4ec",
         "android_client_info": {
-          "package_name": "com.example.e_gold"
+          "package_name": "com.stackwise.egold"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "609996616069-07p9ecmh8q22l6briuefusqd44j2qb4s.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.eGold"
+                "bundle_id": "com.stackwise.egold"
               }
             }
           ]
