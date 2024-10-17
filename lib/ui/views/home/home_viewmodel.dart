@@ -94,7 +94,7 @@ class HomeViewModel extends BaseViewModel {
     });
   }
 
-   void connectToServer(String serverAddress, int serverPort) async {
+  void connectToServer(String serverAddress, int serverPort) async {
     try {
       // Establish connection with the server
       Socket socket = await Socket.connect(serverAddress, serverPort);

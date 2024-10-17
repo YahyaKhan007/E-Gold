@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
@@ -19,6 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+import '../utils/generate_unique_number.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -43,8 +46,10 @@ class AuthService {
 
       // Send email verification
       await credential.user?.sendEmailVerification();
-
+      Random random = Random();
+      String uniqueRandomNumber = generateUniqueRandomNumber(random);
       UserProfile user = UserProfile(
+          cardNumber: uniqueRandomNumber,
           totalGoldHoldings: 0.0,
           isAdmin: false,
           name: name,
@@ -157,7 +162,6 @@ class AuthService {
 
   Future<void> verifyPhoneNumber(String phoneNumber) async {
     try {
-      log("My Entered phone number is : $phoneNumber");
       await _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (AuthCredential authCredential) async {
@@ -217,7 +221,10 @@ class AuthService {
         _showSuccessSnackbar('Successfully signed in with phone number!');
         return true;
       } else {
+        Random random = Random();
+        String uniqueRandomNumber = generateUniqueRandomNumber(random);
         UserProfile user = UserProfile(
+          cardNumber: uniqueRandomNumber,
           totalGoldHoldings: 0.0,
           isAdmin: false,
           name: '',
@@ -319,7 +326,9 @@ class AuthService {
 
       var userCred = await _auth.signInWithCredential(credential);
 
-      log(userCred.toString());
+      if (userCred.additionalUserInfo!.isNewUser) {}
+
+      // log(userCred.toString());
 
       return userCred;
     } on FirebaseAuthException catch (e) {

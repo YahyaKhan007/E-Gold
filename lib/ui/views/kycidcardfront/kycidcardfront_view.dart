@@ -71,10 +71,10 @@ class KycidcardfrontView extends StackedView<KycidcardfrontViewModel> {
                     enabledBorder: outlineInputBorder,
                     focusedBorder: outlineInputBorder,
                     errorBorder: outlineInputBorder,
-                    hintText: 'Enter CNIC Number',
+                    hintText: 'Enter keemirates id Number',
                     errorText: viewModel.formattedCNIC.isNotEmpty &&
                             viewModel.formattedCNIC.length != 15
-                        ? 'Invalid CNIC Number'
+                        ? 'Invalid keemirates id Number'
                         : null,
                   ),
                 ),

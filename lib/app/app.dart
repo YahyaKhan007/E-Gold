@@ -59,6 +59,9 @@ import '../services/sales_and_purchase_service_service.dart';
 import 'package:e_gold/ui/views/privacy_policy/privacy_policy_view.dart';
 import 'package:e_gold/ui/views/delete_account/delete_account_view.dart';
 import 'package:e_gold/ui/dialogs/confirm_dialog/confirm_dialog_dialog.dart';
+import 'package:e_gold/ui/views/about_us/about_us_view.dart';
+import 'package:e_gold/ui/views/about_us/about_us_view.dart';
+import 'package:e_gold/ui/views/about_us/about_us_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -106,6 +109,9 @@ import 'package:e_gold/ui/dialogs/confirm_dialog/confirm_dialog_dialog.dart';
     MaterialRoute(page: SpeceficSellTransactionView),
     MaterialRoute(page: PrivacyPolicyView),
     MaterialRoute(page: DeleteAccountView),
+    MaterialRoute(page: AboutUsView),
+    MaterialRoute(page: AboutUsView),
+    MaterialRoute(page: AboutUsView),
 // @stacked-route
   ],
   dependencies: [

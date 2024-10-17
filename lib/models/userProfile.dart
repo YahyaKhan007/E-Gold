@@ -11,6 +11,7 @@ class UserProfile {
   String profileImg;
   bool isAdmin;
   double totalGoldHoldings;
+  String cardNumber;
   double lastDayGoldPrice = 0.0;
 
   UserProfile({
@@ -25,6 +26,7 @@ class UserProfile {
     required this.createdAt,
     required this.isAdmin,
     required this.lastDayGoldPrice,
+    required this.cardNumber,
   });
 
   // Method to convert the object to a Map for storing in Firestore
@@ -41,6 +43,7 @@ class UserProfile {
       'dateOfBirth': dateOfBirth,
       'createdAt': createdAt,
       'lastDayGoldPrice': lastDayGoldPrice,
+      'cardNumber': cardNumber,
     };
   }
 
@@ -56,6 +59,7 @@ class UserProfile {
       uid: json['uid'],
       phoneNumber: json['phoneNumber'],
       dateOfBirth: json['dateOfBirth'],
+      cardNumber: json['cardNumber'],
       lastDayGoldPrice: json['lastDayGoldPrice'],
       createdAt:
           json['createdAt'] == null ? null : (json['createdAt'] as Timestamp),
@@ -75,6 +79,7 @@ class UserProfile {
       phoneNumber: data['phoneNumber'],
       dateOfBirth: data['dateOfBirth'],
       createdAt: data['createdAt'],
+      cardNumber: data['cardNumber'],
       lastDayGoldPrice: data['lastDayGoldPrice'],
     );
   }

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_gold/app/app.locator.dart';
@@ -25,6 +26,7 @@ import '../../../../models/kyc.dart';
 import '../../../../models/userProfile.dart';
 import '../../../../services/kyc_service.dart';
 import '../../../../services/userProfileService.dart';
+import '../../../../utils/generate_unique_number.dart';
 
 enum Status { Success, Error, Cancelled }
 
@@ -67,8 +69,13 @@ class LoginViewModel extends BaseViewModel {
       var user = userCred.user;
 
       if (user != null) {
+        Random random = Random();
+
+        // Generate a 16-digit unique random number
+        String uniqueRandomNumber = generateUniqueRandomNumber(random);
         if (userCred.additionalUserInfo!.isNewUser) {
           UserProfile user = UserProfile(
+              cardNumber: uniqueRandomNumber,
               totalGoldHoldings: 0.0,
               isAdmin: false,
               name: userCred.user!.displayName.toString(),
@@ -129,7 +136,7 @@ class LoginViewModel extends BaseViewModel {
         }
       }
     } catch (e, stackTrace) {
-      log("stackTrace: $stackTrace");
+      print("stackTrace: $stackTrace");
     }
   }
 
@@ -154,7 +161,12 @@ class LoginViewModel extends BaseViewModel {
 
           if (userCredential.user != null) {
             if (userCredential.additionalUserInfo!.isNewUser) {
+              Random random = Random();
+
+              // Generate a 16-digit unique random number
+              String uniqueRandomNumber = generateUniqueRandomNumber(random);
               UserProfile user = UserProfile(
+                  cardNumber: uniqueRandomNumber,
                   totalGoldHoldings: 0.0,
                   isAdmin: false,
                   name: userCredential.user!.displayName.toString(),
@@ -274,7 +286,7 @@ class LoginViewModel extends BaseViewModel {
   handleButtonPress(int i, BuildContext context) {
     switch (i) {
       case 0:
-        log('Google');
+        print('Google');
         onGoogleLogin(context);
         return;
 

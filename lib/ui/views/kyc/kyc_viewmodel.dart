@@ -220,6 +220,7 @@ class KycViewModel extends BaseViewModel {
             onPressed: () async {
               // Close the options modal
               Navigator.of(context).pop();
+
               // Get image from camera and complete the Future
               completer.complete(await getImageFromCamera());
             },

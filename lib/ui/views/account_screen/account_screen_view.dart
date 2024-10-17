@@ -60,7 +60,9 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const AccountCard(),
+                    AccountCard(
+                      model: viewModel,
+                    ),
                     verticalSpaceMedium,
                     Container(
                       padding: EdgeInsets.all(size.height * 0.005),

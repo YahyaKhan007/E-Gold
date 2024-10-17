@@ -57,6 +57,10 @@ class AccountScreenViewModel extends BaseViewModel {
     navigationService.navigateToStatisticView();
   }
 
+  void onTapAboutUs() {
+    // navigationService.navigateTonavigateToStatisticView();
+  }
+
   void confirmDeleteDialog() {
     dialogeService.showCustomDialog(
       variant: DialogType.confirmDialog,
