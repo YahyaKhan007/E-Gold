@@ -1,21 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:e_gold/app/app.bottomsheets.dart';
 import 'package:e_gold/app/app.dialogs.dart';
 import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'utils/themedata.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
+import 'utils/themedata.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
-      "pk_test_51OSXyfDaYHvKB9OxPUTYQxbGj1dcLtV3YX3Qg5EEmUYfpr1PP1oQp3LTaJy2UBPu99paLgS0woQn26TpTpJnRfvc00fYQ6RUFR";
+      // "";
+      "";
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

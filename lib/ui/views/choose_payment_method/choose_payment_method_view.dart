@@ -162,12 +162,8 @@ class ChoosePaymentMethodView
                   const SizedBox(
                     height: 20,
                   ),
-                  choosePaymentTile(
+                  ChoosePaymentTileForInStore(
                     image: store,
-                    balance: viewModel.inStoreService.instoreData!.balance
-                        .toString(),
-                    margin:
-                        viewModel.inStoreService.instoreData!.margin.toString(),
                     title: 'In-store',
                     text: 'Deposit in-person at our stores',
                     onPressed: () async {

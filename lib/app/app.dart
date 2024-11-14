@@ -62,6 +62,7 @@ import 'package:e_gold/ui/dialogs/confirm_dialog/confirm_dialog_dialog.dart';
 import 'package:e_gold/ui/views/about_us/about_us_view.dart';
 import 'package:e_gold/ui/views/about_us/about_us_view.dart';
 import 'package:e_gold/ui/views/about_us/about_us_view.dart';
+import 'package:e_gold/ui/views/terms_condition/terms_condition_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -112,6 +113,7 @@ import 'package:e_gold/ui/views/about_us/about_us_view.dart';
     MaterialRoute(page: AboutUsView),
     MaterialRoute(page: AboutUsView),
     MaterialRoute(page: AboutUsView),
+    MaterialRoute(page: TermsConditionView),
 // @stacked-route
   ],
   dependencies: [

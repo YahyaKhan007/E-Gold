@@ -4,6 +4,7 @@ import 'package:e_gold/ui/widgets/AcoountCard.dart';
 import 'package:e_gold/ui/widgets/customAccountOageRow.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
 import 'account_screen_viewmodel.dart';
 
 class AccountScreenView extends StackedView<AccountScreenViewModel> {
@@ -147,7 +148,9 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           AccountPageRow(
                             text: 'About Us',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
+                            onPressed: () {
+                              viewModel.onTapAboutUs(context);
+                            },
                           ),
                           AccountPageRow(
                             text: 'Privacy Policy',
@@ -157,7 +160,9 @@ class AccountScreenView extends StackedView<AccountScreenViewModel> {
                           AccountPageRow(
                             text: 'Terms and Conditions',
                             icon: Icons.arrow_forward_ios,
-                            onPressed: () {},
+                            onPressed: () {
+                              viewModel.termsCondition(context);
+                            },
                           ),
                           AccountPageRow(
                             text: 'Delete Account',

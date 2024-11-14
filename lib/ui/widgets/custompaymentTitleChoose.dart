@@ -113,3 +113,104 @@ class choosePaymentTile extends StatelessWidget {
     );
   }
 }
+
+@immutable
+class ChoosePaymentTileForInStore extends StatelessWidget {
+  final String image;
+  final String title;
+  final String text;
+  final VoidCallback onPressed;
+  bool icon;
+  ChoosePaymentTileForInStore({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.text,
+    required this.onPressed,
+    this.icon = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // children: [
+      onTap: onPressed,
+      contentPadding: EdgeInsets.zero,
+      leading: Container(
+        height: 48,
+        width: 48,
+        decoration: BoxDecoration(
+          color: kcProfitColor,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 2,
+              offset: const Offset(1, 1),
+            )
+          ],
+          // image: DecorationImage(
+          //   image: AssetImage(
+          //     image,
+          //   ),
+          // )
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Image.asset(
+            image,
+            color: Colors.black,
+          ),
+        ),
+      ),
+
+      title: Text(
+        title,
+        textAlign: TextAlign.start,
+        style: const TextStyle(
+          color: kcTextColor,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        // mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            text,
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              color: kcLightTextColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w100,
+            ),
+          ),
+          Text(
+            '107-108 5B Hind Plaza, Deira Waterfront Properties, Gold Souk, Deira, Dubai, UAE, P.O. Box 26388',
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              color: kcLightTextColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w100,
+            ),
+          ),
+        ],
+      ),
+
+      trailing: icon
+          ? IconButton(
+              onPressed: onPressed,
+              icon: const Icon(
+                Icons.arrow_forward_ios,
+                size: 18,
+                color: kcLightTextColor,
+              ),
+            )
+          : Container(),
+    );
+  }
+}

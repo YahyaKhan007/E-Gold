@@ -4,7 +4,6 @@ import 'package:stacked/stacked.dart';
 
 import '../../common/app_widgets.dart';
 import '../../common/ui_helpers.dart';
-
 import 'kycbankaccount_viewmodel.dart';
 
 class KycbankaccountView extends StackedView<KycbankaccountViewModel> {
@@ -39,36 +38,38 @@ class KycbankaccountView extends StackedView<KycbankaccountViewModel> {
         children: [
           Form(
             key: formkey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                KTextFormField(
-                  validator: Validator.validateAccNumber,
-                  controller: accountNoController,
-                  label: 'Account Number',
-                  keyboardType: TextInputType.number,
-                ),
-                KTextFormField(
-                  validator: Validator.validateConAccNumber,
-                  controller: confirmNoController,
-                  label: 'Confirm Account Number',
-                  keyboardType: TextInputType.number,
-                ),
-                KTextFormField(
-                  validator: Validator.validateText,
-                  controller: bankNameController,
-                  label: 'Bank Name',
-                  keyboardType: null,
-                ),
-                KTextFormField(
-                  validator: Validator.validateIFSC,
-                  controller: ifscCodeController,
-                  label: 'IFSC Code',
-                  keyboardType: TextInputType.number,
-                ),
-                verticalSpaceMedium,
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  KTextFormField(
+                    validator: Validator.validateAccNumber,
+                    controller: accountNoController,
+                    label: 'Account Number',
+                    keyboardType: TextInputType.number,
+                  ),
+                  KTextFormField(
+                    validator: Validator.validateConAccNumber,
+                    controller: confirmNoController,
+                    label: 'Confirm Account Number',
+                    keyboardType: TextInputType.number,
+                  ),
+                  KTextFormField(
+                    validator: Validator.validateText,
+                    controller: bankNameController,
+                    label: 'Bank Name',
+                    keyboardType: null,
+                  ),
+                  KTextFormField(
+                    validator: Validator.validateIFSC,
+                    controller: ifscCodeController,
+                    label: 'IFSC Code',
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+                  verticalSpaceMedium,
+                ],
+              ),
             ),
           )
         ]);

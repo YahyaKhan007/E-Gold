@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../common/app_colors.dart';
 import '../../common/ui_helpers.dart';
@@ -52,32 +53,32 @@ class PrivacyPolicyView extends StackedView<PrivacyPolicyViewModel> {
           ),
           Positioned(
             top: size.height * 0.13,
-            child: SizedBox(
-              height: size.height * 0.8,
-              width: size.width,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding:
-                          const EdgeInsets.only(left: 20, right: 20, top: 00),
-                      decoration: const BoxDecoration(
-                          // color: Colors.white,
-                          color: kcAppBackgroundColor,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30))),
-                      height: screenHeight(context) * 0.8,
-                    )
-                  ],
-                ),
+            child: Container(
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, top: 00, bottom: 32),
+              decoration: const BoxDecoration(
+                  // color: Colors.white,    color: Colors.red,
+
+                  color: kcAppBackgroundColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30))),
+              height: screenHeight(context) * 0.88,
+              width: screenWidth(context),
+              child: WebViewWidget(
+                controller: viewModel.controller,
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void onViewModelReady(PrivacyPolicyViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
   }
 
   @override

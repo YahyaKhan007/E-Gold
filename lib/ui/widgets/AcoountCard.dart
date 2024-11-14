@@ -59,11 +59,11 @@ class AccountCard extends StatelessWidget {
                       : profile1,
                 ),
               ),
-              Image.asset(
-                cardLogo1,
-                height: 24,
-                width: 24,
-              ),
+              // Image.asset(
+              //   cardLogo1,
+              //   height: 24,
+              //   width: 24,
+              // ),
             ],
           ),
           Text(
@@ -85,7 +85,12 @@ class AccountCard extends StatelessWidget {
                 text1: 'Expired Date',
                 text2: '10/28',
               ),
-              Image.asset('assets/images/masterCard.png'),
+              // Image.asset('assets/images/masterCard.png'),
+              Image.asset(
+                cardLogo1,
+                height: 24,
+                width: 24,
+              ),
             ],
           ),
         ],

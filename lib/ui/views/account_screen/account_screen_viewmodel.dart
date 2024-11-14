@@ -3,6 +3,9 @@ import 'package:e_gold/app/app.locator.dart';
 import 'package:e_gold/app/app.router.dart';
 import 'package:e_gold/services/auth_service.dart';
 import 'package:e_gold/services/kyc_service.dart';
+import 'package:e_gold/ui/views/about_us/about_us_view.dart';
+import 'package:e_gold/ui/views/terms_condition/terms_condition_view.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -57,8 +60,14 @@ class AccountScreenViewModel extends BaseViewModel {
     navigationService.navigateToStatisticView();
   }
 
-  void onTapAboutUs() {
-    // navigationService.navigateTonavigateToStatisticView();
+  void termsCondition(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (builder) => const TermsConditionView()));
+  }
+
+  void onTapAboutUs(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (builder) => const AboutUsView()));
   }
 
   void confirmDeleteDialog() {
